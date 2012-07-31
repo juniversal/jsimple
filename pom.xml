@@ -7,7 +7,65 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <rootdir>${project.basedir}</rootdir>   <!--Child modules must redefine this-->
+        <third-partydir>${rootdir}/third-party</third-partydir>
+        <checkersdir>${third-partydir}/checker-framework/checkers</checkersdir>
+        <java-to-csharp-converter-dir>${third-partydir}/java-to-csharp-converter</java-to-csharp-converter-dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <modules>
         <module>json</module>
     </modules>
+
+    <repositories>
+        <repository>
+            <id>checker-framework-repo</id>
+            <url>http://types.cs.washington.edu/m2-repo</url>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.10</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>types.checkers</groupId>
+                <artifactId>jsr308-all</artifactId>
+                <version>1.2.6</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- @Nullable checking -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.7</target>
+                        <verbose>true</verbose>
+                        <fork>true</fork>
+                        <executable>${checkersdir}/binary/javac.bat</executable>
+                        <compilerVersion>1.7</compilerVersion>
+                        <compilerArgument>-Xbootclasspath/p:${checkersdir}/binary/jsr308-all.jar</compilerArgument>
+                        <compilerArgument>-AskipUses=org.junit</compilerArgument>
+                        <compilerArguments>
+                            <processor>checkers.nullness.NullnessChecker</processor>
+                        </compilerArguments>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
 </project>
