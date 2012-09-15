@@ -46,7 +46,7 @@ final class Token {
                 return primitiveValue.toString();
             else if (primitiveValue instanceof String)
                 return "\"" + primitiveValue.toString() + "\"";
-            else throw new RuntimeException("Unknown token primitive type");
+            else throw new JsonException("Unknown token primitive type") ;
         } else return getTokenTypeDescription(type);
     }
 
@@ -283,7 +283,7 @@ final class Token {
             return (char) ((int) '0' + num);
         else if (num >= 10 && num <= 15)
             return (char) ((int) 'a' + (num - 10));
-        else throw new RuntimeException("Digit " + num + " should be < 16 (and > 0) in call to numToHexDigitChar");
+        else throw new JsonException("Digit " + num + " should be < 16 (and > 0) in call to numToHexDigitChar") ;
     }
 
     private Object readNumberToken(char lookahead) {
@@ -346,7 +346,7 @@ final class Token {
             case EOF:
                 return "end of JSON text";
             default:
-                throw new RuntimeException("Unknown TokenType: " + type.toString());
+                throw new JsonException("Unknown TokenType: " + type.toString()) ;
         }
     }
 }

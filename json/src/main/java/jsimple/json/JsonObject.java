@@ -1,6 +1,7 @@
 package jsimple.json;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 
 /**
@@ -62,7 +63,7 @@ public final class JsonObject extends JsonObjectOrArray {
                 return values.get(i);
         }
 
-        throw new RuntimeException("JSON object is expected to have a value for " + name + "but doesn't");
+        throw new JsonException("JSON object is expected to have a value for " + name + "but doesn't");
     }
 
     /**
@@ -158,5 +159,12 @@ public final class JsonObject extends JsonObjectOrArray {
         names.add(name);
         values.add(childObject);
         return childObject;
+    }
+
+    public JsonArray addChildArray(String name) {
+        JsonArray childArray = new JsonArray();
+        names.add(name);
+        values.add(childArray);
+        return childArray;
     }
 }

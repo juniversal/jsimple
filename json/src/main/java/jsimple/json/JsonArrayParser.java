@@ -24,7 +24,7 @@ public class JsonArrayParser {
 
     public Object next() {
         if (atEnd)
-            throw new RuntimeException("Can't call next when already at end");
+            throw new JsonException("Can't call next when already at end");
 
         Object value = parser.parseValue();
 

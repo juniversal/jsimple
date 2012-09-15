@@ -39,7 +39,7 @@ public final class JsonSerializer {
             text.append(booleanValue ? "true" : "false");
         } else if (obj instanceof JsonNull)
             text.append("null");
-        else throw new RuntimeException("Unexpected JSON object type");
+        else throw new JsonException("Unexpected JSON object type");
     }
 
     /**
@@ -204,7 +204,7 @@ public final class JsonSerializer {
             text.append((char) ('0' + hexDigit));
         else if (hexDigit <= 15)
             text.append((char) ('A' + (hexDigit - 10)));
-        else throw new RuntimeException("Hex digit out of range: " + hexDigit);
+        else throw new JsonException("Hex digit out of range: " + hexDigit);
     }
 
     public void appendRaw(String rawText) {
