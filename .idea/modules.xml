@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/jsimple-all.iml" filepath="$PROJECT_DIR$/jsimple-all.iml" />
-      <module fileurl="file://$PROJECT_DIR$/json/json.iml" filepath="$PROJECT_DIR$/json/json.iml" />
-      <module fileurl="file://$PROJECT_DIR$/platform/platform.iml" filepath="$PROJECT_DIR$/platform/platform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jsimple.iml" filepath="$PROJECT_DIR$/jsimple.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jsimple-json/jsimple-json.iml" filepath="$PROJECT_DIR$/jsimple-json/jsimple-json.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jsimple-platform/jsimple-platform.iml" filepath="$PROJECT_DIR$/jsimple-platform/jsimple-platform.iml" />
     </modules>
   </component>
 </project>
