@@ -17,7 +17,9 @@
     <modules>
         <module>jsimple-platform</module>
         <module>jsimple-json</module>
-  </modules>
+        <module>jsimple-oauth</module>
+        <module>jsimple-base64</module>
+    </modules>
 
     <repositories>
         <repository>
