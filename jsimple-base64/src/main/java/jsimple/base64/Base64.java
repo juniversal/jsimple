@@ -17,6 +17,8 @@
 
 package jsimple.base64;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Provides Base64 encoding and decoding as defined by <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045</a>.
  *
@@ -140,7 +142,7 @@ public class Base64 extends BaseNCodec {
     /**
      * Line separator for encoding. Not used when decoding. Only used if lineLength > 0.
      */
-    private final byte[] lineSeparator;
+    private final @Nullable byte[] lineSeparator;
 
     /**
      * Convenience variable to help us determine when our buffer is going to run out of room and needs resizing.
@@ -270,6 +272,8 @@ public class Base64 extends BaseNCodec {
         super(BYTES_PER_UNENCODED_BLOCK, BYTES_PER_ENCODED_BLOCK,
                 lineLength,
                 lineSeparator == null ? 0 : lineSeparator.length);
+        this.encodeTable = urlSafe ? URL_SAFE_ENCODE_TABLE : STANDARD_ENCODE_TABLE;
+
         // TODO could be simplified if there is no requirement to reject invalid line sep when length <=0
         // @see test case Base64Test.testConstructors()
         if (lineSeparator != null) {
@@ -289,7 +293,6 @@ public class Base64 extends BaseNCodec {
             this.lineSeparator = null;
         }
         this.decodeSize = this.encodeSize - 1;
-        this.encodeTable = urlSafe ? URL_SAFE_ENCODE_TABLE : STANDARD_ENCODE_TABLE;
     }
 
     /**

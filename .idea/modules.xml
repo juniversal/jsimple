@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/jsimple.iml" filepath="$PROJECT_DIR$/jsimple.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jsimple-base64/jsimple-base64.iml" filepath="$PROJECT_DIR$/jsimple-base64/jsimple-base64.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsimple-json/jsimple-json.iml" filepath="$PROJECT_DIR$/jsimple-json/jsimple-json.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jsimple-oauth/jsimple-oauth.iml" filepath="$PROJECT_DIR$/jsimple-oauth/jsimple-oauth.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsimple-platform/jsimple-platform.iml" filepath="$PROJECT_DIR$/jsimple-platform/jsimple-platform.iml" />
     </modules>
   </component>
