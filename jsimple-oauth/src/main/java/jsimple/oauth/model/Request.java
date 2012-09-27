@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import jsimple.oauth.exceptions.*;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents an HTTP Request object
@@ -24,13 +25,13 @@ class Request
   private ParameterList querystringParams;
   private ParameterList bodyParams;
   private Map<String, String> headers;
-  private String payload = null;
+  private @Nullable String payload = null;
   private HttpURLConnection connection;
   private String charset;
-  private byte[] bytePayload = null;
+  private byte/*@Nullable*/[] bytePayload = null;
   private boolean connectionKeepAlive = false;
-  private Long connectTimeout = null;
-  private Long readTimeout = null;
+  private @Nullable Long connectTimeout = null;
+  private @Nullable Long readTimeout = null;
 
   /**
    * Creates a new Http Request

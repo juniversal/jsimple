@@ -17,6 +17,8 @@
 
 package jsimple.base64;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Abstract superclass for Base-N encoders and decoders.
  *
@@ -90,7 +92,7 @@ public abstract class BaseNCodec {
     /**
      * Buffer for streaming.
      */
-    protected byte[] buffer;
+    protected byte /*@Nullable*/ [] buffer = null;
 
     /**
      * Position where next character should be written in the buffer.
@@ -201,6 +203,7 @@ public abstract class BaseNCodec {
     int readResults(byte[] b, int bPos, int bAvail) {  // package protected for access from I/O streams
         if (buffer != null) {
             int len = Math.min(available(), bAvail);
+            assert buffer != null : "Prevent nullness warning";
             System.arraycopy(buffer, readPos, b, bPos, len);
             readPos += len;
             if (readPos >= pos) {

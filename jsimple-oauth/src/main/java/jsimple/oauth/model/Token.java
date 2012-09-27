@@ -1,5 +1,7 @@
 package jsimple.oauth.model;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.Serializable;
 
 /**
@@ -13,7 +15,7 @@ public class Token implements Serializable
 	
   private final String token;
   private final String secret;
-  private final String rawResponse;
+  private final @Nullable String rawResponse;
 
   /**
    * Default constructor
@@ -26,7 +28,7 @@ public class Token implements Serializable
     this(token, secret, null);
   }
 
-  public Token(String token, String secret, String rawResponse)
+  public Token(String token, String secret, @Nullable String rawResponse)
   {
     this.token = token;
     this.secret = secret;

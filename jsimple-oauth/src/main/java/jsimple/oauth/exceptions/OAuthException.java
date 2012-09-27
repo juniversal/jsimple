@@ -1,5 +1,7 @@
 package jsimple.oauth.exceptions;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Default scribe exception. 
  * Represents a problem in the OAuth signing process
@@ -14,7 +16,7 @@ public class OAuthException extends RuntimeException
    * @param message message explaining what went wrong
    * @param e original exception
    */
-  public OAuthException(String message, Exception e)
+  public OAuthException(String message, @Nullable Exception e)
   {
     super(message, e);
   }

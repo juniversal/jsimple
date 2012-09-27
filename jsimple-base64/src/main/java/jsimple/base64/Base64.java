@@ -142,7 +142,7 @@ public class Base64 extends BaseNCodec {
     /**
      * Line separator for encoding. Not used when decoding. Only used if lineLength > 0.
      */
-    private final @Nullable byte[] lineSeparator;
+    private final byte /*@Nullable*/ [] lineSeparator;
 
     /**
      * Convenience variable to help us determine when our buffer is going to run out of room and needs resizing.
@@ -336,6 +336,8 @@ public class Base64 extends BaseNCodec {
                 return; // no leftovers to process and not using chunking
             }
             ensureBufferSize(encodeSize);
+            assert buffer != null : "Prevent nullness warning";
+
             int savedPos = pos;
             switch (modulus) { // 0-2
                 case 1 : // 8 bits = 6 + 2
@@ -361,12 +363,15 @@ public class Base64 extends BaseNCodec {
             currentLinePos += pos - savedPos; // keep track of current line position
             // if currentPos == 0 we are at the start of a line, so don't add CRLF
             if (lineLength > 0 && currentLinePos > 0) {
+                assert lineSeparator != null : "Prevent nullness warning";
                 System.arraycopy(lineSeparator, 0, buffer, pos, lineSeparator.length);
                 pos += lineSeparator.length;
             }
         } else {
             for (int i = 0; i < inAvail; i++) {
                 ensureBufferSize(encodeSize);
+                assert buffer != null : "Prevent nullness warning";
+
                 modulus = (modulus+1) % BYTES_PER_UNENCODED_BLOCK;
                 int b = in[inPos++];
                 if (b < 0) {
@@ -380,6 +385,7 @@ public class Base64 extends BaseNCodec {
                     buffer[pos++] = encodeTable[bitWorkArea & MASK_6BITS];
                     currentLinePos += BYTES_PER_ENCODED_BLOCK;
                     if (lineLength > 0 && lineLength <= currentLinePos) {
+                        assert lineSeparator != null : "Prevent nullness warning";
                         System.arraycopy(lineSeparator, 0, buffer, pos, lineSeparator.length);
                         pos += lineSeparator.length;
                         currentLinePos = 0;
@@ -422,6 +428,8 @@ public class Base64 extends BaseNCodec {
         }
         for (int i = 0; i < inAvail; i++) {
             ensureBufferSize(decodeSize);
+            assert buffer != null : "Prevent nullness warning";
+
             byte b = in[inPos++];
             if (b == PAD) {
                 // We're done.
@@ -448,6 +456,7 @@ public class Base64 extends BaseNCodec {
         // This approach makes the '=' padding characters completely optional.
         if (eof && modulus != 0) {
             ensureBufferSize(decodeSize);
+            assert buffer != null : "Prevent nullness warning";
 
             // We have some spare bits remaining
             // Output all whole multiples of 8 bits and ignore the rest

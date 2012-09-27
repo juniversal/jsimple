@@ -1,5 +1,7 @@
 package jsimple.oauth.model;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.*;
 
 /**
@@ -11,17 +13,18 @@ public class OAuthConfig
 {
   private final String apiKey;
   private final String apiSecret;
-  private final String callback;
-  private final SignatureType signatureType;
-  private final String scope;
-  private final OutputStream debugStream;
+  private final @Nullable String callback;
+  private final @Nullable SignatureType signatureType;
+  private final @Nullable String scope;
+  private final @Nullable OutputStream debugStream;
   
   public OAuthConfig(String key, String secret)
   {
     this(key, secret, null, null, null, null);
   }
 
-  public OAuthConfig(String key, String secret, String callback, SignatureType type, String scope, OutputStream stream)
+  public OAuthConfig(String key, String secret, @Nullable String callback, @Nullable SignatureType type,
+                     @Nullable String scope, @Nullable OutputStream stream)
   {
     this.apiKey = key;
     this.apiSecret = secret;
@@ -41,17 +44,17 @@ public class OAuthConfig
     return apiSecret;
   }
 
-  public String getCallback()
+  public @Nullable String getCallback()
   {
     return callback;
   }
 
-  public SignatureType getSignatureType()
+  public @Nullable SignatureType getSignatureType()
   {
     return signatureType;
   }
 
-  public String getScope()
+  public @Nullable String getScope()
   {
     return scope;
   }

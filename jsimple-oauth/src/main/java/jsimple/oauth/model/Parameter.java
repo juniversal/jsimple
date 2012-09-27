@@ -1,6 +1,7 @@
 package jsimple.oauth.model;
 
 import jsimple.oauth.utils.OAuthEncoder;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author: Pablo Fernandez
@@ -23,7 +24,7 @@ public class Parameter implements Comparable<Parameter>
     return OAuthEncoder.encode(key).concat("=").concat(OAuthEncoder.encode(value));
   }
   
-  public boolean equals(Object other)
+  public boolean equals(@Nullable Object other)
   {
     if(other == null) return false;
     if(other == this) return true;
