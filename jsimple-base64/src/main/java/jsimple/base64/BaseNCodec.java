@@ -67,7 +67,7 @@ public abstract class BaseNCodec {
     /**
      * Byte used to pad output.
      */
-    protected static final byte PAD_DEFAULT = '='; // Allow static access to default
+    protected static final byte PAD_DEFAULT = (byte) '='; // Allow static access to default
 
     protected final byte PAD = PAD_DEFAULT; // instance variable just in case it needs to vary later
 
@@ -223,10 +223,10 @@ public abstract class BaseNCodec {
      */
     protected static boolean isWhiteSpace(byte byteToCheck) {
         switch (byteToCheck) {
-            case ' ' :
-            case '\n' :
-            case '\r' :
-            case '\t' :
+            case (byte) ' ' :
+            case (byte) '\n' :
+            case (byte) '\r' :
+            case (byte) '\t' :
                 return true;
             default :
                 return false;
