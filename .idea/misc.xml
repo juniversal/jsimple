@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/jsimple-platform/pom.xml" />
         <option value="$PROJECT_DIR$/jsimple-json/pom.xml" />
+        <option value="$PROJECT_DIR$/jsimple-io-java/pom.xml" />
       </list>
     </option>
   </component>

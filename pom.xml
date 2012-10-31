@@ -15,10 +15,11 @@
     </properties>
 
     <modules>
-        <module>jsimple-platform</module>
+        <module>jsimple-util</module>
+        <module>jsimple-io</module>
+        <module>jsimple-net</module>
         <module>jsimple-json</module>
         <module>jsimple-oauth</module>
-        <module>jsimple-base64</module>
     </modules>
 
     <repositories>
@@ -54,6 +55,27 @@
     <build>
         <pluginManagement>
             <plugins>
+
+                <!-- Also clean generated C# files -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.4.1</version>
+                    <configuration>
+                        <followSymLinks>false</followSymLinks>
+                        <filesets>
+                            <fileset>
+                                <directory>${basedir}/c#</directory>
+                                <includes>
+                                    <include>jsimple/**</include>
+                                    <include>obj/**</include>
+                                    <include>bin/**</include>
+                                </includes>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </plugin>
+
                 <plugin>
                     <!-- @Nullable checking -->
                     <groupId>org.apache.maven.plugins</groupId>
@@ -73,6 +95,7 @@
                         </compilerArguments>
                     </configuration>
                 </plugin>
+
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
@@ -88,13 +111,14 @@
                                 <executable>${java-to-csharp-converter-dir}/Java to C# Converter.exe</executable>
                                 <arguments>
                                     <argument>${project.build.sourceDirectory}</argument>
-                                    <argument>${project.build.directory}/generated-c#</argument>
+                                    <argument>${project.basedir}/c#</argument>
                                     <argument>${rootdir}/std-java-to-c#-converter-settings.dat</argument>
                                 </arguments>
                             </configuration>
                         </execution>
                     </executions>
                 </plugin>
+
             </plugins>
         </pluginManagement>
     </build>

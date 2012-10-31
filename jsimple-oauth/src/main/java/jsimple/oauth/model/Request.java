@@ -1,359 +1,268 @@
 package jsimple.oauth.model;
 
-import java.io.*;
-import java.net.*;
-import java.nio.charset.*;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
-import jsimple.oauth.exceptions.*;
+import jsimple.net.HttpRequest;
+import jsimple.io.IOUtils;
+import jsimple.net.Url;
+import jsimple.oauth.exceptions.OAuthConnectionException;
+import jsimple.oauth.exceptions.OAuthException;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents an HTTP Request object
- * 
+ *
  * @author Pablo Fernandez
  */
-class Request
-{
-  private static final String CONTENT_LENGTH = "Content-Length";
-  private static final String CONTENT_TYPE = "Content-Type";
-  public static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
+public class Request {
+    public static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 
-  private String url;
-  private Verb verb;
-  private ParameterList querystringParams;
-  private ParameterList bodyParams;
-  private Map<String, String> headers;
-  private @Nullable String payload = null;
-  private HttpURLConnection connection;
-  private String charset;
-  private byte/*@Nullable*/[] bytePayload = null;
-  private boolean connectionKeepAlive = false;
-  private @Nullable Long connectTimeout = null;
-  private @Nullable Long readTimeout = null;
+    private String url;
+    private Verb verb;
+    private ParameterList querystringParams;
+    private ParameterList bodyParams;
+    private Map<String, String> headers;
+    private @Nullable String payload = null;
+    private @Nullable HttpRequest httpRequest = null;
+    private byte/*@Nullable*/[] bytePayload = null;
+    private @Nullable Integer timeout = null;
 
-  /**
-   * Creates a new Http Request
-   * 
-   * @param verb Http Verb (GET, POST, etc)
-   * @param url url with optional querystring parameters.
-   */
-  public Request(Verb verb, String url)
-  {
-    this.verb = verb;
-    this.url = url;
-    this.querystringParams = new ParameterList();
-    this.bodyParams = new ParameterList();
-    this.headers = new HashMap<String, String>();
-  }
-
-  /**
-   * Execute the request and return a {@link Response}
-   * 
-   * @return Http Response
-   * @throws RuntimeException
-   *           if the connection cannot be created.
-   */
-  public Response send()
-  {
-    try
-    {
-      createConnection();
-      return doSend();
+    /**
+     * Creates a new Http Request
+     *
+     * @param verb Http Verb (GET, POST, etc)
+     * @param url  url with optional querystring parameters.
+     */
+    public Request(Verb verb, String url) {
+        this.verb = verb;
+        this.url = url;
+        this.querystringParams = new ParameterList();
+        this.bodyParams = new ParameterList();
+        this.headers = new HashMap<String, String>();
     }
-    catch (Exception e)
-    {
-      throw new OAuthConnectionException(e);
+
+    /**
+     * Execute the request and return a {@link Response}
+     *
+     * @return Http Response
+     * @throws RuntimeException if the connection cannot be created.
+     */
+    public Response send() {
+        try {
+            createConnection();
+            return doSend();
+        } catch (Exception e) {
+            throw new OAuthConnectionException(e);
+        }
     }
-  }
 
-  private void createConnection() throws IOException
-  {
-    String completeUrl = getCompleteUrl();
-    if (connection == null)
-    {
-      System.setProperty("http.keepAlive", connectionKeepAlive ? "true" : "false");
-      connection = (HttpURLConnection) new URL(completeUrl).openConnection();
+    private void createConnection() {
+        String completeUrl = getCompleteUrl();
+        if (httpRequest == null) {
+            httpRequest = new HttpRequest(completeUrl);
+        }
     }
-  }
 
-  /**
-   * Returns the complete url (host + resource + encoded querystring parameters).
-   *
-   * @return the complete url.
-   */
-  public String getCompleteUrl()
-  {
-    return querystringParams.appendTo(url);
-  }
-
-  Response doSend() throws IOException
-  {
-    connection.setRequestMethod(this.verb.name());
-    if (connectTimeout != null) 
-    {
-      connection.setConnectTimeout(connectTimeout.intValue());
+    /**
+     * Returns the complete url (host + resource + encoded querystring parameters).
+     *
+     * @return the complete url.
+     */
+    public String getCompleteUrl() {
+        return querystringParams.appendTo(url);
     }
-    if (readTimeout != null)
-    {
-      connection.setReadTimeout(readTimeout.intValue());
+
+    Response doSend() {
+        HttpRequest httpReq = httpRequest;
+        assert httpReq != null : "nullness";
+
+        httpReq.setMethod(getMethodForVerb(this.verb));
+
+        if (timeout != null) {
+            httpReq.setTimeout(timeout.intValue());
+        }
+        addHeaders(httpReq);
+        if (verb.equals(Verb.PUT) || verb.equals(Verb.POST)) {
+            int[] length = new int[1];
+            byte[] bodyBytes = getByteBodyContents(length);
+            addBody(httpReq, bodyBytes, 0, length[0]);
+        }
+        return new Response(httpReq);
     }
-    addHeaders(connection);
-    if (verb.equals(Verb.PUT) || verb.equals(Verb.POST))
-    {
-      addBody(connection, getByteBodyContents());
+
+    public static String getMethodForVerb(Verb verb) {
+        switch (verb) {
+            case POST: return HttpRequest.METHOD_POST;
+            case DELETE: return HttpRequest.METHOD_DELETE;
+            case GET: return HttpRequest.METHOD_GET;
+            case PUT: return HttpRequest.METHOD_PUT;
+            default: throw new RuntimeException("Unknown verb: " + verb);
+        }
     }
-    return new Response(connection);
-  }
 
-  void addHeaders(HttpURLConnection conn)
-  {
-    for (String key : headers.keySet())
-      conn.setRequestProperty(key, headers.get(key));
-  }
-
-  void addBody(HttpURLConnection conn, byte[] content) throws IOException
-  {
-    conn.setRequestProperty(CONTENT_LENGTH, String.valueOf(content.length));
-
-    // Set default content type if none is set.
-    if (conn.getRequestProperty(CONTENT_TYPE) == null)
-    {
-      conn.setRequestProperty(CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
+    void addHeaders(HttpRequest httpRequest) {
+        for (String key : headers.keySet())
+            httpRequest.setHeader(key, headers.get(key));
     }
-    conn.setDoOutput(true);
-    conn.getOutputStream().write(content);
-  }
 
-  /**
-   * Add an HTTP Header to the Request
-   * 
-   * @param key the header name
-   * @param value the header value
-   */
-  public void addHeader(String key, String value)
-  {
-    this.headers.put(key, value);
-  }
+    void addBody(HttpRequest httpRequest, byte[] content, int offset, int length) {
+        httpRequest.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, String.valueOf(content.length));
 
-  /**
-   * Add a body Parameter (for POST/ PUT Requests)
-   * 
-   * @param key the parameter name
-   * @param value the parameter value
-   */
-  public void addBodyParameter(String key, String value)
-  {
-    this.bodyParams.add(key, value);
-  }
+        // Set default content type if none is set
+        if (httpRequest.getHeader(HttpRequest.HEADER_CONTENT_TYPE) == null)
+            httpRequest.setHeader(HttpRequest.HEADER_CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
 
-  /**
-   * Add a QueryString parameter
-   *
-   * @param key the parameter name
-   * @param value the parameter value
-   */
-  public void addQuerystringParameter(String key, String value)
-  {
-    this.querystringParams.add(key, value);
-  }
-
-  /**
-   * Add body payload.
-   * 
-   * This method is used when the HTTP body is not a form-url-encoded string,
-   * but another thing. Like for example XML.
-   * 
-   * Note: The contents are not part of the OAuth signature
-   * 
-   * @param payload the body of the request
-   */
-  public void addPayload(String payload)
-  {
-    this.payload = payload;
-  }
-
-  /**
-   * Overloaded version for byte arrays
-   *
-   * @param payload
-   */
-  public void addPayload(byte[] payload)
-  {
-    this.bytePayload = payload;
-  }
-
-  /**
-   * Get a {@link ParameterList} with the query string parameters.
-   * 
-   * @return a {@link ParameterList} containing the query string parameters.
-   * @throws OAuthException if the request URL is not valid.
-   */
-  public ParameterList getQueryStringParams()
-  {
-    try
-    {
-      ParameterList result = new ParameterList();
-      String queryString = new URL(url).getQuery();
-      result.addQuerystring(queryString);
-      result.addAll(querystringParams);
-      return result;
+        httpRequest.getRequestBodyStream().write(content, offset, length);
     }
-    catch (MalformedURLException mue)
-    {
-      throw new OAuthException("Malformed URL", mue);
+
+    /**
+     * Add an HTTP Header to the Request
+     *
+     * @param key   the header name
+     * @param value the header value
+     */
+    public void addHeader(String key, String value) {
+        this.headers.put(key, value);
     }
-  }
 
-  /**
-   * Obtains a {@link ParameterList} of the body parameters.
-   * 
-   * @return a {@link ParameterList}containing the body parameters.
-   */
-  public ParameterList getBodyParams()
-  {
-    return bodyParams;
-  }
-
-  /**
-   * Obtains the URL of the HTTP Request.
-   * 
-   * @return the original URL of the HTTP Request
-   */
-  public String getUrl()
-  {
-    return url;
-  }
-
-  /**
-   * Returns the URL without the port and the query string part.
-   * 
-   * @return the OAuth-sanitized URL
-   */
-  public String getSanitizedUrl()
-  {
-    return url.replaceAll("\\?.*", "").replace("\\:\\d{4}", "");
-  }
-
-  /**
-   * Returns the body of the request
-   * 
-   * @return form encoded string
-   * @throws OAuthException if the charset chosen is not supported
-   */
-  public String getBodyContents()
-  {
-    try
-    {
-      return new String(getByteBodyContents(),getCharset());
+    /**
+     * Add a body Parameter (for POST/ PUT Requests)
+     *
+     * @param key   the parameter name
+     * @param value the parameter value
+     */
+    public void addBodyParameter(String key, String value) {
+        this.bodyParams.add(key, value);
     }
-    catch(UnsupportedEncodingException uee)
-    {
-      throw new OAuthException("Unsupported Charset: "+charset, uee);
+
+    /**
+     * Add a QueryString parameter
+     *
+     * @param key   the parameter name
+     * @param value the parameter value
+     */
+    public void addQuerystringParameter(String key, String value) {
+        this.querystringParams.add(key, value);
     }
-  }
 
-  byte[] getByteBodyContents()
-  {
-    if (bytePayload != null) return bytePayload;
-    String body = (payload != null) ? payload : bodyParams.asFormUrlEncodedString();
-    try
-    {
-      return body.getBytes(getCharset());
+    /**
+     * Add body payload.
+     * <p/>
+     * This method is used when the HTTP body is not a form-url-encoded string, but another thing. Like for example
+     * XML.
+     * <p/>
+     * Note: The contents are not part of the OAuth signature
+     *
+     * @param payload the body of the request
+     */
+    public void addPayload(String payload) {
+        this.payload = payload;
     }
-    catch(UnsupportedEncodingException uee)
-    {
-      throw new OAuthException("Unsupported Charset: "+getCharset(), uee);
+
+    /**
+     * Overloaded version for byte arrays
+     *
+     * @param payload
+     */
+    public void addPayload(byte[] payload) {
+        this.bytePayload = payload;
     }
-  }
 
-  /**
-   * Returns the HTTP Verb
-   * 
-   * @return the verb
-   */
-  public Verb getVerb()
-  {
-    return verb;
-  }
-  
-  /**
-   * Returns the connection headers as a {@link Map}
-   * 
-   * @return map of headers
-   */
-  public Map<String, String> getHeaders()
-  {
-    return headers;
-  }
+    /**
+     * Get a {@link ParameterList} with the query string parameters.
+     *
+     * @return a {@link ParameterList} containing the query string parameters.
+     * @throws OAuthException if the request URL is not valid.
+     */
+    public ParameterList getQueryStringParams() {
+        ParameterList result = new ParameterList();
+        @Nullable String queryString = new Url(url).getQuery();
+        result.addQueryString(queryString);
+        result.addAll(querystringParams);
+        return result;
+    }
 
-  /**
-   * Returns the connection charset. Defaults to {@link Charset} defaultCharset if not set
-   *
-   * @return charset
-   */
-  public String getCharset()
-  {
-    return charset == null ? Charset.defaultCharset().name() : charset;
-  }
+    /**
+     * Obtains a {@link ParameterList} of the body parameters.
+     *
+     * @return a {@link ParameterList}containing the body parameters.
+     */
+    public ParameterList getBodyParams() {
+        return bodyParams;
+    }
 
-  /**
-   * Sets the connect timeout for the underlying {@link HttpURLConnection}
-   * 
-   * @param duration duration of the timeout
-   * 
-   * @param unit unit of time (milliseconds, seconds, etc)
-   */
-  public void setConnectTimeout(int duration, TimeUnit unit)
-  {
-    this.connectTimeout = unit.toMillis(duration);
-  }
+    /**
+     * Obtains the URL of the HTTP Request.
+     *
+     * @return the original URL of the HTTP Request
+     */
+    public String getUrl() {
+        return url;
+    }
 
-  /**
-   * Sets the read timeout for the underlying {@link HttpURLConnection}
-   * 
-   * @param duration duration of the timeout
-   * 
-   * @param unit unit of time (milliseconds, seconds, etc)
-   */
-  public void setReadTimeout(int duration, TimeUnit unit)
-  {
-    this.readTimeout = unit.toMillis(duration);
-  }
+    /**
+     * Returns the URL without the port and the query string part.
+     *
+     * @return the OAuth-sanitized URL
+     */
+    public String getSanitizedUrl() {
+        // Old code: return url.replaceAll("\\?.*", "").replace("\\:\\d{4}", "");
 
-  /**
-   * Set the charset of the body of the request
-   *
-   * @param charsetName name of the charset of the request
-   */
-  public void setCharset(String charsetName)
-  {
-    this.charset = charsetName;
-  }
+        String sanitizedUrl = url;
 
-  /**
-   * Sets whether the underlying Http Connection is persistent or not.
-   *
-   * @see http://download.oracle.com/javase/1.5.0/docs/guide/net/http-keepalive.html
-   * @param connectionKeepAlive
-   */
-  public void setConnectionKeepAlive(boolean connectionKeepAlive)
-  {
-    this.connectionKeepAlive = connectionKeepAlive;
-  }
+        int queryStringStart = url.indexOf('?');
+        if (queryStringStart != -1)
+            sanitizedUrl = sanitizedUrl.substring(0, queryStringStart);
+        int colonStart = url.indexOf(':');
+        if (colonStart != -1)
+            sanitizedUrl = sanitizedUrl.substring(0, colonStart);
 
-  /*
-   * We need this in order to stub the connection object for test cases
-   */
-  void setConnection(HttpURLConnection connection)
-  {
-    this.connection = connection;
-  }
+        return sanitizedUrl;
+    }
 
-  @Override
-  public String toString()
-  {
-    return String.format("@Request(%s %s)", getVerb(), getUrl());
-  }
+    byte[] getByteBodyContents(int[] length) {
+        if (bytePayload != null) return bytePayload;
+        String body = (payload != null) ? payload : bodyParams.asFormUrlEncodedString();
+
+        return IOUtils.toUtf8BytesFromString(body, length);
+    }
+
+    /**
+     * Returns the HTTP Verb
+     *
+     * @return the verb
+     */
+    public Verb getVerb() {
+        return verb;
+    }
+
+    /**
+     * Returns the connection headers as a {@link Map}
+     *
+     * @return map of headers
+     */
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
+
+    /**
+     * Sets the timeout for the underlying {@link HttpRequest}
+     *
+     * @param timeoutInMillis duration of the timeout
+     */
+    public void setTimeout(int timeoutInMillis) {
+        this.timeout = timeoutInMillis;
+    }
+
+    /*
+    * We need this in order to stub the connection object for test cases
+    */
+    void setHttpRequest(HttpRequest httpRequest) {
+        this.httpRequest = httpRequest;
+    }
+
+    @Override public String toString() {
+        return String.format("@Request(%s %s)", getVerb(), getUrl());
+    }
 }

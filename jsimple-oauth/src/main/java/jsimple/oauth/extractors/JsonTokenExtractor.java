@@ -1,28 +1,26 @@
 package jsimple.oauth.extractors;
 
-import java.util.regex.*;
+import jsimple.oauth.exceptions.OAuthException;
+import jsimple.oauth.model.Token;
 
-import jsimple.oauth.exceptions.*;
-import jsimple.oauth.model.*;
-import jsimple.oauth.utils.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class JsonTokenExtractor implements AccessTokenExtractor
-{
-  private Pattern accessTokenPattern = Pattern.compile("\"access_token\":\\s*\"(\\S*?)\"");
+public class JsonTokenExtractor implements AccessTokenExtractor {
+    private Pattern accessTokenPattern = Pattern.compile("\"access_token\":\\s*\"(\\S*?)\"");
 
-  @Override
-  public Token extract(String response)
-  {
-    Preconditions.checkEmptyString(response, "Cannot extract a token from a null or empty String");
-    Matcher matcher = accessTokenPattern.matcher(response);
-    if(matcher.find())
-    {
-      return new Token(matcher.group(1), "", response);
+    @Override
+    public Token extract(String response) {
+        assert response != null && !response.isEmpty() : "Cannot extract a token from a null or empty String";
+
+        Matcher matcher = accessTokenPattern.matcher(response);
+        if (matcher.find()) {
+            String group = matcher.group(1);
+            assert group != null : "nullness";
+            return new Token(group, "", response);
+        } else {
+            throw new OAuthException("Cannot extract an access token. Response was: " + response);
+        }
     }
-    else
-    {
-      throw new OAuthException("Cannot extract an acces token. Response was: " + response);
-    }
-  }
 
 }

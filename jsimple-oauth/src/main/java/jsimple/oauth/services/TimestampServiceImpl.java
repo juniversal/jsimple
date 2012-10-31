@@ -1,67 +1,31 @@
 package jsimple.oauth.services;
 
-import java.util.*;
+import jsimple.util.PlatformUtils;
+
+import java.util.Random;
 
 /**
  * Implementation of {@link TimestampService} using plain java classes.
- * 
+ *
  * @author Pablo Fernandez
  */
-public class TimestampServiceImpl implements TimestampService
-{
-  private Timer timer;
-
-  /**
-   * Default constructor. 
-   */
-  public TimestampServiceImpl()
-  {
-    timer = new Timer();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public String getNonce()
-  {
-    Long ts = getTs();
-    return String.valueOf(ts + timer.getRandomInteger());
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public String getTimestampInSeconds()
-  {
-    return String.valueOf(getTs());
-  }
-
-  private Long getTs()
-  {
-    return timer.getMilis() / 1000;
-  }
-
-  void setTimer(Timer timer)
-  {
-    this.timer = timer;
-  }
-
-  /**
-   * Inner class that uses {@link System} for generating the timestamps.
-   * 
-   * @author Pablo Fernandez
-   */
-  static class Timer
-  {
-    Long getMilis()
-    {
-      return System.currentTimeMillis();
+public class TimestampServiceImpl implements TimestampService {
+    /**
+     * {@inheritDoc}
+     */
+    public String getNonce() {
+        Long ts = getTs();
+        return String.valueOf(ts + new Random().nextInt());
     }
 
-    Integer getRandomInteger()
-    {
-      return new Random().nextInt();
+    /**
+     * {@inheritDoc}
+     */
+    public String getTimestampInSeconds() {
+        return String.valueOf(getTs());
     }
-  }
 
+    private Long getTs() {
+        return PlatformUtils.getCurrentTimeMillis() / 1000;
+    }
 }

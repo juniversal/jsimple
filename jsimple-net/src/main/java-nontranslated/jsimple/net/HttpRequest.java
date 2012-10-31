@@ -1,12 +1,12 @@
 package jsimple.net;
 
-import jsimple.io.*;
+import jsimple.io.JSimpleOutputStreamOnJavaStream;
+import jsimple.io.JavaIOUtils;
+import jsimple.io.OutputStream;
 
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This class handles http connectivity.  It's based on a subset of the standard Java java.net.HttpURLConnection class,
@@ -30,6 +30,7 @@ import java.util.Map;
  */
 public class HttpRequest extends HttpRequestBase {
     private HttpURLConnection httpUrlConnection;
+    private OutputStream bodyStream;
 
     public HttpRequest(String url) {
         // System.getProperty("http.keepAlive") defaults to true.  We don't change it here as the doc is a bit unclear
@@ -52,65 +53,41 @@ public class HttpRequest extends HttpRequestBase {
         }
     }
 
-    @Override public void setConnectTimeout(int timeoutInMillis) {
+    @Override public void setTimeout(int timeoutInMillis) {
         httpUrlConnection.setConnectTimeout(timeoutInMillis);
-
-    }
-
-    @Override public void setReadTimeout(int timeoutInMillis) {
         httpUrlConnection.setReadTimeout(timeoutInMillis);
     }
 
-    @Override public void setHeader(String key, String value) {
-        httpUrlConnection.setRequestProperty(key, value);
+    @Override public void setHeader(String name, String value) {
+        httpUrlConnection.setRequestProperty(name, value);
     }
 
-    @Override public String getHeader(String key) {
-        return httpUrlConnection.getRequestProperty(key);
+    @Override public String getHeader(String name) {
+        return httpUrlConnection.getRequestProperty(name);
     }
 
-    @Override public void setDoOutput(boolean doOutput) {
-        httpUrlConnection.setDoOutput(doOutput);
-
-    }
-
-    @Override public OutputStream getOutputStream() {
-        try {
-            return new JSimpleOutputStreamOnJavaStream(httpUrlConnection.getOutputStream());
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+    @Override public OutputStream getRequestBodyStream() {
+        if (bodyStream == null) {
+            try {
+                httpUrlConnection.setDoOutput(true);
+                bodyStream = new JSimpleOutputStreamOnJavaStream(httpUrlConnection.getOutputStream());
+            } catch (java.io.IOException e) {
+                throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+            }
         }
+
+        return bodyStream;
     }
 
-    @Override public void connect() {
+    @Override public HttpResponse getResponse() {
+        // TODO: The doc seems to say that, for example, for a 404 error the connect call will throw a FileNotFoundException, and the caller can use getErrorStream to read the bod.  Test that & change to catch such exceptions here, so caller gets a valid response object
+        // Scribe called getErrorStream when response code not in: return getCode() >= 200 && getCode() < 400;
+
         try {
             httpUrlConnection.connect();
+            return new HttpResponse(httpUrlConnection);
         } catch (java.io.IOException e) {
             throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }
-    }
-
-    @Override public int getResponseCode() {
-        try {
-            return httpUrlConnection.getResponseCode();
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
-    }
-
-    @Override public Map<String, List<String>> getHeaderFields() {
-        return httpUrlConnection.getHeaderFields();
-    }
-
-    @Override public InputStream getInputStream() {
-        try {
-            return new JSimpleInputStreamOnJavaStream(httpUrlConnection.getInputStream());
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
-    }
-
-    @Override public InputStream getErrorStream() {
-        return new JSimpleInputStreamOnJavaStream(httpUrlConnection.getErrorStream());
     }
 }

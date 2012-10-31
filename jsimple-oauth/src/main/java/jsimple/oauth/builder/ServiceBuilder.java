@@ -1,169 +1,157 @@
 package jsimple.oauth.builder;
 
-import java.io.*;
-import jsimple.oauth.builder.api.*;
-import jsimple.oauth.exceptions.*;
-import jsimple.oauth.model.*;
-import jsimple.oauth.oauth.*;
-import jsimple.oauth.utils.*;
+import jsimple.oauth.builder.api.Api;
+import jsimple.oauth.exceptions.OAuthException;
+import jsimple.oauth.model.OAuthConfig;
+import jsimple.oauth.model.OAuthConstants;
+import jsimple.oauth.model.OAuthLogger;
+import jsimple.oauth.model.SignatureType;
+import jsimple.oauth.oauth.OAuthService;
+import org.jetbrains.annotations.Nullable;
+
 
 /**
- * Implementation of the Builder pattern, with a fluent interface that creates a
- * {@link OAuthService}
- * 
- * @author Pablo Fernandez
+ * Implementation of the Builder pattern, with a fluent interface that creates a {@link OAuthService}
  *
+ * @author Pablo Fernandez
  */
-public class ServiceBuilder
-{
-  private String apiKey;
-  private String apiSecret;
-  private String callback;
-  private Api api;
-  private String scope;
-  private SignatureType signatureType;
-  private OutputStream debugStream;
-  
-  /**
-   * Default constructor
-   */
-  public ServiceBuilder()
-  {
-    this.callback = OAuthConstants.OUT_OF_BAND;
-    this.signatureType = SignatureType.Header;
-    this.debugStream = null;
-  }
-  
-  /**
-   * Configures the {@link Api}
-   * 
-   * @param apiClass the class of one of the existent {@link Api}s on org.scribe.api package
-   * @return the {@link ServiceBuilder} instance for method chaining
-   */
-  public ServiceBuilder provider(Class<? extends Api> apiClass)
-  {
-    this.api = createApi(apiClass);
-    return this;
-  }
+public class ServiceBuilder {
+    private @Nullable String apiKey;
+    private @Nullable String apiSecret;
+    private String callback;
+    private @Nullable Api api;
+    private @Nullable String scope;
+    private SignatureType signatureType;
+    private @Nullable OAuthLogger debugLogger;
 
-  private Api createApi(Class<? extends Api> apiClass)
-  {
-    Preconditions.checkNotNull(apiClass, "Api class cannot be null");
-    Api api;
-    try
-    {
-      api = apiClass.newInstance();  
+    /**
+     * Default constructor
+     */
+    public ServiceBuilder() {
+        this.callback = OAuthConstants.OUT_OF_BAND;
+        this.signatureType = SignatureType.Header;
+        this.debugLogger = null;
     }
-    catch(Exception e)
-    {
-      throw new OAuthException("Error while creating the Api object", e);
+
+    /**
+     * Configures the {@link Api}
+     *
+     * @param apiClass the class of one of the existent {@link Api}s on org.scribe.api package
+     * @return the {@link ServiceBuilder} instance for method chaining
+     */
+    public ServiceBuilder provider(Class<? extends Api> apiClass) {
+        this.api = createApi(apiClass);
+        return this;
     }
-    return api;
-  }
 
-  /**
-   * Configures the {@link Api}
-   *
-   * Overloaded version. Let's you use an instance instead of a class.
-   *
-   * @param api instance of {@link Api}s
-   * @return the {@link ServiceBuilder} instance for method chaining
-   */
-  public ServiceBuilder provider(Api api)
-  {
-	  Preconditions.checkNotNull(api, "Api cannot be null");
-	  this.api = api;
-	  return this;
-  }
+    private Api createApi(Class<? extends Api> apiClass) {
+        assert apiClass != null : "Api class cannot be null";
 
-  /**
-   * Adds an OAuth callback url
-   * 
-   * @param callback callback url. Must be a valid url or 'oob' for out of band OAuth
-   * @return the {@link ServiceBuilder} instance for method chaining
-   */
-  public ServiceBuilder callback(String callback)
-  {
-    Preconditions.checkNotNull(callback, "Callback can't be null");
-    this.callback = callback;
-    return this;
-  }
-  
-  /**
-   * Configures the api key
-   * 
-   * @param apiKey The api key for your application
-   * @return the {@link ServiceBuilder} instance for method chaining
-   */
-  public ServiceBuilder apiKey(String apiKey)
-  {
-    Preconditions.checkEmptyString(apiKey, "Invalid Api key");
-    this.apiKey = apiKey;
-    return this;
-  }
-  
-  /**
-   * Configures the api secret
-   * 
-   * @param apiSecret The api secret for your application
-   * @return the {@link ServiceBuilder} instance for method chaining
-   */
-  public ServiceBuilder apiSecret(String apiSecret)
-  {
-    Preconditions.checkEmptyString(apiSecret, "Invalid Api secret");
-    this.apiSecret = apiSecret;
-    return this;
-  }
-  
-  /**
-   * Configures the OAuth scope. This is only necessary in some APIs (like Google's).
-   * 
-   * @param scope The OAuth scope
-   * @return the {@link ServiceBuilder} instance for method chaining
-   */
-  public ServiceBuilder scope(String scope)
-  {
-    Preconditions.checkEmptyString(scope, "Invalid OAuth scope");
-    this.scope = scope;
-    return this;
-  }
+        Api api;
+        try {
+            api = apiClass.newInstance();
+        } catch (Exception e) {
+            throw new OAuthException("Error while creating the Api object", e);
+        }
+        return api;
+    }
 
-  /**
-   * Configures the signature type, choose between header, querystring, etc. Defaults to Header
-   *
-   * @param scope The OAuth scope
-   * @return the {@link ServiceBuilder} instance for method chaining
-   */
-  public ServiceBuilder signatureType(SignatureType type)
-  {
-    Preconditions.checkNotNull(type, "Signature type can't be null");
-    this.signatureType = type;
-    return this;
-  }
+    /**
+     * Configures the {@link Api}
+     * <p/>
+     * Overloaded version. Let's you use an instance instead of a class.
+     *
+     * @param api instance of {@link Api}s
+     * @return the {@link ServiceBuilder} instance for method chaining
+     */
+    public ServiceBuilder provider(Api api) {
+        assert api != null : "Api cannot be null";
+        this.api = api;
+        return this;
+    }
 
-  public ServiceBuilder debugStream(OutputStream stream)
-  {
-    Preconditions.checkNotNull(stream, "debug stream can't be null");
-    this.debugStream = stream;
-    return this;
-  }
+    /**
+     * Adds an OAuth callback url
+     *
+     * @param callback callback url. Must be a valid url or 'oob' for out of band OAuth
+     * @return the {@link ServiceBuilder} instance for method chaining
+     */
+    public ServiceBuilder callback(String callback) {
+        assert callback != null : "Callback can't be null";
+        this.callback = callback;
+        return this;
+    }
 
-  public ServiceBuilder debug()
-  {
-    this.debugStream(System.out);
-    return this;
-  }
-  
-  /**
-   * Returns the fully configured {@link OAuthService}
-   * 
-   * @return fully configured {@link OAuthService}
-   */
-  public OAuthService build()
-  {
-    Preconditions.checkNotNull(api, "You must specify a valid api through the provider() method");
-    Preconditions.checkEmptyString(apiKey, "You must provide an api key");
-    Preconditions.checkEmptyString(apiSecret, "You must provide an api secret");
-    return api.createService(new OAuthConfig(apiKey, apiSecret, callback, signatureType, scope, debugStream));
-  }
+    /**
+     * Configures the api key
+     *
+     * @param apiKey The api key for your application
+     * @return the {@link ServiceBuilder} instance for method chaining
+     */
+    public ServiceBuilder apiKey(String apiKey) {
+        assert apiKey != null && !apiKey.isEmpty() : "Invalid Api key";
+        this.apiKey = apiKey;
+        return this;
+    }
+
+    /**
+     * Configures the api secret
+     *
+     * @param apiSecret The api secret for your application
+     * @return the {@link ServiceBuilder} instance for method chaining
+     */
+    public ServiceBuilder apiSecret(String apiSecret) {
+        assert apiSecret != null && !apiSecret.isEmpty() : "Invalid Api secret";
+        this.apiSecret = apiSecret;
+        return this;
+    }
+
+    /**
+     * Configures the OAuth scope. This is only necessary in some APIs (like Google's).
+     *
+     * @param scope The OAuth scope
+     * @return the {@link ServiceBuilder} instance for method chaining
+     */
+    public ServiceBuilder scope(String scope) {
+        assert scope != null && !scope.isEmpty() : "Invalid OAuth scope";
+        this.scope = scope;
+        return this;
+    }
+
+    /**
+     * Configures the signature type, choose between header, querystring, etc. Defaults to Header
+     *
+     * @param type signature type
+     * @return the {@link ServiceBuilder} instance for method chaining
+     */
+    public ServiceBuilder signatureType(SignatureType type) {
+        assert type != null : "Signature type can't be null";
+        this.signatureType = type;
+        return this;
+    }
+
+    public ServiceBuilder debugLogger(OAuthLogger logger) {
+        assert logger != null : "debug stream can't be null";
+        this.debugLogger = logger;
+        return this;
+    }
+
+    /*
+    public ServiceBuilder debug() {
+        this.debugLogger(System.out);
+        return this;
+    }
+    */
+
+    /**
+     * Returns the fully configured {@link OAuthService}
+     *
+     * @return fully configured {@link OAuthService}
+     */
+    public OAuthService build() {
+        assert api != null : "nullness";          // You must specify a valid api through the provider() method"
+        assert apiKey != null : "nullness";       // You must provide an api key
+        assert apiSecret != null : "nullness";    // You must provide an api secret
+        return api.createService(new OAuthConfig(apiKey, apiSecret, callback, signatureType, scope, debugLogger));
+    }
 }

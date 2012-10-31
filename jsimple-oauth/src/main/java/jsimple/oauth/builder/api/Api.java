@@ -1,25 +1,19 @@
 package jsimple.oauth.builder.api;
 
-import jsimple.oauth.model.*;
-import jsimple.oauth.oauth.*;
+import jsimple.oauth.model.OAuthConfig;
+import jsimple.oauth.oauth.OAuthService;
 
 /**
  * Contains all the configuration needed to instantiate a valid {@link OAuthService}
- * 
- * @author Pablo Fernandez
  *
+ * @author Pablo Fernandez
  */
-public interface Api
-{  
-  /**
-   * Creates an {@link OAuthService}
-   * 
-   * @param apiKey your application api key
-   * @param apiSecret your application api secret
-   * @param callback the callback url (or 'oob' for out of band OAuth)
-   * @param scope the OAuth scope
-   * 
-   * @return fully configured {@link OAuthService}
-   */
-  OAuthService createService(OAuthConfig config);
+public interface Api {
+    /**
+     * Creates an {@link OAuthService}
+     *
+     * @param config config info (apiKey, apiSecret, callback, scope)
+     * @return fully configured {@link OAuthService}
+     */
+    OAuthService createService(OAuthConfig config);
 }
