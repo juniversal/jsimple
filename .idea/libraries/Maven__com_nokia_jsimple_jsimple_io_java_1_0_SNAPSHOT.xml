@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: com.nokia.jsimple:jsimple-io-java:1.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/nokia/jsimple/jsimple-io-java/1.0-SNAPSHOT/jsimple-io-java-1.0-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jsimple-io-java/pom.xml!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/jsimple-io-java/pom-javadoc.jar!/" />

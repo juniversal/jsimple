@@ -102,7 +102,7 @@ public abstract class HttpRequestBase {
      * is an error to try to set them.  Operations that depend on being connected, like getContentLength, will
      * implicitly perform the connection, if necessary.
      *
-     * @throws jsimple.io.SocketTimeoutException
+     * @throws jsimple.net.SocketTimeoutException
      *                                if the timeout expires before the connection can be established
      * @throws jsimple.io.IOException if an I/O error occurs while opening the connection.
      * @see #setTimeout

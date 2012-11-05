@@ -30,7 +30,15 @@ public abstract class HttpResponseBase {
      *
      * @return the HTTP Status-Code, or -1
      */
-    public abstract int getResponseCode();
+    public abstract int getStatusCode();
+
+    /**
+     * Gets the message from the HTTP response status line--the "reason phrase" (which is what the RFC calls it)
+     * describing the error that comes after the status code.
+     *
+     * @return the HTTP reason phrase, from the status line
+     */
+    public abstract String getStatusMessage();
 
     /**
      * Returns an input stream that reads from this open connection.

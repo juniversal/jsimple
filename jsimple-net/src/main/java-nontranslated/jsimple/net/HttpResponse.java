@@ -6,8 +6,6 @@ import jsimple.io.JavaIOUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.net.HttpURLConnection;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This class handles http connectivity.  It's based on a subset of the standard Java java.net.HttpURLConnection class,
@@ -37,9 +35,24 @@ public class HttpResponse extends HttpResponseBase {
         this.httpUrlConnection = httpUrlConnection;
     }
 
-    @Override public int getResponseCode() {
+    @Override public int getStatusCode() {
         try {
             return httpUrlConnection.getResponseCode();
+        } catch (java.io.IOException e) {
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        }
+    }
+
+    @Override public String getStatusMessage() {
+        try {
+            String message = httpUrlConnection.getResponseMessage();
+
+            // On a connection error, an exception is thrown.  But if null is returned, according to the docs that means
+            // the response wasn't valid HTTP, so we turn that into a descriptive string.
+            if (message == null)
+                message = "<error parsing status line message>";
+
+            return message;
         } catch (java.io.IOException e) {
             throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }

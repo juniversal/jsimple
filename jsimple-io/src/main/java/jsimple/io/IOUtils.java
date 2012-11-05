@@ -73,6 +73,43 @@ public class IOUtils {
     }
 
     /**
+     * Convert a byte array, assumed to be a Latin1 (aka 8859-1 aka Windows 1252) encoded string, to a regular Java
+     * string.  Latin1 is the first 256 characters of Unicode, so this conversion is just a straight pass through,
+     * turning bytes in chars.  Note that ASCII is a subset of Latin1.
+     *
+     * @param bytes byte array
+     * @return resulting string
+     */
+    public static String toStringFromLatin1Bytes(byte[] bytes) {
+        final int length = bytes.length;
+        char[] chars = new char[length];
+        for (int i = 0; i < length; i++)
+            chars[i] = (char) bytes[i];
+        return new String(chars);
+    }
+
+    /**
+     * Convert a string, assumed to contain only Latin1 (aka 8859-1 aka Windows 1252) characters, to a byte array.  The
+     * byte array is encoded one byte per character--just a straight pass through from the Unicode, dropping the high
+     * byte (which should be zero) of each character.  If any non-Latin1 characters are in the string an exception is
+     * thrown.  This method is an efficient way to only ASCII text as a byte array, since ASCII is a subset of Latin1.
+     *
+     * @param string input string, which should contain only Latin1 characters
+     * @return resulting byte array
+     */
+    public static byte[] toLatin1BytesFromString(String string) {
+        final int length = string.length();
+        byte[] bytes = new byte[length];
+        for (int i = 0; i < length; i++) {
+            char c = string.charAt(i);
+            if (c >= 256)
+                throw new RuntimeException("Character '" + c + "' at index + " + i + " isn't a Latin1 character");
+            bytes[i] = (byte) c;
+        }
+        return bytes;
+    }
+
+    /**
      * Converts the stream contents, assumed to be a UTF-8 character data, to a string.  The inputStream is closed on
      * success.  If an exception is thrown,  the caller should close() inputStream (e.g. in a finally clause, since
      * calling close multiple times is benign).
@@ -93,7 +130,7 @@ public class IOUtils {
      * @return string contents of reader
      */
     public static String toStringFromReader(Reader reader) {
-        final char[] buffer = new char[4096];
+        final char[] buffer = new char[8*1024];
         StringBuilder out = new StringBuilder();
         int charsRead;
         do {
@@ -103,5 +140,41 @@ public class IOUtils {
         } while (charsRead >= 0);
         reader.close();
         return out.toString();
+    }
+
+    /**
+     * Read the remaining data from the input stream into a byte array, which is returned.  Only the first length[0]
+     * bytes of the byte array should be used.  The inputStream is closed after it's completely read.
+     *
+     * @param inputStream input stream
+     * @param length      int[1] array; length of the data is returned in length[0]
+     * @return byte array contain the data in the stream, in the first length[0] bytes
+     */
+    public static byte[] toBytesFromStream(InputStream inputStream, int[] length) {
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        byteStream.write(inputStream);
+        return byteStream.getByteArray(length);
+    }
+
+    /**
+     * Read the remaining data from the input stream into a byte array, which is returned.  inputStream is closed after
+     * it's completely read.  Unlike the version with the length parameter, this method returns an array of exactly the
+     * right size, containing just the data in question and no more.  However, that convenience comes at the expense of
+     * performance, as normally an extra copy of the array is required.
+     *
+     * @param inputStream input stream
+     * @return byte array contain the data in the stream
+     */
+    public static byte[] toBytesFromStream(InputStream inputStream) {
+        int[] length = new int[1];
+        byte[] bytes = toBytesFromStream(inputStream, length);
+
+        if (bytes.length == length[0])
+            return bytes;
+        else {
+            byte[] copy = new byte[length[0]];
+            System.arraycopy(bytes, 0, copy, 0, length[0]);
+            return copy;
+        }
     }
 }

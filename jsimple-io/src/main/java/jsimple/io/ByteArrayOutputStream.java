@@ -95,6 +95,20 @@ public class ByteArrayOutputStream extends OutputStream {
     }
 
     /**
+     * Returns the contents of this ByteArrayOutputStream as a byte array. Unlike getByteArray(int[] length) this method
+     * returns an array of exactly the right size, containing just the data in question and no more, and the returned
+     * array is a copy of the data, so the caller need not be concerned about the array changing as more data is
+     * written.  However, that convenience comes at the expense of performance, as an extra copy is required.
+     *
+     * @return a copy of the contents of this stream
+     */
+    public byte[] toByteArray() {
+        byte[] copy = new byte[count];
+        System.arraycopy(buffer, 0, copy, 0, count);
+        return copy;
+    }
+
+    /**
      * Writes {@code count} bytes from the byte array {@code buffer} starting at offset {@code index} to this stream.
      *
      * @param buffer the buffer to be written.

@@ -1,5 +1,6 @@
 package jsimple.oauth.utils;
 
+import jsimple.io.IOUtils;
 import jsimple.util.StringUtils;
 import org.junit.Test;
 
@@ -52,6 +53,6 @@ public class Sha1Test {
     private byte[] toBytesFromString(String string) {
         if (string.startsWith("0x"))
             return StringUtils.toBytesFromHexString(string.substring(2));
-        else return StringUtils.toLatin1BytesFromString(string);
+        else return IOUtils.toLatin1BytesFromString(string);
     }
 }

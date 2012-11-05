@@ -51,7 +51,7 @@ public abstract class OutputStream {
      *
      * @param buffer the buffer to be written
      * @param offset the start position in {@code buffer} from where to get bytes
-     * @param length  the number of bytes from {@code buffer} to write to this stream
+     * @param length the number of bytes from {@code buffer} to write to this stream
      * @throws IOException if an error occurs while writing to this stream
      */
     public void write(byte buffer[], int offset, int length) {
@@ -67,4 +67,45 @@ public abstract class OutputStream {
      * @throws java.io.IOException if an error occurs while writing to this stream.
      */
     public abstract void write(int oneByte) throws IOException;
+
+    /**
+     * Write the string, assumed to contain only Latin1 characters (Unicode low 256 characters), to the stream.  A
+     * single byte is written for each character; this the most commonly used single byte encoding for text.  If the
+     * string contains any non-Latin1 characters, an exception is thrown.
+     *
+     * @param s string to write
+     */
+    public void writeLatin1EncodedString(String s) {
+        write(IOUtils.toLatin1BytesFromString(s));
+    }
+
+    /**
+     * Write the string to the stream using UTF-8 encoding.
+     *
+     * @param s string to write
+     */
+    public void writeUtf8EncodedString(String s) {
+        int[] length = new int[1];
+        byte[] bytes = IOUtils.toUtf8BytesFromString(s, length);
+
+        write(bytes, 0, length[0]);
+    }
+
+    /**
+     * Write the remaining contents of inputStream to this stream, closing the input stream when done.
+     *
+     * @param inputStream input stream to copy from
+     */
+    public void write(InputStream inputStream) {
+        byte[] buffer = new byte[8*1024];
+
+        while (true) {
+            int bytesRead = inputStream.read(buffer);
+            if (bytesRead < 0)
+                break;
+            write(buffer, 0, bytesRead);
+        }
+
+        inputStream.close();
+    }
 }

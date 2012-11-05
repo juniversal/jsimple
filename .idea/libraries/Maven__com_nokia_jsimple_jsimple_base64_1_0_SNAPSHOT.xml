@@ -4,9 +4,11 @@
       <root url="jar://$MAVEN_REPOSITORY$/com/nokia/jsimple/jsimple-base64/1.0-SNAPSHOT/jsimple-base64-1.0-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/jsimple-base64/pom-javadoc.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/nokia/jsimple/jsimple-base64/1.0-SNAPSHOT/jsimple-base64-1.0-SNAPSHOT-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
+      <root url="jar://$PROJECT_DIR$/jsimple-base64/pom-sources.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/nokia/jsimple/jsimple-base64/1.0-SNAPSHOT/jsimple-base64-1.0-SNAPSHOT-sources.jar!/" />
     </SOURCES>
   </library>

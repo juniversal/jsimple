@@ -23,7 +23,7 @@ public class Response {
     Response(HttpRequest httpRequest) {
         try {
             httpResponse = httpRequest.getResponse();
-            code = httpResponse.getResponseCode();
+            code = httpResponse.getStatusCode();
         } catch (UnknownHostException e) {
             throw new OAuthException("The IP address of a host could not be determined.", e);
         }
@@ -48,6 +48,10 @@ public class Response {
      */
     public InputStream getBodyStream() {
         return httpResponse.getBodyStream();
+    }
+
+    public HttpResponse getHttpResponse() {
+        return httpResponse;
     }
 
     /**

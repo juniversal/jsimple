@@ -1,7 +1,7 @@
 package jsimple.oauth.model;
 
-import jsimple.net.HttpRequest;
 import jsimple.io.IOUtils;
+import jsimple.net.HttpRequest;
 import jsimple.net.Url;
 import jsimple.oauth.exceptions.OAuthConnectionException;
 import jsimple.oauth.exceptions.OAuthException;
@@ -59,9 +59,8 @@ public class Request {
 
     private void createConnection() {
         String completeUrl = getCompleteUrl();
-        if (httpRequest == null) {
+        if (httpRequest == null)
             httpRequest = new HttpRequest(completeUrl);
-        }
     }
 
     /**
@@ -79,25 +78,32 @@ public class Request {
 
         httpReq.setMethod(getMethodForVerb(this.verb));
 
-        if (timeout != null) {
+        if (timeout != null)
             httpReq.setTimeout(timeout.intValue());
-        }
+
         addHeaders(httpReq);
+
         if (verb.equals(Verb.PUT) || verb.equals(Verb.POST)) {
             int[] length = new int[1];
             byte[] bodyBytes = getByteBodyContents(length);
             addBody(httpReq, bodyBytes, 0, length[0]);
         }
+
         return new Response(httpReq);
     }
 
     public static String getMethodForVerb(Verb verb) {
         switch (verb) {
-            case POST: return HttpRequest.METHOD_POST;
-            case DELETE: return HttpRequest.METHOD_DELETE;
-            case GET: return HttpRequest.METHOD_GET;
-            case PUT: return HttpRequest.METHOD_PUT;
-            default: throw new RuntimeException("Unknown verb: " + verb);
+            case POST:
+                return HttpRequest.METHOD_POST;
+            case DELETE:
+                return HttpRequest.METHOD_DELETE;
+            case GET:
+                return HttpRequest.METHOD_GET;
+            case PUT:
+                return HttpRequest.METHOD_PUT;
+            default:
+                throw new RuntimeException("Unknown verb: " + verb);
         }
     }
 
@@ -222,9 +228,12 @@ public class Request {
     }
 
     byte[] getByteBodyContents(int[] length) {
-        if (bytePayload != null) return bytePayload;
-        String body = (payload != null) ? payload : bodyParams.asFormUrlEncodedString();
+        if (bytePayload != null) {
+            length[0] = bytePayload.length;
+            return bytePayload;
+        }
 
+        String body = (payload != null) ? payload : bodyParams.asFormUrlEncodedString();
         return IOUtils.toUtf8BytesFromString(body, length);
     }
 
