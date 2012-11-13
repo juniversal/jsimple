@@ -17,7 +17,7 @@ package jsimple.io;
  * @see jsimple.io.OutputStream
  * @since 10/7/12 12:31 AM
  */
-public abstract class InputStream {
+public abstract class InputStream extends java.io.InputStream {
     /**
      * Closes this stream.  If the stream is already closed, then this method should do nothing.  Concrete
      * implementations of this class should free any resources during close.
