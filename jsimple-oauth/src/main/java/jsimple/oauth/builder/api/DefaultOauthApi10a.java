@@ -25,7 +25,7 @@ import jsimple.oauth.services.TimestampServiceImpl;
  *
  * @author Pablo Fernandez
  */
-public abstract class DefaultApi10a implements Api {
+public abstract class DefaultOAuthApi10a implements OAuthApi {
     /**
      * Returns the access token extractor.
      *
@@ -85,7 +85,7 @@ public abstract class DefaultApi10a implements Api {
      *
      * @return access token endpoint verb
      */
-    public Verb getAccessTokenVerb() {
+    public String getAccessTokenVerb() {
         return Verb.POST;
     }
 
@@ -94,7 +94,7 @@ public abstract class DefaultApi10a implements Api {
      *
      * @return request token endpoint verb
      */
-    public Verb getRequestTokenVerb() {
+    public String getRequestTokenVerb() {
         return Verb.POST;
     }
 

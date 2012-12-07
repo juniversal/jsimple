@@ -5,7 +5,7 @@ import jsimple.oauth.extractors.JsonTokenExtractor;
 import jsimple.oauth.model.OAuthConfig;
 import jsimple.oauth.utils.OAuthEncoder;
 
-public class LiveApi extends DefaultApi20 {
+public class LiveOAuthApi extends DefaultOAuthApi20 {
     @Override public String getAccessTokenEndpoint() {
         return "https://oauth.live.com/token?grant_type=authorization_code";
     }

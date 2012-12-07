@@ -1,7 +1,6 @@
 package jsimple.oauth.builder;
 
-import jsimple.oauth.builder.api.Api;
-import jsimple.oauth.exceptions.OAuthException;
+import jsimple.oauth.builder.api.OAuthApi;
 import jsimple.oauth.model.OAuthConfig;
 import jsimple.oauth.model.OAuthConstants;
 import jsimple.oauth.model.OAuthLogger;
@@ -19,7 +18,7 @@ public class ServiceBuilder {
     private @Nullable String apiKey;
     private @Nullable String apiSecret;
     private String callback;
-    private @Nullable Api api;
+    private @Nullable OAuthApi api;
     private @Nullable String scope;
     private SignatureType signatureType;
     private @Nullable OAuthLogger debugLogger;
@@ -34,37 +33,14 @@ public class ServiceBuilder {
     }
 
     /**
-     * Configures the {@link Api}
-     *
-     * @param apiClass the class of one of the existent {@link Api}s on org.scribe.api package
-     * @return the {@link ServiceBuilder} instance for method chaining
-     */
-    public ServiceBuilder provider(Class<? extends Api> apiClass) {
-        this.api = createApi(apiClass);
-        return this;
-    }
-
-    private Api createApi(Class<? extends Api> apiClass) {
-        assert apiClass != null : "Api class cannot be null";
-
-        Api api;
-        try {
-            api = apiClass.newInstance();
-        } catch (Exception e) {
-            throw new OAuthException("Error while creating the Api object", e);
-        }
-        return api;
-    }
-
-    /**
-     * Configures the {@link Api}
+     * Configures the {@link jsimple.oauth.builder.api.OAuthApi}
      * <p/>
      * Overloaded version. Let's you use an instance instead of a class.
      *
-     * @param api instance of {@link Api}s
+     * @param api instance of {@link jsimple.oauth.builder.api.OAuthApi}s
      * @return the {@link ServiceBuilder} instance for method chaining
      */
-    public ServiceBuilder provider(Api api) {
+    public ServiceBuilder provider(OAuthApi api) {
         assert api != null : "Api cannot be null";
         this.api = api;
         return this;
@@ -89,7 +65,7 @@ public class ServiceBuilder {
      * @return the {@link ServiceBuilder} instance for method chaining
      */
     public ServiceBuilder apiKey(String apiKey) {
-        assert apiKey != null && !apiKey.isEmpty() : "Invalid Api key";
+        assert !apiKey.isEmpty() : "Invalid Api key";
         this.apiKey = apiKey;
         return this;
     }
@@ -101,7 +77,7 @@ public class ServiceBuilder {
      * @return the {@link ServiceBuilder} instance for method chaining
      */
     public ServiceBuilder apiSecret(String apiSecret) {
-        assert apiSecret != null && !apiSecret.isEmpty() : "Invalid Api secret";
+        assert !apiSecret.isEmpty() : "Invalid Api secret";
         this.apiSecret = apiSecret;
         return this;
     }
@@ -113,7 +89,7 @@ public class ServiceBuilder {
      * @return the {@link ServiceBuilder} instance for method chaining
      */
     public ServiceBuilder scope(String scope) {
-        assert scope != null && !scope.isEmpty() : "Invalid OAuth scope";
+        assert !scope.isEmpty() : "Invalid OAuth scope";
         this.scope = scope;
         return this;
     }
@@ -125,7 +101,6 @@ public class ServiceBuilder {
      * @return the {@link ServiceBuilder} instance for method chaining
      */
     public ServiceBuilder signatureType(SignatureType type) {
-        assert type != null : "Signature type can't be null";
         this.signatureType = type;
         return this;
     }

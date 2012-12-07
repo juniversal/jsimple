@@ -1,12 +1,12 @@
 package jsimple.oauth.oauth;
 
-import jsimple.oauth.builder.api.DefaultApi20;
+import jsimple.oauth.builder.api.DefaultOAuthApi20;
 import jsimple.oauth.model.*;
 
 public class OAuth20ServiceImpl implements OAuthService {
     private static final String VERSION = "2.0";
 
-    private final DefaultApi20 api;
+    private final DefaultOAuthApi20 api;
     private final OAuthConfig config;
 
     /**
@@ -15,7 +15,7 @@ public class OAuth20ServiceImpl implements OAuthService {
      * @param api    OAuth2.0 api information
      * @param config OAuth 2.0 configuration param object
      */
-    public OAuth20ServiceImpl(DefaultApi20 api, OAuthConfig config) {
+    public OAuth20ServiceImpl(DefaultOAuthApi20 api, OAuthConfig config) {
         this.api = api;
         this.config = config;
     }

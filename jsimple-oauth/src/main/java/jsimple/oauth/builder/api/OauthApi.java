@@ -8,7 +8,7 @@ import jsimple.oauth.oauth.OAuthService;
  *
  * @author Pablo Fernandez
  */
-public interface Api {
+public interface OAuthApi {
     /**
      * Creates an {@link OAuthService}
      *

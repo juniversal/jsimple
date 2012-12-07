@@ -21,4 +21,20 @@ public class PlatformUtilsBase {
      * @return number of milliseconds since 1/1/70 UTC/GMT
      */
     //public static long getCurrentTimeMillis()
+
+    /**
+     * Sort the elements of the list in their natural order (that is, as specified by the Comparable interface they
+     * implement).  The sortList isn't guaranteed to be stable (it actually is in the Java version but not in the C# version).
+     *
+     * @param list input list
+     * @param <T>  list element type
+     */
+    //public static <T extends Comparable<? super T>> void sortList(List<T> list)
+
+    /**
+     * Get the default line separator (typically newline or carriage return/newline) for the platform.
+     *
+     * @return default line separator for the platform
+     */
+    //public static String getLineSeparator();
 }

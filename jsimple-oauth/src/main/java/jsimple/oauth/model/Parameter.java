@@ -21,16 +21,19 @@ public class Parameter implements Comparable<Parameter> {
         return OAuthEncoder.encode(key).concat("=").concat(OAuthEncoder.encode(value));
     }
 
-    public boolean equals(@Nullable Object other) {
-        if (other == null) return false;
-        if (other == this) return true;
-        if (!(other instanceof Parameter)) return false;
+    @Override public boolean equals(@Nullable Object other) {
+        if (other == null)
+            return false;
+        if (other == this)
+            return true;
 
+        if (!(other instanceof Parameter))
+            return false;
         Parameter otherParam = (Parameter) other;
         return otherParam.key.equals(key) && otherParam.value.equals(value);
     }
 
-    public int hashCode() {
+    @Override public int hashCode() {
         return key.hashCode() + value.hashCode();
     }
 

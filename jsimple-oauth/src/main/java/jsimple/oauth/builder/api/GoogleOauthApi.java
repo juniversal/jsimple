@@ -3,7 +3,7 @@ package jsimple.oauth.builder.api;
 import jsimple.oauth.model.Token;
 import jsimple.oauth.model.Verb;
 
-public class GoogleApi extends DefaultApi10a {
+public class GoogleOAuthApi extends DefaultOAuthApi10a {
     @Override public String getAccessTokenEndpoint() {
         return "https://www.google.com/accounts/OAuthGetAccessToken";
     }
@@ -12,11 +12,11 @@ public class GoogleApi extends DefaultApi10a {
         return "https://www.google.com/accounts/OAuthGetRequestToken";
     }
 
-    @Override public Verb getAccessTokenVerb() {
+    @Override public String getAccessTokenVerb() {
         return Verb.GET;
     }
 
-    @Override public Verb getRequestTokenVerb() {
+    @Override public String getRequestTokenVerb() {
         return Verb.GET;
     }
 

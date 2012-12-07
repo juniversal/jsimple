@@ -1,41 +1,40 @@
 package jsimple.oauth.model;
 
 import jsimple.oauth.utils.OAuthEncoder;
+import jsimple.util.PlatformUtils;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: Pablo Fernandez
  */
 public class ParameterList {
-    private static final char QUERY_STRING_SEPARATOR = '?';
+    private static final char QUERY_STRING_SEPARATOR_CHAR = '?';
+    private static final String QUERY_STRING_SEPARATOR = "?";
     private static final String PARAM_SEPARATOR = "&";
     private static final String PAIR_SEPARATOR = "=";
     private static final String EMPTY_STRING = "";
 
-    private final List<Parameter> params;
+    private final ArrayList<Parameter> parameters;
 
     public ParameterList() {
-        params = new ArrayList<Parameter>();
+        parameters = new ArrayList<Parameter>();
     }
 
-    ParameterList(List<Parameter> params) {
-        this.params = new ArrayList<Parameter>(params);
+    ParameterList(List<Parameter> parameters) {
+        this.parameters = new ArrayList<Parameter>(parameters);
     }
 
     public ParameterList(Map<String, String> map) {
         this();
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            params.add(new Parameter(entry.getKey(), entry.getValue()));
+            parameters.add(new Parameter(entry.getKey(), entry.getValue()));
         }
     }
 
     public void add(String key, String value) {
-        params.add(new Parameter(key, value));
+        parameters.add(new Parameter(key, value));
     }
 
     public String appendTo(String url) {
@@ -45,7 +44,7 @@ public class ParameterList {
         if (queryString.equals(EMPTY_STRING)) {
             return url;
         } else {
-            url += url.indexOf(QUERY_STRING_SEPARATOR) != -1 ? PARAM_SEPARATOR : QUERY_STRING_SEPARATOR;
+            url += url.indexOf(QUERY_STRING_SEPARATOR_CHAR) != -1 ? PARAM_SEPARATOR : QUERY_STRING_SEPARATOR;
             url += queryString;
             return url;
         }
@@ -56,17 +55,20 @@ public class ParameterList {
     }
 
     public String asFormUrlEncodedString() {
-        if (params.size() == 0) return EMPTY_STRING;
+        if (parameters.size() == 0)
+            return EMPTY_STRING;
 
         StringBuilder builder = new StringBuilder();
-        for (Parameter p : params) {
-            builder.append('&').append(p.asUrlEncodedPair());
+        for (Parameter p : parameters) {
+            builder.append('&');
+            builder.append(p.asUrlEncodedPair());
         }
+
         return builder.toString().substring(1);
     }
 
     public void addAll(ParameterList other) {
-        params.addAll(other.params);
+        parameters.addAll(other.parameters);
     }
 
     public void addQueryString(@Nullable String queryString) {
@@ -75,22 +77,22 @@ public class ParameterList {
                 String pair[] = param.split(PAIR_SEPARATOR);
                 String key = OAuthEncoder.decode(pair[0]);
                 String value = pair.length > 1 ? OAuthEncoder.decode(pair[1]) : EMPTY_STRING;
-                params.add(new Parameter(key, value));
+                parameters.add(new Parameter(key, value));
             }
         }
     }
 
     public boolean contains(Parameter param) {
-        return params.contains(param);
+        return parameters.contains(param);
     }
 
     public int size() {
-        return params.size();
+        return parameters.size();
     }
 
     public ParameterList sort() {
-        ParameterList sorted = new ParameterList(params);
-        Collections.sort(sorted.params);
+        ParameterList sorted = new ParameterList(parameters);
+        PlatformUtils.sortList(sorted.parameters);
         return sorted;
     }
 }

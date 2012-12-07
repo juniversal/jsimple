@@ -1,5 +1,8 @@
 package jsimple.util;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author Bret Johnson
  * @since 10/21/12 10:39 PM
@@ -14,5 +17,20 @@ public class PlatformUtils extends PlatformUtilsBase {
      */
     public static long getCurrentTimeMillis() {
         return System.currentTimeMillis();
+    }
+
+    public static <T extends Comparable<? super T>> void sortList(List<T> list) {
+        Collections.sort(list);
+    }
+
+    private static String lineSeparator = System.getProperty("line.separator");
+
+    /**
+     * Get the default line separator (typically newline or carriage return/newline) for the platform.
+     *
+     * @return default line separator for the platform
+     */
+    public static String getLineSeparator() {
+        return lineSeparator;
     }
 }

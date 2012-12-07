@@ -130,6 +130,17 @@ public class Base64 {
     }
 
     /**
+     * Encodes binary data using the base64 algorithm but does not chunk the output.  Returns the Base64 data as a
+     * string (which contains at most 64 unique characters).
+     *
+     * @param binaryData binary data to encode
+     * @return Base64 characters, as a string
+     */
+    public static String encodeBase64AsString(byte[] binaryData) {
+        return StringUtils.toStringFromLatin1Bytes(encodeBase64(binaryData, false));
+    }
+
+    /**
      * Encodes binary data using the base64 algorithm, optionally chunking the output into 76 character blocks.
      *
      * @param binaryData Array containing binary data to encode.
@@ -156,7 +167,6 @@ public class Base64 {
         // for compliance with RFC 2045 MIME, then it is important to
         // allow for extra length to account for the separator(s)
         if (isChunked) {
-
             nbrChunks =
                     (CHUNK_SEPARATOR.length == 0 ? 0 : (int) Math.ceil((float) encodedDataLength / CHUNK_SIZE));
             encodedDataLength += nbrChunks * CHUNK_SEPARATOR.length;

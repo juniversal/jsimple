@@ -19,7 +19,7 @@ public class Request {
     public static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
 
     private String url;
-    private Verb verb;
+    private String verb;
     private ParameterList querystringParams;
     private ParameterList bodyParams;
     private Map<String, String> headers;
@@ -34,7 +34,7 @@ public class Request {
      * @param verb Http Verb (GET, POST, etc)
      * @param url  url with optional querystring parameters.
      */
-    public Request(Verb verb, String url) {
+    public Request(String verb, String url) {
         this.verb = verb;
         this.url = url;
         this.querystringParams = new ParameterList();
@@ -76,35 +76,20 @@ public class Request {
         HttpRequest httpReq = httpRequest;
         assert httpReq != null : "nullness";
 
-        httpReq.setMethod(getMethodForVerb(this.verb));
+        httpReq.setMethod(this.verb);
 
         if (timeout != null)
             httpReq.setTimeout(timeout.intValue());
 
         addHeaders(httpReq);
 
-        if (verb.equals(Verb.PUT) || verb.equals(Verb.POST)) {
+        if (verb.equals("PUT") || verb.equals("POST")) {
             int[] length = new int[1];
             byte[] bodyBytes = getByteBodyContents(length);
             addBody(httpReq, bodyBytes, 0, length[0]);
         }
 
         return new Response(httpReq);
-    }
-
-    public static String getMethodForVerb(Verb verb) {
-        switch (verb) {
-            case POST:
-                return HttpRequest.METHOD_POST;
-            case DELETE:
-                return HttpRequest.METHOD_DELETE;
-            case GET:
-                return HttpRequest.METHOD_GET;
-            case PUT:
-                return HttpRequest.METHOD_PUT;
-            default:
-                throw new RuntimeException("Unknown verb: " + verb);
-        }
     }
 
     void addHeaders(HttpRequest httpRequest) {
@@ -242,7 +227,7 @@ public class Request {
      *
      * @return the verb
      */
-    public Verb getVerb() {
+    public String getVerb() {
         return verb;
     }
 

@@ -21,7 +21,7 @@ import jsimple.oauth.oauth.OAuthService;
  *
  * @author Diego Silveira
  */
-public abstract class DefaultApi20 implements Api {
+public abstract class DefaultOAuthApi20 implements OAuthApi {
 
     /**
      * Returns the access token extractor.
@@ -37,7 +37,7 @@ public abstract class DefaultApi20 implements Api {
      *
      * @return access token endpoint verb
      */
-    public Verb getAccessTokenVerb() {
+    public String getAccessTokenVerb() {
         return Verb.GET;
     }
 

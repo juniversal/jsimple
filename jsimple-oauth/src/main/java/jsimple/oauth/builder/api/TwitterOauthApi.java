@@ -2,7 +2,7 @@ package jsimple.oauth.builder.api;
 
 import jsimple.oauth.model.Token;
 
-public class TwitterApi extends DefaultApi10a {
+public class TwitterOAuthApi extends DefaultOAuthApi10a {
     private static final String REQUEST_TOKEN_RESOURCE = "api.twitter.com/oauth/request_token";
     private static final String ACCESS_TOKEN_RESOURCE = "api.twitter.com/oauth/access_token";
 
@@ -18,7 +18,7 @@ public class TwitterApi extends DefaultApi10a {
         return "https://api.twitter.com/oauth/authorize?oauth_token=" + requestToken.getTokenString();
     }
 
-    public static class SSL extends TwitterApi {
+    public static class SSL extends TwitterOAuthApi {
         @Override public String getAccessTokenEndpoint() {
             return "https://" + ACCESS_TOKEN_RESOURCE;
         }

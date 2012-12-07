@@ -9,7 +9,7 @@
     <ProjectGuid>{D5280736-3D7C-4E0A-9717-811ADEDB14A6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>jsimple_oauth</RootNamespace>
+    <RootNamespace>jsimple</RootNamespace>
     <AssemblyName>jsimple-oauth</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>

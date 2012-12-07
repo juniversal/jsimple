@@ -11,18 +11,15 @@ import jsimple.oauth.utils.OAuthEncoder;
  * @author Pablo Fernandez
  */
 public class BaseStringExtractorImpl implements BaseStringExtractor {
-
-    private static final String AMPERSAND_SEPARATED_STRING = "%s&%s&%s";
-
     /**
      * {@inheritDoc}
      */
     public String extract(OAuthRequest request) {
         checkPreconditions(request);
-        String verb = OAuthEncoder.encode(request.getVerb().name());
+        String verb = OAuthEncoder.encode(request.getVerb());
         String url = OAuthEncoder.encode(request.getSanitizedUrl());
         String params = getSortedAndEncodedParams(request);
-        return String.format(AMPERSAND_SEPARATED_STRING, verb, url, params);
+        return verb + "&" + url + "&" + params;
     }
 
     private String getSortedAndEncodedParams(OAuthRequest request) {
@@ -34,10 +31,7 @@ public class BaseStringExtractorImpl implements BaseStringExtractor {
     }
 
     private void checkPreconditions(OAuthRequest request) {
-        assert request != null : "Cannot extract base string from null object";
-
-        if (request.getOauthParameters() == null || request.getOauthParameters().size() <= 0) {
+        if (request.getOauthParameters() == null || request.getOauthParameters().size() <= 0)
             throw new OAuthParametersMissingException(request);
-        }
     }
 }

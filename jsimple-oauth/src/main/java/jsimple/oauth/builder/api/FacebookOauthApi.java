@@ -3,7 +3,7 @@ package jsimple.oauth.builder.api;
 import jsimple.oauth.model.OAuthConfig;
 import jsimple.oauth.utils.OAuthEncoder;
 
-public class FacebookApi extends DefaultApi20 {
+public class FacebookOAuthApi extends DefaultOAuthApi20 {
     private static final String AUTHORIZE_URL = "https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s";
     private static final String SCOPED_AUTHORIZE_URL = AUTHORIZE_URL + "&scope=%s";
 

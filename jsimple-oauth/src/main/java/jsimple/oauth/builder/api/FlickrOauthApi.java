@@ -8,7 +8,7 @@ import jsimple.oauth.model.Token;
  * @author Darren Greaves
  * @see <a href="http://www.flickr.com/services/api/">Flickr API</a>
  */
-public class FlickrApi extends DefaultApi10a {
+public class FlickrOAuthApi extends DefaultOAuthApi10a {
 
     /**
      * {@inheritDoc}

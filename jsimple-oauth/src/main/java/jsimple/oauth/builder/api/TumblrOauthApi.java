@@ -2,7 +2,7 @@ package jsimple.oauth.builder.api;
 
 import jsimple.oauth.model.Token;
 
-public class TumblrApi extends DefaultApi10a {
+public class TumblrOAuthApi extends DefaultOAuthApi10a {
     private static final String REQUEST_TOKEN_RESOURCE = "http://www.tumblr.com/oauth/request_token";
     private static final String ACCESS_TOKEN_RESOURCE = "http://www.tumblr.com/oauth/access_token";
 

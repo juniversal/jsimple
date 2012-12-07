@@ -46,7 +46,7 @@ final class Token {
                 return primitiveValue.toString();
             else if (primitiveValue instanceof String)
                 return "\"" + primitiveValue.toString() + "\"";
-            else throw new JsonException("Unknown token primitive type") ;
+            else throw new JsonException("Unknown token primitive type");
         } else return getTokenTypeDescription(type);
     }
 
@@ -283,7 +283,7 @@ final class Token {
             return (char) ((int) '0' + num);
         else if (num >= 10 && num <= 15)
             return (char) ((int) 'a' + (num - 10));
-        else throw new JsonException("Digit " + num + " should be < 16 (and > 0) in call to numToHexDigitChar") ;
+        else throw new JsonException("Digit " + num + " should be < 16 (and > 0) in call to numToHexDigitChar");
     }
 
     private Object readNumberToken(char lookahead) {
@@ -312,9 +312,12 @@ final class Token {
 
                 value = 10 * value + digit;
                 ++currIndex;
-            } else if (lookahead == '.')
-                throw new JsonParsingException("Floating point numbers aren't currently supported", this);
-            else if (lookahead == 'e' || lookahead == 'E')
+            } else if (lookahead == '.') {
+                double doubleValue = (double) value + readFractionalPartOfDouble();
+                if (negative)
+                    doubleValue = -doubleValue;
+                return doubleValue;
+            } else if (lookahead == 'e' || lookahead == 'E')
                 throw new JsonParsingException("Numbers in scientific notation aren't currently supported", this);
             else break;
         }
@@ -325,6 +328,38 @@ final class Token {
         if (value <= Integer.MAX_VALUE && value >= Integer.MIN_VALUE)
             return (Integer) ((int) value);
         else return (Long) value;
+    }
+
+    /**
+     * Parse and return the fractional part of a floating point number--the decimal point and what's after it.  Note
+     * that our implementation is somewhat more forgiving than the JSON standard in that "123." is treated as valid-- it
+     * doesn't require a digit to follow the decimal point.   Scientific notation is currently not supported--if that's
+     * ever needed, we can implement it.
+     *
+     * @return double representing what follows the decimal point; the returned value is >= 0 and < 1
+     */
+    private double readFractionalPartOfDouble() {
+        if (lookaheadChar() != '.')
+            throw new JsonParsingException("Expected fraction to start with a '.'", this);
+        ++currIndex;
+
+        double value = 0;
+        double place = 0.1;
+
+        while (true) {
+            char lookahead = lookaheadChar();
+            if (lookahead >= '0' && lookahead <= '9') {
+                int digit = lookahead - '0';
+                ++currIndex;
+
+                value += digit * place;
+                place /= 10;
+            } else if (lookahead == 'e' || lookahead == 'E')
+                throw new JsonParsingException("Numbers in scientific notation aren't currently supported", this);
+            else break;
+        }
+
+        return value;
     }
 
     static String getTokenTypeDescription(TokenType type) {
@@ -346,7 +381,7 @@ final class Token {
             case EOF:
                 return "end of JSON text";
             default:
-                throw new JsonException("Unknown TokenType: " + type.toString()) ;
+                throw new JsonException("Unknown TokenType: " + type.toString());
         }
     }
 }

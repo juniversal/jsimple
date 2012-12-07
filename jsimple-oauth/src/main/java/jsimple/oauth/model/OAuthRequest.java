@@ -20,7 +20,7 @@ public class OAuthRequest extends Request {
      * @param verb Http verb/method
      * @param url  resource URL
      */
-    public OAuthRequest(Verb verb, String url) {
+    public OAuthRequest(String verb, String url) {
         super(verb, url);
         this.oauthParameters = new HashMap<String, String>();
     }

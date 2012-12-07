@@ -11,7 +11,7 @@ import jsimple.util.StringUtils;
 public class Sha1 {
     public final static int SIZE = 20;
 
-    private int[] m_state = new int[]{0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0};
+    private int[] m_state = new int[]{0x67452301, -271733879, -1732584194, 0x10325476, -1009589776};
     private long m_lCount = 0;
     private byte[] m_digestBits = new byte[SIZE];
     private int[] m_block = new int[16];
@@ -27,7 +27,7 @@ public class Sha1 {
     private final int blk0(final int nI) {
         final int[] b = m_block;
         return b[nI] =
-                ((rol(b[nI], 24) & 0xff00ff00) |
+                ((rol(b[nI], 24) & -16711936) |           // Need to express as negative decimal, not hex, so C# treats as int, not long
                         (rol(b[nI], 8) & 0x00ff00ff));
     }
 
@@ -111,7 +111,7 @@ public class Sha1 {
                     data[nZ]
                             += (((data[nW] | data[nX]) & data[nY]) | (data[nW] & data[nX]))
                             + blk(nI)
-                            + 0x8f1bbcdc
+                            + -1894007588        // Need to express as negative decimal, not hex, so C# treats as int, not long
                             + rol(data[nV], 5);
                     data[nW] = rol(data[nW], 30);
                     if (nI == 59) {
@@ -124,7 +124,7 @@ public class Sha1 {
                 case 4: {
                     data[nZ] += (data[nW] ^ data[nX] ^ data[nY])
                             + blk(nI)
-                            + 0xca62c1d6
+                            + -899497514        // Need to express as negative decimal, not hex, so C# treats as int, not long
                             + rol(data[nV], 5);
                     data[nW] = rol(data[nW], 30);
                 }
@@ -179,7 +179,7 @@ public class Sha1 {
             bits[nI] = (byte) ((m_lCount >>> (((7 - nI) << 3))) & 0xff);
         }
 
-        update((byte) 128);
+        update((byte) -128);            // Was 128 in original code but -128 for signed byte 0x80 is more correct
         while (m_nBlockIndex != 56) {
             update((byte) 0);
         }
@@ -210,7 +210,7 @@ public class Sha1 {
     * makes a binhex string representation of the current digest
     * @return the string representation
     */
-    public String toString() {
+    @Override public String toString() {
         return StringUtils.toHexStringFromBytes(m_digestBits);
     }
 

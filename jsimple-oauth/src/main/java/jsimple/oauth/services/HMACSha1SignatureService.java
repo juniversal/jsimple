@@ -1,10 +1,10 @@
 package jsimple.oauth.services;
 
-import jsimple.base64.Base64;
 import jsimple.io.IOUtils;
 import jsimple.oauth.exceptions.OAuthSignatureException;
 import jsimple.oauth.utils.OAuthEncoder;
 import jsimple.oauth.utils.Sha1;
+import jsimple.util.Base64;
 
 /**
  * HMAC-SHA1 implementation of {@SignatureService}
@@ -12,10 +12,6 @@ import jsimple.oauth.utils.Sha1;
  * @author Pablo Fernandez
  */
 public class HMACSha1SignatureService implements SignatureService {
-    private static final String EMPTY_STRING = "";
-    private static final String CARRIAGE_RETURN = "\r\n";
-    private static final String UTF8 = "UTF-8";
-    private static final String HMAC_SHA1 = "HmacSHA1";
     private static final String METHOD = "HMAC-SHA1";
 
     /**
@@ -32,11 +28,11 @@ public class HMACSha1SignatureService implements SignatureService {
         }
     }
 
-    private String doSign(String toSign, String keyString) throws Exception {
+    private String doSign(String toSign, String keyString) {
         //byte[] toUtf8BytesFromString(String s, int[] length) {
 
         byte[] signature = Sha1.mac(IOUtils.toUtf8BytesFromString(keyString), IOUtils.toUtf8BytesFromString(toSign));
-        return new String(Base64.encodeBase64(signature)).replace(CARRIAGE_RETURN, EMPTY_STRING);
+        return Base64.encodeBase64AsString(signature);
 
         /*
         SecretKeySpec key = new SecretKeySpec(keyString.getBytes(UTF8), HMAC_SHA1);

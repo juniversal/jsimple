@@ -3,6 +3,7 @@ package jsimple.json;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Bret Johnson
@@ -120,9 +121,30 @@ public class TokenTest {
         validateParsingException("Negative number is too big, overflowing the size of a long",
                 "-999999999999999999999999999999");
 
-        validateParsingException("Floating point numbers aren't currently supported", "123.45");
+        validateFloatingPointNumberToken(123.3, "123.3");
+        validateFloatingPointNumberToken(-123.0, "-123.");
+        validateFloatingPointNumberToken(-123.0, "-123.0");
+
+        validateFloatingPointNumberToken(-0.1, "-0.1");
+        validateFloatingPointNumberToken(-0.1, "-0.1000000");
+        validateFloatingPointNumberToken(-1.0, "-1.0000");
+        validateFloatingPointNumberToken(11.010, "11.010");
+
+        validateFloatingPointNumberToken(11., "11.");
+        validateParsingException("Expected a digit to follow a minus sign", "-.1");
+
+        // 17 digits is about at the limit of precision for a double--17 digit precision is preserved, 18 is not
+        Token token = new Token("123456789012345.11");
+        assertNotSame(123456789012345.12, token.getPrimitiveValue());
+        validateFloatingPointNumberToken(123456789012345.111, "123456789012345.112");
+
+        validateParsingException("Unexpected character '.' in JSON; if that character should start a string, it must be quoted", ".23");
         validateParsingException("Numbers in scientific notation aren't currently supported", "123e5");
         validateParsingException("Numbers in scientific notation aren't currently supported", "123E5");
+
+        validateParsingException("Numbers in scientific notation aren't currently supported", "123.2e5");
+        validateParsingException("Numbers in scientific notation aren't currently supported", "123.E5");
+        validateParsingException("Numbers in scientific notation aren't currently supported", "123.12E5");
     }
 
     private void validateNumberToken(Integer expectedPrimitiveValue, String numberToken) {
@@ -132,6 +154,11 @@ public class TokenTest {
 
     private void validateNumberToken(Long expectedPrimitiveValue, String numberToken) {
         Token token = new Token(numberToken);
+        assertEquals(expectedPrimitiveValue, token.getPrimitiveValue());
+    }
+
+    private void validateFloatingPointNumberToken(Double expectedPrimitiveValue, String doubleToken) {
+        Token token = new Token(doubleToken);
         assertEquals(expectedPrimitiveValue, token.getPrimitiveValue());
     }
 

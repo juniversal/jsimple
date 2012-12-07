@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+<module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
@@ -19,7 +19,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.intellij:annotations:9.0.4" level="project" />
-    <orderEntry type="library" name="Maven: com.nokia.jsimple:jsimple-base64:1.0-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="jsimple-util" />
     <orderEntry type="library" name="Maven: types.checkers:jsr308-all:1.2.6" level="project" />
     <orderEntry type="module" module-name="jsimple-io" />

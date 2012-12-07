@@ -5,6 +5,9 @@ package jsimple.oauth.model;
  *
  * @author Pablo Fernandez
  */
-public enum Verb {
-    GET, POST, PUT, DELETE
+public class Verb {
+    public static final String GET = "GET";
+    public static final String POST = "POST";
+    public static final String PUT = "PUT";
+    public static final String DELETE = "DELETE";
 }
