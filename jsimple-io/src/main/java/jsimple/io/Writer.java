@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import jsimple.util.PlatformUtils;
+
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.Writer class.  Unlike the standard Java Writer
  * class, this doesn't do locking and doesn't throw any checked exceptions.
@@ -15,6 +17,8 @@ package jsimple.io;
  * @see Reader
  */
 public abstract class Writer {
+    private String lineSeparator = PlatformUtils.getLineSeparator();
+
     /**
      * Closes this writer. Implementations of this method should free any resources associated with the writer.
      *
@@ -86,5 +90,40 @@ public abstract class Writer {
         str.getChars(offset, offset + count, charBuffer, 0);
 
         write(charBuffer, 0, charBuffer.length);
+    }
+
+    /**
+     * Get the line separator being used for this writer.  By default, it's the platform default line separator.
+     *
+     * @return current line separator
+     */
+    public String getLineSeparator() {
+        return lineSeparator;
+    }
+
+    /**
+     * Set the line separator for this writer.
+     *
+     * @param lineSeparator line separator
+     */
+    public void setLineSeparator(String lineSeparator) {
+        this.lineSeparator = lineSeparator;
+    }
+
+    /**
+     * Write the line separator.
+     */
+    public final void writeln() {
+        write(lineSeparator);
+    }
+
+    /**
+     * Writes the characters from the specified string followed by a line separator.
+     *
+     * @param str string to write
+     */
+    public final void writeln(String str) {
+        write(str);
+        writeln();
     }
 }

@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import jsimple.util.StringUtils;
+
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.OutputStream class.  Unlike the standard Java
  * OutputStream class, this doesn't throw any checked exceptions.
@@ -41,7 +43,7 @@ public abstract class OutputStream {
      * @param buffer the buffer to be written
      * @throws IOException if an error occurs while writing to this stream
      */
-    public void write(byte buffer[]) throws IOException {
+    public void write(byte buffer[]) {
         write(buffer, 0, buffer.length);
     }
 
@@ -66,7 +68,7 @@ public abstract class OutputStream {
      * @param oneByte the byte to be written.
      * @throws java.io.IOException if an error occurs while writing to this stream.
      */
-    public abstract void write(int oneByte) throws IOException;
+    public abstract void write(int oneByte);
 
     /**
      * Write the string, assumed to contain only Latin1 characters (Unicode low 256 characters), to the stream.  A
@@ -76,7 +78,7 @@ public abstract class OutputStream {
      * @param s string to write
      */
     public void writeLatin1EncodedString(String s) {
-        write(IOUtils.toLatin1BytesFromString(s));
+        write(StringUtils.toLatin1BytesFromString(s));
     }
 
     /**

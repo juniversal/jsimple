@@ -3,7 +3,7 @@ package jsimple.net;
 import jsimple.io.OutputStream;
 
 /**
- * This class handles http connectivity.  It's based on a subset of the standard Java java.net.HttpURLConnection class,
+ * This class handles HTTP connectivity.  It's based on a subset of the standard Java java.net.HttpURLConnection class,
  * with some changes (to improve names, get rid of checked exceptions, etc.).
  * <p/>
  * From the doc for java.net.HttpURLConnection:  Each instance of this class is used to make a single request but the

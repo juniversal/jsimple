@@ -45,11 +45,8 @@ public class ByteArrayOutputStream extends OutputStream {
      * Closes this stream. This releases system resources used for this stream.
      */
     @Override public void close() {
-        /**
-         * Although the spec claims "A closed stream cannot perform output
-         * operations and cannot be reopened.", this implementation must do
-         * nothing.
-         */
+        // Although the spec claims "A closed stream cannot perform output operations and cannot be reopened.", this
+        // implementation must do nothing.
         super.close();
     }
 

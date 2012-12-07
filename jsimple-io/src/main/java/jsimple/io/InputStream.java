@@ -27,6 +27,10 @@ public abstract class InputStream extends java.io.InputStream {
     public void close() {
     }
 
+    @Override protected void finalize() {
+        close();
+    }
+
     /**
      * Reads a single byte from this stream and returns it as an integer in the range from 0 to 255. Returns -1 if the
      * end of the stream has been reached. Blocks until one byte has been read, the end of the source stream is detected

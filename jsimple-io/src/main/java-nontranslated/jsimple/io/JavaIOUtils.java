@@ -20,6 +20,8 @@ public class JavaIOUtils {
     public static IOException jSimpleExceptionFromJavaIOException(java.io.IOException e) {
         IOException jSimpleIOException;
         String message = e.getMessage();
+        if (message == null)
+            message = "";
 
         if (e instanceof java.net.SocketTimeoutException)
             jSimpleIOException = new SocketTimeoutException(message);

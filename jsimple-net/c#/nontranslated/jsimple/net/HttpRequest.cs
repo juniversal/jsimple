@@ -8,32 +8,45 @@ using System.Threading.Tasks;
 
 namespace jsimple.net
 {
-    class HttpRequest : HttpRequestBase
+    public class HttpRequest : HttpRequestBase
     {
         private HttpWebRequest httpWebRequest;
-        private OutputStream bodyStream;
-        private int timeout;
 
         public HttpRequest(String url)
         {
             httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
         }
 
-        public string Method
+        public override string Method
         {
-            set
-            {
-                httpWebRequest.Method = value;
-            }
+            set { throw new NotImplementedException(); }
         }
 
-        public int Timeout
+        public override int Timeout
         {
-            set
-            {
-                timeout = value;
-            }
+            set { throw new NotImplementedException(); }
         }
+
+        public override void setHeader(string name, string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string getHeader(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override OutputStream RequestBodyStream
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override HttpResponse Response
+        {
+            get { throw new NotImplementedException(); }
+        }
+
 
 #if false
 
@@ -57,7 +70,7 @@ namespace jsimple.net
                 httpUrlConnection.setDoOutput(true);
                 bodyStream = new JSimpleOutputStreamOnJavaStream(httpUrlConnection.getOutputStream());
             } catch (java.io.IOException e) {
-                throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+                throw JavaIOUtils.jSimpleExceptionFromDotNetIOException(e);
             }
         }
 
@@ -72,7 +85,7 @@ namespace jsimple.net
             httpUrlConnection.connect();
             return new HttpResponse(httpUrlConnection);
         } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+            throw JavaIOUtils.jSimpleExceptionFromDotNetIOException(e);
         }
     }
 

@@ -42,10 +42,9 @@ public class Utf8InputStreamReader extends Reader {
      * this reader's buffer or by first filling the buffer from the source InputStream and then reading from the
      * buffer.
      *
-     * @return the character read or -1 if the end of the reader has been reached.
-     * @throws java.io.IOException if this reader is closed or some other I/O error occurs.
+     * @return the character read or -1 if the end of the reader has been reached
      */
-    @Override public int read() throws IOException {
+    @Override public int read() {
         char buf[] = new char[1];
         return read(buf, 0, 1) != -1 ? buf[0] : -1;
     }
@@ -85,8 +84,9 @@ public class Utf8InputStreamReader extends Reader {
      * @param offset the initial position in {@code buf} to store the characters read from this reader
      * @param length the maximum number of characters to read
      * @return the number of characters read or -1 if the end of the reader has been reached
+     * @throws CharConversionException if the stream isn't valid UTF-8
      */
-    @Override public int read(char[] buffer, int offset, int length) throws CharConversionException {
+    @Override public int read(char[] buffer, int offset, int length) {
         if (length < 0)
             throw new RuntimeException("read length parameter can't be negative");
 

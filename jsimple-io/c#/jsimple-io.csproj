@@ -9,7 +9,7 @@
     <ProjectGuid>{0271A18C-EEAC-4CAC-BF2E-89A693B354EF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>jsimple_io</RootNamespace>
+    <RootNamespace>jsimple</RootNamespace>
     <AssemblyName>jsimple-io</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -102,8 +102,19 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="*.cs" />
     <Compile Include="jsimple\**\*.cs" />
+    <Compile Include="nontranslated\jsimple\io\DebugWriter.cs" />
+    <Compile Include="nontranslated\jsimple\io\DotNetIOUtils.cs" />
+    <Compile Include="nontranslated\jsimple\io\JSimpleOutputStreamOnDotNetStream.cs" />
+    <Compile Include="nontranslated\jsimple\io\StdIO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\jsimple-util\c#\jsimple-util.csproj">
+      <Project>{ab04ff1f-3b94-4224-8526-8cca09fafcfa}</Project>
+      <Name>jsimple-util</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

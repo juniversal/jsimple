@@ -13,8 +13,6 @@ package jsimple.io;
 public abstract class Reader {
     /**
      * Closes this reader. Implementations of this method should free any resources associated with the reader.
-     *
-     * @throws IOException if an error occurs while closing this reader.
      */
     public abstract void close();
 
@@ -37,10 +35,10 @@ public abstract class Reader {
      * Returns the number of characters actually read or -1 if the end of the reader has been reached.
      *
      * @param buffer character array to store the characters read.
-     * @return the number of characters read or -1 if the end of the reader has been reached.
-     * @throws IOException if this reader is closed or some other I/O error occurs.
+     * @return the number of characters read or -1 if the end of the reader has been reached
+     * @throws IOException if this reader is closed or some other I/O error occurs
      */
-    public int read(char buffer[]) throws IOException {
+    public int read(char buffer[]) {
         return read(buffer, 0, buffer.length);
     }
 
@@ -48,10 +46,10 @@ public abstract class Reader {
      * Reads at most {@code count} characters from this reader and stores them at {@code offset} in the character array
      * {@code buf}. Returns the number of characters actually read or -1 if the end of the reader has been reached.
      *
-     * @param buffer    the character array to store the characters read.
-     * @param offset the initial position in {@code buffer} to store the characters read from this reader.
-     * @param count  the maximum number of characters to read.
-     * @return the number of characters read or -1 if the end of the reader has been reached.
+     * @param buffer    the character array to store the characters read
+     * @param offset the initial position in {@code buffer} to store the characters read from this reader
+     * @param count  the maximum number of characters to read
+     * @return the number of characters read or -1 if the end of the reader has been reached
      * @throws IOException if this reader is closed or some other I/O error occurs
      */
     public abstract int read(char buffer[], int offset, int count);
