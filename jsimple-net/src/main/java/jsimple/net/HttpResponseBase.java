@@ -54,7 +54,7 @@ public abstract class HttpResponseBase {
     /**
      * Get the value of the specified header or null if the header isn't present.
      * <p/>
-     * TODO: Handle mutlivalued headers by returning, in most cases, the first value--that's at least what the Scribe
+     * TODO: Handle multivalued headers by returning, in most cases, the first value--that's at least what the Scribe
      * code does.
      *
      * @param headerName HTTP header name
