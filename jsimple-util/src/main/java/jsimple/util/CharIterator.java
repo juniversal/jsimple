@@ -1,5 +1,7 @@
 package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * @author Bret Johnson
  * @since 11/25/12 4:00 PM
@@ -19,11 +21,11 @@ public class CharIterator {
     }
 
     /**
-     * @return current character or -1 if at end of str
+     * @return current character or '\0' if at end of str
      */
-    public int curr() {
+    public char curr() {
         if (index >= length)
-            return -1;
+            return '\0';
         else return str.charAt(index);
     }
 
@@ -32,8 +34,8 @@ public class CharIterator {
      *
      * @return current character or -1 if at end of str
      */
-    public int currAndAdvance() {
-        int c = curr();
+    public char currAndAdvance() {
+        char c = curr();
         advance();
         return c;
     }
@@ -53,11 +55,24 @@ public class CharIterator {
      * @param substr substring to search for
      */
     public void skipAheadPast(String substr) {
+        if (!skipAheadPastIfExists(substr))
+            throw new RuntimeException("'" + substr + "' not found in string '" + str + "'");
+    }
+
+    /**
+     * Search for the the next occurrence of the specified substring & advance the iterator just past it.  Return true
+     * if the substring is found, false if it isn't.
+     *
+     * @param substr substring to search for
+     * @return true if the substring is found
+     */
+    public boolean skipAheadPastIfExists(String substr) {
         int substringIndex = str.indexOf(substr, index);
         if (substringIndex == -1)
-            throw new RuntimeException("'" + substr + "' not found in string '" + str + "'");
+            return false;
 
         index = substringIndex + substr.length();
+        return true;
     }
 
     /**
@@ -91,5 +106,12 @@ public class CharIterator {
     public void advancePastWhitespace() {
         while (isWhitespace())
             advance();
+    }
+
+    public String readWhitespaceDelimitedToken() {
+        StringBuilder token = new StringBuilder();
+        while (! isWhitespace() && ! atEnd())
+            token.append(currAndAdvance());
+        return token.toString();
     }
 }
