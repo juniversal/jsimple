@@ -92,6 +92,7 @@ public class ParameterList {
 
     public ParameterList sort() {
         ParameterList sorted = new ParameterList(parameters);
+        // TODO (Bret): This doesn't seem exactly right--the OAuth spec says that parameters should be sorted in byte order
         PlatformUtils.sortList(sorted.parameters);
         return sorted;
     }

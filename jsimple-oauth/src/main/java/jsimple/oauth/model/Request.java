@@ -2,6 +2,7 @@ package jsimple.oauth.model;
 
 import jsimple.io.IOUtils;
 import jsimple.net.HttpRequest;
+import jsimple.net.HttpRequestParams;
 import jsimple.net.Url;
 import jsimple.oauth.exceptions.OAuthConnectionException;
 import jsimple.oauth.exceptions.OAuthException;
@@ -20,7 +21,7 @@ public class Request {
 
     private String url;
     private String verb;
-    private ParameterList querystringParams;
+    private ParameterList queryStringParams;
     private ParameterList bodyParams;
     private Map<String, String> headers;
     private @Nullable String payload = null;
@@ -37,7 +38,7 @@ public class Request {
     public Request(String verb, String url) {
         this.verb = verb;
         this.url = url;
-        this.querystringParams = new ParameterList();
+        this.queryStringParams = new ParameterList();
         this.bodyParams = new ParameterList();
         this.headers = new HashMap<String, String>();
     }
@@ -69,7 +70,7 @@ public class Request {
      * @return the complete url.
      */
     public String getCompleteUrl() {
-        return querystringParams.appendTo(url);
+        return queryStringParams.appendTo(url);
     }
 
     Response doSend() {
@@ -128,13 +129,23 @@ public class Request {
     }
 
     /**
-     * Add a QueryString parameter
+     * Add a query string parameter
      *
      * @param key   the parameter name
      * @param value the parameter value
      */
-    public void addQuerystringParameter(String key, String value) {
-        this.querystringParams.add(key, value);
+    public void addQueryStringParameter(String key, String value) {
+        this.queryStringParams.add(key, value);
+    }
+
+    /**
+     * Add the passed parameters to the query string
+     *
+     * @param params parameters
+     */
+    public void addQueryStringParameters(HttpRequestParams params) {
+        for (String name : params)
+            addQueryStringParameter(name, params.getValue(name));
     }
 
     /**
@@ -170,7 +181,7 @@ public class Request {
         ParameterList result = new ParameterList();
         @Nullable String queryString = new Url(url).getQuery();
         result.addQueryString(queryString);
-        result.addAll(querystringParams);
+        result.addAll(queryStringParams);
         return result;
     }
 
@@ -256,7 +267,8 @@ public class Request {
         this.httpRequest = httpRequest;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return String.format("@Request(%s %s)", getVerb(), getUrl());
     }
 }
