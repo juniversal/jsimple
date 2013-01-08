@@ -33,7 +33,7 @@ namespace jsimple.io
                 else if (c == '\n')
                 {
                     Debug.WriteLine(buffer);
-                    buffer.Clear();
+                    buffer.Length = 0;
                 }
                 else
                 {

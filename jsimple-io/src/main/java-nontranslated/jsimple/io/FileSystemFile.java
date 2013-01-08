@@ -18,7 +18,7 @@ public class FileSystemFile extends File {
         this.javaPath = javaPath;
     }
 
-    @Override public InputStream getInputStream() {
+    @Override public InputStream openForRead() {
         try {
             return new JSimpleInputStreamOnJavaStream(Files.newInputStream(javaPath));
         } catch (java.io.IOException e) {

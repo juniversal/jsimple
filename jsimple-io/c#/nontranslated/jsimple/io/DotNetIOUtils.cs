@@ -19,9 +19,10 @@
             else if (e is UnknownHostException)
                 jSimpleIOException = new UnknownHostException(message);
             */
+            // TODO: Include DirectoryNotFoundException for .Net apps
             if (e is System.IO.FileNotFoundException)
-                jSimpleIOException = new FileNotFoundException(message);
-            else jSimpleIOException = new IOException(message);
+                jSimpleIOException = new FileNotFoundException(message, e);
+            else jSimpleIOException = new IOException(message, e);
 
             /*
             // Replace the stack trace with the original one, so it looks like the original code threw the exception.

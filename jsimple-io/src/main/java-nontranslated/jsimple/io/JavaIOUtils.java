@@ -24,12 +24,12 @@ public class JavaIOUtils {
             message = "";
 
         if (e instanceof java.net.SocketTimeoutException)
-            jSimpleIOException = new SocketTimeoutException(message);
+            jSimpleIOException = new SocketTimeoutException(message, e);
         else if (e instanceof java.net.UnknownHostException)
-            jSimpleIOException = new UnknownHostException(message);
-        else if (e instanceof java.io.FileNotFoundException)
-            jSimpleIOException = new FileNotFoundException(message);
-        else jSimpleIOException = new IOException(message);
+            jSimpleIOException = new UnknownHostException(message, e);
+        else if (e instanceof java.io.FileNotFoundException || e instanceof java.nio.file.NoSuchFileException)
+            jSimpleIOException = new FileNotFoundException(message, e);
+        else jSimpleIOException = new IOException(message, e);
 
         // Replace the stack trace with the original one, so it looks like the original code threw the exception.
         // In some ways that's not technically correct, but it generally makes the stack traces easier to read

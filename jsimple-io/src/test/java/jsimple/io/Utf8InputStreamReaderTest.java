@@ -1,28 +1,26 @@
 package jsimple.io;
 
+import jsimple.unit.UnitTest;
+import jsimple.util.Utils;
 import org.junit.Test;
-
-import java.io.FileInputStream;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Bret Johnson
  * @since 10/8/12 8:17 PM
  */
-public class Utf8InputStreamReaderTest {
+public class Utf8InputStreamReaderTest extends UnitTest {
 
-    @Test public void testRead() throws Exception {
+    @Test public void testRead() {
         // Test UTF-8 decoding by reading the UTF-8 stress test file, along with a Unicode encoded version of it,
         // and test the UTF-8 decoder on each line, ensuring the decoded text matches the Unicode version
 
-        FileInputStream unicodeFile = new FileInputStream("UTF-8-test.unicode");
+        InputStream unicodeFile = new FileSystemFile(getJavaProjectDirectory() + "/src/test/resources/UTF-8-test.unicode").openForRead();
         int bomByte1 = unicodeFile.read();
         int bomByte2 = unicodeFile.read();
         char bomChar = (char) (bomByte1 | (bomByte2 << 8));
         assertEquals(0xfeff, bomChar);
 
-        FileInputStream utf8File = new FileInputStream("UTF-8-test.utf8");
+        InputStream utf8File = new FileSystemFile(getJavaProjectDirectory() + "/src/test/resources/UTF-8-test.utf8").openForRead();
         bomByte1 = utf8File.read();
         assertEquals(0xef, bomByte1);
         bomByte2 = utf8File.read();
@@ -97,9 +95,9 @@ public class Utf8InputStreamReaderTest {
         }
     }
 
-    @Test public void testReadSurrogate() throws Exception {
-        byte[] utf8Input = {(byte) 0xf0, (byte) 0x9f, (byte) 0xBF, (byte) 0xBD};
-        char[] expected = {0xd83f, 0xdffd};
+    @Test public void testReadSurrogate() {
+        byte[] utf8Input = Utils.byteArrayFromBytes(0xf0, 0x9f, 0xBF, 0xBD);
+        char[] expected = {(char) 0xd83f, (char) 0xdffd};
         char[] buffer = new char[2];
         Utf8InputStreamReader reader;
 
@@ -113,22 +111,22 @@ public class Utf8InputStreamReaderTest {
         assertArrayEquals(expected, buffer);
 
         char[] utf8SurrogateWithFollowingCharBuffer = new char[3];
-        byte[] utf8SurrogateWithFollowingChar = {(byte) 0xf0, (byte) 0x9f, (byte) 0xBF, (byte) 0xBD, (byte) 0x22};
-        char[] utf8SurrogateWithFollowingCharExpected = {0xd83f, 0xdffd, 0x22};
+        byte[] utf8SurrogateWithFollowingChar = Utils.byteArrayFromBytes(0xf0, 0x9f, 0xBF, 0xBD, 0x22);
+        char[] utf8SurrogateWithFollowingCharExpected = {(char) 0xd83f, (char) 0xdffd, (char) 0x22};
         reader = new Utf8InputStreamReader(new jsimple.io.ByteArrayInputStream(utf8SurrogateWithFollowingChar));
         assertEquals(0, reader.read(utf8SurrogateWithFollowingCharBuffer, 0, 1));
         assertEquals(3, reader.read(utf8SurrogateWithFollowingCharBuffer, 0, 3));
         assertArrayEquals(utf8SurrogateWithFollowingCharExpected, utf8SurrogateWithFollowingCharBuffer);
 
-        byte[] incompleteSurrogate1 = {(byte) 0xf0, (byte) 0x9f, (byte) 0xBF};
+        byte[] incompleteSurrogate1 = Utils.byteArrayFromBytes(0xf0, 0x9f, 0xBF);
         testReadExpectError(incompleteSurrogate1,
                 "Invalid UTF-8 encoding--stream ends with a partially defined UTF-8 character");
 
-        byte[] incompleteSurrogate2 = {(byte) 0xf0, (byte) 0x9f };
+        byte[] incompleteSurrogate2 = Utils.byteArrayFromBytes(0xf0, 0x9f);
         testReadExpectError(incompleteSurrogate2,
                 "Invalid UTF-8 encoding--stream ends with a partially defined UTF-8 character");
 
-        byte[] incompleteSurrogate3 = {(byte) 0xf0, (byte) 0x9f };
+        byte[] incompleteSurrogate3 = Utils.byteArrayFromBytes(0xf0, 0x9f);
         testReadExpectError(incompleteSurrogate3,
                 "Invalid UTF-8 encoding--stream ends with a partially defined UTF-8 character");
     }

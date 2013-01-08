@@ -1,22 +1,21 @@
 package jsimple.io;
 
+import jsimple.unit.UnitTest;
+import jsimple.util.StringUtils;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Bret Johnson
  * @since 10/15/12 8:17 PM
  */
-public class Utf8OutputStreamWriterTest {
-    @Test public void testWrite() throws Exception {
+public class Utf8OutputStreamWriterTest extends UnitTest {
+    @Test public void testWrite() {
         testRoundTripping("a");
         testRoundTripping("abcdef");
 
         // Test all valid Unicode characters in the basic code plane (that is, 16 bit characters)
         StringBuilder uni = new StringBuilder();
-        for (char c = 0; c <= '\ud7ff'; ++c)
+        for (char c = '\u0000'; c <= '\ud7ff'; ++c)
             uni.append(c);
         for (char c = '\ue000'; c < '\uffff'; ++c)
             uni.append(c);
@@ -38,17 +37,17 @@ public class Utf8OutputStreamWriterTest {
     private void appendCodePoints(int codePlane, StringBuilder uni) {
         int highWord = codePlane << 16;
 
-        uni.appendCodePoint(highWord | 0x0000);
-        uni.appendCodePoint(highWord | 0x0001);
-        uni.appendCodePoint(highWord | 0x000F);
-        uni.appendCodePoint(highWord | 0xFFFE);
-        uni.appendCodePoint(highWord | 0xFFFF);
+        StringUtils.appendCodePoint(uni, highWord | 0x0000);
+        StringUtils.appendCodePoint(uni, highWord | 0x0001);
+        StringUtils.appendCodePoint(uni, highWord | 0x000F);
+        StringUtils.appendCodePoint(uni, highWord | 0xFFFE);
+        StringUtils.appendCodePoint(uni, highWord | 0xFFFF);
     }
 
 
     private void testRoundTripping(String input) {
         int[] length = new int[1];
-        byte[] utf8Bytes = IOUtils.toUtf8BytesFromString(input, length);
+            byte[] utf8Bytes = IOUtils.toUtf8BytesFromString(input, length);
 
         String output = IOUtils.toStringFromUtf8Bytes(utf8Bytes, 0, length[0]);
 

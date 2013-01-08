@@ -6,7 +6,6 @@ namespace jsimple.io
     public class JSimpleOutputStreamOnDotNetStream : OutputStream
     {
         private readonly Stream dotNetStream;
-        private byte[] singleByteArray;
 
         public JSimpleOutputStreamOnDotNetStream(Stream dotNetStream)
         {
@@ -53,11 +52,7 @@ namespace jsimple.io
         {
             try
             {
-                if (singleByteArray == null)
-                    singleByteArray = new byte[1];
-                singleByteArray[0] = (byte) oneByte;
-
-                dotNetStream.Write(singleByteArray, 0, 1);
+                dotNetStream.WriteByte((byte) oneByte);
             }
             catch (System.IO.IOException e)
             {
