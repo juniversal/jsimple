@@ -37,6 +37,12 @@
                 <version>4.10</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.nokia.jsimple</groupId>
+                <artifactId>jsimple-unit</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <scope>test</scope>
+            </dependency>
             <!--
             <dependency>
                 <groupId>types.checkers</groupId>
@@ -66,6 +72,14 @@
                         <filesets>
                             <fileset>
                                 <directory>${basedir}/c#</directory>
+                                <includes>
+                                    <include>jsimple/**</include>
+                                    <include>obj/**</include>
+                                    <include>bin/**</include>
+                                </includes>
+                            </fileset>
+                            <fileset>
+                                <directory>${basedir}/c#-test</directory>
                                 <includes>
                                     <include>jsimple/**</include>
                                     <include>obj/**</include>
@@ -112,6 +126,21 @@
                                 <arguments>
                                     <argument>${project.build.sourceDirectory}</argument>
                                     <argument>${project.basedir}/c#</argument>
+                                    <argument>${rootdir}/std-java-to-c#-converter-settings.dat</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <phase>prepare-package</phase>
+                            <id>tocsharp-test</id>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>${java-to-csharp-converter-dir}/Java to C# Converter.exe</executable>
+                                <arguments>
+                                    <argument>${project.build.testSourceDirectory}</argument>
+                                    <argument>${project.basedir}/c#-test</argument>
                                     <argument>${rootdir}/std-java-to-c#-converter-settings.dat</argument>
                                 </arguments>
                             </configuration>

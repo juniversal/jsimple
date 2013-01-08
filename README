@@ -1,5 +1,5 @@
 JSimple is a set of shared Java utility code. It's design goals are to be simple, minimal sized,
-with no external dependencies,and friendly to conversion from Java to C# via the Tangible Java
+with no external dependencies, and friendly to conversion from Java to C# via the Tangible Java
 to C# converter.
 
 JSimple code is intended to run on phones--S40 (since it's Java) or Windows Phone (via the

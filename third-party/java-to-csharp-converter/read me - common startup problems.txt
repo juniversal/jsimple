@@ -4,7 +4,7 @@ THE APPLICATION WILL NOT START:
 
 For best results download the application and help file to a local drive instead of a network drive.
 If the application does not start, ensure that you have the .NET Framework version 2 or greater
-installed on your machine. This can be obtained from Microsoft's web site.
+installed on your computer. This can be obtained from Microsoft's web site.
 We do not install the .NET Framework.  
 
 
@@ -22,8 +22,8 @@ click it to resolve the problem.
 2. The .chm file is not in the same folder as the .exe file. Ensure that the .chm file is in the same
 folder.
 
-3. The folder containing the .chm file has a '#' character in its name. The solution is to rename the
-folder to remove the '#' character or move the .exe and .chm files to another folder.
+3. The folder containing the .chm file has a '#' or '+' or '&' character in its name. The solution is to rename the
+folder to remove the character or move the .exe and .chm files to another folder.
 
 
 If you encounter any other problems, please email us at support@tangiblesoftwaresolutions.com.

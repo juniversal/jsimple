@@ -3,6 +3,10 @@
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
     <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/jsimple-oauth/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/jsimple-oauth/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/jsimple-unit/target/generated-sources/annotations" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/jsimple-unit/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/jsimple-net/target/generated-sources/annotations" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/jsimple-net/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/jsimple-util/target/generated-sources/annotations" includeSubdirectories="true" />
@@ -11,8 +15,6 @@
       <directory url="file://$PROJECT_DIR$/jsimple-io/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/jsimple-json/target/generated-sources/annotations" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/jsimple-json/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/jsimple-oauth/target/generated-sources/annotations" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/jsimple-oauth/target/generated-test-sources/test-annotations" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>
@@ -40,6 +42,7 @@
         <module name="jsimple-json" />
         <module name="jsimple-net" />
         <module name="jsimple-oauth" />
+        <module name="jsimple-unit" />
         <module name="jsimple-util" />
       </profile>
     </annotationProcessing>
@@ -49,6 +52,7 @@
       <module name="jsimple-json" target="1.7" />
       <module name="jsimple-net" target="1.7" />
       <module name="jsimple-oauth" target="1.7" />
+      <module name="jsimple-unit" target="1.7" />
       <module name="jsimple-util" target="1.7" />
     </bytecodeTargetLevel>
   </component>
