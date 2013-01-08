@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Windows.Security.Cryptography;
-using Windows.Security.Cryptography.Core;
-using Windows.Storage.Streams;
 
 namespace jsimple.util
 {
@@ -26,39 +23,10 @@ namespace jsimple.util
         /// </summary>
         /// <returns> number of milliseconds since 1/1/70 UTC/GMT </returns>
         private static readonly DateTime Jan1st1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
+            
         public static long CurrentTimeMillis
         {
             get { return (long) (DateTime.UtcNow - Jan1st1970).TotalMilliseconds; }
-        }
-
-        /// <summary>
-        ///     Get the default line separator (typically newline or carriage return/newline) for the platform.
-        /// </summary>
-        /// <returns> default line separator for the platform </returns>
-        public static String LineSeparator
-        {
-            get { return "\r\n"; }
-        }
-
-        /// <summary>
-        ///     Given the specified bytes to sign and key, return the HMAC SHA1 signature for those bytes.
-        /// </summary>
-        /// <param name="toSign">   bytes to sign (perhaps a string converted to UTF8) </param>
-        /// <param name="keyBytes"> key </param>
-        /// <returns> HMAC SHA1 signature bytes (which could then be base64 encoded, if appropriate) </returns>
-        public byte[] getHmacSha1Signature(byte[] toSign, int toSignLength, byte[] keyBytes, int keyBytesLength)
-        {
-            MacAlgorithmProvider hmacSha1 = MacAlgorithmProvider.OpenAlgorithm(MacAlgorithmNames.HmacSha1);
-
-            CryptographicKey key = hmacSha1.CreateKey(CryptographicBuffer.CreateFromByteArray(keyBytes));
-
-            IBuffer signature = CryptographicEngine.Sign(key, CryptographicBuffer.CreateFromByteArray(toSign));
-
-            byte[] signatureBytes;
-            CryptographicBuffer.CopyToByteArray(signature, out signatureBytes);
-
-            return signatureBytes;
         }
 
         /// <summary>
@@ -69,6 +37,15 @@ namespace jsimple.util
         public static void sortList<T>(List<T> list) where T : IComparable<T>
         {
             list.Sort();
+        }
+
+        /// <summary>
+        ///     Get the default line separator (typically newline or carriage return/newline) for the platform.
+        /// </summary>
+        /// <returns> default line separator for the platform </returns>
+        public static String LineSeparator
+        {
+            get { return "\r\n"; }
         }
     }
 }

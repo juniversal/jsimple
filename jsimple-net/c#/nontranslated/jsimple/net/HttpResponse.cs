@@ -1,27 +1,39 @@
-﻿using jsimple.io;
+﻿using System;
+using System.Net;
+using jsimple.io;
 
 namespace jsimple.net
 {
     public class HttpResponse : HttpResponseBase
     {
+        private readonly HttpWebResponse httpWebResponse;
+
+        public HttpResponse(HttpWebResponse httpWebResponse)
+        {
+            this.httpWebResponse = httpWebResponse;
+        }
+
+        // TODO: Catch web exception too and either set StatusCode here or change JSimple code to throw exceptions instead
         public override int StatusCode
         {
-            get { throw new System.NotImplementedException(); }
+            get { return (int) httpWebResponse.StatusCode; }
         }
 
         public override string StatusMessage
         {
-            get { throw new System.NotImplementedException(); }
+            get { return httpWebResponse.StatusDescription; }
         }
 
         public override InputStream BodyStream
         {
-            get { throw new System.NotImplementedException(); }
+            get { return new JSimpleInputStreamOnDotNetStream(httpWebResponse.GetResponseStream()); }
         }
 
+        // TODO: Test Content-Encoding, Content-Length, Content-Type, Last-Modified, and Server
+        // TODO: Test non-present header to ensure returns null
         public override string getHeader(string headerName)
         {
-            throw new System.NotImplementedException();
+            return httpWebResponse.Headers[headerName];
         }
     }
 }

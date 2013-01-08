@@ -1,15 +1,14 @@
 package jsimple.oauth.utils;
 
+import jsimple.unit.UnitTest;
 import jsimple.util.StringUtils;
 import org.junit.Test;
-
-import static org.junit.Assert.assertArrayEquals;
 
 /**
  * @author Bret Johnson
  * @since 10/23/12 12:04 AM
  */
-public class Sha1Test {
+public class Sha1Test extends UnitTest {
 
     // These test cases are from http://tools.ietf.org/html/rfc2202
     @Test public void testMac() {

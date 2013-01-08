@@ -1,14 +1,13 @@
 package jsimple.net;
 
+import jsimple.unit.UnitTest;
 import org.junit.Test;
-
-import static junit.framework.Assert.assertEquals;
 
 /**
  * @author Bret Johnson
  * @since 11/25/12 11:16 PM
  */
-public class UrlDecoderTest {
+public class UrlDecoderTest extends UnitTest {
     @Test public void testDecode() {
         assertEquals(".-_*", UrlDecoder.decode(".-_*"));   // None encoded
         assertEquals("$+!'(),", UrlDecoder.decode("%24%2B%21%27%28%29%2C"));   // All encoded

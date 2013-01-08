@@ -89,7 +89,7 @@ public abstract class HttpRequestBase {
      * @return an output stream that writes to this connection.
      * @throws jsimple.io.IOException if an I/O error occurs while opening the connection.
      */
-    public abstract OutputStream getRequestBodyStream();
+    public abstract OutputStream createRequestBodyStream();
 
     /**
      * Opens a communications link to the resource referenced by this URL, if such a connection has not already been
@@ -107,5 +107,5 @@ public abstract class HttpRequestBase {
      * @throws jsimple.io.IOException if an I/O error occurs while opening the connection.
      * @see #setTimeout
      */
-    public abstract HttpResponse getResponse();
+    public abstract HttpResponse send();
 }

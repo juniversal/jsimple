@@ -1,18 +1,22 @@
 package jsimple.net;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * HttpRequestParams represents a set of string name/value pairs which can (eventually) be passed as URL or form
+ * parameters for an HTTP request.  The entries are ordered--the order that they are added matches the order they
+ * are returned from getNames.  The same name can't be added twice.
  *
  * @author Bret Johnson
  * @since 12/23/12 1:54 AM
  */
-public class HttpRequestParams implements Iterable<String> {
-    private ArrayList<String> names;
-    private HashMap<String, String> values;
+public class HttpRequestParams {
+    private ArrayList<String> names = new ArrayList<String>();
+    private HashMap<String, String> values = new HashMap<String, String>();
 
     public HttpRequestParams add(String name, String value) {
         if (values.containsKey(name))
@@ -23,11 +27,18 @@ public class HttpRequestParams implements Iterable<String> {
         return this;
     }
 
-    public String getValue(String name) {
+    public @Nullable String getValueOrNull(String name) {
         return values.get(name);
     }
 
-    @Override public Iterator<String> iterator() {
-        return names.iterator();
+    public String getValue(String name) {
+        String value = values.get(name);
+        if (value == null)
+            throw new RuntimeException("Value " + name + " not present in HTTPRequestParams");
+        return value;
+    }
+
+    public List<String> getNames() {
+        return names;
     }
 }

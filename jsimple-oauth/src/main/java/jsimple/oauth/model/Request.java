@@ -1,9 +1,7 @@
 package jsimple.oauth.model;
 
 import jsimple.io.IOUtils;
-import jsimple.net.HttpRequest;
-import jsimple.net.HttpRequestParams;
-import jsimple.net.Url;
+import jsimple.net.*;
 import jsimple.oauth.exceptions.OAuthConnectionException;
 import jsimple.oauth.exceptions.OAuthException;
 import org.jetbrains.annotations.Nullable;
@@ -44,12 +42,12 @@ public class Request {
     }
 
     /**
-     * Execute the request and return a {@link Response}
+     * Execute the request and return a {@link OAuthResponse}
      *
      * @return Http Response
      * @throws RuntimeException if the connection cannot be created.
      */
-    public Response send() {
+    public OAuthResponse send() {
         try {
             createConnection();
             return doSend();
@@ -73,7 +71,7 @@ public class Request {
         return queryStringParams.appendTo(url);
     }
 
-    Response doSend() {
+    OAuthResponse doSend() {
         HttpRequest httpReq = httpRequest;
         assert httpReq != null : "nullness";
 
@@ -90,7 +88,11 @@ public class Request {
             addBody(httpReq, bodyBytes, 0, length[0]);
         }
 
-        return new Response(httpReq);
+        try {
+            return new OAuthResponse(httpReq.send());
+        } catch (UnknownHostException e) {
+            throw new OAuthException("The IP address of a host could not be determined.", e);
+        }
     }
 
     void addHeaders(HttpRequest httpRequest) {
@@ -105,7 +107,7 @@ public class Request {
         if (httpRequest.getHeader(HttpRequest.HEADER_CONTENT_TYPE) == null)
             httpRequest.setHeader(HttpRequest.HEADER_CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
 
-        httpRequest.getRequestBodyStream().write(content, offset, length);
+        httpRequest.createRequestBodyStream().write(content, offset, length);
     }
 
     /**
@@ -144,7 +146,7 @@ public class Request {
      * @param params parameters
      */
     public void addQueryStringParameters(HttpRequestParams params) {
-        for (String name : params)
+        for (String name : params.getNames())
             addQueryStringParameter(name, params.getValue(name));
     }
 

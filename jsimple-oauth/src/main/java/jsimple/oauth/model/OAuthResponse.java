@@ -1,32 +1,27 @@
 package jsimple.oauth.model;
 
-import jsimple.net.HttpRequest;
 import jsimple.io.IOUtils;
 import jsimple.io.InputStream;
 import jsimple.net.HttpResponse;
-import jsimple.net.UnknownHostException;
-import jsimple.oauth.exceptions.OAuthException;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Represents an HTTP Response.
+ * Represents an HTTP Response to an OAuth request.  Note that this method was named Response in the original Scribe;
+ * for JSimple it's called OAuthResponse so that API client use the two parallel named classes of OAuthRequest and
+ * OAuthResponse.
  *
  * @author Pablo Fernandez
  */
-public class Response {
+public class OAuthResponse {
     private static final String EMPTY = "";
 
     private int code;
-    private String body;
+    private @Nullable String body = null;
     private HttpResponse httpResponse;
 
-    Response(HttpRequest httpRequest) {
-        try {
-            httpResponse = httpRequest.getResponse();
-            code = httpResponse.getStatusCode();
-        } catch (UnknownHostException e) {
-            throw new OAuthException("The IP address of a host could not be determined.", e);
-        }
+    OAuthResponse(HttpResponse httpResponse) {
+        this.httpResponse = httpResponse;
+        code = httpResponse.getStatusCode();
     }
 
     /**

@@ -1,15 +1,14 @@
 package jsimple.json;
 
+import jsimple.unit.UnitTest;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Bret Johnson
  * @since 7/8/12 1:42 PM
  */
-public class JsonSerializerTest {
-    @Test public void testSerializeObject() throws Exception {
+public class JsonSerializerTest extends UnitTest {
+    @Test public void testSerializeObject() {
         assertSerializedJsonIs(
                 new JsonObject().
                         add("num", 3).
@@ -39,7 +38,7 @@ public class JsonSerializerTest {
         );
     }
 
-    @Test public void testSerializeArray() throws Exception {
+    @Test public void testSerializeArray() {
         assertSerializedJsonIs(
                 new JsonArray(),
                 "[]"
@@ -47,10 +46,10 @@ public class JsonSerializerTest {
 
         assertSerializedJsonIs(
                 new JsonArray().
-                    add("abc").
-                    add(3).
-                    add(true).
-                    add(new JsonObject()),
+                        add("abc").
+                        add(3).
+                        add(true).
+                        add(new JsonObject()),
                 "[\"abc\", 3, true, {}]"
         );
 
@@ -70,7 +69,7 @@ public class JsonSerializerTest {
     void assertSerializedJsonIs(JsonObjectOrArray json, String... lines) {
         StringBuilder jsonTextBuilder = new StringBuilder();
         for (String line : lines)
-            jsonTextBuilder.append(line).append("\n");
+            jsonTextBuilder.append(line + "\n");
         String jsonText = jsonTextBuilder.toString();
 
         assertEquals(jsonText, Json.serialize(json));

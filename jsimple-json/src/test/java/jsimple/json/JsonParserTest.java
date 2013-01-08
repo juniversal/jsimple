@@ -1,16 +1,15 @@
 package jsimple.json;
 
+import jsimple.unit.UnitTest;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Bret Johnson
  * @since 5/6/12 12:33 AM
  */
-public class JsonParserTest {
-    @Test public void testParseObject() throws Exception {
-        org.junit.Assert.assertEquals(null, parseJsonObject("{}").getOrNull("abc"));
+public class JsonParserTest extends UnitTest {
+    @Test public void testParseObject() {
+        assertEquals(null, parseJsonObject("{}").getOrNull("abc"));
         assertEquals(3, parseJsonObject("{\"abc\": 3}").getOrNull("abc"));
         assertEquals(true, parseJsonObject("{\"abc\": 3, \"def\": true}").getOrNull("def"));
 
@@ -30,7 +29,7 @@ public class JsonParserTest {
         validateParsingException("Expected ':' but encountered 10", "{\"abc\" 10}");
     }
 
-    @Test public void testParseArray() throws Exception {
+    @Test public void testParseArray() {
         assertEquals(0, parseJsonArray("[]").size());
         assertEquals(3, parseJsonArray("[3]").get(0));
         assertEquals(true, parseJsonArray("[3, true]").getBoolean(1));

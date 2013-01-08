@@ -1,52 +1,87 @@
-﻿using jsimple.io;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.IO;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+using jsimple.io;
 
 namespace jsimple.net
 {
     public class HttpRequest : HttpRequestBase
     {
-        private HttpWebRequest httpWebRequest;
+        private readonly HttpWebRequest httpWebRequest;
+        private int timeout = 30000;            // Default the timeout to 30 seconds
 
         public HttpRequest(String url)
         {
-            httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
         }
 
         public override string Method
         {
-            set { throw new NotImplementedException(); }
+            set { httpWebRequest.Method = value; }
         }
 
         public override int Timeout
         {
-            set { throw new NotImplementedException(); }
+            set { timeout = value; }
         }
 
         public override void setHeader(string name, string value)
         {
-            throw new NotImplementedException();
+            // For certain headers, they need to be set via properties rather than the Headers collection.  We check
+            // for the most common of these (but not all of them) below.
+            if (name.Equals("Accept"))
+                httpWebRequest.Accept = value;
+            else if (name.Equals("Content-Type"))
+                httpWebRequest.ContentType = value;
+            else httpWebRequest.Headers[name] = value;
         }
 
         public override string getHeader(string name)
         {
-            throw new NotImplementedException();
+            if (name.Equals("Accept"))
+                return httpWebRequest.Accept;
+            else if (name.Equals("Content-Type"))
+                return httpWebRequest.ContentType;
+            else return httpWebRequest.Headers[name];
         }
 
-        public override OutputStream RequestBodyStream
+        public override OutputStream createRequestBodyStream()
         {
-            get { throw new NotImplementedException(); }
+            var dataReady = new AutoResetEvent(false);
+            Stream stream = null;
+            var callback = new AsyncCallback(delegate(IAsyncResult asynchronousResult)
+                {
+                    stream = httpWebRequest.EndGetRequestStream(asynchronousResult);
+                    dataReady.Set();
+                });
+
+            httpWebRequest.BeginGetRequestStream(callback, httpWebRequest);
+            if (! dataReady.WaitOne(timeout))
+                throw new SocketTimeoutException("Could not get request stream for " + httpWebRequest.RequestUri +
+                                                 " request in " + timeout + "ms");
+
+            return new JSimpleOutputStreamOnDotNetStream(stream);
         }
 
-        public override HttpResponse Response
+        public override HttpResponse send()
         {
-            get { throw new NotImplementedException(); }
-        }
+            var dataReady = new AutoResetEvent(false);
+            HttpWebResponse response = null;
+            var callback = new AsyncCallback(delegate(IAsyncResult asynchronousResult)
+                {
+                    response = (HttpWebResponse) httpWebRequest.EndGetResponse(asynchronousResult);
+                    dataReady.Set();
+                });
 
+            httpWebRequest.BeginGetResponse(callback, httpWebRequest);
+
+            if (! dataReady.WaitOne(timeout))
+                throw new SocketTimeoutException("Could not get response for " + httpWebRequest.RequestUri +
+                                                 " request in " + timeout + "ms");
+
+            return new HttpResponse(response);
+        }
 
 #if false
 

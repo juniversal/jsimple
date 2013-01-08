@@ -1,16 +1,14 @@
 package jsimple.json;
 
+import jsimple.unit.UnitTest;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author Bret Johnson
  * @since 5/6/12 2:17 AM
  */
-public class TokenTest {
-    @Test public void testCharacterTokens() throws Exception {
+public class TokenTest extends UnitTest {
+    @Test public void testCharacterTokens() {
         String json = "{ } [ ] , :";
         Token token = new Token(json);
 
@@ -35,7 +33,7 @@ public class TokenTest {
         assertEquals(TokenType.EOF, token.getType());
     }
 
-    @Test public void testTrueFalseNullTokens() throws Exception {
+    @Test public void testTrueFalseNullTokens() {
         String json = "true false null";
         Token token = new Token(json);
 
@@ -56,7 +54,7 @@ public class TokenTest {
         validateParsingException("'true'", "'tr\\n'", "tr\n");
     }
 
-    @Test public void testStringTokens() throws Exception {
+    @Test public void testStringTokens() {
         validateParsingException("'\"'", "end of JSON text", "\"abc");
         validateParsingException("'\"'", "carriage return", "\"abc\r");
         validateParsingException("'\"'", "newline", "\"abc\n");
@@ -90,7 +88,7 @@ public class TokenTest {
         assertEquals(expectedPrimitiveValue, token.getPrimitiveValue());
     }
 
-    @Test public void testNumberTokens() throws Exception {
+    @Test public void testNumberTokens() {
         validateNumberToken(123, "123");
         validateNumberToken(123456, "123456");
         validateParsingException("Expected a digit to follow a minus sign", "- ");
@@ -98,7 +96,6 @@ public class TokenTest {
         validateNumberToken(0x80000000L, "2147483648");
         validateNumberToken(-0x80000000, "-2147483648");
         validateNumberToken(-0x80000001L, "-2147483649");
-        validateNumberToken(0x80000000, "-2147483648");
         validateNumberToken(-0x80000001L, "-2147483649");
         validateNumberToken(0, "0");
         validateNumberToken(0, "-0");
@@ -110,7 +107,7 @@ public class TokenTest {
         validateNumberToken(-0x80000001L, "-2147483649");
 
         validateNumberToken(0x7FFFFFFFFFFFFFFFL, "9223372036854775807");  // Max long
-        validateNumberToken(-0x8000000000000000L, "-9223372036854775808");  // Min long
+        validateNumberToken(-0x7FFFFFFFFFFFFFFFL, "-9223372036854775807");  // Min long (well, min long + 1)
 
         validateParsingException("Number is too big, overflowing the size of a long",
                 "9223372036854775808"); // Max long + 1
@@ -134,8 +131,7 @@ public class TokenTest {
         validateParsingException("Expected a digit to follow a minus sign", "-.1");
 
         // 17 digits is about at the limit of precision for a double--17 digit precision is preserved, 18 is not
-        Token token = new Token("123456789012345.11");
-        assertNotSame(123456789012345.12, token.getPrimitiveValue());
+        validateFloatingPointNumberToken(123456789012345.11, "123456789012345.11");
         validateFloatingPointNumberToken(123456789012345.111, "123456789012345.112");
 
         validateParsingException("Unexpected character '.' in JSON; if that character should start a string, it must be quoted", ".23");

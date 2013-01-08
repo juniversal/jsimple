@@ -41,9 +41,10 @@ final class Token {
         if (type == TokenType.PRIMITIVE) {
             if (primitiveValue == null)
                 return "null";
-            else if (primitiveValue instanceof Boolean || primitiveValue instanceof Integer ||
-                    primitiveValue instanceof Long)
+            else if (primitiveValue instanceof Integer || primitiveValue instanceof Long)
                 return primitiveValue.toString();
+            else if (primitiveValue instanceof Boolean)
+                return ((boolean) (Boolean) primitiveValue) ? "true" : "false";
             else if (primitiveValue instanceof String)
                 return "\"" + primitiveValue.toString() + "\"";
             else throw new JsonException("Unknown token primitive type");

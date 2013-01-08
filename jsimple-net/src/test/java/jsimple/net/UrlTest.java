@@ -1,12 +1,10 @@
 package jsimple.net;
 
+import jsimple.unit.UnitTest;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
-
-public class UrlTest {
+public class UrlTest extends UnitTest {
     @Test public void testUrl() {
         assertQueryStringMatches("foo&bar", "http://www.mit.edu?foo&bar#abc");
         assertQueryStringMatches("foo&bar", "http://www.mit.edu?foo&bar");

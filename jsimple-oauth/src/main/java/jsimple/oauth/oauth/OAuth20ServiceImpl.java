@@ -32,7 +32,7 @@ public class OAuth20ServiceImpl implements OAuthService {
         String scope = config.getScope();
         if (scope != null)
             request.addQueryStringParameter(OAuthConstants.SCOPE, scope);
-        Response response = request.send();
+        OAuthResponse response = request.send();
         return api.getAccessTokenExtractor().extract(response.getBody());
     }
 
