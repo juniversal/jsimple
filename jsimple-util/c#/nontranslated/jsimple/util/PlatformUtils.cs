@@ -21,12 +21,22 @@ namespace jsimple.util
         ///     Get the number of milliseconds since Jan 1, 1970, UTC time.  That's also known as epoch time.  It's the time unit
         ///     we generally use in JSimple.
         /// </summary>
-        /// <returns> number of milliseconds since 1/1/70 UTC/GMT </returns>
+        /// <returns> number of milliseconds since 1/1/1970 UTC/GMT </returns>
         private static readonly DateTime Jan1st1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            
+
         public static long CurrentTimeMillis
         {
             get { return (long) (DateTime.UtcNow - Jan1st1970).TotalMilliseconds; }
+        }
+
+        /// <summary>
+        ///     Get the number of milliseconds since Jan 1, 1970, UTC time for dateTimeOffset, thus converting to the time unit we
+        ///     we generally use in JSimple.
+        /// </summary>
+        /// <returns> number of milliseconds since 1/1/1970 UTC/GMT for dataTimeOffset </returns>
+        public static long toMillisFromDateTimeOffset(DateTimeOffset dateTimeOffset)
+        {
+            return (long) (dateTimeOffset.UtcDateTime - Jan1st1970).TotalMilliseconds;
         }
 
         /// <summary>

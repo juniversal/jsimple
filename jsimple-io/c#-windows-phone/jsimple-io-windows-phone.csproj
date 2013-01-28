@@ -83,12 +83,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="nontranslated\jsimple\io\AsyncOperationComplete.cs" />
+    <Compile Include="nontranslated\jsimple\io\AsyncOperationExtension.cs" />
+    <Compile Include="nontranslated\jsimple\io\StorageItemPathAttributes.cs" />
+    <Compile Include="nontranslated\jsimple\io\Paths.cs" />
     <Compile Include="nontranslated\jsimple\io\StorageFileFile.cs" />
     <Compile Include="nontranslated\jsimple\io\StorageFolderDirectory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\jsimple-util\c#\jsimple-util.csproj">
+      <Project>{7DE38EB4-9D6A-4D5A-AE5F-4769BEFBDA74}</Project>
+      <Name>jsimple-util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\c#\jsimple-io.csproj">
       <Project>{0271A18C-EEAC-4CAC-BF2E-89A693B354EF}</Project>
       <Name>jsimple-io</Name>

@@ -26,7 +26,7 @@ namespace jsimple.net
 
         public override InputStream BodyStream
         {
-            get { return new JSimpleInputStreamOnDotNetStream(httpWebResponse.GetResponseStream()); }
+            get { return new DotNetStreamInputStream(httpWebResponse.GetResponseStream()); }
         }
 
         // TODO: Test Content-Encoding, Content-Length, Content-Type, Last-Modified, and Server

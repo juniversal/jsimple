@@ -20,8 +20,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>com.nokia.jsimple</groupId>
+            <artifactId>jsimple-unit</artifactId>
         </dependency>
         <dependency>
             <groupId>com.nokia.jsimple</groupId>

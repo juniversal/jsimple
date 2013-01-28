@@ -3,6 +3,8 @@ package jsimple.util;
 import org.jetbrains.annotations.Nullable;
 
 /**
+ *
+ *
  * @author Bret Johnson
  * @since 11/25/12 4:00 PM
  */

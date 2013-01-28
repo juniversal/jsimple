@@ -1,7 +1,6 @@
 package jsimple.io;
 
-import org.jetbrains.annotations.Nullable;
-
+import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.EnumSet;
@@ -25,20 +24,28 @@ public class FileSystemDirectory extends Directory {
         return javaPath.getFileName().toString();
     }
 
-    @Override public @Nullable Directory getParent() {
-        java.nio.file.Path javaParentPath = javaPath.getParent();
-        if (javaParentPath == null)
-            return null;
-
-        return new FileSystemDirectory(javaParentPath);
-    }
-
-    @Override public File getChildFile(String name) {
+    @Override public File getFile(String name) {
         return new FileSystemFile(javaPath.resolve(name));
     }
 
-    @Override public Directory getChildDirectory(String name) {
+    @Override public File createFile(String name) {
+        return new FileSystemFile(javaPath.resolve(name));
+    }
+
+    @Override public Directory getDirectory(String name) {
         return new FileSystemDirectory(javaPath.resolve(name));
+    }
+
+    @Override public Directory getOrCreateDirectory(String name) {
+        java.nio.file.Path childPath = javaPath.resolve(name);
+
+        try {
+            Files.createDirectories(childPath);
+        } catch (java.io.IOException e) {
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        }
+
+        return new FileSystemDirectory(childPath);
     }
 
     /**

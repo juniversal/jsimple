@@ -61,7 +61,7 @@ namespace jsimple.net
                 throw new SocketTimeoutException("Could not get request stream for " + httpWebRequest.RequestUri +
                                                  " request in " + timeout + "ms");
 
-            return new JSimpleOutputStreamOnDotNetStream(stream);
+            return new DotNetStreamOutputStream(stream);
         }
 
         public override HttpResponse send()

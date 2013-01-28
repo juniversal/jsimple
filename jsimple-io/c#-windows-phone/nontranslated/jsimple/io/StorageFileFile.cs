@@ -1,10 +1,12 @@
-﻿using Windows.Storage;
+﻿using System.IO;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace jsimple.io
 {
     public class StorageFileFile : File
     {
-        private StorageFile storageFile;
+        private readonly StorageFile storageFile;
 
         public StorageFileFile(StorageFile storageFile)
         {
@@ -13,17 +15,15 @@ namespace jsimple.io
 
         public override string Name
         {
-            get { throw new System.NotImplementedException(); }
-        }
-
-        public override Directory Parent
-        {
-            get { throw new System.NotImplementedException(); }
+            get { return storageFile.Name; }
         }
 
         public override InputStream openForRead()
         {
-            throw new System.NotImplementedException();
+            IInputStream inputStream = storageFile.OpenSequentialReadAsync().DoSynchronously();
+
+            // Use the default 16K buffer for AsStreamForRead()
+            return new DotNetStreamInputStream(inputStream.AsStreamForRead());
         }
     }
 }

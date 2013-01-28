@@ -92,22 +92,4 @@ public abstract class OutputStream {
 
         write(bytes, 0, length[0]);
     }
-
-    /**
-     * Write the remaining contents of inputStream to this stream, closing the input stream when done.
-     *
-     * @param inputStream input stream to copy from
-     */
-    public void write(InputStream inputStream) {
-        byte[] buffer = new byte[8*1024];
-
-        while (true) {
-            int bytesRead = inputStream.read(buffer);
-            if (bytesRead < 0)
-                break;
-            write(buffer, 0, bytesRead);
-        }
-
-        inputStream.close();
-    }
 }

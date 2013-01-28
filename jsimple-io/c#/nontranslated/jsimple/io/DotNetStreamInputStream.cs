@@ -3,11 +3,11 @@ using System.IO;
 
 namespace jsimple.io
 {
-    public class JSimpleInputStreamOnDotNetStream : InputStream
+    public class DotNetStreamInputStream : InputStream
     {
         private readonly Stream dotNetStream;
 
-        public JSimpleInputStreamOnDotNetStream(Stream dotNetStream)
+        public DotNetStreamInputStream(Stream dotNetStream)
         {
             this.dotNetStream = dotNetStream;
         }

@@ -2,6 +2,7 @@ package jsimple.io;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 /**
  * @author Bret Johnson
@@ -26,15 +27,17 @@ public class FileSystemFile extends File {
         }
     }
 
+    @Override public OutputStream openForCreate() {
+        try {
+            return new JSimpleOutputStreamOnJavaStream(Files.newOutputStream(javaPath,
+                    StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE));
+        } catch (java.io.IOException e) {
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        }
+    }
+
     @Override public String getName() {
         return javaPath.getFileName().toString();
     }
 
-    @Override public Directory getParent() {
-        java.nio.file.Path javaParentPath = javaPath.getParent();
-        if (javaParentPath == null)
-            throw new RuntimeException("File " + javaPath.toString() + " unexpectedly has no parent directory");
-
-        return new FileSystemDirectory(javaParentPath);
-    }
 }

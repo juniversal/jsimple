@@ -81,4 +81,22 @@ public abstract class InputStream {
         }
         return length;
     }
+
+    /**
+     * Write the remaining contents of this stream to the specified output stream, closing this input stream when done.
+     *
+     * @param outputStream output stream to copy to
+     */
+    public void copyTo(OutputStream outputStream) {
+        byte[] buffer = new byte[8*1024];
+
+        while (true) {
+            int bytesRead = read(buffer);
+            if (bytesRead < 0)
+                break;
+            outputStream.write(buffer, 0, bytesRead);
+        }
+
+        close();
+    }
 }

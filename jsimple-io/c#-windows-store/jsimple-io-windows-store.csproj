@@ -106,9 +106,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\c#-windows-phone\nontranslated\jsimple\io\AsyncOperationComplete.cs">
-      <Link>nontranslated\jsimple\io\AsyncOperationComplete.cs</Link>
-    </Compile>
     <Compile Include="..\c#-windows-phone\nontranslated\jsimple\io\StorageFileFile.cs">
       <Link>nontranslated\jsimple\io\StorageFileFile.cs</Link>
     </Compile>

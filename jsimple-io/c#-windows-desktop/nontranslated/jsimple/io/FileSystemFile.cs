@@ -25,7 +25,7 @@ namespace jsimple.io
             try
             {
                 FileStream fileStream = System.IO.File.OpenRead(filePath);
-                return new JSimpleInputStreamOnDotNetStream(fileStream);
+                return new DotNetStreamInputStream(fileStream);
             }
             catch (System.IO.IOException e)
             {

@@ -115,7 +115,7 @@ public class IOUtils {
      */
     public static byte[] toBytesFromStream(InputStream inputStream, int[] length) {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-        byteStream.write(inputStream);
+        inputStream.copyTo(byteStream);
         return byteStream.getByteArray(length);
     }
 
