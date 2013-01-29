@@ -25,7 +25,7 @@ namespace jsimple.io
             }
         }
 
-        public override File getChildFile(string name)
+        public override File getFile(string name)
         {
             try
             {
@@ -37,7 +37,19 @@ namespace jsimple.io
             }
         }
 
-        public override Directory getChildDirectory(string name)
+        public override File createFile(string name)
+        {
+            try
+            {
+                return new StorageFileFile(storageFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting).DoSynchronously());
+            }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
+
+        public override Directory getDirectory(string name)
         {
             try
             {
@@ -49,7 +61,7 @@ namespace jsimple.io
             }
         }
 
-        public override Directory getOrCreateChildDirectory(string name)
+        public override Directory getOrCreateDirectory(string name)
         {
             try
             {

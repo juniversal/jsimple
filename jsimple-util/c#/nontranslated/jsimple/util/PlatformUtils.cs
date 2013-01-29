@@ -40,6 +40,15 @@ namespace jsimple.util
         }
 
         /// <summary>
+        ///     Convert number of milliseconds since Jan 1, 1970, UTC time (the time unit generally used in JSimple) to a DateTime.
+        /// </summary>
+        /// <returns> DateTime corresponding to the date/time in millis </returns>
+        public static DateTime toDateTimeFromMillis(long millis)
+        {
+            return Jan1st1970.AddMilliseconds(millis);
+        }
+
+        /// <summary>
         ///     Sort the elements of the list in their natural order (that is, as specified by the Comparable interface they
         ///     implement).  The sortList isn't guaranteed to be stable (it actually is in the Java version but not in the C# version).
         /// </summary>

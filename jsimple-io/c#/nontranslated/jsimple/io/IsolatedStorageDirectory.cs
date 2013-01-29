@@ -23,17 +23,22 @@ namespace jsimple.io
         }
          */
         
-        public override File getChildFile(string fileName)
+        public override File getFile(string fileName)
         {
             throw new System.NotImplementedException();
         }
 
-        public override Directory getChildDirectory(string name)
+        public override File createFile(string name)
         {
             throw new System.NotImplementedException();
         }
 
-        public override Directory getOrCreateChildDirectory(string name)
+        public override Directory getDirectory(string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Directory getOrCreateDirectory(string name)
         {
             throw new System.NotImplementedException();
         }
