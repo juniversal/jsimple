@@ -6,7 +6,5 @@ target/
 *.user
 **/c#/obj/
 **/c#/bin/
-**/c#/jsimple/
 **/c#-*/obj/
 **/c#-*/bin/
-**/c#-*/jsimple/
