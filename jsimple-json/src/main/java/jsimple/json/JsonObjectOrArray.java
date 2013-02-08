@@ -8,4 +8,7 @@ package jsimple.json;
  * @since 7/8/12 1:56 PM
  */
 abstract public class JsonObjectOrArray {
+    @Override public String toString() {
+        return Json.serialize(this);
+    }
 }
