@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Collections.Generic;
 
 namespace jsimple.oauth.oauth
@@ -6,6 +7,7 @@ namespace jsimple.oauth.oauth
 	using DefaultOAuthApi10a = jsimple.oauth.builder.api.DefaultOAuthApi10a;
 	using jsimple.oauth.model;
 	using MapUtils = jsimple.oauth.utils.MapUtils;
+
 
 
 	/// <summary>
@@ -76,6 +78,8 @@ namespace jsimple.oauth.oauth
 		/// </summary>
 		public virtual Token getAccessToken(Token requestToken, Verifier verifier)
 		{
+			Debug.Assert(requestToken != null, "nullness");
+
 			config.log("obtaining access token from " + api.AccessTokenEndpoint);
 			OAuthRequest request = new OAuthRequest(api.AccessTokenVerb, api.AccessTokenEndpoint);
 			request.addOAuthParameter(OAuthConstants.TOKEN, requestToken.TokenString);
@@ -117,6 +121,7 @@ namespace jsimple.oauth.oauth
 		/// </summary>
 		public virtual string getAuthorizationUrl(Token requestToken)
 		{
+			Debug.Assert(requestToken != null, "nullness");
 			return api.getAuthorizationUrl(requestToken);
 		}
 

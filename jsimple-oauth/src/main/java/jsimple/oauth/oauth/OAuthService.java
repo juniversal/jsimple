@@ -4,6 +4,8 @@ import jsimple.oauth.model.OAuthRequest;
 import jsimple.oauth.model.Token;
 import jsimple.oauth.model.Verifier;
 
+import javax.annotation.Nullable;
+
 /**
  * The main Scribe object.
  * <p/>
@@ -22,11 +24,11 @@ public interface OAuthService {
     /**
      * Retrieve the access token
      *
-     * @param requestToken request token (obtained previously)
+     * @param requestToken request token (obtained previously; not required for OAuth 2)
      * @param verifier     verifier code
      * @return access token
      */
-    public Token getAccessToken(Token requestToken, Verifier verifier);
+    public Token getAccessToken(@Nullable Token requestToken, Verifier verifier);
 
     /**
      * Signs am OAuth request
@@ -46,8 +48,8 @@ public interface OAuthService {
     /**
      * Returns the URL where you should redirect your users to authenticate your application.
      *
-     * @param requestToken the request token you need to authorize
+     * @param requestToken the request token you need to authorize; not used for OAuth2
      * @return the URL where you should redirect your users
      */
-    public String getAuthorizationUrl(Token requestToken);
+    public String getAuthorizationUrl(@Nullable Token requestToken);
 }

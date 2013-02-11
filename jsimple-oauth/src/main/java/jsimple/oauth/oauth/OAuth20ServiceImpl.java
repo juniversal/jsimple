@@ -2,6 +2,7 @@ package jsimple.oauth.oauth;
 
 import jsimple.oauth.builder.api.DefaultOAuthApi20;
 import jsimple.oauth.model.*;
+import org.jetbrains.annotations.Nullable;
 
 public class OAuth20ServiceImpl implements OAuthService {
     private static final String VERSION = "2.0";
@@ -23,7 +24,7 @@ public class OAuth20ServiceImpl implements OAuthService {
     /**
      * {@inheritDoc}
      */
-    public Token getAccessToken(Token requestToken, Verifier verifier) {
+    public Token getAccessToken(@Nullable Token requestToken, Verifier verifier) {
         OAuthRequest request = new OAuthRequest(api.getAccessTokenVerb(), api.getAccessTokenEndpoint());
         request.addQueryStringParameter(OAuthConstants.CLIENT_ID, config.getApiKey());
         request.addQueryStringParameter(OAuthConstants.CLIENT_SECRET, config.getApiSecret());
@@ -60,7 +61,7 @@ public class OAuth20ServiceImpl implements OAuthService {
     /**
      * {@inheritDoc}
      */
-    public String getAuthorizationUrl(Token requestToken) {
+    public String getAuthorizationUrl(@Nullable Token requestToken) {
         return api.getAuthorizationUrl(config);
     }
 }

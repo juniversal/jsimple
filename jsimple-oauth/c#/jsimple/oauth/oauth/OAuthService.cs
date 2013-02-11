@@ -5,6 +5,7 @@ namespace jsimple.oauth.oauth
 	using Token = jsimple.oauth.model.Token;
 	using Verifier = jsimple.oauth.model.Verifier;
 
+
 	/// <summary>
 	/// The main Scribe object.
 	/// <p/>
@@ -23,7 +24,7 @@ namespace jsimple.oauth.oauth
 		/// <summary>
 		/// Retrieve the access token
 		/// </summary>
-		/// <param name="requestToken"> request token (obtained previously) </param>
+		/// <param name="requestToken"> request token (obtained previously; not required for OAuth 2) </param>
 		/// <param name="verifier">     verifier code </param>
 		/// <returns> access token </returns>
 		Token getAccessToken(Token requestToken, Verifier verifier);
@@ -44,7 +45,7 @@ namespace jsimple.oauth.oauth
 		/// <summary>
 		/// Returns the URL where you should redirect your users to authenticate your application.
 		/// </summary>
-		/// <param name="requestToken"> the request token you need to authorize </param>
+		/// <param name="requestToken"> the request token you need to authorize; not used for OAuth2 </param>
 		/// <returns> the URL where you should redirect your users </returns>
 		string getAuthorizationUrl(Token requestToken);
 	}

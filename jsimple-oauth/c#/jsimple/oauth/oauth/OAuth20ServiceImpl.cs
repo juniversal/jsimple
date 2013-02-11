@@ -4,6 +4,7 @@ namespace jsimple.oauth.oauth
 	using DefaultOAuthApi20 = jsimple.oauth.builder.api.DefaultOAuthApi20;
 	using jsimple.oauth.model;
 
+
 	public class OAuth20ServiceImpl : OAuthService
 	{
 		private const string VERSION = "2.0";

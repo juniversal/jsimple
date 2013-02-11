@@ -3,6 +3,7 @@ package jsimple.oauth.oauth;
 import jsimple.oauth.builder.api.DefaultOAuthApi10a;
 import jsimple.oauth.model.*;
 import jsimple.oauth.utils.MapUtils;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
@@ -66,7 +67,9 @@ public class OAuth10aServiceImpl implements OAuthService {
     /**
      * {@inheritDoc}
      */
-    public Token getAccessToken(Token requestToken, Verifier verifier) {
+    public Token getAccessToken(@Nullable Token requestToken, Verifier verifier) {
+        assert requestToken != null : "nullness";
+
         config.log("obtaining access token from " + api.getAccessTokenEndpoint());
         OAuthRequest request = new OAuthRequest(api.getAccessTokenVerb(), api.getAccessTokenEndpoint());
         request.addOAuthParameter(OAuthConstants.TOKEN, requestToken.getTokenString());
@@ -101,7 +104,8 @@ public class OAuth10aServiceImpl implements OAuthService {
     /**
      * {@inheritDoc}
      */
-    public String getAuthorizationUrl(Token requestToken) {
+    public String getAuthorizationUrl(@Nullable Token requestToken) {
+        assert requestToken != null : "nullness";
         return api.getAuthorizationUrl(requestToken);
     }
 
