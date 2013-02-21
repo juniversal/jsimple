@@ -183,7 +183,7 @@ namespace jsimple.oauth.utils
 			for (nI = 0; nI < 8; nI++)
 				bits[nI] = (sbyte)(((long)((ulong)m_lCount >> (((7 - nI) << 3)))) & 0xff);
 
-			update((sbyte) - 128); // Was 128 in original code but -128 for signed byte 0x80 is more correct
+			update(unchecked((sbyte)(unchecked((sbyte) - 128)))); // Was 128 in original code but -128 for signed byte 0x80 is more correct
 			while (m_nBlockIndex != 56)
 				update((sbyte) 0);
 

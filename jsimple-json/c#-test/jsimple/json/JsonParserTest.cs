@@ -8,7 +8,7 @@ namespace jsimple.json
 	/// @author Bret Johnson
 	/// @since 5/6/12 12:33 AM
 	/// </summary>
-	public class JsonParserTest : jsimple.unit.UnitTest
+	public class JsonParserTest : UnitTest
 	{
 		[Test] public virtual void testParseObject()
 		{

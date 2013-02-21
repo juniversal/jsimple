@@ -8,7 +8,7 @@ namespace jsimple.net
 	/// @author Bret Johnson
 	/// @since 11/25/12 10:58 PM
 	/// </summary>
-	public class UrlEncoderTest : jsimple.unit.UnitTest
+	public class UrlEncoderTest : UnitTest
 	{
 		[Test] public virtual void testEncode()
 		{

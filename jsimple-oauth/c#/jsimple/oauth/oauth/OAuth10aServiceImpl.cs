@@ -70,7 +70,7 @@ namespace jsimple.oauth.oauth
 				request.addOAuthParameter(OAuthConstants.SCOPE, scope);
 			request.addOAuthParameter(OAuthConstants.SIGNATURE, getSignature(request, token));
 
-			config.log("appended additional OAuth parameters: " + MapUtils.ToString(request.OauthParameters));
+			config.log("appended additional OAuth parameters: " + MapUtils.toStringFromMap(request.OauthParameters));
 		}
 
 		/// <summary>

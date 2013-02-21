@@ -61,7 +61,7 @@ public class OAuth10aServiceImpl implements OAuthService {
             request.addOAuthParameter(OAuthConstants.SCOPE, scope);
         request.addOAuthParameter(OAuthConstants.SIGNATURE, getSignature(request, token));
 
-        config.log("appended additional OAuth parameters: " + MapUtils.toString(request.getOauthParameters()));
+        config.log("appended additional OAuth parameters: " + MapUtils.toStringFromMap(request.getOauthParameters()));
     }
 
     /**

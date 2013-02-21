@@ -11,7 +11,7 @@ namespace jsimple.io
 	/// @author Bret Johnson
 	/// @since 10/8/12 8:17 PM
 	/// </summary>
-	public class Utf8InputStreamReaderTest : jsimple.unit.UnitTest
+	public class Utf8InputStreamReaderTest : UnitTest
 	{
 
 		[Test] public virtual void testRead()

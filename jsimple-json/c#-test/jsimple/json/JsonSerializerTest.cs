@@ -10,7 +10,7 @@ namespace jsimple.json
 	/// @author Bret Johnson
 	/// @since 7/8/12 1:42 PM
 	/// </summary>
-	public class JsonSerializerTest : jsimple.unit.UnitTest
+	public class JsonSerializerTest : UnitTest
 	{
 		[Test] public virtual void testSerializeObject()
 		{

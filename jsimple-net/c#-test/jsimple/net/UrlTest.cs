@@ -5,7 +5,7 @@ namespace jsimple.net
 
 	using NUnit.Framework;
 
-	public class UrlTest : jsimple.unit.UnitTest
+	public class UrlTest : UnitTest
 	{
 		[Test] public virtual void testUrl()
 		{

@@ -12,7 +12,7 @@ namespace jsimple.net
 	/// @author Bret Johnson
 	/// @since 10/6/12 5:27 PM
 	/// </summary>
-	public class SocketTimeoutException : jsimple.io.IOException
+	public class SocketTimeoutException : IOException
 	{
 		public SocketTimeoutException(Exception cause) : this(cause.ToString(), cause)
 		{

@@ -6,7 +6,7 @@ import java.util.Map;
  * @author: Pablo Fernandez
  */
 public class MapUtils {
-    public static <K, V> String toString(Map<K, V> map) {
+    public static <K, V> String toStringFromMap(Map<K, V> map) {
         if (map == null) return "";
         if (map.isEmpty()) return "{}";
 

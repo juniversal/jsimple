@@ -133,10 +133,10 @@ namespace jsimple.io
 						// Where jchar is a high-surrogate, jchar2 is a low-surrogate.
 						int n = (queuedLeadSurrogate << 10) + trailSurrogate + -56613888; // 0xFCA02400
 
-						destBuffer[destPosition++] = (sbyte)(0xF0 + ((n >> 18) & 0x07));
-						destBuffer[destPosition++] = (sbyte)(0x80 + ((n >> 12) & 0x3F));
-						destBuffer[destPosition++] = (sbyte)(0x80 + ((n >> 6) & 0x3F));
-						destBuffer[destPosition++] = (sbyte)(0x80 + (n & 0x3F));
+						destBuffer[destPosition++] = unchecked((sbyte)(0xF0 + ((n >> 18) & 0x07)));
+						destBuffer[destPosition++] = unchecked((sbyte)(0x80 + ((n >> 12) & 0x3F)));
+						destBuffer[destPosition++] = unchecked((sbyte)(0x80 + ((n >> 6) & 0x3F)));
+						destBuffer[destPosition++] = unchecked((sbyte)(0x80 + (n & 0x3F)));
 
 						queuedLeadSurrogate = -1;
 					}
@@ -144,8 +144,8 @@ namespace jsimple.io
 						destBuffer[destPosition++] = (sbyte) c;
 					else if (c <= 0x7FF)
 					{
-						destBuffer[destPosition++] = (sbyte)(0xC0 + ((c >> 6) & 0x1F));
-						destBuffer[destPosition++] = (sbyte)(0x80 + (c & 0x3F));
+						destBuffer[destPosition++] = unchecked((sbyte)(0xC0 + ((c >> 6) & 0x1F)));
+						destBuffer[destPosition++] = unchecked((sbyte)(0x80 + (c & 0x3F)));
 					}
 					else if (c >= 0xD800 && c <= 0xDFFF)
 					{
@@ -157,9 +157,9 @@ namespace jsimple.io
 					}
 					else
 					{
-						destBuffer[destPosition++] = (sbyte)(0xE0 + ((c >> 12) & 0x0F));
-						destBuffer[destPosition++] = (sbyte)(0x80 + ((c >> 6) & 0x3F));
-						destBuffer[destPosition++] = (sbyte)(0x80 + (c & 0x3F));
+						destBuffer[destPosition++] = unchecked((sbyte)(0xE0 + ((c >> 12) & 0x0F)));
+						destBuffer[destPosition++] = unchecked((sbyte)(0x80 + ((c >> 6) & 0x3F)));
+						destBuffer[destPosition++] = unchecked((sbyte)(0x80 + (c & 0x3F)));
 					}
 				}
 			}

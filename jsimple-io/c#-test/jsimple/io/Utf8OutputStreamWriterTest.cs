@@ -11,7 +11,7 @@ namespace jsimple.io
 	/// @author Bret Johnson
 	/// @since 10/15/12 8:17 PM
 	/// </summary>
-	public class Utf8OutputStreamWriterTest : jsimple.unit.UnitTest
+	public class Utf8OutputStreamWriterTest : UnitTest
 	{
 		[Test] public virtual void testWrite()
 		{

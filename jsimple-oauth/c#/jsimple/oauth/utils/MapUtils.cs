@@ -10,7 +10,7 @@ namespace jsimple.oauth.utils
 	/// </summary>
 	public class MapUtils
 	{
-		public static string ToString<K, V>(IDictionary<K, V> map)
+		public static string toStringFromMap<K, V>(IDictionary<K, V> map)
 		{
 			if (map == null)
 				return "";

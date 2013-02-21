@@ -9,7 +9,7 @@ namespace jsimple.oauth.utils
 	/// @author Bret Johnson
 	/// @since 10/23/12 12:04 AM
 	/// </summary>
-	public class Sha1Test : jsimple.unit.UnitTest
+	public class Sha1Test : UnitTest
 	{
 
 		// These test cases are from http://tools.ietf.org/html/rfc2202

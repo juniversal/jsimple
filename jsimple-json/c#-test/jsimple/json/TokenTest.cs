@@ -8,7 +8,7 @@ namespace jsimple.json
 	/// @author Bret Johnson
 	/// @since 5/6/12 2:17 AM
 	/// </summary>
-	public class TokenTest : jsimple.unit.UnitTest
+	public class TokenTest : UnitTest
 	{
 		[Test] public virtual void testCharacterTokens()
 		{

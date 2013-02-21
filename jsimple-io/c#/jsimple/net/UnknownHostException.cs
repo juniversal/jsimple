@@ -12,7 +12,7 @@ namespace jsimple.net
 	/// @author Bret Johnson
 	/// @since 10/6/12 5:27 PM
 	/// </summary>
-	public class UnknownHostException : jsimple.io.IOException
+	public class UnknownHostException : IOException
 	{
 		public UnknownHostException(Exception cause) : base(cause)
 		{
