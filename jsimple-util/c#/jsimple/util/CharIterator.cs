@@ -4,10 +4,6 @@ using System.Text;
 namespace jsimple.util
 {
 
-
-
-	/// 
-	/// 
 	/// <summary>
 	/// @author Bret Johnson
 	/// @since 11/25/12 4:00 PM

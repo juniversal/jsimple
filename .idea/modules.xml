@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/java-to-csharp-converter-maven-plugin/java-to-csharp-converter-maven-plugin.iml" filepath="$PROJECT_DIR$/java-to-csharp-converter-maven-plugin/java-to-csharp-converter-maven-plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsimple.iml" filepath="$PROJECT_DIR$/jsimple.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsimple-io/jsimple-io.iml" filepath="$PROJECT_DIR$/jsimple-io/jsimple-io.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsimple-json/jsimple-json.iml" filepath="$PROJECT_DIR$/jsimple-json/jsimple-json.iml" />

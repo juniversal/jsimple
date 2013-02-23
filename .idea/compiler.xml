@@ -38,6 +38,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="java-to-csharp-converter-maven-plugin" />
         <module name="jsimple-io" />
         <module name="jsimple-json" />
         <module name="jsimple-net" />

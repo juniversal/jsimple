@@ -20,12 +20,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.nokia.jsimple</groupId>
             <artifactId>jsimple-unit</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.intellij</groupId>
@@ -72,10 +69,12 @@
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
 
+            <!-- Translate to C# -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
+                <groupId>com.nokia.jsimple</groupId>
+                <artifactId>java-to-csharp-converter-maven-plugin</artifactId>
             </plugin>
+
         </plugins>
     </build>
 

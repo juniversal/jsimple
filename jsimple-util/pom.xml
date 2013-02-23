@@ -33,11 +33,11 @@
             <artifactId>jsr308-all</artifactId>
             <version>1.2.6</version>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
+
             <!-- Include java-nontranslated as source folder -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -67,8 +67,8 @@
 
             <!-- Translate to C# -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
+                <groupId>com.nokia.jsimple</groupId>
+                <artifactId>java-to-csharp-converter-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
