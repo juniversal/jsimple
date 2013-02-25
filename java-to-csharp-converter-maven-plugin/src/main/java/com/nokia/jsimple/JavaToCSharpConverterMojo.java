@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  * Run the Tangible Java -> C# converter.
@@ -30,8 +31,8 @@ public class JavaToCSharpConverterMojo extends AbstractMojo {
     private File outputDirectory;
 
     /**
-     * Java test source directory.  Defaults to ${project.build.testSourceDirectory}.  If this directory doesn't
-     * exist, then no test sources are converted.
+     * Java test source directory.  Defaults to ${project.build.testSourceDirectory}.  If this directory doesn't exist,
+     * then no test sources are converted.
      */
     @Parameter(defaultValue = "${project.build.testSourceDirectory}", property = "testSourceDirectory", required = false)
     private File testSourceDirectory;
@@ -65,23 +66,25 @@ public class JavaToCSharpConverterMojo extends AbstractMojo {
         if (skip)
             return;
 
+        deleteGeneratedDirectories(outputDirectory);
+
         String[] convertSourceArgs = new String[]{
                 new File(converterDirectory, "Java to C# Converter.exe").getPath(),
                 sourceDirectory.getAbsolutePath(),
                 outputDirectory.getAbsolutePath(),
                 converterSettings.getAbsolutePath()
         };
-
         convert(convertSourceArgs);
 
         if (testSourceDirectory.exists()) {
+            deleteGeneratedDirectories(testOutputDirectory);
+
             String[] convertTestArgs = new String[]{
                     new File(converterDirectory, "Java to C# Converter.exe").getPath(),
                     testSourceDirectory.getAbsolutePath(),
                     testOutputDirectory.getAbsolutePath(),
                     converterSettings.getAbsolutePath()
             };
-
             convert(convertTestArgs);
         }
     }
@@ -103,5 +106,41 @@ public class JavaToCSharpConverterMojo extends AbstractMojo {
         } catch (IOException e) {
             throw new MojoExecutionException("IO exception when running converter", e);
         }
+    }
+
+    /**
+     * Delete the contents of the specified directory that appear to be generated via the converter.  The rule used
+     * here is that all subdirectories of the specified directory are deleted, except for Bin, obj, Properties, obj,
+     * and nontranslated.
+     *
+     * @param path directory/file to delete
+     * @throws MojoExecutionException
+     */
+    private static void deleteGeneratedDirectories(File path) throws MojoExecutionException {
+        if (path.isDirectory()) {
+            for (File child : path.listFiles()) {
+                String name = child.getName();
+
+                if (child.isDirectory() && !name.equals("Properties") && !name.equals("nontranslated") &&
+                        !name.equalsIgnoreCase("Bin") && !name.equalsIgnoreCase("obj"))
+                    deleteRecursively(child);
+            }
+        }
+    }
+
+    /**
+     * Delete the specified directory/file.  If there's an error deleting anything, an exception is thrown.
+     *
+     * @param path directory/file to delete
+     * @throws MojoExecutionException
+     */
+    private static void deleteRecursively(File path) throws MojoExecutionException {
+        if (path.isDirectory()) {
+            for (File child : path.listFiles())
+                deleteRecursively(child);
+        }
+
+        if (!path.delete())
+            throw new MojoExecutionException("Failed to delete this file/directory: " + path.getAbsolutePath());
     }
 }

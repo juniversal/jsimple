@@ -11,7 +11,6 @@
         <!--Child modules must redefine this-->
         <rootdir>${project.basedir}</rootdir>
 
-        <skipConversion>false</skipConversion>
         <third-partydir>${rootdir}/third-party</third-partydir>
         <checkersdir>${third-partydir}/checker-framework/checkers</checkersdir>
         <java-to-csharp-converter-dir>${third-partydir}/java-to-csharp-converter</java-to-csharp-converter-dir>
@@ -66,13 +65,11 @@
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>2.4.1</version>
                     <configuration>
-                        <skip>${skipConversion}</skip>
                         <followSymLinks>false</followSymLinks>
                         <filesets>
                             <fileset>
                                 <directory>${basedir}/c#</directory>
                                 <includes>
-                                    <include>jsimple/**</include>
                                     <include>obj/**</include>
                                     <include>bin/**</include>
                                 </includes>
@@ -80,7 +77,6 @@
                             <fileset>
                                 <directory>${basedir}/c#-test</directory>
                                 <includes>
-                                    <include>jsimple/**</include>
                                     <include>obj/**</include>
                                     <include>bin/**</include>
                                 </includes>
