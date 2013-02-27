@@ -39,14 +39,14 @@ final class Token {
      */
     String getDescription() {
         if (type == TokenType.PRIMITIVE) {
-            if (primitiveValue == null)
-                return "null";
-            else if (primitiveValue instanceof Integer || primitiveValue instanceof Long)
+            if (primitiveValue instanceof Integer || primitiveValue instanceof Long)
                 return primitiveValue.toString();
             else if (primitiveValue instanceof Boolean)
                 return ((boolean) (Boolean) primitiveValue) ? "true" : "false";
             else if (primitiveValue instanceof String)
                 return "\"" + primitiveValue.toString() + "\"";
+            else if (primitiveValue instanceof JsonNull)
+                return "null";
             else throw new JsonException("Unknown token primitive type");
         } else return getTokenTypeDescription(type);
     }

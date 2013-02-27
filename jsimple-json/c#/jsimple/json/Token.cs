@@ -55,14 +55,14 @@ namespace jsimple.json
 			{
 				if (type == TokenType.PRIMITIVE)
 				{
-					if (primitiveValue == null)
-						return "null";
-					else if (primitiveValue is int? || primitiveValue is long?)
+					if (primitiveValue is int? || primitiveValue is long?)
 						return primitiveValue.ToString();
 					else if (primitiveValue is bool?)
 						return ((bool)(bool?) primitiveValue) ? "true" : "false";
 					else if (primitiveValue is string)
 						return "\"" + primitiveValue.ToString() + "\"";
+					else if (primitiveValue is JsonNull)
+						return "null";
 					else
 						throw new JsonException("Unknown token primitive type");
 				}

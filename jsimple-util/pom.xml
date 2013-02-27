@@ -61,8 +61,8 @@
 
             <!-- @Nullable checking -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <groupId>types.checkers</groupId>
+                <artifactId>checkers-maven-plugin</artifactId>
             </plugin>
 
             <!-- Translate to C# -->

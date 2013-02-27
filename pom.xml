@@ -34,21 +34,27 @@
         </repository>
     </repositories>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>checker-framework-repo</id>
+            <url>http://types.cs.washington.edu/m2-repo</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencyManagement>
         <dependencies>
+            <!-- annotations for the standard checkers: nullness, interning, mutability -->
+            <dependency>
+                <groupId>types.checkers</groupId>
+                <artifactId>checkers-quals</artifactId>
+                <version>1.6.0</version>
+            </dependency>
             <dependency>
                 <groupId>com.nokia.jsimple</groupId>
                 <artifactId>jsimple-unit</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>test</scope>
             </dependency>
-            <!--
-            <dependency>
-                <groupId>types.checkers</groupId>
-                <artifactId>jsr308-all</artifactId>
-                <version>1.2.6</version>
-            </dependency>
-            -->
             <dependency>
                 <groupId>com.intellij</groupId>
                 <artifactId>annotations</artifactId>
@@ -87,23 +93,28 @@
                     </configuration>
                 </plugin>
 
+                <!-- @Nullable checking -->
                 <plugin>
-                    <!-- @Nullable checking -->
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.4</version>
+                    <groupId>types.checkers</groupId>
+                    <artifactId>checkers-maven-plugin</artifactId>
+                    <version>1.6.0</version>
+                    <executions>
+                        <execution>
+                            <!-- run the checkers after compilation; this can also be any later phase -->
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.7</target>
-                        <verbose>true</verbose>
-                        <fork>true</fork>
-                        <executable>${checkersdir}/binary/javac.bat</executable>
-                        <compilerVersion>1.7</compilerVersion>
-                        <compilerArgument>-Xbootclasspath/p:${checkersdir}/binary/jsr308-all.jar</compilerArgument>
-                        <compilerArgument>-AskipUses=org.junit</compilerArgument>
-                        <compilerArguments>
+                        <processors>
                             <processor>checkers.nullness.NullnessChecker</processor>
-                        </compilerArguments>
+                            <!--<processor>checkers.interning.InterningChecker</processor>-->
+                        </processors>
+
+                        <javacParams>-Alint</javacParams>
+                        <failOnError>true</failOnError>
                     </configuration>
                 </plugin>
 
