@@ -1,4 +1,4 @@
-xpackage jsimple.io;
+package jsimple.io;
 
 /**
  * @author Bret Johnson
