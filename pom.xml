@@ -79,14 +79,18 @@
                                 <directory>${basedir}/c#</directory>
                                 <includes>
                                     <include>obj/**</include>
+                                    <include>Obj/**</include>
                                     <include>bin/**</include>
+                                    <include>Bin/**</include>
                                 </includes>
                             </fileset>
                             <fileset>
                                 <directory>${basedir}/c#-test</directory>
                                 <includes>
                                     <include>obj/**</include>
+                                    <include>Obj/**</include>
                                     <include>bin/**</include>
+                                    <include>Bin/**</include>
                                 </includes>
                             </fileset>
                         </filesets>

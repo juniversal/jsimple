@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 
 /**
  * Run the Tangible Java -> C# converter.
@@ -109,9 +108,9 @@ public class JavaToCSharpConverterMojo extends AbstractMojo {
     }
 
     /**
-     * Delete the contents of the specified directory that appear to be generated via the converter.  The rule used
-     * here is that all subdirectories of the specified directory are deleted, except for Bin, obj, Properties, obj,
-     * and nontranslated.
+     * Delete the contents of the specified directory that appear to be generated via the converter.  The rule used here
+     * is that all subdirectories of the specified directory are deleted, except for Bin, obj, Properties, and
+     * nontranslated.
      *
      * @param path directory/file to delete
      * @throws MojoExecutionException
