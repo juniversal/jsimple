@@ -11,9 +11,7 @@
         <!--Child modules must redefine this-->
         <rootdir>${project.basedir}</rootdir>
 
-        <third-partydir>${rootdir}/third-party</third-partydir>
-        <checkersdir>${third-partydir}/checker-framework/checkers</checkersdir>
-        <java-to-csharp-converter-dir>${third-partydir}/java-to-csharp-converter</java-to-csharp-converter-dir>
+        <java-to-csharp-converter-dir>${rootdir}/third-party/java-to-csharp-converter</java-to-csharp-converter-dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
