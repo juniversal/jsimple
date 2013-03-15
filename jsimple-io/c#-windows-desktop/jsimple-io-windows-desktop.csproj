@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="nontranslated\jsimple\io\FileSystemDirectory.cs" />
     <Compile Include="nontranslated\jsimple\io\FileSystemFile.cs" />
+    <Compile Include="nontranslated\jsimple\io\Paths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

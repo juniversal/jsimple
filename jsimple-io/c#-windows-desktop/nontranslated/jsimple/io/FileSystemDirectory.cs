@@ -20,26 +20,24 @@ namespace jsimple.io
             }
         }
 
-        public override Directory Parent
-        {
-            get
-            {
-                string parentDirectoryName = System.IO.Path.GetDirectoryName(directoryPath);
-                if (parentDirectoryName == null)
-                    return null;
-                
-                return new FileSystemDirectory(parentDirectoryName);
-            }
-        }
-
-        public override File getChildFile(string name)
+        public override File getFile(string name)
         {
             return new FileSystemFile(getChildPath(name));
         }
 
-        public override Directory getChildDirectory(string name)
+        public override File createFile(string name)
+        {
+            return new FileSystemFile(getChildPath(name));
+        }
+
+        public override Directory getDirectory(string name)
         {
             return new FileSystemDirectory(getChildPath(name));
+        }
+
+        public override Directory getOrCreateDirectory(string name)
+        {
+            throw new NotImplementedException();
         }
 
         private string getChildPath(string name)
