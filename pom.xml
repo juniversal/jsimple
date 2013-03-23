@@ -5,7 +5,7 @@
     <groupId>com.nokia.jsimple</groupId>
     <artifactId>jsimple</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>100.0-SNAPSHOT</version>
 
     <properties>
         <!--Child modules must redefine this-->
@@ -74,19 +74,11 @@
                         <followSymLinks>false</followSymLinks>
                         <filesets>
                             <fileset>
-                                <directory>${basedir}/c#</directory>
+                                <directory>${basedir}</directory>
                                 <includes>
                                     <include>**/obj/</include>
                                     <include>**/Bin/</include>
-                                    <include>**/Bin80/</include>
-                                </includes>
-                            </fileset>
-                            <fileset>
-                                <directory>${basedir}/c#-test</directory>
-                                <includes>
-                                    <include>**/obj/</include>
-                                    <include>**/Bin/</include>
-                                    <include>**/Bin80/</include>
+                                    <include>**/bin/</include>
                                 </includes>
                             </fileset>
                         </filesets>
