@@ -122,7 +122,7 @@ namespace jsimple.io
 		{
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			inputStream.copyTo(byteStream);
-			return byteStream.getByteArray(length);
+			return byteStream.closeAndGetByteArray(length);
 		}
 
 		/// <summary>

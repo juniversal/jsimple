@@ -54,6 +54,46 @@ namespace jsimple.io
 			base.close();
 		}
 
+		/// <summary>
+		/// Closes this stream and returns the byte array associated with it.  Note that the returned array may be the
+		/// original buffer used by this stream or a copy; the original is used if it's already exactly the right size (with
+		/// no extra space at the end), otherwise a copy is made with the right size.
+		/// </summary>
+		/// <returns> byte array associated with stream </returns>
+		public virtual sbyte[] closeAndGetByteArray()
+		{
+			sbyte[] data;
+			if (buffer.Length == count)
+				data = buffer;
+			else
+				data = toByteArray();
+
+			close();
+			buffer = null;
+
+			return data;
+		}
+
+		/// <summary>
+		/// Closes the stream and returns its contents as a byte array.  Only the first length[0] bytes of this array contain
+		/// the stream data.  This just returns a reference to the internal byte array.  That has the advantage of
+		/// potentially better performance--no copy is needed--but less convenience than getting a byte array of exactly the
+		/// right size.  If the returned byte array will exist of a while, it can also be more memory efficient to get a
+		/// version that's no bigger than needed.
+		/// </summary>
+		/// <returns> this stream's current contents as a byte array; the array can be arbitrarily big, but only the first
+		///         length[0] bytes contain stream data </returns>
+		public virtual sbyte[] closeAndGetByteArray(int[] length)
+		{
+			length[0] = count;
+			sbyte[] data = buffer;
+
+			close();
+			buffer = null;
+
+			return data;
+		}
+
 		private void expand(int i)
 		{
 			// Can the buffer handle @i more bytes?  If so, return

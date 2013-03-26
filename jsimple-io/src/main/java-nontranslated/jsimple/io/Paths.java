@@ -14,7 +14,7 @@ public class Paths extends PathsBase {
      *
      * @return the directory where the application should store its private data
      */
-    static Directory getApplicationDataDirectory() {
+    public static Directory getApplicationDataDirectory() {
         @Nullable String workingDirectory = System.getProperty("user.dir");
         if (workingDirectory == null)
             throw new IOException("user.dir is unset for some reason; working directory not specified by the JVM");

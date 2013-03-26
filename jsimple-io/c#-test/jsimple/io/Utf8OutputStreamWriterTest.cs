@@ -119,7 +119,7 @@ namespace jsimple.io
 			utf8OutputStreamWriter.flush();
 
 			int[] length = new int[1];
-			sbyte[] bytes = byteArrayOutputStream.getByteArray(length);
+			sbyte[] bytes = byteArrayOutputStream.closeAndGetByteArray(length);
 
 			assertEquals(s, IOUtils.toStringFromUtf8Bytes(bytes, 0, length[0]));
 		}

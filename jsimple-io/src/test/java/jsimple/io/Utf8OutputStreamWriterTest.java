@@ -105,7 +105,7 @@ public class Utf8OutputStreamWriterTest extends UnitTest {
         utf8OutputStreamWriter.flush();
 
         int[] length = new int[1];
-        byte[] bytes = byteArrayOutputStream.getByteArray(length);
+        byte[] bytes = byteArrayOutputStream.closeAndGetByteArray(length);
 
         assertEquals(s, IOUtils.toStringFromUtf8Bytes(bytes, 0, length[0]));
     }
