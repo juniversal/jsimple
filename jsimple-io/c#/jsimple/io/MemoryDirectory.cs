@@ -47,7 +47,6 @@ namespace jsimple.io
 		/// delay file creation until File.openForCreate is called and the contents are written (which is the preferred
 		/// implementation, as it's generally more efficient).
 		/// <p/>
-		/// TODO: Reconsider this spec
 		/// </summary>
 		/// <param name="name"> file name </param>
 		/// <returns> File object, that's a child of this directory </returns>
@@ -59,9 +58,9 @@ namespace jsimple.io
 					return memoryFile;
 			}
 
-			MemoryFile memoryFile = new MemoryFile(name);
-			files.Add(memoryFile);
-			return memoryFile;
+			MemoryFile newMemoryFile = new MemoryFile(name);
+			files.Add(newMemoryFile);
+			return newMemoryFile;
 		}
 
 		/// <summary>
@@ -96,9 +95,9 @@ namespace jsimple.io
 					return memoryDirectory;
 			}
 
-			MemoryDirectory memoryDirectory = new MemoryDirectory(name);
-			subdirectories.Add(memoryDirectory);
-			return memoryDirectory;
+			MemoryDirectory newMemoryDirectory = new MemoryDirectory(name);
+			subdirectories.Add(newMemoryDirectory);
+			return newMemoryDirectory;
 		}
 
 		/// <summary>
@@ -132,6 +131,36 @@ namespace jsimple.io
 			get
 			{
 				return lastModificationTime;
+			}
+		}
+
+		private class MemoryPathAttributes : PathAttributes
+		{
+			internal long lastModifiedTime;
+			internal long size;
+
+			public MemoryPathAttributes(long lastModifiedTime, long size)
+			{
+				this.lastModifiedTime = lastModifiedTime;
+				this.size = size;
+			}
+
+			/// <returns> last time the directory/file was modified, in millis. </returns>
+			public override long LastModifiedTime
+			{
+				get
+				{
+					return 0; //To change body of implemented methods use File | Settings | File Templates.
+				}
+			}
+
+			/// <returns> for a file its size in bytes and for a directory the results are implementation specific </returns>
+			public override long Size
+			{
+				get
+				{
+					return 0; //To change body of implemented methods use File | Settings | File Templates.
+				}
 			}
 		}
 	}

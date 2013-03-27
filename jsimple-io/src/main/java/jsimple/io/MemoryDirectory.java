@@ -42,7 +42,6 @@ public class MemoryDirectory extends Directory {
      * delay file creation until File.openForCreate is called and the contents are written (which is the preferred
      * implementation, as it's generally more efficient).
      * <p/>
-     * TODO: Reconsider this spec
      *
      * @param name file name
      * @return File object, that's a child of this directory
@@ -53,9 +52,9 @@ public class MemoryDirectory extends Directory {
                 return memoryFile;
         }
 
-        MemoryFile memoryFile = new MemoryFile(name);
-        files.add(memoryFile);
-        return memoryFile;
+        MemoryFile newMemoryFile = new MemoryFile(name);
+        files.add(newMemoryFile);
+        return newMemoryFile;
     }
 
     /**
@@ -88,9 +87,9 @@ public class MemoryDirectory extends Directory {
                 return memoryDirectory;
         }
 
-        MemoryDirectory memoryDirectory= new MemoryDirectory(name);
-        subdirectories.add(memoryDirectory);
-        return memoryDirectory;
+        MemoryDirectory newMemoryDirectory= new MemoryDirectory(name);
+        subdirectories.add(newMemoryDirectory);
+        return newMemoryDirectory;
     }
 
     /**

@@ -109,9 +109,16 @@ namespace jsimple.io
 			{
 				if (!closed)
 				{
-					sbyte[] data = base.closeAndGetByteArray();
-					closed = true;
+					// Get the data, making a copy if it's not already the exact length required
+					int[] length = new int[1];
+					sbyte[] data = getByteArray(length);
+					if (data.Length != length[0])
+						data = toByteArray();
+
+					base.close();
+
 					memoryFile.Data = data;
+					closed = true;
 				}
 			}
 		}
