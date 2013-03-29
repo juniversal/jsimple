@@ -103,6 +103,17 @@ public class MemoryDirectory extends Directory {
         return newMemoryDirectory;
     }
 
+    public void deleteDirectory(String name) {
+        for (MemoryDirectory memoryDirectory : subdirectories) {
+            if (memoryDirectory.getName().equals(name)) {
+                subdirectories.remove(memoryDirectory);
+                return;
+            }
+        }
+
+        throw new FileNotFoundException("MemoryDirectory " + name + " not found");
+    }
+
     /**
      * Visit the child elements of this path--basically list the files and subdirectories of a directory, calling the
      * visitor for each.  Just direct children are listed, not all descendants; callers can call this method recursively
