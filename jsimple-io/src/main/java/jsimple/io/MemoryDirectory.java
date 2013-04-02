@@ -57,6 +57,17 @@ public class MemoryDirectory extends Directory {
         return newMemoryFile;
     }
 
+     public void deleteFile(String name) {
+        for (MemoryFile memoryFile : files) {
+            if (memoryFile.getName().equals(name)){
+                files.remove(memoryFile);
+                return;
+            }
+        }
+
+        throw new FileNotFoundException("MemoryFile " + name + " not found");
+    }
+
     /**
      * Get the child directory, which must already exist under this directory.  If the directory doesn't exist, the
      * results are undefined (for some implementations it will fail right away & others will fail later, like when visit
@@ -90,6 +101,17 @@ public class MemoryDirectory extends Directory {
         MemoryDirectory newMemoryDirectory= new MemoryDirectory(name);
         subdirectories.add(newMemoryDirectory);
         return newMemoryDirectory;
+    }
+
+    public void deleteDirectory(String name) {
+        for (MemoryDirectory memoryDirectory : subdirectories) {
+            if (memoryDirectory.getName().equals(name)) {
+                subdirectories.remove(memoryDirectory);
+                return;
+            }
+        }
+
+        throw new FileNotFoundException("MemoryDirectory " + name + " not found");
     }
 
     /**
