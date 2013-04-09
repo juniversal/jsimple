@@ -17,6 +17,7 @@
 
     <modules>
         <module>java-to-csharp-converter-maven-plugin</module>
+        <module>msbuild-maven-plugin</module>
         <module>jsimple-unit</module>
         <module>jsimple-util</module>
         <module>jsimple-io</module>
