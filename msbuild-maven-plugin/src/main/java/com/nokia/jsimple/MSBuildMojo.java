@@ -53,6 +53,9 @@ public class MSBuildMojo extends AbstractMojo {
     private String target;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
+        if (project == null)
+            throw new MojoFailureException("project not specified; either set 'project' in the configuration or set the ${msbuildProject} property");
+
         String[] args = new String[]{
                 new File(dotNETDirectory, "MSBuild.exe").getPath(),
                 "/t:" + target,
