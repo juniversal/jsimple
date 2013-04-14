@@ -23,7 +23,7 @@ public class FileSystemFile extends File {
         try{
             Files.delete(javaPath);
         } catch (Exception e){
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e)
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }
     }
 
