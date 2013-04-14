@@ -19,6 +19,14 @@ public class FileSystemFile extends File {
         this.javaPath = javaPath;
     }
 
+    public  void deleteFile(){
+        try{
+            Files.delete(javaPath);
+        } catch (Exception e){
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e)
+        }
+    }
+
     @Override public InputStream openForRead() {
         try {
             return new JSimpleInputStreamOnJavaStream(Files.newInputStream(javaPath));
