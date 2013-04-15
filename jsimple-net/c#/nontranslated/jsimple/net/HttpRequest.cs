@@ -13,7 +13,7 @@ namespace jsimple.net
 
         public HttpRequest(String url)
         {
-            httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
+            httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
         }
 
         public override string Method
@@ -51,13 +51,13 @@ namespace jsimple.net
             var dataReady = new AutoResetEvent(false);
             Stream stream = null;
             var callback = new AsyncCallback(delegate(IAsyncResult asynchronousResult)
-                {
-                    stream = httpWebRequest.EndGetRequestStream(asynchronousResult);
-                    dataReady.Set();
-                });
+            {
+                stream = httpWebRequest.EndGetRequestStream(asynchronousResult);
+                dataReady.Set();
+            });
 
             httpWebRequest.BeginGetRequestStream(callback, httpWebRequest);
-            if (! dataReady.WaitOne(timeout))
+            if (!dataReady.WaitOne(timeout))
                 throw new SocketTimeoutException("Could not get request stream for " + httpWebRequest.RequestUri +
                                                  " request in " + timeout + "ms");
 
@@ -69,14 +69,14 @@ namespace jsimple.net
             var dataReady = new AutoResetEvent(false);
             HttpWebResponse response = null;
             var callback = new AsyncCallback(delegate(IAsyncResult asynchronousResult)
-                {
-                    response = (HttpWebResponse) httpWebRequest.EndGetResponse(asynchronousResult);
-                    dataReady.Set();
-                });
+            {
+                response = (HttpWebResponse)httpWebRequest.EndGetResponse(asynchronousResult);
+                dataReady.Set();
+            });
 
             httpWebRequest.BeginGetResponse(callback, httpWebRequest);
 
-            if (! dataReady.WaitOne(timeout))
+            if (!dataReady.WaitOne(timeout))
                 throw new SocketTimeoutException("Could not get response for " + httpWebRequest.RequestUri +
                                                  " request in " + timeout + "ms");
 
