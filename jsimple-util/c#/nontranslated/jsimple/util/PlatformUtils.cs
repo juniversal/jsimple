@@ -30,6 +30,16 @@ namespace jsimple.util
         }
 
         /// <summary>
+        ///     Get the number of milliseconds since Jan 1, 1970, UTC time for dateTime, thus converting to the time unit we
+        ///     we generally use in JSimple.
+        /// </summary>
+        /// <returns> number of milliseconds since 1/1/1970 UTC/GMT for dataTimeOffset </returns>
+        public static long toMillisFromDateTime(DateTime dateTime)
+        {
+            return (long)(dateTime - Jan1st1970).TotalMilliseconds;
+        }
+
+        /// <summary>
         ///     Get the number of milliseconds since Jan 1, 1970, UTC time for dateTimeOffset, thus converting to the time unit we
         ///     we generally use in JSimple.
         /// </summary>
