@@ -100,17 +100,27 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\..\jsimple-util\c#\jsimple-util.csproj">
+      <Project>{7de38eb4-9d6a-4d5a-ae5f-4769befbda74}</Project>
+      <Name>jsimple-util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\c#\jsimple-io.csproj">
       <Project>{0271a18c-eeac-4cac-bf2e-89a693b354ef}</Project>
       <Name>jsimple-io</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\c#-windows-phone\nontranslated\jsimple\io\AsyncOperationExtension.cs">
+      <Link>nontranslated\jsimple\io\AsyncOperationExtension.cs</Link>
+    </Compile>
     <Compile Include="..\c#-windows-phone\nontranslated\jsimple\io\StorageFileFile.cs">
       <Link>nontranslated\jsimple\io\StorageFileFile.cs</Link>
     </Compile>
     <Compile Include="..\c#-windows-phone\nontranslated\jsimple\io\StorageFolderDirectory.cs">
       <Link>nontranslated\jsimple\io\StorageFolderDirectory.cs</Link>
+    </Compile>
+    <Compile Include="..\c#-windows-phone\nontranslated\jsimple\io\StorageItemPathAttributes.cs">
+      <Link>nontranslated\jsimple\io\StorageItemPathAttributes.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

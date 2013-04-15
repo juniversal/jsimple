@@ -41,10 +41,15 @@
   <ItemGroup>
     <Compile Include="nontranslated\jsimple\io\FileSystemDirectory.cs" />
     <Compile Include="nontranslated\jsimple\io\FileSystemFile.cs" />
+    <Compile Include="nontranslated\jsimple\io\FileSystemPathAttributes.cs" />
     <Compile Include="nontranslated\jsimple\io\Paths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\jsimple-util\c#\jsimple-util.csproj">
+      <Project>{7DE38EB4-9D6A-4D5A-AE5F-4769BEFBDA74}</Project>
+      <Name>jsimple-util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\c#\jsimple-io.csproj">
       <Project>{0271a18c-eeac-4cac-bf2e-89a693b354ef}</Project>
       <Name>jsimple-io</Name>

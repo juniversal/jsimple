@@ -77,17 +77,24 @@ namespace jsimple.io
 
         public override void visitChildren(DirectoryVisitor visitor)
         {
-            IReadOnlyList<IStorageItem> storageItems = storageFolder.GetItemsAsync().DoSynchronously();
-
-            foreach (IStorageItem storageItem in storageItems)
+            try
             {
-                StorageItemPathAttributes pathAttributes = new StorageItemPathAttributes(storageItem);
+                IReadOnlyList<IStorageItem> storageItems = storageFolder.GetItemsAsync().DoSynchronously();
 
-                if (storageItem is IStorageFolder)
-                    visitor.visit(new StorageFolderDirectory((StorageFolder)storageItem), pathAttributes);
-                else if (storageItem is IStorageFile)
-                    visitor.visit(new StorageFileFile((StorageFile)storageItem), pathAttributes);
-                else throw new Exception("Unknown type of StorageItem: " + storageItem);
+                foreach (IStorageItem storageItem in storageItems)
+                {
+                    StorageItemPathAttributes pathAttributes = new StorageItemPathAttributes(storageItem);
+
+                    if (storageItem is IStorageFolder)
+                        visitor.visit(new StorageFolderDirectory((StorageFolder)storageItem), pathAttributes);
+                    else if (storageItem is IStorageFile)
+                        visitor.visit(new StorageFileFile((StorageFile)storageItem), pathAttributes);
+                    else throw new Exception("Unknown type of StorageItem: " + storageItem);
+                }
+            }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
             }
         }
     }

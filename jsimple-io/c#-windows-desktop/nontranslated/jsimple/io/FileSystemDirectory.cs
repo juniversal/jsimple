@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace jsimple.io
@@ -37,7 +39,13 @@ namespace jsimple.io
 
         public override Directory getOrCreateDirectory(string name)
         {
-            throw new NotImplementedException();
+            String subdirectoryPath = getChildPath(name);
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(subdirectoryPath);
+            if (! directoryInfo.Exists)
+                directoryInfo.Create();
+
+            return new FileSystemDirectory(subdirectoryPath);
         }
 
         private string getChildPath(string name)
@@ -60,8 +68,25 @@ namespace jsimple.io
 
         public override void visitChildren(DirectoryVisitor visitor)
         {
-            // TODO: Implement this
-            throw new System.NotImplementedException();
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+
+            try
+            {
+                foreach (FileSystemInfo fileSystemInfo in directoryInfo.EnumerateFileSystemInfos())
+                {
+                    FileSystemPathAttributes fileSystemPathAttributes = new FileSystemPathAttributes(fileSystemInfo);
+
+                    if ((fileSystemInfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                        visitor.visit(new FileSystemDirectory(fileSystemInfo.FullName),
+                                      fileSystemPathAttributes);
+                    else visitor.visit(new FileSystemFile(fileSystemInfo.FullName),
+                                      fileSystemPathAttributes);
+                }
+            }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
         }
     }
 }

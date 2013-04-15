@@ -4,8 +4,6 @@ namespace jsimple.io
 {
 
 
-
-
 	/// <summary>
 	/// @author Bret Johnson
 	/// @since 3/23/13 1:49 PM
@@ -63,6 +61,20 @@ namespace jsimple.io
 			return newMemoryFile;
 		}
 
+		public virtual void deleteFile(string name)
+		{
+			foreach (MemoryFile memoryFile in files)
+			{
+				if (memoryFile.Name.Equals(name))
+				{
+					files.Remove(memoryFile);
+					return;
+				}
+			}
+
+			throw new FileNotFoundException("MemoryFile " + name + " not found");
+		}
+
 		/// <summary>
 		/// Get the child directory, which must already exist under this directory.  If the directory doesn't exist, the
 		/// results are undefined (for some implementations it will fail right away & others will fail later, like when visit
@@ -98,6 +110,20 @@ namespace jsimple.io
 			MemoryDirectory newMemoryDirectory = new MemoryDirectory(name);
 			subdirectories.Add(newMemoryDirectory);
 			return newMemoryDirectory;
+		}
+
+		public virtual void deleteDirectory(string name)
+		{
+			foreach (MemoryDirectory memoryDirectory in subdirectories)
+			{
+				if (memoryDirectory.Name.Equals(name))
+				{
+					subdirectories.Remove(memoryDirectory);
+					return;
+				}
+			}
+
+			throw new FileNotFoundException("MemoryDirectory " + name + " not found");
 		}
 
 		/// <summary>

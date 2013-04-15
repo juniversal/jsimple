@@ -65,7 +65,7 @@
                 <artifactId>checkers-maven-plugin</artifactId>
             </plugin>
 
-            <!-- Translate to C# -->
+            <!-- Convert to C# -->
             <plugin>
                 <groupId>com.nokia.jsimple</groupId>
                 <artifactId>java-to-csharp-converter-maven-plugin</artifactId>

@@ -1,7 +1,5 @@
 package jsimple.io;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 
 /**
@@ -57,9 +55,9 @@ public class MemoryDirectory extends Directory {
         return newMemoryFile;
     }
 
-     public void deleteFile(String name) {
+    public void deleteFile(String name) {
         for (MemoryFile memoryFile : files) {
-            if (memoryFile.getName().equals(name)){
+            if (memoryFile.getName().equals(name)) {
                 files.remove(memoryFile);
                 return;
             }
@@ -98,7 +96,7 @@ public class MemoryDirectory extends Directory {
                 return memoryDirectory;
         }
 
-        MemoryDirectory newMemoryDirectory= new MemoryDirectory(name);
+        MemoryDirectory newMemoryDirectory = new MemoryDirectory(name);
         subdirectories.add(newMemoryDirectory);
         return newMemoryDirectory;
     }
