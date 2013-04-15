@@ -24,6 +24,8 @@
         <module>jsimple-net</module>
         <module>jsimple-json</module>
         <module>jsimple-oauth</module>
+        <module>jsimple-logging-api</module>
+        <module>jsimple-logging-stdimpl</module>
     </modules>
 
     <repositories>
@@ -55,6 +57,21 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>com.nokia.jsimple</groupId>
+                <artifactId>jsimple-util</artifactId>
+                <version>100.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nokia.jsimple</groupId>
+                <artifactId>jsimple-logging-api</artifactId>
+                <version>100.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nokia.jsimple</groupId>
+                <artifactId>jsimple-io</artifactId>
+                <version>100.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
                 <groupId>com.intellij</groupId>
                 <artifactId>annotations</artifactId>
                 <version>9.0.4</version>
@@ -63,6 +80,7 @@
     </dependencyManagement>
 
     <build>
+
         <pluginManagement>
             <plugins>
 
@@ -111,12 +129,14 @@
                     </configuration>
                 </plugin>
 
+                <!-- Convert Java to C# -->
                 <plugin>
                     <groupId>com.nokia.jsimple</groupId>
                     <artifactId>java-to-csharp-converter-maven-plugin</artifactId>
                     <version>100.0-SNAPSHOT</version>
                     <executions>
                         <execution>
+                            <id>default-cli</id>   <!-- Makes "mvn java-to-csharp-converter:convert" work -->
                             <goals>
                                 <goal>convert</goal>
                             </goals>

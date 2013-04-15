@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-io-windows-store", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-io", "..\jsimple-io\c#\jsimple-io.csproj", "{0271A18C-EEAC-4CAC-BF2E-89A693B354EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-logging-api", "..\jsimple-logging-api\c#\jsimple-logging-api.csproj", "{68F7243E-E68F-4214-B01F-2BFD608A8142}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-logging-stdimpl", "..\jsimple-logging-stdimpl\c#\jsimple-logging-stdimpl.csproj", "{7286039C-2295-45DE-A878-84C4A46A9277}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +171,26 @@ Global
 		{0271A18C-EEAC-4CAC-BF2E-89A693B354EF}.Release|ARM.ActiveCfg = Release|Any CPU
 		{0271A18C-EEAC-4CAC-BF2E-89A693B354EF}.Release|x64.ActiveCfg = Release|Any CPU
 		{0271A18C-EEAC-4CAC-BF2E-89A693B354EF}.Release|x86.ActiveCfg = Release|Any CPU
+		{68F7243E-E68F-4214-B01F-2BFD608A8142}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F7243E-E68F-4214-B01F-2BFD608A8142}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F7243E-E68F-4214-B01F-2BFD608A8142}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{68F7243E-E68F-4214-B01F-2BFD608A8142}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{68F7243E-E68F-4214-B01F-2BFD608A8142}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{68F7243E-E68F-4214-B01F-2BFD608A8142}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68F7243E-E68F-4214-B01F-2BFD608A8142}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68F7243E-E68F-4214-B01F-2BFD608A8142}.Release|ARM.ActiveCfg = Release|Any CPU
+		{68F7243E-E68F-4214-B01F-2BFD608A8142}.Release|x64.ActiveCfg = Release|Any CPU
+		{68F7243E-E68F-4214-B01F-2BFD608A8142}.Release|x86.ActiveCfg = Release|Any CPU
+		{7286039C-2295-45DE-A878-84C4A46A9277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7286039C-2295-45DE-A878-84C4A46A9277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7286039C-2295-45DE-A878-84C4A46A9277}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7286039C-2295-45DE-A878-84C4A46A9277}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7286039C-2295-45DE-A878-84C4A46A9277}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7286039C-2295-45DE-A878-84C4A46A9277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7286039C-2295-45DE-A878-84C4A46A9277}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7286039C-2295-45DE-A878-84C4A46A9277}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7286039C-2295-45DE-A878-84C4A46A9277}.Release|x64.ActiveCfg = Release|Any CPU
+		{7286039C-2295-45DE-A878-84C4A46A9277}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
