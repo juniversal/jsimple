@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.nokia.jsimple</groupId>
+        <artifactId>jsimple</artifactId>
+        <version>100.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>jsimple-logging-stdimpl</artifactId>
+    <version>100.0-SNAPSHOT</version>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <rootdir>${project.parent.basedir}</rootdir>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.nokia.jsimple</groupId>
+            <artifactId>jsimple-logging-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.nokia.jsimple</groupId>
+            <artifactId>jsimple-unit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.intellij</groupId>
+            <artifactId>annotations</artifactId>
+            <version>9.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.nokia.jsimple</groupId>
+            <artifactId>jsimple-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.nokia.jsimple</groupId>
+            <artifactId>jsimple-io</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- @Nullable checking -->
+            <plugin>
+                <groupId>types.checkers</groupId>
+                <artifactId>checkers-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- Translate to C# -->
+            <plugin>
+                <groupId>com.nokia.jsimple</groupId>
+                <artifactId>java-to-csharp-converter-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
