@@ -35,6 +35,14 @@ namespace jsimple.oauth.builder.api
 
 			return url;
 		}
+
+		public override string RefreshTokenParameterName
+		{
+			get
+			{
+				return "fb_exchange_token";
+			}
+		}
 	}
 
 }

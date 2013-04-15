@@ -1,3 +1,5 @@
+using System;
+
 namespace jsimple.oauth.builder.api
 {
 
@@ -70,6 +72,18 @@ namespace jsimple.oauth.builder.api
 			return new OAuth20ServiceImpl(this, config);
 		}
 
+		/// <summary>
+		/// I (Bret Johnson) merged in refresh token support from the scribe fork here:
+		/// https://github.com/fernandezpablo85/scribe-java/pull/253
+		/// </summary>
+		/// <returns> the parameter needed to refresh an access token </returns>
+		public virtual string RefreshTokenParameterName
+		{
+			get
+			{
+				throw new Exception("Refresh token not implemented");
+			}
+		}
 	}
 
 }

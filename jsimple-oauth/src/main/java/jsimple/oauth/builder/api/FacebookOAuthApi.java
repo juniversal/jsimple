@@ -30,4 +30,8 @@ public class FacebookOAuthApi extends DefaultOAuthApi20 {
 
         return url;
     }
+
+    @Override public String getRefreshTokenParameterName() {
+        return "fb_exchange_token";
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 
@@ -90,6 +91,15 @@ namespace jsimple.oauth.oauth
 			appendSignature(request);
 			OAuthResponse response = request.send();
 			return api.AccessTokenExtractor.extract(response.Body);
+		}
+
+
+		/// <summary>
+		/// {@inheritDoc}
+		/// </summary>
+		public virtual Token refreshAccessToken(Token refreshOrAccessToken, bool includeSecret)
+		{
+			throw new Exception("Refresh token is not supported in Scribe OAuth 1.0");
 		}
 
 		/// <summary>

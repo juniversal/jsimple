@@ -43,6 +43,29 @@ namespace jsimple.oauth.oauth
 		/// <summary>
 		/// {@inheritDoc}
 		/// </summary>
+		public virtual Token refreshAccessToken(Token refreshOrAccessToken, bool includeSecret)
+		{
+			string accessTokenEndpoint = api.AccessTokenEndpoint;
+			if (accessTokenEndpoint.Contains("?grant_type="))
+			{
+				// handle the ugly case where the grant_type parameter is already hardcoded in the constant url
+				accessTokenEndpoint = accessTokenEndpoint.Substring(0, accessTokenEndpoint.IndexOf("?"));
+			}
+
+			OAuthRequest request = new OAuthRequest(api.AccessTokenVerb, accessTokenEndpoint);
+			request.addQueryStringParameter(OAuthConstants.CLIENT_ID, config.ApiKey);
+			if (includeSecret)
+				request.addQueryStringParameter(OAuthConstants.CLIENT_SECRET, config.ApiSecret);
+			request.addQueryStringParameter(OAuthConstants.REDIRECT_URI, config.Callback);
+			request.addQueryStringParameter(OAuthConstants.GRANT_TYPE, api.RefreshTokenParameterName);
+			request.addQueryStringParameter(api.RefreshTokenParameterName, refreshOrAccessToken.TokenString);
+			OAuthResponse response = request.send();
+			return api.AccessTokenExtractor.extract(response.Body);
+		}
+
+		/// <summary>
+		/// {@inheritDoc}
+		/// </summary>
 		public virtual Token RequestToken
 		{
 			get

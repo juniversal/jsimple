@@ -7,7 +7,7 @@ import jsimple.oauth.utils.OAuthEncoder;
 
 public class LiveOAuthApi extends DefaultOAuthApi20 {
     @Override public String getAccessTokenEndpoint() {
-        return "https://oauth.live.com/token?grant_type=authorization_code";
+        return "https://login.live.com/oauth20_token.srf?grant_type=authorization_code";
     }
 
     @Override public String getAuthorizationUrl(OAuthConfig config) {
@@ -28,5 +28,9 @@ public class LiveOAuthApi extends DefaultOAuthApi20 {
 
     @Override public AccessTokenExtractor getAccessTokenExtractor() {
         return new JsonTokenExtractor();
+    }
+
+    @Override public String getRefreshTokenParameterName() {
+        return "refresh_token";
     }
 }

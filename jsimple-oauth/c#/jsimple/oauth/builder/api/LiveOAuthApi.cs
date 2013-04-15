@@ -14,7 +14,7 @@ namespace jsimple.oauth.builder.api
 		{
 			get
 			{
-				return "https://oauth.live.com/token?grant_type=authorization_code";
+				return "https://login.live.com/oauth20_token.srf?grant_type=authorization_code";
 			}
 		}
 
@@ -38,6 +38,14 @@ namespace jsimple.oauth.builder.api
 			get
 			{
 				return new JsonTokenExtractor();
+			}
+		}
+
+		public override string RefreshTokenParameterName
+		{
+			get
+			{
+				return "refresh_token";
 			}
 		}
 	}

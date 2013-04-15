@@ -46,7 +46,7 @@ namespace jsimple.oauth.model
 		public const string CLIENT_SECRET = "client_secret";
 		public const string REDIRECT_URI = "redirect_uri";
 		public const string CODE = "code";
-
+		public const string GRANT_TYPE = "grant_type";
 	}
 
 }
