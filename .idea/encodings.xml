@@ -5,10 +5,13 @@
     <file url="file://$PROJECT_DIR$/java-to-csharp-converter-maven-plugin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jsimple-io" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jsimple-json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jsimple-logging-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jsimple-logging-stdimpl" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jsimple-net" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jsimple-oauth" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jsimple-unit" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jsimple-util" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/msbuild-maven-plugin" charset="UTF-8" />
   </component>
 </project>
 

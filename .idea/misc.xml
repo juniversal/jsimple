@@ -12,6 +12,8 @@
         <option value="$PROJECT_DIR$/jsimple-io-java/pom.xml" />
         <option value="$PROJECT_DIR$/jsimple-unit/pom.xml" />
         <option value="$PROJECT_DIR$/java-to-csharp-converter-maven-plugin/pom.xml" />
+        <option value="$PROJECT_DIR$/jsimple-logging/pom.xml" />
+        <option value="$PROJECT_DIR$/jsimple-logging-std-impl/pom.xml" />
       </list>
     </option>
   </component>

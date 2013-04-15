@@ -41,10 +41,16 @@
         <module name="java-to-csharp-converter-maven-plugin" />
         <module name="jsimple-io" />
         <module name="jsimple-json" />
+        <module name="jsimple-logging" />
+        <module name="jsimple-logging-api" />
+        <module name="jsimple-logging-std-impl" />
+        <module name="jsimple-logging-stdimpl" />
+        <module name="jsimple-loggingapi" />
         <module name="jsimple-net" />
         <module name="jsimple-oauth" />
         <module name="jsimple-unit" />
         <module name="jsimple-util" />
+        <module name="msbuild-maven-plugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
