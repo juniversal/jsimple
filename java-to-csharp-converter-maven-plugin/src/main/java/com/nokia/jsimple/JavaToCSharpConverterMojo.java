@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Run the Tangible Java -> C# converter.
@@ -61,6 +63,13 @@ public class JavaToCSharpConverterMojo extends AbstractMojo {
     @Parameter(defaultValue = "${skipConversion}", property = "skipConversion", required = false)
     private boolean skip;
 
+    /**
+     * If true (the default), run the converter in a minimized window via "cmd /c start /min".  That avoids the
+     * converter window flashing for an instant.
+     */
+    @Parameter(property = "runMinimized", defaultValue = "true", required = false)
+    private boolean runMinimized;
+
     public void execute() throws MojoExecutionException {
         if (skip)
             return;
@@ -68,7 +77,6 @@ public class JavaToCSharpConverterMojo extends AbstractMojo {
         deleteGeneratedDirectories(outputDirectory);
 
         String[] convertSourceArgs = new String[]{
-                new File(converterDirectory, "Java to C# Converter.exe").getPath(),
                 sourceDirectory.getAbsolutePath(),
                 outputDirectory.getAbsolutePath(),
                 converterSettings.getAbsolutePath()
@@ -79,7 +87,6 @@ public class JavaToCSharpConverterMojo extends AbstractMojo {
             deleteGeneratedDirectories(testOutputDirectory);
 
             String[] convertTestArgs = new String[]{
-                    new File(converterDirectory, "Java to C# Converter.exe").getPath(),
                     testSourceDirectory.getAbsolutePath(),
                     testOutputDirectory.getAbsolutePath(),
                     converterSettings.getAbsolutePath()
@@ -90,12 +97,28 @@ public class JavaToCSharpConverterMojo extends AbstractMojo {
 
     private void convert(String[] converterArgs) throws MojoExecutionException {
         try {
+            ArrayList<String> completeArgs = new ArrayList<String>();
+
+            if (runMinimized) {
+                completeArgs.add("cmd");
+                completeArgs.add("/c");
+                completeArgs.add("start");
+                completeArgs.add("/min");
+                completeArgs.add("/b");
+                completeArgs.add("C# Converter");
+            }
+
+            completeArgs.add(new File(converterDirectory, "Java to C# Converter.exe").getPath());
+
+            completeArgs.addAll(Arrays.asList(converterArgs));
+
             StringBuilder command = new StringBuilder();
-            for (String arg : converterArgs)
+            for (String arg : completeArgs)
                 command.append(arg + " ");
             getLog().debug("Executing: " + command);
 
-            Process converter = Runtime.getRuntime().exec(converterArgs, null, converterDirectory);
+            Process converter = Runtime.getRuntime().exec(completeArgs.toArray(new String[completeArgs.size()]), null,
+                    converterDirectory);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(converter.getInputStream()));
             String inputLine;
