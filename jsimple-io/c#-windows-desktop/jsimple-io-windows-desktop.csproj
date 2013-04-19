@@ -43,6 +43,9 @@
     <Compile Include="nontranslated\jsimple\io\FileSystemFile.cs" />
     <Compile Include="nontranslated\jsimple\io\FileSystemPathAttributes.cs" />
     <Compile Include="nontranslated\jsimple\io\Paths.cs" />
+    <Compile Include="nontranslated\jsimple\io\JSimpleIO.cs" />
+    <Compile Include="nontranslated\jsimple\net\WindowsDesktopHttpRequest.cs" />
+    <Compile Include="nontranslated\jsimple\net\WindowsDesktopHttpResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +58,7 @@
       <Name>jsimple-io</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

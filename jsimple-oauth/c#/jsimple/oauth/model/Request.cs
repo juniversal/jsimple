@@ -67,7 +67,7 @@ namespace jsimple.oauth.model
 		{
 			string completeUrl = CompleteUrl;
 			if (httpRequest == null)
-				httpRequest = new HttpRequest(completeUrl);
+				httpRequest = HttpRequest.create(completeUrl);
 		}
 
 		/// <summary>

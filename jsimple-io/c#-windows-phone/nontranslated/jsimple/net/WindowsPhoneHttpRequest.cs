@@ -6,12 +6,12 @@ using jsimple.io;
 
 namespace jsimple.net
 {
-    public class HttpRequest : HttpRequestBase
+    public class WindowsPhoneHttpRequest : HttpRequest
     {
         private readonly HttpWebRequest httpWebRequest;
         private int timeout = 30000;            // Default the timeout to 30 seconds
 
-        public HttpRequest(String url)
+        public WindowsPhoneHttpRequest(String url)
         {
             httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
         }
@@ -30,18 +30,20 @@ namespace jsimple.net
         {
             // For certain headers, they need to be set via properties rather than the Headers collection.  We check
             // for the most common of these (but not all of them) below.
-            if (name.Equals("Accept"))
+            if (name.Equals(HEADER_ACCEPT))
                 httpWebRequest.Accept = value;
-            else if (name.Equals("Content-Type"))
+            else if (name.Equals(HEADER_CONTENT_TYPE))
                 httpWebRequest.ContentType = value;
+            else if (name.Equals(HEADER_CONTENT_LENGTH))
+                httpWebRequest.ContentLength = long.Parse(value);
             else httpWebRequest.Headers[name] = value;
         }
 
         public override string getHeader(string name)
         {
-            if (name.Equals("Accept"))
+            if (name.Equals(HEADER_ACCEPT))
                 return httpWebRequest.Accept;
-            else if (name.Equals("Content-Type"))
+            else if (name.Equals(HEADER_CONTENT_TYPE))
                 return httpWebRequest.ContentType;
             else return httpWebRequest.Headers[name];
         }
@@ -80,7 +82,7 @@ namespace jsimple.net
                 throw new SocketTimeoutException("Could not get response for " + httpWebRequest.RequestUri +
                                                  " request in " + timeout + "ms");
 
-            return new HttpResponse(response);
+            return new WindowsPhoneHttpResponse(response);
         }
 
 #if false
@@ -140,5 +142,14 @@ namespace jsimple.net
                 Thread.Sleep(minRunTime - duration); 
         }
 #endif
+
+        public class WindowsPhoneHttpRequestFactory : HttpRequestFactory
+        {
+            public HttpRequest createHttpRequest(String url)
+            {
+                return new WindowsPhoneHttpRequest(url);
+            }
+        };
+
     }
 }

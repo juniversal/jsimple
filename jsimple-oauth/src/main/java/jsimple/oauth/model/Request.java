@@ -59,7 +59,7 @@ public class Request {
     private void createConnection() {
         String completeUrl = getCompleteUrl();
         if (httpRequest == null)
-            httpRequest = new HttpRequest(completeUrl);
+            httpRequest = HttpRequest.create(completeUrl);
     }
 
     /**

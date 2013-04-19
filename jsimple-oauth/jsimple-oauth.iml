@@ -17,7 +17,7 @@
     <orderEntry type="library" name="Maven: types.checkers:jsr308-all:1.2.6" level="project" />
     <orderEntry type="module" module-name="jsimple-util" />
     <orderEntry type="module" module-name="jsimple-io" />
-    <orderEntry type="module" module-name="jsimple-net" />
+    <orderEntry type="library" name="Maven: com.nokia.jsimple:jsimple-net:100.0-SNAPSHOT" level="project" />
   </component>
 </module>
 

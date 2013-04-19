@@ -14,17 +14,13 @@ namespace jsimple.net
 	/// associated with this instance but has no effect on any shared persistent connection. Calling the disconnect() method
 	/// may close the underlying socket if a persistent connection is otherwise idle at that time.
 	/// <p/>
-	/// This class is platform independent.  Platforms (Java, C# for .Net, etc.) should define a subclass called
-	/// "HttpRequest" which is what all the code will instantiate and use.  That subclass should implement the abstract
-	/// methods below and can implement other, platform specific, methods.  Handling platform specific classes this way has a
-	/// few advantages:  There are no factory classes to define/implement nor a need to set a factory at app startup. And
-	/// platform specific code can freely use platform specific methods implemented on the subclass with no casting
-	/// required.
+	/// This class is platform independent.  Platforms (Java, C# for .Net, etc.) should define a subclass with the actual
+	/// implementation.
 	/// 
 	/// @author Bret Johnson
 	/// @since 10/6/12 12:58 AM
 	/// </summary>
-	public abstract class HttpResponseBase
+	public abstract class HttpResponse
 	{
 		/// <summary>
 		/// Gets the status code from an HTTP response message (e.g. 200, 401, etc.).  Returns -1 if no code can be discerned
