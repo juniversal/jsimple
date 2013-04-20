@@ -15,4 +15,9 @@ public abstract class File extends Path {
      * @return output stream, to write the file contents
      */
     public abstract OutputStream openForCreate();
+
+    /**
+     * Delete this file.
+     */
+    public abstract void delete();
 }

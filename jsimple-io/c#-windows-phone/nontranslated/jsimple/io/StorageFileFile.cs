@@ -36,5 +36,10 @@ namespace jsimple.io
             // Use the default buffer for AsStreamForWrite()
             return new DotNetStreamOutputStream(outputStream.AsStreamForWrite());
         }
+
+        public override void delete()
+        {
+            storageFile.DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
+        }
     }
 }

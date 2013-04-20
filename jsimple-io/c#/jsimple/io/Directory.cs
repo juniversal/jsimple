@@ -22,7 +22,7 @@ namespace jsimple.io
 		/// for different implementations). Some implementations actually create an empty file when this is called, while
 		/// others delay file creation until File.openForCreate is called and the contents are written (which is the
 		/// preferred implementation, as it's generally more efficient).
-		/// 
+		/// <p/>
 		/// TODO: Reconsider this spec
 		/// </summary>
 		/// <param name="name"> file name </param>
@@ -52,6 +52,12 @@ namespace jsimple.io
 		/// if they want to visit all descendants.
 		/// </summary>
 		public abstract void visitChildren(DirectoryVisitor visitor);
+
+		/// <summary>
+		/// Delete this directory.  The directory must be empty; if it isn't the results are undefined--for some
+		/// implementations it will fail and for others delete the directory and its contents.
+		/// </summary>
+		public abstract void delete();
 	}
 
 }

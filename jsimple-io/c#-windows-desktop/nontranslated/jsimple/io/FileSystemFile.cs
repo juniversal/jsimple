@@ -45,5 +45,17 @@ namespace jsimple.io
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
             }
         }
+
+        public override void delete()
+        {
+            try
+            {
+                System.IO.File.Delete(filePath);
+            }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
     }
 }

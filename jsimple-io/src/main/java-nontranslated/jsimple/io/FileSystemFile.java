@@ -19,7 +19,7 @@ public class FileSystemFile extends File {
         this.javaPath = javaPath;
     }
 
-    public  void deleteFile(){
+    @Override public void delete(){
         try{
             Files.delete(javaPath);
         } catch (java.io.IOException e){
