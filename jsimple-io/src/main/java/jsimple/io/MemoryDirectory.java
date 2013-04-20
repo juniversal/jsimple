@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 
 /**
@@ -7,12 +9,17 @@ import java.util.ArrayList;
  * @since 3/23/13 1:49 PM
  */
 public class MemoryDirectory extends Directory {
+    private @Nullable MemoryDirectory parent;
     private String name;
     private long lastModificationTime;
     private ArrayList<MemoryDirectory> subdirectories = new ArrayList<MemoryDirectory>();
     private ArrayList<MemoryFile> files = new ArrayList<MemoryFile>();
 
-    public MemoryDirectory(String name) {
+    public static MemoryDirectory createRootDirectory() {
+        return new MemoryDirectory(null, "ROOT");
+    }
+
+    private MemoryDirectory(@Nullable MemoryDirectory parent, String name) {
         this.name = name;
     }
 
@@ -50,7 +57,7 @@ public class MemoryDirectory extends Directory {
                 return memoryFile;
         }
 
-        MemoryFile newMemoryFile = new MemoryFile(name);
+        MemoryFile newMemoryFile = new MemoryFile(this, name);
         files.add(newMemoryFile);
         return newMemoryFile;
     }
@@ -96,7 +103,7 @@ public class MemoryDirectory extends Directory {
                 return memoryDirectory;
         }
 
-        MemoryDirectory newMemoryDirectory = new MemoryDirectory(name);
+        MemoryDirectory newMemoryDirectory = new MemoryDirectory(this, name);
         subdirectories.add(newMemoryDirectory);
         return newMemoryDirectory;
     }
@@ -136,6 +143,12 @@ public class MemoryDirectory extends Directory {
 
     public long getLastModificationTime() {
         return lastModificationTime;
+    }
+
+    @Override public void delete() {
+        if (parent == null)
+            throw new RuntimeException("Can't delete root directory");
+        parent.deleteDirectory(name);
     }
 
     private static class MemoryPathAttributes extends PathAttributes {

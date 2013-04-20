@@ -9,8 +9,8 @@ import org.junit.Test;
  */
 
 public class MemoryDirectoryTest extends UnitTest {
-    @Test public void testCreateFile() throws Exception {
-        MemoryDirectory rootDirectory = new MemoryDirectory("root");
+    @Test public void testCreateFile() {
+        MemoryDirectory rootDirectory = MemoryDirectory.createRootDirectory();
 
         File file = rootDirectory.createFile("testfile.txt");
 
@@ -21,8 +21,8 @@ public class MemoryDirectoryTest extends UnitTest {
         assertTrue(regetFile == file);
     }
 
-    @Test public void testGetOrCreateDirectory() throws Exception {
-        MemoryDirectory rootDirectory = new MemoryDirectory("root");
+    @Test public void testGetOrCreateDirectory() {
+        MemoryDirectory rootDirectory = MemoryDirectory.createRootDirectory();
 
         Directory testDirectory = rootDirectory.getOrCreateDirectory("test-dir");
 

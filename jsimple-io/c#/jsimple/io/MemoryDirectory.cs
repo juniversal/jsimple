@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 
 namespace jsimple.io
 {
+
+
 
 
 	/// <summary>
@@ -10,12 +13,18 @@ namespace jsimple.io
 	/// </summary>
 	public class MemoryDirectory : Directory
 	{
+		private MemoryDirectory parent;
 		private string name;
 		private long lastModificationTime;
 		private List<MemoryDirectory> subdirectories = new List<MemoryDirectory>();
 		private List<MemoryFile> files = new List<MemoryFile>();
 
-		public MemoryDirectory(string name)
+		public static MemoryDirectory createRootDirectory()
+		{
+			return new MemoryDirectory(null, "ROOT");
+		}
+
+		private MemoryDirectory(MemoryDirectory parent, string name)
 		{
 			this.name = name;
 		}
@@ -39,11 +48,11 @@ namespace jsimple.io
 
 		/// <summary>
 		/// Create a new file under this directory.  If a file with that name already exists, it will be overwritten.
-		/// File.openForCreate must be called at some point after this method to actually open the file; these methods must be
-		/// called as a pair--if one is called without the other, the results are undefined (meaning they are different for
-		/// different implementations). Some implementations actually create an empty file when this is called, while others
-		/// delay file creation until File.openForCreate is called and the contents are written (which is the preferred
-		/// implementation, as it's generally more efficient).
+		/// File.openForCreate must be called at some point after this method to actually open the file; these methods must
+		/// be called as a pair--if one is called without the other, the results are undefined (meaning they are different
+		/// for different implementations). Some implementations actually create an empty file when this is called, while
+		/// others delay file creation until File.openForCreate is called and the contents are written (which is the
+		/// preferred implementation, as it's generally more efficient).
 		/// <p/>
 		/// </summary>
 		/// <param name="name"> file name </param>
@@ -56,7 +65,7 @@ namespace jsimple.io
 					return memoryFile;
 			}
 
-			MemoryFile newMemoryFile = new MemoryFile(name);
+			MemoryFile newMemoryFile = new MemoryFile(this, name);
 			files.Add(newMemoryFile);
 			return newMemoryFile;
 		}
@@ -107,7 +116,7 @@ namespace jsimple.io
 					return memoryDirectory;
 			}
 
-			MemoryDirectory newMemoryDirectory = new MemoryDirectory(name);
+			MemoryDirectory newMemoryDirectory = new MemoryDirectory(this, name);
 			subdirectories.Add(newMemoryDirectory);
 			return newMemoryDirectory;
 		}
@@ -158,6 +167,13 @@ namespace jsimple.io
 			{
 				return lastModificationTime;
 			}
+		}
+
+		public override void delete()
+		{
+			if (parent == null)
+				throw new Exception("Can't delete root directory");
+			parent.deleteDirectory(name);
 		}
 
 		private class MemoryPathAttributes : PathAttributes
