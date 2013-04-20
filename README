@@ -6,9 +6,7 @@ JSimple code is intended to run on phones--S40 (since it's Java) or Windows Phon
 Tangible converter). It can also be run on the sever. Thus it supports cross platform development,
 in Java, across all platforms us Nokians develop on.
 
-JSimple includes JSON support currently and will include OAuth and more.
-
-It's currently used by Nokia Connect and PhotosNG projects.
+It's currently used by the Nokia Conference and PhotosNG projects.
 
 
 JSimple OAuth is taken from Scribe.  We also merged in this fork:
