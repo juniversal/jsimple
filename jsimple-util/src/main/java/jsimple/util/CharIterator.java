@@ -89,12 +89,22 @@ public class CharIterator {
         ++index;
     }
 
+    public boolean isLineBreak() {
+        int c = curr();
+        return c == '\r' || c == '\n';
+    }
+
     /**
      * @return true if the current character is a whitespace character.
      */
     public boolean isWhitespace() {
         int c = curr();
         return c == ' ' || c == '\t' || c == '\r' || c == '\n';
+    }
+
+    public boolean isWhitespaceOnSameLine() {
+        int c = curr();
+        return c == ' ' || c == '\t';
     }
 
     /**
@@ -106,9 +116,21 @@ public class CharIterator {
             advance();
     }
 
+    public void advancePastWhitespaceOnSameLine() {
+        while (isWhitespaceOnSameLine())
+            advance();
+    }
+
     public String readWhitespaceDelimitedToken() {
         StringBuilder token = new StringBuilder();
         while (!isWhitespace() && !atEnd())
+            token.append(currAndAdvance());
+        return token.toString();
+    }
+
+    public String readWhitespaceDelimitedTokenOnSameLine() {
+        StringBuilder token = new StringBuilder();
+        while (!isWhitespaceOnSameLine() && !isLineBreak() && !atEnd())
             token.append(currAndAdvance());
         return token.toString();
     }
