@@ -21,7 +21,6 @@
         <module>jsimple-unit</module>
         <module>jsimple-util</module>
         <module>jsimple-io</module>
-        <module>jsimple-net</module>
         <module>jsimple-json</module>
         <module>jsimple-oauth</module>
         <module>jsimple-logging-api</module>

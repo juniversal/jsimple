@@ -4,11 +4,11 @@ using jsimple.io;
 
 namespace jsimple.net
 {
-    public class HttpResponse : HttpResponseBase
+    public class WindowsDesktopHttpResponse : HttpResponse
     {
         private readonly HttpWebResponse httpWebResponse;
 
-        public HttpResponse(HttpWebResponse httpWebResponse)
+        public WindowsDesktopHttpResponse(HttpWebResponse httpWebResponse)
         {
             this.httpWebResponse = httpWebResponse;
         }
@@ -16,7 +16,7 @@ namespace jsimple.net
         // TODO: Catch web exception too and either set StatusCode here or change JSimple code to throw exceptions instead
         public override int StatusCode
         {
-            get { return (int) httpWebResponse.StatusCode; }
+            get { return (int)httpWebResponse.StatusCode; }
         }
 
         public override string StatusMessage

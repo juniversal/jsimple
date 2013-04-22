@@ -38,10 +38,6 @@
       <Project>{0271a18c-eeac-4cac-bf2e-89a693b354ef}</Project>
       <Name>jsimple-io</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\jsimple-net\c#\jsimple-net.csproj">
-      <Project>{ef6c4a41-e180-4a61-bca3-870106fc0bff}</Project>
-      <Name>jsimple-net</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\jsimple-util\c#\jsimple-util.csproj">
       <Project>{7de38eb4-9d6a-4d5a-ae5f-4769befbda74}</Project>
       <Name>jsimple-util</Name>

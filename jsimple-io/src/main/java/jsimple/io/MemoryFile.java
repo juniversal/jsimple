@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
  * @since 3/23/13 1:51 PM
  */
 public class MemoryFile extends File {
+    private MemoryDirectory parent;
     private String name;
     private long lastModificationTime;
     private @Nullable byte[] data = null;
@@ -20,7 +21,8 @@ public class MemoryFile extends File {
      *
      * @param name file name
      */
-    public MemoryFile(String name) {
+    public MemoryFile(MemoryDirectory parent, String name) {
+        this.parent = parent;
         this.name = name;
         this.lastModificationTime = PlatformUtils.getCurrentTimeMillis();
     }
@@ -70,6 +72,10 @@ public class MemoryFile extends File {
             throw new IOException("File " + name + " hasn't yet been created");
 
         return data.length;
+    }
+
+    @Override public void delete() {
+        parent.deleteFile(name);
     }
 
     private static class MemoryFileByteArrayOutputStream extends ByteArrayOutputStream {

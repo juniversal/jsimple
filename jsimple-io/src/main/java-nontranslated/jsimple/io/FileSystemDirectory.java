@@ -34,14 +34,6 @@ public class FileSystemDirectory extends Directory {
         return new FileSystemFile(javaPath.resolve(name));
     }
 
-    public void deleteDirectory() {
-        try{
-            Files.delete(javaPath);
-        } catch (java.io.IOException e){
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
-    }
-
     @Override public Directory getDirectory(String name) {
         return new FileSystemDirectory(javaPath.resolve(name));
     }
@@ -96,6 +88,14 @@ public class FileSystemDirectory extends Directory {
                 }
             });
         } catch (java.io.IOException e) {
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        }
+    }
+
+    @Override public void delete() {
+        try{
+            Files.delete(javaPath);
+        } catch (java.io.IOException e){
             throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }
     }

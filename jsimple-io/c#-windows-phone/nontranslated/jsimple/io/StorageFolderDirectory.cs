@@ -97,5 +97,10 @@ namespace jsimple.io
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
             }
         }
+
+        public override void delete()
+        {
+            storageFolder.DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
+        }
     }
 }

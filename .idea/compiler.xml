@@ -43,9 +43,8 @@
         <module name="jsimple-json" />
         <module name="jsimple-logging" />
         <module name="jsimple-logging-api" />
-        <module name="jsimple-logging-std-impl" />
+
         <module name="jsimple-logging-stdimpl" />
-        <module name="jsimple-loggingapi" />
         <module name="jsimple-net" />
         <module name="jsimple-oauth" />
         <module name="jsimple-unit" />

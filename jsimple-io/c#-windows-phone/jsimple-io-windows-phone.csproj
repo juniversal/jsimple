@@ -83,11 +83,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="nontranslated\jsimple\io\AsyncActionExtension.cs" />
     <Compile Include="nontranslated\jsimple\io\AsyncOperationExtension.cs" />
     <Compile Include="nontranslated\jsimple\io\StorageItemPathAttributes.cs" />
     <Compile Include="nontranslated\jsimple\io\Paths.cs" />
     <Compile Include="nontranslated\jsimple\io\StorageFileFile.cs" />
     <Compile Include="nontranslated\jsimple\io\StorageFolderDirectory.cs" />
+    <Compile Include="nontranslated\jsimple\io\JSimpleIO.cs" />
+    <Compile Include="nontranslated\jsimple\net\WindowsPhoneHttpRequest.cs" />
+    <Compile Include="nontranslated\jsimple\net\WindowsPhoneHttpResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

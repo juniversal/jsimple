@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-net", "..\jsimple-net\c#\jsimple-net.csproj", "{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-json", "..\jsimple-json\c#\jsimple-json.csproj", "{28AD3A60-45C2-4D7A-BD4D-83827C4DC5B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-json-test", "..\jsimple-json\c#-test\jsimple-json-test.csproj", "{8C095652-1856-4062-A4E5-A5B9257FEF72}"
@@ -14,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-util", "..\jsimple-util\c#\jsimple-util.csproj", "{7DE38EB4-9D6A-4D5A-AE5F-4769BEFBDA74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-io-test", "..\jsimple-io\c#-test\jsimple-io-test.csproj", "{74B17C9B-6337-43EB-9E68-8E598AE2E055}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-net-test", "..\jsimple-net\c#-test\jsimple-net-test.csproj", "{511D325F-2FDF-40CE-8253-C2A782C68B5C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-io-windows-desktop", "..\jsimple-io\c#-windows-desktop\jsimple-io-windows-desktop.csproj", "{2112E03D-0FFF-4A01-9084-381F29ECB120}"
 EndProject
@@ -41,16 +37,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}.Release|ARM.ActiveCfg = Release|Any CPU
-		{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}.Release|x64.ActiveCfg = Release|Any CPU
-		{EF6C4A41-E180-4A61-BCA3-870106FC0BFF}.Release|x86.ActiveCfg = Release|Any CPU
 		{28AD3A60-45C2-4D7A-BD4D-83827C4DC5B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{28AD3A60-45C2-4D7A-BD4D-83827C4DC5B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28AD3A60-45C2-4D7A-BD4D-83827C4DC5B5}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -111,16 +97,6 @@ Global
 		{74B17C9B-6337-43EB-9E68-8E598AE2E055}.Release|ARM.ActiveCfg = Release|Any CPU
 		{74B17C9B-6337-43EB-9E68-8E598AE2E055}.Release|x64.ActiveCfg = Release|Any CPU
 		{74B17C9B-6337-43EB-9E68-8E598AE2E055}.Release|x86.ActiveCfg = Release|Any CPU
-		{511D325F-2FDF-40CE-8253-C2A782C68B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{511D325F-2FDF-40CE-8253-C2A782C68B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{511D325F-2FDF-40CE-8253-C2A782C68B5C}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{511D325F-2FDF-40CE-8253-C2A782C68B5C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{511D325F-2FDF-40CE-8253-C2A782C68B5C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{511D325F-2FDF-40CE-8253-C2A782C68B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{511D325F-2FDF-40CE-8253-C2A782C68B5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{511D325F-2FDF-40CE-8253-C2A782C68B5C}.Release|ARM.ActiveCfg = Release|Any CPU
-		{511D325F-2FDF-40CE-8253-C2A782C68B5C}.Release|x64.ActiveCfg = Release|Any CPU
-		{511D325F-2FDF-40CE-8253-C2A782C68B5C}.Release|x86.ActiveCfg = Release|Any CPU
 		{2112E03D-0FFF-4A01-9084-381F29ECB120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2112E03D-0FFF-4A01-9084-381F29ECB120}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2112E03D-0FFF-4A01-9084-381F29ECB120}.Debug|ARM.ActiveCfg = Debug|Any CPU

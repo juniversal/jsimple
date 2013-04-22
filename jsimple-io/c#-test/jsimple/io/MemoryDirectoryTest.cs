@@ -11,11 +11,9 @@ namespace jsimple.io
 
 	public class MemoryDirectoryTest : UnitTest
 	{
-//JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
-//ORIGINAL LINE: [Test] public void testCreateFile() throws Exception
 		[Test] public virtual void testCreateFile()
 		{
-			MemoryDirectory rootDirectory = new MemoryDirectory("root");
+			MemoryDirectory rootDirectory = MemoryDirectory.createRootDirectory();
 
 			File file = rootDirectory.createFile("testfile.txt");
 
@@ -26,11 +24,9 @@ namespace jsimple.io
 			assertTrue(regetFile == file);
 		}
 
-//JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
-//ORIGINAL LINE: [Test] public void testGetOrCreateDirectory() throws Exception
 		[Test] public virtual void testGetOrCreateDirectory()
 		{
-			MemoryDirectory rootDirectory = new MemoryDirectory("root");
+			MemoryDirectory rootDirectory = MemoryDirectory.createRootDirectory();
 
 			Directory testDirectory = rootDirectory.getOrCreateDirectory("test-dir");
 

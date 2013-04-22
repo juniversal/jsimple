@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 
 /**
@@ -7,12 +9,17 @@ import java.util.ArrayList;
  * @since 3/23/13 1:49 PM
  */
 public class MemoryDirectory extends Directory {
+    private @Nullable MemoryDirectory parent;
     private String name;
     private long lastModificationTime;
     private ArrayList<MemoryDirectory> subdirectories = new ArrayList<MemoryDirectory>();
     private ArrayList<MemoryFile> files = new ArrayList<MemoryFile>();
 
-    public MemoryDirectory(String name) {
+    public static MemoryDirectory createRootDirectory() {
+        return new MemoryDirectory(null, "ROOT");
+    }
+
+    private MemoryDirectory(@Nullable MemoryDirectory parent, String name) {
         this.name = name;
     }
 
@@ -34,11 +41,11 @@ public class MemoryDirectory extends Directory {
 
     /**
      * Create a new file under this directory.  If a file with that name already exists, it will be overwritten.
-     * File.openForCreate must be called at some point after this method to actually open the file; these methods must be
-     * called as a pair--if one is called without the other, the results are undefined (meaning they are different for
-     * different implementations). Some implementations actually create an empty file when this is called, while others
-     * delay file creation until File.openForCreate is called and the contents are written (which is the preferred
-     * implementation, as it's generally more efficient).
+     * File.openForCreate must be called at some point after this method to actually open the file; these methods must
+     * be called as a pair--if one is called without the other, the results are undefined (meaning they are different
+     * for different implementations). Some implementations actually create an empty file when this is called, while
+     * others delay file creation until File.openForCreate is called and the contents are written (which is the
+     * preferred implementation, as it's generally more efficient).
      * <p/>
      *
      * @param name file name
@@ -50,7 +57,7 @@ public class MemoryDirectory extends Directory {
                 return memoryFile;
         }
 
-        MemoryFile newMemoryFile = new MemoryFile(name);
+        MemoryFile newMemoryFile = new MemoryFile(this, name);
         files.add(newMemoryFile);
         return newMemoryFile;
     }
@@ -96,7 +103,7 @@ public class MemoryDirectory extends Directory {
                 return memoryDirectory;
         }
 
-        MemoryDirectory newMemoryDirectory = new MemoryDirectory(name);
+        MemoryDirectory newMemoryDirectory = new MemoryDirectory(this, name);
         subdirectories.add(newMemoryDirectory);
         return newMemoryDirectory;
     }
@@ -136,6 +143,12 @@ public class MemoryDirectory extends Directory {
 
     public long getLastModificationTime() {
         return lastModificationTime;
+    }
+
+    @Override public void delete() {
+        if (parent == null)
+            throw new RuntimeException("Can't delete root directory");
+        parent.deleteDirectory(name);
     }
 
     private static class MemoryPathAttributes extends PathAttributes {

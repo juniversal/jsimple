@@ -16,6 +16,11 @@ namespace jsimple.io
 		/// </summary>
 		/// <returns> output stream, to write the file contents </returns>
 		public abstract OutputStream openForCreate();
+
+		/// <summary>
+		/// Delete this file.
+		/// </summary>
+		public abstract void delete();
 	}
 
 }

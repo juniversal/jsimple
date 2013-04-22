@@ -1,6 +1,7 @@
 package jsimple.net;
 
 import jsimple.io.OutputStream;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This class handles HTTP connectivity.  It's based on a subset of the standard Java java.net.HttpURLConnection class,
@@ -22,21 +23,45 @@ import jsimple.io.OutputStream;
  * @author Bret Johnson
  * @since 10/6/12 12:58 AM
  */
-public abstract class HttpRequestBase {
+public abstract class HttpRequest {
     // Common HTTP methods
     public final static String METHOD_GET = "GET";
     public final static String METHOD_POST = "POST";
     public final static String METHOD_PUT = "PUT";
     public final static String METHOD_DELETE = "DELETE";
 
+    // Common HTTP request headers
     public static final String HEADER_CONTENT_LENGTH = "Content-Length";
     public static final String HEADER_CONTENT_TYPE = "Content-Type";
     public static final String HEADER_USER_AGENT = "User-Agent";
+    public static final String HEADER_ACCEPT = "Accept";
 
-    /*
-    The HttpRequest subclasses should implement at least this constructor:
-    public HttpRequest(String url, boolean keepAlive);
-    */
+    static private @Nullable HttpRequestFactory factory;
+
+    /**
+     * Create an HttpRequest, using the global factory.  This method is the normal way to create an HttpRequest, using
+     * the default implementation appropriate for the current platform.
+     *
+     * @param url URL
+     * @return HttpRequest object
+     */
+    public static HttpRequest create(String url) {
+        if (factory == null)
+            throw new RuntimeException("HttpRequest factory isn't set; did you forget to call JSimpleIO.init()?");
+
+        return factory.createHttpRequest(url);
+    }
+
+    /**
+     * Set the global (default) factory used to create http requests.  Clients normally don't call this method directly
+     * and just call JSimpleIO.init at app startup instead, which sets the factory to the default implementation
+     * appropriate for the current platform.
+     *
+     * @param httpRequestFactory factory
+     */
+    public static void setFactory(@Nullable HttpRequestFactory httpRequestFactory) {
+        factory = httpRequestFactory;
+    }
 
     /**
      * Set the method for the request, one of:
@@ -84,7 +109,10 @@ public abstract class HttpRequestBase {
     public abstract String getHeader(String name);
 
     /**
-     * Returns an output stream that writes to this connection.
+     * Returns an output stream that writes to this connection.  If your app needs to set the value of the ContentLength
+     * header, then this must be done before retrieving the stream (which, for one thing, is enforced on .NET).  You
+     * must close the stream after you finish writing to it; failing to do that may make the system run out of
+     * connections (another .NET warning & good practice in general).
      *
      * @return an output stream that writes to this connection.
      * @throws jsimple.io.IOException if an I/O error occurs while opening the connection.
@@ -108,4 +136,9 @@ public abstract class HttpRequestBase {
      * @see #setTimeout
      */
     public abstract HttpResponse send();
+
+    public interface HttpRequestFactory {
+        HttpRequest createHttpRequest(String url);
+    }
+
 }

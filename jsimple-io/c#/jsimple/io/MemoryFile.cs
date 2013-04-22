@@ -13,6 +13,7 @@ namespace jsimple.io
 	/// </summary>
 	public class MemoryFile : File
 	{
+		private MemoryDirectory parent;
 		private string name;
 		private long lastModificationTime;
 		private sbyte[] data = null;
@@ -21,8 +22,9 @@ namespace jsimple.io
 		/// Create a new MemoryFile, with the specified name.
 		/// </summary>
 		/// <param name="name"> file name </param>
-		public MemoryFile(string name)
+		public MemoryFile(MemoryDirectory parent, string name)
 		{
+			this.parent = parent;
 			this.name = name;
 			this.lastModificationTime = PlatformUtils.CurrentTimeMillis;
 		}
@@ -88,6 +90,11 @@ namespace jsimple.io
     
 				return data.Length;
 			}
+		}
+
+		public override void delete()
+		{
+			parent.deleteFile(name);
 		}
 
 		private class MemoryFileByteArrayOutputStream : ByteArrayOutputStream
