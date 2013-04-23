@@ -96,6 +96,15 @@ namespace jsimple.util
 			++index;
 		}
 
+		public virtual bool LineBreak
+		{
+			get
+			{
+				int c = curr();
+				return c == '\r' || c == '\n';
+			}
+		}
+
 		/// <returns> true if the current character is a whitespace character. </returns>
 		public virtual bool Whitespace
 		{
@@ -103,6 +112,15 @@ namespace jsimple.util
 			{
 				int c = curr();
 				return c == ' ' || c == '\t' || c == '\r' || c == '\n';
+			}
+		}
+
+		public virtual bool WhitespaceOnSameLine
+		{
+			get
+			{
+				int c = curr();
+				return c == ' ' || c == '\t';
 			}
 		}
 
@@ -116,10 +134,24 @@ namespace jsimple.util
 				advance();
 		}
 
+		public virtual void advancePastWhitespaceOnSameLine()
+		{
+			while (WhitespaceOnSameLine)
+				advance();
+		}
+
 		public virtual string readWhitespaceDelimitedToken()
 		{
 			StringBuilder token = new StringBuilder();
 			while (!Whitespace && !atEnd())
+				token.Append(currAndAdvance());
+			return token.ToString();
+		}
+
+		public virtual string readWhitespaceDelimitedTokenOnSameLine()
+		{
+			StringBuilder token = new StringBuilder();
+			while (!WhitespaceOnSameLine && !LineBreak && !atEnd())
 				token.Append(currAndAdvance());
 			return token.ToString();
 		}
