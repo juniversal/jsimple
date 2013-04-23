@@ -28,7 +28,7 @@ public class JavaIOUtils {
         else if (e instanceof java.net.UnknownHostException)
             jSimpleIOException = new UnknownHostException(message, e);
         else if (e instanceof java.io.FileNotFoundException || e instanceof java.nio.file.NoSuchFileException)
-            jSimpleIOException = new FileNotFoundException(message, e);
+            jSimpleIOException = new PathNotFoundException(message, e);
         else jSimpleIOException = new IOException(message, e);
 
         // Replace the stack trace with the original one, so it looks like the original code threw the exception.

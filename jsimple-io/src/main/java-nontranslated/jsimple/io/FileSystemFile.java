@@ -19,14 +19,6 @@ public class FileSystemFile extends File {
         this.javaPath = javaPath;
     }
 
-    @Override public void delete(){
-        try{
-            Files.delete(javaPath);
-        } catch (java.io.IOException e){
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
-    }
-
     @Override public InputStream openForRead() {
         try {
             return new JSimpleInputStreamOnJavaStream(Files.newInputStream(javaPath));
@@ -46,6 +38,14 @@ public class FileSystemFile extends File {
 
     @Override public String getName() {
         return javaPath.getFileName().toString();
+    }
+
+    @Override public void delete(){
+        try{
+            Files.delete(javaPath);
+        } catch (java.io.IOException e){
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        }
     }
 
 }

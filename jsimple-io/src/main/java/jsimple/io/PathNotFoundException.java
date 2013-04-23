@@ -7,16 +7,16 @@ package jsimple.io;
  * @author Bret Johnson
  * @since 10/9/12 12:15 PM
  */
-public class FileNotFoundException extends IOException {
-    public FileNotFoundException(Throwable cause) {
+public class PathNotFoundException extends IOException {
+    public PathNotFoundException(Throwable cause) {
         super(cause);
     }
 
-    public FileNotFoundException(String message) {
+    public PathNotFoundException(String message) {
         super(message);
     }
 
-    public FileNotFoundException(String message, Throwable cause) {
+    public PathNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 }

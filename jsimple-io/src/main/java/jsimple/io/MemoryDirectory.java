@@ -36,7 +36,7 @@ public class MemoryDirectory extends Directory {
                 return memoryFile;
         }
 
-        throw new FileNotFoundException("MemoryFile " + name + " not found");
+        throw new PathNotFoundException("MemoryFile " + name + " not found");
     }
 
     /**
@@ -70,7 +70,7 @@ public class MemoryDirectory extends Directory {
             }
         }
 
-        throw new FileNotFoundException("MemoryFile " + name + " not found");
+        throw new PathNotFoundException("MemoryFile " + name + " not found");
     }
 
     /**
@@ -87,7 +87,7 @@ public class MemoryDirectory extends Directory {
                 return subdirectory;
         }
 
-        throw new FileNotFoundException("MemoryDirectory " + name + " not found");
+        throw new PathNotFoundException("MemoryDirectory " + name + " not found");
     }
 
     /**
@@ -116,7 +116,7 @@ public class MemoryDirectory extends Directory {
             }
         }
 
-        throw new FileNotFoundException("MemoryDirectory " + name + " not found");
+        throw new PathNotFoundException("MemoryDirectory " + name + " not found");
     }
 
     /**

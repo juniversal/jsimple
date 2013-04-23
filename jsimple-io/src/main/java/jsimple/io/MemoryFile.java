@@ -29,7 +29,7 @@ public class MemoryFile extends File {
 
     @Override public InputStream openForRead() {
         if (data == null)
-            throw new FileNotFoundException("MemoryFile " + name + " doesn't currently exist");
+            throw new PathNotFoundException("MemoryFile " + name + " doesn't currently exist");
         else return new ByteArrayInputStream(data);
     }
 

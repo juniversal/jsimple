@@ -67,7 +67,7 @@ public class JavaHttpRequest extends HttpRequest {
     }
 
     @Override public HttpResponse send() {
-        // TODO: The doc seems to say that, for example, for a 404 error the connect call will throw a FileNotFoundException, and the caller can use getErrorStream to read the bod.  Test that & change to catch such exceptions here, so caller gets a valid response object
+        // TODO: The doc seems to say that, for example, for a 404 error the connect call will throw a PathNotFoundException, and the caller can use getErrorStream to read the bod.  Test that & change to catch such exceptions here, so caller gets a valid response object
         // Scribe called getErrorStream when response code not in: return getCode() >= 200 && getCode() < 400;
 
         try {

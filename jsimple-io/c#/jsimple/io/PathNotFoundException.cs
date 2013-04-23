@@ -10,17 +10,17 @@ namespace jsimple.io
 	/// @author Bret Johnson
 	/// @since 10/9/12 12:15 PM
 	/// </summary>
-	public class FileNotFoundException : IOException
+	public class PathNotFoundException : IOException
 	{
-		public FileNotFoundException(Exception cause) : base(cause)
+		public PathNotFoundException(Exception cause) : base(cause)
 		{
 		}
 
-		public FileNotFoundException(string message) : base(message)
+		public PathNotFoundException(string message) : base(message)
 		{
 		}
 
-		public FileNotFoundException(string message, Exception cause) : base(message, cause)
+		public PathNotFoundException(string message, Exception cause) : base(message, cause)
 		{
 		}
 	}

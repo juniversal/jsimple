@@ -21,7 +21,7 @@
             */
             // TODO: Include DirectoryNotFoundException for .Net apps
             if (e is System.IO.FileNotFoundException)
-                jSimpleIOException = new FileNotFoundException(message, e);
+                jSimpleIOException = new PathNotFoundException(message, e);
             else jSimpleIOException = new IOException(message, e);
 
             /*
