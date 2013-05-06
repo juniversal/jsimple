@@ -18,16 +18,14 @@ namespace jsimple.io
 	/// @author Bret Johnson </summary>
 	/// <seealso cref= jsimple.io.InputStream
 	/// @since 10/7/12 12:31 AM </seealso>
-	public abstract class OutputStream
+	public abstract class OutputStream : jsimple.lang.AutoCloseable
 	{
 		/// <summary>
 		/// Closes this stream. Implementations of this method should free any resources used by the stream. This
 		/// implementation does nothing.
 		/// </summary>
 		/// <exception cref="IOException"> if an error occurs while closing this stream. </exception>
-		public virtual void close()
-		{
-		}
+		public override abstract void close();
 
 		/// <summary>
 		/// Flushes this stream. Implementations of this method should ensure that any buffered data is written out. This

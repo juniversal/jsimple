@@ -51,7 +51,6 @@ namespace jsimple.io
 		{
 			// Although the spec claims "A closed stream cannot perform output operations and cannot be reopened.", this
 			// implementation must do nothing.
-			base.close();
 		}
 
 		/// <summary>

@@ -16,7 +16,7 @@ namespace jsimple.io
 	/// some of the non-abstract methods is also often advised, since it might result in higher efficiency.
 	/// </summary>
 	/// <seealso cref= Reader </seealso>
-	public abstract class Writer
+	public abstract class Writer : jsimple.lang.AutoCloseable
 	{
 		private string lineSeparator = PlatformUtils.LineSeparator;
 
@@ -24,7 +24,7 @@ namespace jsimple.io
 		/// Closes this writer. Implementations of this method should free any resources associated with the writer.
 		/// </summary>
 		/// <exception cref="IOException"> if an error occurs while closing this writer. </exception>
-		public abstract void close();
+		public override abstract void close();
 
 		/// <summary>
 		/// Flushes this writer. Implementations of this method should ensure that all buffered characters are written to the

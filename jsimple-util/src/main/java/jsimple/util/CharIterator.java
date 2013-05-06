@@ -14,6 +14,18 @@ public class CharIterator {
         this.length = string.length();
     }
 
+    public String getString() {
+        return str;
+    }
+
+    public String getRemaining() {
+        return str.substring(index);
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
     public boolean atEnd() {
         return index >= length;
     }
@@ -54,7 +66,7 @@ public class CharIterator {
      */
     public void skipAheadPast(String substr) {
         if (!skipAheadPastIfExists(substr))
-            throw new RuntimeException("'" + substr + "' not found in string '" + str + "'");
+            throw new InvalidFormatException("'" + substr + "' not found in string '" + str + "'");
     }
 
     /**
@@ -78,13 +90,12 @@ public class CharIterator {
      *
      * @param c character to verify that occurs at the current iterator position
      */
-    public void checkAndAdvancePast(char c) {
+    public void checkAndAdvance(char c) {
         if (atEnd())
-            throw new RuntimeException("Already at end of string");
+            throw new InvalidFormatException("Already at end of string");
 
         if (str.charAt(index) != c)
-            throw new RuntimeException("Character '" + c + "' not found at this position in the string: " +
-                    str.substring(index));
+            throw new InvalidFormatException("Character '" + c + "' expected but not found at position " + index);
 
         ++index;
     }
@@ -100,6 +111,11 @@ public class CharIterator {
     public boolean isWhitespace() {
         int c = curr();
         return c == ' ' || c == '\t' || c == '\r' || c == '\n';
+    }
+
+    public boolean isDigit() {
+        int c = curr();
+        return c >= '0' && c <= '9';
     }
 
     public boolean isWhitespaceOnSameLine() {

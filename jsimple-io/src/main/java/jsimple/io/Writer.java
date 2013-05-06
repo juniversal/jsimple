@@ -16,7 +16,7 @@ import jsimple.util.PlatformUtils;
  *
  * @see Reader
  */
-public abstract class Writer {
+public abstract class Writer extends jsimple.lang.AutoCloseable {
     private String lineSeparator = PlatformUtils.getLineSeparator();
 
     /**
@@ -24,7 +24,7 @@ public abstract class Writer {
      *
      * @throws IOException if an error occurs while closing this writer.
      */
-    public abstract void close();
+    @Override public abstract void close();
 
     /**
      * Flushes this writer. Implementations of this method should ensure that all buffered characters are written to the

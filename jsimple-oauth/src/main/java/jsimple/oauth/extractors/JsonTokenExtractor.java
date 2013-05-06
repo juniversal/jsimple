@@ -16,13 +16,13 @@ public class JsonTokenExtractor implements AccessTokenExtractor {
 
             tokenIterator.skipAheadPast("\"access_token\":");
             tokenIterator.advancePastWhitespace();
-            tokenIterator.checkAndAdvancePast('\"');
+            tokenIterator.checkAndAdvance('\"');
 
             StringBuilder tokenBuffer = new StringBuilder();
             while (!tokenIterator.isWhitespace() && tokenIterator.curr() != '"' && !tokenIterator.atEnd())
                 tokenBuffer.append(tokenIterator.currAndAdvance());
 
-            tokenIterator.checkAndAdvancePast('\"');
+            tokenIterator.checkAndAdvance('\"');
 
             return new Token(tokenBuffer.toString(), "", response);
         } catch (RuntimeException e) {

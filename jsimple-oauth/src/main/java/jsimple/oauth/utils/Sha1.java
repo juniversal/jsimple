@@ -179,6 +179,7 @@ public class Sha1 {
             bits[nI] = (byte) ((m_lCount >>> (((7 - nI) << 3))) & 0xff);
         }
 
+
         update((byte) -128);            // Was 128 in original code but -128 for signed byte 0x80 is more correct
         while (m_nBlockIndex != 56) {
             update((byte) 0);

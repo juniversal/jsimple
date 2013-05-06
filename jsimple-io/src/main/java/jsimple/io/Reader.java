@@ -10,11 +10,11 @@ package jsimple.io;
  * {@link #read(char[], int, int)} and {@link #close()} methods needs to be overridden. Overriding some of the
  * non-abstract methods is also often advised, since it might result in higher efficiency.
  */
-public abstract class Reader {
+public abstract class Reader extends jsimple.lang.AutoCloseable {
     /**
      * Closes this reader. Implementations of this method should free any resources associated with the reader.
      */
-    public abstract void close();
+    @Override public abstract void close();
 
     /**
      * Reads a single character from this reader and returns it as an integer with the two higher-order bytes set to 0.

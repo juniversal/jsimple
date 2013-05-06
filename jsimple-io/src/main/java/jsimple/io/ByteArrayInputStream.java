@@ -37,6 +37,9 @@ public class ByteArrayInputStream extends InputStream {
         this.count = buf.length;
     }
 
+    @Override public void close() {
+    }
+
     /**
      * Constructs a new {@code ByteArrayInputStream} on the byte array {@code buf} with the initial position set to
      * {@code offset} and the number of bytes available set to {@code offset} + {@code length}.

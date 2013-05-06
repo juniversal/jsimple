@@ -19,7 +19,7 @@ namespace jsimple.logging.stdimpl
 
 		public override void append(LoggingEvent loggingEvent)
 		{
-			writer.writeln(loggingEvent.Level.DefaultDisplayName + " " + loggingEvent.Format);
+			writer.writeln(loggingEvent.Level.DefaultDisplayName + " " + loggingEvent.FormattedMessage);
 
 			if (flushImmediately)
 				writer.flush();

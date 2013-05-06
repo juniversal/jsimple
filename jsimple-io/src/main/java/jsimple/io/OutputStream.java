@@ -18,15 +18,14 @@ import jsimple.util.StringUtils;
  * @see jsimple.io.InputStream
  * @since 10/7/12 12:31 AM
  */
-public abstract class OutputStream {
+public abstract class OutputStream extends jsimple.lang.AutoCloseable {
     /**
      * Closes this stream. Implementations of this method should free any resources used by the stream. This
      * implementation does nothing.
      *
      * @throws IOException if an error occurs while closing this stream.
      */
-    public void close() {
-    }
+    @Override public abstract void close();
 
     /**
      * Flushes this stream. Implementations of this method should ensure that any buffered data is written out. This

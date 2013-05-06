@@ -47,7 +47,6 @@ public class ByteArrayOutputStream extends OutputStream {
     @Override public void close() {
         // Although the spec claims "A closed stream cannot perform output operations and cannot be reopened.", this
         // implementation must do nothing.
-        super.close();
     }
 
     /**

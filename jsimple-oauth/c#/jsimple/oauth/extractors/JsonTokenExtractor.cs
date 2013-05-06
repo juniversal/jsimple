@@ -24,13 +24,13 @@ namespace jsimple.oauth.extractors
 
 				tokenIterator.skipAheadPast("\"access_token\":");
 				tokenIterator.advancePastWhitespace();
-				tokenIterator.checkAndAdvancePast('\"');
+				tokenIterator.checkAndAdvance('\"');
 
 				StringBuilder tokenBuffer = new StringBuilder();
 				while (!tokenIterator.Whitespace && tokenIterator.curr() != '"' && !tokenIterator.atEnd())
 					tokenBuffer.Append(tokenIterator.currAndAdvance());
 
-				tokenIterator.checkAndAdvancePast('\"');
+				tokenIterator.checkAndAdvance('\"');
 
 				return new Token(tokenBuffer.ToString(), "", response);
 			}

@@ -4,6 +4,7 @@ import jsimple.io.StdIO;
 import jsimple.logging.ILoggerFactory;
 import jsimple.logging.Level;
 import jsimple.logging.Logger;
+import jsimple.logging.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,14 @@ public class StdLoggerFactory implements ILoggerFactory {
     private HashMap<String, StdLogger> loggers = new HashMap<String, StdLogger>();
     private Level defaultLevel = Level.DEBUG;
     private List<Appender> defaultAppenders = new ArrayList<Appender>();
+
+    public static StdLoggerFactory init(Level defaultLevel) {
+        StdLoggerFactory stdLoggerFactory = new StdLoggerFactory();
+        stdLoggerFactory.setDefaultLevel(defaultLevel);
+
+        LoggerFactory.init(stdLoggerFactory);
+        return stdLoggerFactory;
+    }
 
     public StdLoggerFactory() {
         defaultAppenders.add(new WriterAppender(StdIO.stdout));

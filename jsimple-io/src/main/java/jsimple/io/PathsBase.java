@@ -11,4 +11,18 @@ public class PathsBase {
      * @return the directory where the application should store its private data.
      */
     //static Directory getApplicationDataDirectory();
+
+    /**
+     * Return the Directory object corresponding to the string serialized representation.  If the directory doesn't
+     * exist, it's implementation dependent whether this method throws a PathNotFoundException or a
+     * PathNotFoundException is thrown when the returned directory is used--different implementations do different
+     * things there.
+     * <p/>
+     * Not all implementations of Directory support serializing it as a string.  An exception is thrown if it's
+     * not supported.
+     *
+     * @param directoryString
+     * @return
+     */
+    //static Directory getDirectory(String directoryPathString);
 }

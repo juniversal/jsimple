@@ -17,15 +17,14 @@ package jsimple.io;
  * @see jsimple.io.OutputStream
  * @since 10/7/12 12:31 AM
  */
-public abstract class InputStream {
+public abstract class InputStream extends jsimple.lang.AutoCloseable {
     /**
      * Closes this stream.  If the stream is already closed, then this method should do nothing.  Concrete
      * implementations of this class should free any resources during close.
      *
      * @throws IOException if an error occurs while closing this stream
      */
-    public void close() {
-    }
+    @Override public abstract void close();
 
     @Override protected void finalize() {
         close();

@@ -17,16 +17,14 @@ namespace jsimple.io
 	/// @author Bret Johnson </summary>
 	/// <seealso cref= jsimple.io.OutputStream
 	/// @since 10/7/12 12:31 AM </seealso>
-	public abstract class InputStream
+	public abstract class InputStream : jsimple.lang.AutoCloseable
 	{
 		/// <summary>
 		/// Closes this stream.  If the stream is already closed, then this method should do nothing.  Concrete
 		/// implementations of this class should free any resources during close.
 		/// </summary>
 		/// <exception cref="IOException"> if an error occurs while closing this stream </exception>
-		public virtual void close()
-		{
-		}
+		public override abstract void close();
 
 		~InputStream()
 		{

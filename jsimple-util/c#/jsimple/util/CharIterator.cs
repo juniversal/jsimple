@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 
 namespace jsimple.util
@@ -18,6 +17,30 @@ namespace jsimple.util
 		{
 			this.str = @string;
 			this.length = @string.Length;
+		}
+
+		public virtual string String
+		{
+			get
+			{
+				return str;
+			}
+		}
+
+		public virtual string Remaining
+		{
+			get
+			{
+				return str.Substring(index);
+			}
+		}
+
+		public virtual int Index
+		{
+			get
+			{
+				return index;
+			}
 		}
 
 		public virtual bool atEnd()
@@ -62,7 +85,7 @@ namespace jsimple.util
 		public virtual void skipAheadPast(string substr)
 		{
 			if (!skipAheadPastIfExists(substr))
-				throw new Exception("'" + substr + "' not found in string '" + str + "'");
+				throw new InvalidFormatException("'" + substr + "' not found in string '" + str + "'");
 		}
 
 		/// <summary>
@@ -85,13 +108,13 @@ namespace jsimple.util
 		/// Verify that the current character is c, throwing an exception if it isn't, then advance to the next character.
 		/// </summary>
 		/// <param name="c"> character to verify that occurs at the current iterator position </param>
-		public virtual void checkAndAdvancePast(char c)
+		public virtual void checkAndAdvance(char c)
 		{
 			if (atEnd())
-				throw new Exception("Already at end of string");
+				throw new InvalidFormatException("Already at end of string");
 
 			if (str[index] != c)
-				throw new Exception("Character '" + c + "' not found at this position in the string: " + str.Substring(index));
+				throw new InvalidFormatException("Character '" + c + "' expected but not found at position " + index);
 
 			++index;
 		}
@@ -112,6 +135,15 @@ namespace jsimple.util
 			{
 				int c = curr();
 				return c == ' ' || c == '\t' || c == '\r' || c == '\n';
+			}
+		}
+
+		public virtual bool Digit
+		{
+			get
+			{
+				int c = curr();
+				return c >= '0' && c <= '9';
 			}
 		}
 

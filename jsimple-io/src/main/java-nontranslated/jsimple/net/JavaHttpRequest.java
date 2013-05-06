@@ -82,5 +82,5 @@ public class JavaHttpRequest extends HttpRequest {
         @Override public HttpRequest createHttpRequest(String url) {
             return new JavaHttpRequest(url);
         }
-    };
+    }
 }

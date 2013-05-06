@@ -15,7 +15,7 @@ public class WriterAppender extends Appender {
     }
 
     @Override public void append(LoggingEvent loggingEvent) {
-        writer.writeln(loggingEvent.getLevel().getDefaultDisplayName() + " " + loggingEvent.getFormat());
+        writer.writeln(loggingEvent.getLevel().getDefaultDisplayName() + " " + loggingEvent.getFormattedMessage());
 
         if (flushImmediately)
             writer.flush();

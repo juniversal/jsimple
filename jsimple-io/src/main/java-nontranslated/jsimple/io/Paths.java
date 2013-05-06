@@ -21,4 +21,8 @@ public class Paths extends PathsBase {
 
         return new FileSystemDirectory(workingDirectory);
     }
+
+    public static Directory getDirectory(String directoryPathString) {
+        return new FileSystemDirectory(directoryPathString);
+    }
 }

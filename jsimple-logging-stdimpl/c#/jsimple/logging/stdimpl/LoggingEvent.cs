@@ -1,13 +1,33 @@
 using System;
 
+/// <summary>
+/// Parts of this functionality were adapted from Logback (v. 1.0.120:
+/// 
+/// Logback: the reliable, generic, fast and flexible logging framework.
+/// Copyright (C) 1999-2013, QOS.ch. All rights reserved.
+/// 
+/// This program and the accompanying materials are dual-licensed under
+/// either the terms of the Eclipse Public License v1.0 as published by
+/// the Eclipse Foundation
+/// 
+///   or (per the licensee's choosing)
+/// 
+/// under the terms of the GNU Lesser General Public License version 2.1
+/// as published by the Free Software Foundation.
+/// </summary>
+
 namespace jsimple.logging.stdimpl
 {
 
 	using Level = jsimple.logging.Level;
+	using FormattingTuple = jsimple.logging.helpers.FormattingTuple;
+	using MessageFormatter = jsimple.logging.helpers.MessageFormatter;
 	using PlatformUtils = jsimple.util.PlatformUtils;
 
 	/// <summary>
 	/// @author Bret Johnson
+	/// @author Ceki G&uuml;lc&uuml;   (original Logback source)
+	/// @author S&eacute;bastien Pennec    (original Logback source)
 	/// @since 4/8/13 12:20 AM
 	/// </summary>
 	public class LoggingEvent
@@ -16,30 +36,39 @@ namespace jsimple.logging.stdimpl
 		private string threadName;
 		private string loggerName;
 		private Level level;
-		private string format = null;
+		private string message = null;
 		private object[] messageArgs = null;
 		private string formattedMessage = null;
 		private Exception throwable = null;
 
-		public LoggingEvent(string loggerName, Level level, string format, object[] arguments)
+		public LoggingEvent(string loggerName, Level level, string message, object[] argArray)
 		{
 			this.timestamp = PlatformUtils.CurrentTimeMillis;
-			this.threadName = "THREAD"; // TODO: Make this real thread name
 			this.loggerName = loggerName;
 			this.level = level;
-			this.format = format;
-			this.messageArgs = arguments;
+
+			this.message = message;
+
+			FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, argArray);
+			formattedMessage = formattingTuple.Message;
+			messageArgs = formattingTuple.ArgArray;
+			this.throwable = formattingTuple.Throwable;
+
+			this.threadName = "THREAD"; // TODO: Make this real thread name
 		}
 
 		public LoggingEvent(string loggerName, Level level, string message, Exception t)
 		{
 			this.timestamp = PlatformUtils.CurrentTimeMillis;
-			this.threadName = "THREAD"; // TODO: Make this real thread name
 			this.loggerName = loggerName;
 			this.level = level;
-			this.format = message;
+
+			this.message = message;
+			this.formattedMessage = message;
 			this.messageArgs = null;
 			this.throwable = t;
+
+			this.threadName = "THREAD"; // TODO: Make this real thread name
 		}
 
 		public virtual long Timestamp
@@ -74,11 +103,11 @@ namespace jsimple.logging.stdimpl
 			}
 		}
 
-		public virtual string Format
+		public virtual string Message
 		{
 			get
 			{
-				return format;
+				return message;
 			}
 		}
 

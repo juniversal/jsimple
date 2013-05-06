@@ -7,6 +7,7 @@ namespace jsimple.logging.stdimpl
 	using ILoggerFactory = jsimple.logging.ILoggerFactory;
 	using Level = jsimple.logging.Level;
 	using Logger = jsimple.logging.Logger;
+	using LoggerFactory = jsimple.logging.LoggerFactory;
 
 
 	/// <summary>
@@ -18,6 +19,15 @@ namespace jsimple.logging.stdimpl
 		private Dictionary<string, StdLogger> loggers = new Dictionary<string, StdLogger>();
 		private Level defaultLevel = Level.DEBUG;
 		private IList<Appender> defaultAppenders = new List<Appender>();
+
+		public static StdLoggerFactory init(Level defaultLevel)
+		{
+			StdLoggerFactory stdLoggerFactory = new StdLoggerFactory();
+			stdLoggerFactory.DefaultLevel = defaultLevel;
+
+			LoggerFactory.init(stdLoggerFactory);
+			return stdLoggerFactory;
+		}
 
 		public StdLoggerFactory()
 		{

@@ -11,6 +11,19 @@ namespace jsimple.io
 	{
 		/// <returns> the directory where the application should store its private data. </returns>
 		//static Directory getApplicationDataDirectory();
+
+		/// <summary>
+		/// Return the Directory object corresponding to the string serialized representation.  If the directory doesn't
+		/// exist, it's implementation dependent whether this method throws a PathNotFoundException or a
+		/// PathNotFoundException is thrown when the returned directory is used--different implementations do different
+		/// things there.
+		/// <p/>
+		/// Not all implementations of Directory support serializing it as a string.  An exception is thrown if it's
+		/// not supported.
+		/// </summary>
+		/// <param name="directoryString">
+		/// @return </param>
+		//static Directory getDirectory(String directoryPathString);
 	}
 
 }
