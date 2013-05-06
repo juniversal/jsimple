@@ -181,10 +181,10 @@ namespace jsimple.oauth.utils
 			sbyte[] bits = new sbyte[8];
 
 			for (nI = 0; nI < 8; nI++)
-				bits[nI] = (sbyte)(((long)((ulong)m_lCount >> (((7 - nI) << 3)))) & 0xff);
+				bits[nI] = unchecked((sbyte)(((long)((ulong)m_lCount >> (((7 - nI) << 3)))) & 0xff));
 
-
-			update(unchecked((sbyte)(unchecked((sbyte) - 128)))); // Was 128 in original code but -128 for signed byte 0x80 is more correct
+			sbyte neg128 = -128;
+			update(neg128); // Was 128 in original code but -128 for signed byte 0x80 is more correct
 			while (m_nBlockIndex != 56)
 				update((sbyte) 0);
 
@@ -192,7 +192,7 @@ namespace jsimple.oauth.utils
 				update(bits[nI]);
 
 			for (nI = 0; nI < 20; nI++)
-				m_digestBits[nI] = (sbyte)((m_state[nI >> 2] >> ((3 - (nI & 3)) << 3)) & 0xff);
+				m_digestBits[nI] = unchecked((sbyte)((m_state[nI >> 2] >> ((3 - (nI & 3)) << 3)) & 0xff));
 		}
 
 
@@ -247,7 +247,7 @@ namespace jsimple.oauth.utils
 			}
 
 			for (int i = 0; i < 64; i++)
-				buf[i] = (sbyte)((0x36 ^ pkey[i]) & 0xff);
+				buf[i] = unchecked((sbyte)((0x36 ^ pkey[i]) & 0xff));
 
 //JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
 //ORIGINAL LINE: final Sha1 sha1 = new Sha1();
@@ -259,7 +259,7 @@ namespace jsimple.oauth.utils
 			sbyte[] h1 = sha1.Digest;
 
 			for (int i = 0; i < 64; i++)
-				buf[i] = (sbyte)((0x5C ^ pkey[i]) & 0xff);
+				buf[i] = unchecked((sbyte)((0x5C ^ pkey[i]) & 0xff));
 
 //JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
 //ORIGINAL LINE: final Sha1 sha2 = new Sha1();
