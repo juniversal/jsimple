@@ -5,7 +5,6 @@ namespace jsimple.oauth.services
 
 	using PlatformUtils = jsimple.util.PlatformUtils;
 
-
 	/// <summary>
 	/// Implementation of <seealso cref="TimestampService"/> using plain java classes.
 	/// 

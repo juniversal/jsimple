@@ -27,8 +27,6 @@ using System;
 namespace jsimple.logging.helpers
 {
 
-	using Level = jsimple.logging.Level;
-	using Logger = jsimple.logging.Logger;
 
 	/// <summary>
 	/// A direct NOP (no operation) implementation of <seealso cref="Logger"/>.

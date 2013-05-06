@@ -5,7 +5,6 @@ namespace jsimple.oauth.oauth
 	using Token = jsimple.oauth.model.Token;
 	using Verifier = jsimple.oauth.model.Verifier;
 
-
 	/// <summary>
 	/// The main Scribe object.
 	/// <p/>

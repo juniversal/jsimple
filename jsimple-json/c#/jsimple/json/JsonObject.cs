@@ -5,7 +5,6 @@ namespace jsimple.json
 
 
 
-
 	/// <summary>
 	/// A JsonObject represents an ordered list of name/value pairs.  Note that unlike a HashMap, the list is ordered, so
 	/// that the order in the serialized text can be controlled.  For now, queries just do a linear search, but we might add

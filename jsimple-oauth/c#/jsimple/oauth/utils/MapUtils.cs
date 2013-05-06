@@ -4,7 +4,6 @@ using System.Text;
 namespace jsimple.oauth.utils
 {
 
-
 	/// <summary>
 	/// @author: Pablo Fernandez
 	/// </summary>

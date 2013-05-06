@@ -9,7 +9,6 @@ namespace jsimple.oauth.model
 	using PlatformUtils = jsimple.util.PlatformUtils;
 
 
-
 	/// <summary>
 	/// @author: Pablo Fernandez
 	/// </summary>

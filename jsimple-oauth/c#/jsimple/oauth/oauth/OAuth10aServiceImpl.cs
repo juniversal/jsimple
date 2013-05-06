@@ -10,7 +10,6 @@ namespace jsimple.oauth.oauth
 	using MapUtils = jsimple.oauth.utils.MapUtils;
 
 
-
 	/// <summary>
 	/// OAuth 1.0a implementation of <seealso cref="OAuthService"/>
 	/// 

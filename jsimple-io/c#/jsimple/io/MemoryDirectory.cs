@@ -6,7 +6,6 @@ namespace jsimple.io
 
 
 
-
 	/// <summary>
 	/// @author Bret Johnson
 	/// @since 3/23/13 1:49 PM

@@ -269,11 +269,14 @@ namespace jsimple.logging.helpers
 				string oAsString = o.ToString();
 				buffer.Append(oAsString);
 			}
-			catch (Exception t)
+			catch (Exception)
 			{
-				Console.Error.WriteLine("SLF4J: Failed toString() invocation on an object of type [" + o.GetType().Name + "]");
-				Console.WriteLine(t.ToString());
-				Console.Write(t.StackTrace);
+				// TODO: Change this to something else
+				/*
+				System.err.println("SLF4J: Failed toString() invocation on an object of type [" + o.getClass().getName() +
+				"]");
+				t.printStackTrace();
+				*/
 				buffer.Append("[FAILED toString()]");
 			}
 		}

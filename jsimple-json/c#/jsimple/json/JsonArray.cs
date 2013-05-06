@@ -3,7 +3,6 @@ using System.Collections.Generic;
 namespace jsimple.json
 {
 
-
 	/// <summary>
 	/// @author Bret Johnson
 	/// @since 5/7/12 12:40 AM

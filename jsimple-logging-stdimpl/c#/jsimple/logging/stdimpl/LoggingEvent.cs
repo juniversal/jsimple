@@ -19,7 +19,6 @@ using System;
 namespace jsimple.logging.stdimpl
 {
 
-	using Level = jsimple.logging.Level;
 	using FormattingTuple = jsimple.logging.helpers.FormattingTuple;
 	using MessageFormatter = jsimple.logging.helpers.MessageFormatter;
 	using PlatformUtils = jsimple.util.PlatformUtils;

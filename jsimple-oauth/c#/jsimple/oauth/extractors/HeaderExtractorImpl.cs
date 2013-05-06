@@ -8,7 +8,6 @@ namespace jsimple.oauth.extractors
 	using OAuthRequest = jsimple.oauth.model.OAuthRequest;
 	using OAuthEncoder = jsimple.oauth.utils.OAuthEncoder;
 
-
 	/// <summary>
 	/// Default implementation of <seealso cref="HeaderExtractor"/>. Conforms to OAuth 1.0a
 	/// 

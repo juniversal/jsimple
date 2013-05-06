@@ -5,7 +5,6 @@ namespace jsimple.oauth.model
 
 
 
-
 	/// <summary>
 	/// Represents an OAuth token (either request or access token) and its secret
 	/// 

@@ -27,7 +27,6 @@ using System;
 namespace jsimple.logging.helpers
 {
 
-
 	using UnitTest = jsimple.unit.UnitTest;
 	using NUnit.Framework;
 

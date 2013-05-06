@@ -4,9 +4,6 @@ using System.Collections.Generic;
 namespace jsimple.logging.stdimpl
 {
 
-	using Level = jsimple.logging.Level;
-	using Logger = jsimple.logging.Logger;
-
 
 	/// <summary>
 	/// @author Bret Johnson

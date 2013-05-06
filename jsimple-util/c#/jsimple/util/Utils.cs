@@ -1,5 +1,3 @@
-using System;
-
 namespace jsimple.util
 {
 
@@ -32,51 +30,6 @@ namespace jsimple.util
 				byteArray[i] = (sbyte) bytes[i];
 
 			return byteArray;
-		}
-
-
-//JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
-//ORIGINAL LINE: public static long parseRFC3339Long(String datestring) throws java.text.ParseException, IndexOutOfBoundsException
-		public static long parseRFC3339Long(string datestring)
-		{
-			DateTime d = DateTime.Now;
-
-			//if there is no time zone, we don't need to do any special parsing.
-			if (datestring.EndsWith("Z"))
-			{
-				try
-				{
-					SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"); //spec for RFC3339
-					d = s.parse(datestring);
-				} //try again with optional decimals
-				catch (java.text.ParseException pe)
-				{
-					SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"); //spec for RFC3339 (with fractional seconds)
-					s.Lenient = true;
-					d = s.parse(datestring);
-				}
-				return d.Time;
-			}
-
-			//step one, split off the timezone.
-			string firstpart = datestring.Substring(0, datestring.LastIndexOf('-'));
-			string secondpart = datestring.Substring(datestring.LastIndexOf('-'));
-
-			//step two, remove the colon from the timezone offset
-			secondpart = secondpart.Substring(0, secondpart.IndexOf(':')) + secondpart.Substring(secondpart.IndexOf(':') + 1);
-			datestring = firstpart + secondpart;
-			SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ"); //spec for RFC3339
-			try
-			{
-				d = s.parse(datestring);
-			} //try again with optional decimals
-			catch (java.text.ParseException pe)
-			{
-				s = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"); //spec for RFC3339 (with fractional seconds)
-				s.Lenient = true;
-				d = s.parse(datestring);
-			}
-			return d.Time;
 		}
 	}
 

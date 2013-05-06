@@ -240,9 +240,12 @@ final public class MessageFormatter {
             String oAsString = o.toString();
             buffer.append(oAsString);
         } catch (Throwable t) {
+            // TODO: Change this to something else
+            /*
             System.err.println("SLF4J: Failed toString() invocation on an object of type [" + o.getClass().getName() +
-                    "]");
+            "]");
             t.printStackTrace();
+            */
             buffer.append("[FAILED toString()]");
         }
     }

@@ -22,11 +22,11 @@ namespace jsimple.util
         ///     we generally use in JSimple.
         /// </summary>
         /// <returns> number of milliseconds since 1/1/1970 UTC/GMT </returns>
-        private static readonly DateTime Jan1st1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly System.DateTime Jan1st1970 = new System.DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         public static long CurrentTimeMillis
         {
-            get { return (long) (DateTime.UtcNow - Jan1st1970).TotalMilliseconds; }
+            get { return (long) (System.DateTime.UtcNow - Jan1st1970).TotalMilliseconds; }
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace jsimple.util
         ///     we generally use in JSimple.
         /// </summary>
         /// <returns> number of milliseconds since 1/1/1970 UTC/GMT for dataTimeOffset </returns>
-        public static long toMillisFromDateTime(DateTime dateTime)
+        public static long toMillisFromDateTime(System.DateTime dateTime)
         {
             return (long)(dateTime - Jan1st1970).TotalMilliseconds;
         }
@@ -53,7 +53,7 @@ namespace jsimple.util
         ///     Convert number of milliseconds since Jan 1, 1970, UTC time (the time unit generally used in JSimple) to a DateTime.
         /// </summary>
         /// <returns> DateTime corresponding to the date/time in millis </returns>
-        public static DateTime toDateTimeFromMillis(long millis)
+        public static System.DateTime toDotNetDateTimeFromMillis(long millis)
         {
             return Jan1st1970.AddMilliseconds(millis);
         }

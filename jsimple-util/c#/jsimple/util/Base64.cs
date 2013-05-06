@@ -29,7 +29,7 @@ namespace jsimple.util
 		/// Chunk separator per RFC 2045 section 2.1.
 		/// </summary>
 		/// <seealso cref= <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045 section 2.1</a> </seealso>
-		internal static readonly sbyte[] CHUNK_SEPARATOR = {0xC, 0xA}; // Formerly "\r\n".getBytes();
+		internal static readonly sbyte[] CHUNK_SEPARATOR = new sbyte[] {0xC, 0xA}; // Formerly "\r\n".getBytes();
 
 		/// <summary>
 		/// The base length.
@@ -80,7 +80,7 @@ namespace jsimple.util
 		static Base64()
 		{
 			for (int i = 0; i < BASELENGTH; i++)
-				base64Alphabet[i] = (sbyte) - 1;
+				base64Alphabet[i] = (sbyte) -1;
 			for (int i = 'Z'; i >= 'A'; i--)
 				base64Alphabet[i] = (sbyte)(i - 'A');
 			for (int i = 'z'; i >= 'a'; i--)

@@ -63,7 +63,7 @@ namespace jsimple.util
 		private const int SECONDS_PER_DAY = 86400; // 24*3600
 		private const int SECONDS_PER_HOUR = 3600; // 60*60s
 
-		private static int[][] daysSinceJan1st = {new int[] {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365}, new int[] {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366}};
+		private static int[][] daysSinceJan1st = new int[][] {new int[] {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365}, new int[] {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366}};
 
 		//-----------------------------------------------------------------------
 

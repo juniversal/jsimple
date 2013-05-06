@@ -27,7 +27,6 @@ using System;
 namespace jsimple.logging.helpers
 {
 
-
 	/// <summary>
 	/// Holds the results of formatting done by <seealso cref="MessageFormatter"/>.
 	/// 

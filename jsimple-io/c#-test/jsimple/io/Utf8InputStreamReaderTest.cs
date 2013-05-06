@@ -101,7 +101,7 @@ namespace jsimple.io
 					prefix = "Line " + lineNumber + " bytes read at end: ";
 					assertEquals(prefix + -1, prefix + reader.read(buffer)); // The reader should be at end of stream
 				}
-				catch (CharConversionException e)
+				catch (CharConversionException)
 				{
 					assertTrue(unicodeLine.ToString().StartsWith("MALFORMED"));
 				}
@@ -113,7 +113,7 @@ namespace jsimple.io
 		[Test] public virtual void testReadSurrogate()
 		{
 			sbyte[] utf8Input = Utils.byteArrayFromBytes(0xf0, 0x9f, 0xBF, 0xBD);
-			char[] expected = {(char) 0xd83f, (char) 0xdffd};
+			char[] expected = new char[] {(char) 0xd83f, (char) 0xdffd};
 			char[] buffer = new char[2];
 			Utf8InputStreamReader reader;
 
@@ -128,7 +128,7 @@ namespace jsimple.io
 
 			char[] utf8SurrogateWithFollowingCharBuffer = new char[3];
 			sbyte[] utf8SurrogateWithFollowingChar = Utils.byteArrayFromBytes(0xf0, 0x9f, 0xBF, 0xBD, 0x22);
-			char[] utf8SurrogateWithFollowingCharExpected = {(char) 0xd83f, (char) 0xdffd, (char) 0x22};
+			char[] utf8SurrogateWithFollowingCharExpected = new char[] {(char) 0xd83f, (char) 0xdffd, (char) 0x22};
 			reader = new Utf8InputStreamReader(new jsimple.io.ByteArrayInputStream(utf8SurrogateWithFollowingChar));
 			assertEquals(0, reader.read(utf8SurrogateWithFollowingCharBuffer, 0, 1));
 			assertEquals(3, reader.read(utf8SurrogateWithFollowingCharBuffer, 0, 3));

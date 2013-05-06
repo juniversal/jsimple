@@ -4,10 +4,6 @@ namespace jsimple.logging.stdimpl
 {
 
 	using StdIO = jsimple.io.StdIO;
-	using ILoggerFactory = jsimple.logging.ILoggerFactory;
-	using Level = jsimple.logging.Level;
-	using Logger = jsimple.logging.Logger;
-	using LoggerFactory = jsimple.logging.LoggerFactory;
 
 
 	/// <summary>
