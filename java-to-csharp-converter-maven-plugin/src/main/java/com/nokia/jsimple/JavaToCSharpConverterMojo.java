@@ -122,8 +122,13 @@ public class JavaToCSharpConverterMojo extends AbstractMojo {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(converter.getInputStream()));
             String inputLine;
-            while ((inputLine = reader.readLine()) != null)
+            while ((inputLine = reader.readLine()) != null) {
+                // Don't output the pass number stuff
+                if (inputLine.endsWith(" pass..."))
+                    continue;
+
                 getLog().info(inputLine);
+            }
             reader.close();
         } catch (IOException e) {
             throw new MojoExecutionException("IO exception when running converter", e);
