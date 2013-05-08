@@ -20,7 +20,11 @@ namespace jsimple.io
 		{
 		}
 
-		public PathNotFoundException(string message, Exception cause) : base(message, cause)
+		public PathNotFoundException(string message, object arg1) : base(message, arg1)
+		{
+		}
+
+		public PathNotFoundException(string message, object arg1, object arg2) : base(message, arg1, arg2)
 		{
 		}
 	}

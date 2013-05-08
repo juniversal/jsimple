@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 
 namespace jsimple.util
@@ -62,7 +61,7 @@ namespace jsimple.util
 			else if ('a' <= hexCharacter && hexCharacter <= 'f')
 				return (sbyte)(hexCharacter - 'a' + 10);
 			else
-				throw new Exception("Invalid hex character: '" + hexCharacter + "'");
+				throw new BasicException("Invalid hex character: '{}'", hexCharacter);
 		}
 
 		/// <summary>
@@ -97,7 +96,7 @@ namespace jsimple.util
 			{
 				char c = @string[i];
 				if (c >= 256)
-					throw new Exception("Character '" + c + "' at index + " + i + " isn't a Latin1 character");
+					throw new BasicException("Character '{}' at index {} isn't a Latin1 character", c, i);
 				bytes[i] = (sbyte) c;
 			}
 			return bytes;
@@ -123,7 +122,7 @@ namespace jsimple.util
 				s.Append((char) trailSurrogate);
 			}
 			else
-				throw new Exception("Invalid UTF-32 character code:" + utf32Character);
+				throw new BasicException("Invalid UTF-32 character code: {}", utf32Character);
 		}
 	}
 

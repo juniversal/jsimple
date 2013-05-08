@@ -45,7 +45,7 @@ public class StdLoggerFactory implements ILoggerFactory {
      * @param name the name of the Logger to return
      * @return a Logger instance
      */
-    public Logger getLogger(String name) {
+    public StdLogger getLogger(String name) {
         synchronized (this) {
             StdLogger logger = loggers.get(name);
             if (logger == null) {

@@ -32,7 +32,7 @@ namespace jsimple.io
 		public override InputStream openForRead()
 		{
 			if (data == null)
-				throw new PathNotFoundException("MemoryFile " + name + " doesn't currently exist");
+				throw new PathNotFoundException("MemoryFile {} doesn't currently exist", name);
 			else
 				return new ByteArrayInputStream(data);
 		}
@@ -86,7 +86,7 @@ namespace jsimple.io
 			get
 			{
 				if (data == null)
-					throw new IOException("File " + name + " hasn't yet been created");
+					throw new IOException("File {} hasn't yet been created", name);
     
 				return data.Length;
 			}

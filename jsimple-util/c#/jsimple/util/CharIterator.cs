@@ -85,7 +85,7 @@ namespace jsimple.util
 		public virtual void skipAheadPast(string substr)
 		{
 			if (!skipAheadPastIfExists(substr))
-				throw new InvalidFormatException("'" + substr + "' not found in string '" + str + "'");
+				throw new InvalidFormatException("'{}' not found in string '{}'", substr, str);
 		}
 
 		/// <summary>
@@ -114,9 +114,38 @@ namespace jsimple.util
 				throw new InvalidFormatException("Already at end of string");
 
 			if (str[index] != c)
-				throw new InvalidFormatException("Character '" + c + "' expected but not found at position " + index);
+				throw new InvalidFormatException("Character '{}' expected but not found at position '{}'", c, CurrentPositionWithContext);
 
 			++index;
+		}
+
+		private string CurrentPositionWithContext
+		{
+			get
+			{
+				int start = index - 50;
+				if (start < 0)
+					start = 0;
+    
+				int length = str.Length;
+				int end = index + 50;
+				if (end > length)
+					end = length;
+    
+				StringBuilder markedUpText = new StringBuilder();
+    
+				if (start > 0)
+					markedUpText.Append("...");
+    
+				markedUpText.Append(str.Substring(start, index - start));
+				markedUpText.Append("[^^^^]");
+				markedUpText.Append(str.Substring(index, end - index));
+    
+				if (end < length)
+					markedUpText.Append("...");
+    
+				return markedUpText.ToString();
+			}
 		}
 
 		public virtual bool LineBreak

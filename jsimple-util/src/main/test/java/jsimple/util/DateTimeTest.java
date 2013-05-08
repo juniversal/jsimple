@@ -64,6 +64,11 @@ public class DateTimeTest extends UnitTest {
         validateRFC3339Parsing("2007-01-01T14:02:03-00:00", "2007-01-01T14:02:03Z");
         validateRFC3339Parsing("2007-01-01T14:02:03.0000-00:00", "2007-01-01T14:02:03Z");
 
+        // These time zone formats are invalid but supported none the less since the SkyDrive API uses them
+        // (at least the first one)
+        validateRFC3339Parsing("2007-01-01T14:02:03+0000", "2007-01-01T14:02:03Z");
+        validateRFC3339Parsing("2007-01-01T14:00:00.1289+1300", "2007-01-01T01:00:00.129Z");
+
         /*
         validateRFC3339Parsing("2007-05-01T15:43:26-07:00");
 
@@ -92,14 +97,14 @@ public class DateTimeTest extends UnitTest {
     }
 
     void validateRFC3339Parsing(String dateTimeString) {
-        DateTime dateTime = DateTime.parseRFC3339DateTime(dateTimeString);
+        DateTime dateTime = DateTime.parseRFC3339(dateTimeString);
         String regeneratedDateTimeString = dateTime.toRFC3339String();
 
         assertEquals(dateTimeString, regeneratedDateTimeString);
     }
 
     void validateRFC3339Parsing(String dateTimeString, String expectedRegeneratedString) {
-        DateTime dateTime = DateTime.parseRFC3339DateTime(dateTimeString);
+        DateTime dateTime = DateTime.parseRFC3339(dateTimeString);
         String regeneratedDateTimeString = dateTime.toRFC3339String();
 
         assertEquals(expectedRegeneratedString, regeneratedDateTimeString);
@@ -151,7 +156,7 @@ public class DateTimeTest extends UnitTest {
         String dateTimeString = dateTime.toRFC3339String();
         assertEquals(expectedDatedTimeString, dateTimeString);
 
-        assertEquals(millis, DateTime.parseRFC3339DateTime(dateTimeString).getMillis());
+        assertEquals(millis, DateTime.parseRFC3339(dateTimeString).getMillis());
     }
 
     /**
@@ -164,7 +169,7 @@ public class DateTimeTest extends UnitTest {
 
     private void validateRoundTrip(long daysSinceEpoch) {
         long millis = daysSinceEpoch * 24 * 3600 * 1000;
-        assertEquals(millis, DateTime.parseRFC3339DateTime(new DateTime(millis).toRFC3339String()).getMillis());
+        assertEquals(millis, DateTime.parseRFC3339(new DateTime(millis).toRFC3339String()).getMillis());
     }
 
     @Test public void testGetDayOfWeek() {
@@ -194,6 +199,6 @@ public class DateTimeTest extends UnitTest {
     }
 
     private void validateDayOfWeek(String dateTimeString, int dayOfWeek) {
-        assertEquals(dayOfWeek, DateTime.parseRFC3339DateTime(dateTimeString).getDayOfWeek());
+        assertEquals(dayOfWeek, DateTime.parseRFC3339(dateTimeString).getDayOfWeek());
     }
 }

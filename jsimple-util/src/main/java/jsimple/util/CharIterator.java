@@ -66,7 +66,7 @@ public class CharIterator {
      */
     public void skipAheadPast(String substr) {
         if (!skipAheadPastIfExists(substr))
-            throw new InvalidFormatException("'" + substr + "' not found in string '" + str + "'");
+            throw new InvalidFormatException("'{}' not found in string '{}'", substr, str);
     }
 
     /**
@@ -95,9 +95,35 @@ public class CharIterator {
             throw new InvalidFormatException("Already at end of string");
 
         if (str.charAt(index) != c)
-            throw new InvalidFormatException("Character '" + c + "' expected but not found at position " + index);
+            throw new InvalidFormatException("Character '{}' expected but not found at position '{}'", c,
+                    getCurrentPositionWithContext());
 
         ++index;
+    }
+
+    private String getCurrentPositionWithContext() {
+        int start = index - 50;
+        if (start < 0)
+            start = 0;
+
+        int length = str.length();
+        int end = index + 50;
+        if (end > length)
+            end = length;
+
+        StringBuilder markedUpText = new StringBuilder();
+
+        if (start > 0)
+            markedUpText.append("...");
+
+        markedUpText.append(str.substring(start, index));
+        markedUpText.append("[^^^^]");
+        markedUpText.append(str.substring(index, end));
+
+        if (end < length)
+            markedUpText.append("...");
+
+        return markedUpText.toString();
     }
 
     public boolean isLineBreak() {

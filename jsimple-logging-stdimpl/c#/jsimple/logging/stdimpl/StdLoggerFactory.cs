@@ -43,7 +43,7 @@ namespace jsimple.logging.stdimpl
 		/// </summary>
 		/// <param name="name"> the name of the Logger to return </param>
 		/// <returns> a Logger instance </returns>
-		public virtual Logger getLogger(string name)
+		public virtual StdLogger getLogger(string name)
 		{
 			lock (this)
 			{

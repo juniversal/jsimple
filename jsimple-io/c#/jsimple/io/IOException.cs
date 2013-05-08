@@ -3,6 +3,8 @@ using System;
 namespace jsimple.io
 {
 
+	using BasicException = jsimple.util.BasicException;
+
 	/// <summary>
 	/// This is a platform independent class used to represent I/O exceptions, taking the place of java.io.IOException in
 	/// JSimple based code.
@@ -10,18 +12,25 @@ namespace jsimple.io
 	/// @author Bret Johnson
 	/// @since 10/6/12 5:27 PM
 	/// </summary>
-	public class IOException : Exception
+	public class IOException : BasicException
 	{
-		public IOException(Exception cause) : this(cause.ToString(), cause)
+		public IOException(Exception cause) : base(cause)
 		{
-			// TODO: Test to see what cause.toString ends up with in C#
 		}
 
 		public IOException(string message) : base(message)
 		{
 		}
 
-		public IOException(string message, Exception cause) : base(message, cause)
+		public IOException(string message, object arg1) : base(message, arg1)
+		{
+		}
+
+		public IOException(string message, object arg1, object arg2) : base(message, arg1, arg2)
+		{
+		}
+
+		public IOException(string message, params object[] args) : base(message, args)
 		{
 		}
 	}

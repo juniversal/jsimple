@@ -1,5 +1,3 @@
-using System;
-
 namespace jsimple.util
 {
 
@@ -9,13 +7,21 @@ namespace jsimple.util
 	/// @author Bret Johnson
 	/// @since 5/5/13 4:48 AM
 	/// </summary>
-	public class InvalidFormatException : Exception
+	public class InvalidFormatException : BasicException
 	{
 		public InvalidFormatException(string message) : base(message)
 		{
 		}
 
-		public InvalidFormatException(string message, Exception cause) : base(message, cause)
+		public InvalidFormatException(string message, object arg1) : base(message, arg1)
+		{
+		}
+
+		public InvalidFormatException(string message, object arg1, object arg2) : base(message, arg1, arg2)
+		{
+		}
+
+		public InvalidFormatException(string message, params object[] args) : base(message, args)
 		{
 		}
 	}

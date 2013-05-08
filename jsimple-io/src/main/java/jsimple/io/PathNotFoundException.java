@@ -16,7 +16,11 @@ public class PathNotFoundException extends IOException {
         super(message);
     }
 
-    public PathNotFoundException(String message, Throwable cause) {
-        super(message, cause);
+    public PathNotFoundException(String message, Object arg1) {
+        super(message, arg1);
+    }
+
+    public PathNotFoundException(String message, Object arg1, Object arg2) {
+        super(message, arg1, arg2);
     }
 }
