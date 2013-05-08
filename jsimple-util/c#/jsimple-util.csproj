@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="jsimple\**\*.cs" />
     <Compile Include="nontranslated\jsimple\lang\AutoCloseable.cs" />
+    <Compile Include="nontranslated\jsimple\util\BasicException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="nontranslated\jsimple\util\PlatformUtils.cs" />
   </ItemGroup>
