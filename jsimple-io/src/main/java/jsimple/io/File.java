@@ -16,6 +16,8 @@ public abstract class File extends Path {
      */
     public abstract OutputStream openForCreate();
 
+    public abstract OutputStream openForCreateAtomic();
+
     /**
      * Delete this file.
      */
