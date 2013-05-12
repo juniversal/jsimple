@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 
 namespace jsimple.net
 {
 
+	using BasicException = jsimple.util.BasicException;
 
 
 
@@ -23,7 +23,7 @@ namespace jsimple.net
 		public virtual HttpRequestParams add(string name, string value)
 		{
 			if (values.ContainsKey(name))
-				throw new Exception("Parameter " + name + " already added");
+				throw new BasicException("Parameter {} already added", name);
 
 			names.Add(name);
 			values[name] = value;
@@ -39,7 +39,7 @@ namespace jsimple.net
 		{
 			string value = values.GetValueOrNull(name);
 			if (value == null)
-				throw new Exception("Value " + name + " not present in HTTPRequestParams");
+				throw new BasicException("Value {} not present in HTTPRequestParams", name);
 			return value;
 		}
 

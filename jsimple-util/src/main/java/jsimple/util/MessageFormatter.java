@@ -22,7 +22,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package jsimple.logging.helpers;
+package jsimple.util;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -231,22 +231,64 @@ final public class MessageFormatter {
     }
 
     private static void deeplyAppendParameter(StringBuilder buffer, @Nullable Object o) {
-        if (o == null) {
+        if (o == null)
             buffer.append("null");
-            return;
+        else {
+            try {
+                String oAsString = o.toString();
+                buffer.append(oAsString);
+            } catch (Throwable t) {
+                buffer.append("[FAILED toString(); toString threw exception: " + t.toString() + "]");
+            }
+        }
+    }
+
+    /**
+     * Holds the results of formatting done by {@link MessageFormatter}.
+     *
+     * @author Joern Huxhorn
+     * @author Bret Johnson adapted for JSimple
+     */
+    public static class FormattingTuple {
+        static public FormattingTuple NULL = new FormattingTuple(null);
+
+        private String formattedMessage;
+        private @Nullable Throwable throwable;
+        private @Nullable Object[] argArray;
+
+        public FormattingTuple(String formattedMessage) {
+            this(formattedMessage, null, null);
         }
 
-        try {
-            String oAsString = o.toString();
-            buffer.append(oAsString);
-        } catch (Throwable t) {
-            // TODO: Change this to something else
-            /*
-            System.err.println("SLF4J: Failed toString() invocation on an object of type [" + o.getClass().getName() +
-            "]");
-            t.printStackTrace();
-            */
-            buffer.append("[FAILED toString()]");
+        public FormattingTuple(String formattedMessage, @Nullable Object[] argArray, @Nullable Throwable throwable) {
+            this.formattedMessage = formattedMessage;
+            this.throwable = throwable;
+
+            if (throwable == null)
+                this.argArray = argArray;
+            else this.argArray = trimmedCopy(argArray);
+        }
+
+        static Object[] trimmedCopy(@javax.annotation.Nullable Object[] argArray) {
+            if (argArray == null || argArray.length == 0)
+                throw new RuntimeException("non-sensical empty or null argument array");
+
+            final int trimemdLen = argArray.length - 1;
+            Object[] trimmed = new Object[trimemdLen];
+            System.arraycopy(argArray, 0, trimmed, 0, trimemdLen);
+            return trimmed;
+        }
+
+        public String getFormattedMessage() {
+            return formattedMessage;
+        }
+
+        public Object[] getArgArray() {
+            return argArray;
+        }
+
+        public Throwable getThrowable() {
+            return throwable;
         }
     }
 }

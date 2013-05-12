@@ -17,8 +17,7 @@
 package jsimple.logging.stdimpl;
 
 import jsimple.logging.Level;
-import jsimple.logging.helpers.FormattingTuple;
-import jsimple.logging.helpers.MessageFormatter;
+import jsimple.util.MessageFormatter;
 import jsimple.util.PlatformUtils;
 
 /**
@@ -44,8 +43,8 @@ public class LoggingEvent {
 
         this.message = message;
 
-        FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, argArray);
-        formattedMessage = formattingTuple.getMessage();
+        MessageFormatter.FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, argArray);
+        formattedMessage = formattingTuple.getFormattedMessage();
         messageArgs = formattingTuple.getArgArray();
         this.throwable = formattingTuple.getThrowable();
 

@@ -355,7 +355,18 @@ public final class DateTime {
         else return new DateTime(this.millis + millis);
     }
 
-    public static DateTime parseRFC3339DateTime(String rfc3339DateTime) {
+    /**
+     * Given the RFC3339 date/time string, return the time in millis (milliseconds since Jan 1, 1970, UTC).  If the RFC
+     * 3339 string isn't in a valid format, an InvalidFormatException is thrown.
+     *
+     * @param rfc3339DateTime date/time string, in RFC3339 format
+     * @return time in millis
+     */
+    public static long rfc3339ToMillis(String rfc3339DateTime) {
+        return parseRFC3339(rfc3339DateTime).getMillis();
+    }
+
+    public static DateTime parseRFC3339(String rfc3339DateTime) {
         CharIterator charIterator = new CharIterator(rfc3339DateTime);
 
         int year = parseFixedDigitsInt(charIterator, 4);
@@ -365,9 +376,9 @@ public final class DateTime {
         int day = parseFixedDigitsInt(charIterator, 2);
 
         if (month < 1 || month > 12)
-            throw new InvalidFormatException("Month " + month + " is outside expected range in " + rfc3339DateTime);
+            throw new InvalidFormatException("Month {} is outside expected range in {}", month, rfc3339DateTime);
         if (day < 1 || day > 31)
-            throw new InvalidFormatException("Day " + day + " is outside expected range in " + rfc3339DateTime);
+            throw new InvalidFormatException("Day {} is outside expected range in {}", day, rfc3339DateTime);
 
         charIterator.checkAndAdvance('T');
 
@@ -378,11 +389,11 @@ public final class DateTime {
         int second = parseFixedDigitsInt(charIterator, 2);
 
         if (hour < 0 || hour > 23)
-            throw new InvalidFormatException("Hour " + hour + " is outside expected range in " + rfc3339DateTime);
+            throw new InvalidFormatException("Hour {} is outside expected range in {}", hour, rfc3339DateTime);
         if (minute < 0 || minute > 59)
-            throw new InvalidFormatException("Minute " + minute + " is outside expected range in " + rfc3339DateTime);
+            throw new InvalidFormatException("Minute {} is outside expected range in {}", minute, rfc3339DateTime);
         if (second < 0 || second > 60)   // This is 60 instead of 59 to allow for leap second (per spec)
-            throw new InvalidFormatException("Second " + second + " is outside expected range in " + rfc3339DateTime);
+            throw new InvalidFormatException("Second {} is outside expected range in {}", second, rfc3339DateTime);
 
         double fractionalSeconds = 0.0;
         if (charIterator.curr() == '.') {
@@ -405,14 +416,19 @@ public final class DateTime {
             ;
         else if (timeZoneOffsetChar == '+' || timeZoneOffsetChar == '-') {
             int timeZoneOffsetMinutes = parseFixedDigitsInt(charIterator, 2) * 60;
-            charIterator.checkAndAdvance(':');
+
+            // According to the RFC 3339 and ISO 8601 specs, the colon is mandatory.  However, the Microsoft SkyDrive
+            // API uses +0000 to mean UTC so we're more lenient here, allowing the colon to be optional.
+            if (charIterator.curr() == ':')
+                charIterator.advance();
+
             timeZoneOffsetMinutes += parseFixedDigitsInt(charIterator, 2);
 
             // Apply the reverse of the time zone offset, to map time back to UTC
             int multiplier = timeZoneOffsetChar == '+' ? -1 : 1;
             dateTime = dateTime.plusMillis(multiplier * timeZoneOffsetMinutes * 60 * 1000);
-        } else throw new InvalidFormatException("Expected time zone offset (Z, +, or -); encountered '" +
-                timeZoneOffsetChar + "'");
+        } else throw new InvalidFormatException("Expected time zone offset (Z, +, or -); encountered '{}'",
+                timeZoneOffsetChar);
 
         return dateTime;
     }
@@ -422,8 +438,8 @@ public final class DateTime {
 
         for (int digitCount = 0; digitCount < numberOfDigits; ++digitCount) {
             if (!charIterator.isDigit())
-                throw new InvalidFormatException("Expected digit; encountered '" + charIterator.curr() + "' at '" +
-                        charIterator.getRemaining() + "' in '" + charIterator.getString() + "'");
+                throw new InvalidFormatException("Expected digit; encountered '{}' at '{}' in '{}'", charIterator.curr(),
+                        charIterator.getRemaining(), charIterator.getString());
             char c = charIterator.currAndAdvance();
             value = 10 * value + (c - '0');
         }

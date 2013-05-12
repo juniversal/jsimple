@@ -1,5 +1,6 @@
 package jsimple.net;
 
+import jsimple.util.BasicException;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class HttpRequestParams {
 
     public HttpRequestParams add(String name, String value) {
         if (values.containsKey(name))
-            throw new RuntimeException("Parameter " + name + " already added");
+            throw new BasicException("Parameter {} already added", name);
 
         names.add(name);
         values.put(name, value);
@@ -34,7 +35,7 @@ public class HttpRequestParams {
     public String getValue(String name) {
         String value = values.get(name);
         if (value == null)
-            throw new RuntimeException("Value " + name + " not present in HTTPRequestParams");
+            throw new BasicException("Value {} not present in HTTPRequestParams", name);
         return value;
     }
 

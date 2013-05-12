@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import jsimple.util.BasicException;
+
 /**
  * This is a platform independent class used to represent I/O exceptions, taking the place of java.io.IOException in
  * JSimple based code.
@@ -7,17 +9,24 @@ package jsimple.io;
  * @author Bret Johnson
  * @since 10/6/12 5:27 PM
  */
-public class IOException extends RuntimeException {
+public class IOException extends BasicException {
     public IOException(Throwable cause) {
-        // TODO: Test to see what cause.toString ends up with in C#
-        this(cause.toString(), cause);
+        super(cause);
     }
 
     public IOException(String message) {
         super(message);
     }
 
-    public IOException(String message, Throwable cause) {
-        super(message, cause);
+    public IOException(String message, Object arg1) {
+        super(message, arg1);
+    }
+
+    public IOException(String message, Object arg1, Object arg2) {
+        super(message, arg1, arg2);
+    }
+
+    public IOException(String message, Object... args) {
+        super(message, args);
     }
 }

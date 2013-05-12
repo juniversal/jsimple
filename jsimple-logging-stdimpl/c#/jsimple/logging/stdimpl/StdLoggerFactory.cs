@@ -45,6 +45,11 @@ namespace jsimple.logging.stdimpl
 		/// <returns> a Logger instance </returns>
 		public virtual Logger getLogger(string name)
 		{
+			return getStdLogger(name);
+		}
+
+		public virtual StdLogger getStdLogger(string name)
+		{
 			lock (this)
 			{
 				StdLogger logger = loggers.GetValueOrNull(name);

@@ -19,8 +19,7 @@ using System;
 namespace jsimple.logging.stdimpl
 {
 
-	using FormattingTuple = jsimple.logging.helpers.FormattingTuple;
-	using MessageFormatter = jsimple.logging.helpers.MessageFormatter;
+	using MessageFormatter = jsimple.util.MessageFormatter;
 	using PlatformUtils = jsimple.util.PlatformUtils;
 
 	/// <summary>
@@ -48,8 +47,8 @@ namespace jsimple.logging.stdimpl
 
 			this.message = message;
 
-			FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, argArray);
-			formattedMessage = formattingTuple.Message;
+			MessageFormatter.FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, argArray);
+			formattedMessage = formattingTuple.FormattedMessage;
 			messageArgs = formattingTuple.ArgArray;
 			this.throwable = formattingTuple.Throwable;
 

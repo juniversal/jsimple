@@ -25,7 +25,7 @@ using System.Text;
 /// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /// 
 /// </summary>
-namespace jsimple.logging.helpers
+namespace jsimple.util
 {
 
 
@@ -259,25 +259,87 @@ namespace jsimple.logging.helpers
 		private static void deeplyAppendParameter(StringBuilder buffer, object o)
 		{
 			if (o == null)
-			{
 				buffer.Append("null");
-				return;
+			else
+			{
+				try
+				{
+					string oAsString = o.ToString();
+					buffer.Append(oAsString);
+				}
+				catch (Exception t)
+				{
+					buffer.Append("[FAILED toString(); toString threw exception: " + t.ToString() + "]");
+				}
+			}
+		}
+
+		/// <summary>
+		/// Holds the results of formatting done by <seealso cref="MessageFormatter"/>.
+		/// 
+		/// @author Joern Huxhorn
+		/// @author Bret Johnson adapted for JSimple
+		/// </summary>
+		public class FormattingTuple
+		{
+			public static FormattingTuple NULL = new FormattingTuple(null);
+
+			internal string formattedMessage;
+			internal Exception throwable;
+			internal object[] argArray;
+
+			public FormattingTuple(string formattedMessage) : this(formattedMessage, null, null)
+			{
 			}
 
-			try
+			public FormattingTuple(string formattedMessage, object[] argArray, Exception throwable)
 			{
-				string oAsString = o.ToString();
-				buffer.Append(oAsString);
+				this.formattedMessage = formattedMessage;
+				this.throwable = throwable;
+
+				if (throwable == null)
+					this.argArray = argArray;
+				else
+					this.argArray = trimmedCopy(argArray);
 			}
-			catch (Exception)
+
+//JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
+//ORIGINAL LINE: static Object[] trimmedCopy(@javax.annotation.Nullable Object[] argArray)
+			internal static object[] trimmedCopy(object[] argArray)
 			{
-				// TODO: Change this to something else
-				/*
-				System.err.println("SLF4J: Failed toString() invocation on an object of type [" + o.getClass().getName() +
-				"]");
-				t.printStackTrace();
-				*/
-				buffer.Append("[FAILED toString()]");
+				if (argArray == null || argArray.Length == 0)
+					throw new Exception("non-sensical empty or null argument array");
+
+//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
+//ORIGINAL LINE: final int trimemdLen = argArray.length - 1;
+				int trimemdLen = argArray.Length - 1;
+				object[] trimmed = new object[trimemdLen];
+				Array.Copy(argArray, 0, trimmed, 0, trimemdLen);
+				return trimmed;
+			}
+
+			public virtual string FormattedMessage
+			{
+				get
+				{
+					return formattedMessage;
+				}
+			}
+
+			public virtual object[] ArgArray
+			{
+				get
+				{
+					return argArray;
+				}
+			}
+
+			public virtual Exception Throwable
+			{
+				get
+				{
+					return throwable;
+				}
 			}
 		}
 	}

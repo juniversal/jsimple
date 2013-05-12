@@ -56,7 +56,7 @@ public class StringUtils {
             return (byte) (hexCharacter - 'A' + 10);
         else if ('a' <= hexCharacter && hexCharacter <= 'f')
             return (byte) (hexCharacter - 'a' + 10);
-        else throw new RuntimeException("Invalid hex character: '" + hexCharacter + "'");
+        else throw new BasicException("Invalid hex character: '{}'", hexCharacter);
     }
 
     /**
@@ -90,7 +90,7 @@ public class StringUtils {
         for (int i = 0; i < length; i++) {
             char c = string.charAt(i);
             if (c >= 256)
-                throw new RuntimeException("Character '" + c + "' at index + " + i + " isn't a Latin1 character");
+                throw new BasicException("Character '{}' at index {} isn't a Latin1 character", c, i);
             bytes[i] = (byte) c;
         }
         return bytes;
@@ -114,6 +114,6 @@ public class StringUtils {
             int trailSurrogate = (value & 0x3FF) + 0xDC00;   // 10 bits
             s.append((char) leadSurrogate);
             s.append((char) trailSurrogate);
-        } else throw new RuntimeException("Invalid UTF-32 character code:" + utf32Character);
+        } else throw new BasicException("Invalid UTF-32 character code: {}", utf32Character);
     }
 }

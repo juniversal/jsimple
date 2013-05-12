@@ -42,7 +42,7 @@ namespace jsimple.io
 					return memoryFile;
 			}
 
-			throw new PathNotFoundException("MemoryFile " + name + " not found");
+			throw new PathNotFoundException("MemoryFile {} not found", name);
 		}
 
 		/// <summary>
@@ -80,7 +80,7 @@ namespace jsimple.io
 				}
 			}
 
-			throw new PathNotFoundException("MemoryFile " + name + " not found");
+			throw new PathNotFoundException("MemoryFile {} not found", name);
 		}
 
 		/// <summary>
@@ -98,7 +98,7 @@ namespace jsimple.io
 					return subdirectory;
 			}
 
-			throw new PathNotFoundException("MemoryDirectory " + name + " not found");
+			throw new PathNotFoundException("MemoryDirectory {} not found", name);
 		}
 
 		/// <summary>
@@ -131,7 +131,7 @@ namespace jsimple.io
 				}
 			}
 
-			throw new PathNotFoundException("MemoryDirectory " + name + " not found");
+			throw new PathNotFoundException("MemoryDirectory {} not found", name);
 		}
 
 		/// <summary>
