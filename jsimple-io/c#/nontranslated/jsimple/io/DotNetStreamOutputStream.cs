@@ -12,7 +12,7 @@ namespace jsimple.io
             this.dotNetStream = dotNetStream;
         }
 
-        public override void close()
+        protected internal override void doClose()
         {
             try
             {

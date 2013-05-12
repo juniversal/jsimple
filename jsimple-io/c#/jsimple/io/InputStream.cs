@@ -37,7 +37,7 @@ namespace jsimple.io
 		/// or an exception is thrown.
 		/// </summary>
 		/// <returns> the byte read or -1 if the end of stream has been reached </returns>
-		/// <exception cref="IOException"> if the stream is closed or another IOException occurs </exception>
+		/// <exception cref="IOException"> if an error occurs while reading </exception>
 		public virtual int read()
 		{
 			sbyte[] buffer = new sbyte[1];
@@ -50,10 +50,25 @@ namespace jsimple.io
 		/// </summary>
 		/// <param name="buffer"> the byte array in which to store the bytes read </param>
 		/// <returns> the number of bytes actually read or -1 if the end of the stream has been reached </returns>
-		/// <exception cref="IOException"> if this stream is closed or another IOException occurs </exception>
+		/// <exception cref="IOException"> if an error occurs while reading </exception>
 		public virtual int read(sbyte[] buffer)
 		{
 			return read(buffer, 0, buffer.Length);
+		}
+
+		/// <summary>
+		/// This method is the same as read except that it's guaranteed to read as much as possible, blocking until it's read
+		/// length bytes or the end of stream is reached.  That is, if it returns < length bytes read, then it's guaranteed
+		/// that that's all the data left in the stream and the next call to read will return -1.  Subclasses are free to
+		/// override this method and implement it directly if they already read as much as possible anyway, and thus can
+		/// implement it a little more efficiently just doing whatever read does.
+		/// </summary>
+		/// <param name="buffer"> the byte array in which to store the bytes read </param>
+		/// <returns> the number of bytes actually read or -1 if the end of the stream has been reached </returns>
+		/// <exception cref="IOException"> if an error occurs while reading </exception>
+		public virtual int readFully(sbyte[] buffer)
+		{
+			return readFully(buffer, 0, buffer.Length);
 		}
 
 		/// <summary>
@@ -64,7 +79,7 @@ namespace jsimple.io
 		/// <param name="offset"> the initial position in {@code buffer} to store the bytes read from this stream </param>
 		/// <param name="length"> the maximum number of bytes to store in {@code b} </param>
 		/// <returns> the number of bytes actually read or -1 if the end of the stream has been reached </returns>
-		/// <exception cref="IOException"> if the stream is closed or another IOException occurs reading the first byte </exception>
+		/// <exception cref="IOException"> if an error occurs while reading </exception>
 		public virtual int read(sbyte[] buffer, int offset, int length)
 		{
 			for (int i = 0; i < length; i++)
@@ -84,6 +99,35 @@ namespace jsimple.io
 				buffer[offset + i] = (sbyte) c;
 			}
 			return length;
+		}
+
+		/// <summary>
+		/// This method is the same as read except that it's guaranteed to read as much as possible, blocking until it's read
+		/// length bytes or the end of stream is reached.  That is, if it returns < length bytes read, then it's guaranteed
+		/// that that's all the data left in the stream and the next call to read will return -1.  Subclasses are free to
+		/// override this method and implement it directly if they already read as much as possible anyway, and thus can
+		/// implement it a little more efficiently just doing whatever read does.
+		/// </summary>
+		/// <param name="buffer"> the byte array in which to store the bytes read </param>
+		/// <param name="offset"> the initial position in {@code buffer} to store the bytes read from this stream </param>
+		/// <param name="length"> the maximum number of bytes to store in {@code b} </param>
+		/// <returns> the number of bytes actually read (which is guaranteed to be as much as possible) or -1 if the end of the
+		///         stream has been reached </returns>
+		public virtual int readFully(sbyte[] buffer, int offset, int length)
+		{
+			int amountRead = read(buffer, offset, length);
+			if (amountRead <= 0)
+				return amountRead;
+
+			while (amountRead < length)
+			{
+				int amountThisRead = read(buffer, offset + amountRead, length - amountRead);
+				if (amountThisRead < 0)
+					break;
+				amountRead += amountThisRead;
+			}
+
+			return amountRead;
 		}
 
 		/// <summary>

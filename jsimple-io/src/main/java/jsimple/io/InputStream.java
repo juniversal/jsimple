@@ -36,7 +36,7 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
      * or an exception is thrown.
      *
      * @return the byte read or -1 if the end of stream has been reached
-     * @throws IOException if the stream is closed or another IOException occurs
+     * @throws IOException if an error occurs while reading
      */
     public int read() {
         byte[] buffer = new byte[1];
@@ -49,10 +49,25 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
      *
      * @param buffer the byte array in which to store the bytes read
      * @return the number of bytes actually read or -1 if the end of the stream has been reached
-     * @throws IOException if this stream is closed or another IOException occurs
+     * @throws IOException if an error occurs while reading
      */
     public int read(byte buffer[]) {
         return read(buffer, 0, buffer.length);
+    }
+
+    /**
+     * This method is the same as read except that it's guaranteed to read as much as possible, blocking until it's read
+     * length bytes or the end of stream is reached.  That is, if it returns < length bytes read, then it's guaranteed
+     * that that's all the data left in the stream and the next call to read will return -1.  Subclasses are free to
+     * override this method and implement it directly if they already read as much as possible anyway, and thus can
+     * implement it a little more efficiently just doing whatever read does.
+     *
+     * @param buffer the byte array in which to store the bytes read
+     * @return the number of bytes actually read or -1 if the end of the stream has been reached
+     * @throws IOException if an error occurs while reading
+     */
+    public int readFully(byte buffer[]) {
+        return readFully(buffer, 0, buffer.length);
     }
 
     /**
@@ -63,7 +78,7 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
      * @param offset the initial position in {@code buffer} to store the bytes read from this stream
      * @param length the maximum number of bytes to store in {@code b}
      * @return the number of bytes actually read or -1 if the end of the stream has been reached
-     * @throws IOException if the stream is closed or another IOException occurs reading the first byte
+     * @throws IOException if an error occurs while reading
      */
     public int read(byte buffer[], int offset, int length) {
         for (int i = 0; i < length; i++) {
@@ -82,12 +97,40 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
     }
 
     /**
+     * This method is the same as read except that it's guaranteed to read as much as possible, blocking until it's read
+     * length bytes or the end of stream is reached.  That is, if it returns < length bytes read, then it's guaranteed
+     * that that's all the data left in the stream and the next call to read will return -1.  Subclasses are free to
+     * override this method and implement it directly if they already read as much as possible anyway, and thus can
+     * implement it a little more efficiently just doing whatever read does.
+     *
+     * @param buffer the byte array in which to store the bytes read
+     * @param offset the initial position in {@code buffer} to store the bytes read from this stream
+     * @param length the maximum number of bytes to store in {@code b}
+     * @return the number of bytes actually read (which is guaranteed to be as much as possible) or -1 if the end of the
+     *         stream has been reached
+     */
+    public int readFully(byte buffer[], int offset, int length) {
+        int amountRead = read(buffer, offset, length);
+        if (amountRead <= 0)
+            return amountRead;
+
+        while (amountRead < length) {
+            int amountThisRead = read(buffer, offset + amountRead, length - amountRead);
+            if (amountThisRead < 0)
+                break;
+            amountRead += amountThisRead;
+        }
+
+        return amountRead;
+    }
+
+    /**
      * Write the remaining contents of this stream to the specified output stream, closing this input stream when done.
      *
      * @param outputStream output stream to copy to
      */
     public void copyTo(OutputStream outputStream) {
-        byte[] buffer = new byte[8*1024];
+        byte[] buffer = new byte[8 * 1024];
 
         while (true) {
             int bytesRead = read(buffer);

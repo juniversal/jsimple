@@ -91,7 +91,7 @@ public class MemoryFile extends File {
          * stream (like any stream) can be closed multiple times, but only the first close actually does anything, grabbing
          * the data and saving it off.  Subsequent closes are ignored.
          */
-        @Override public void close() {
+        @Override protected void doClose() {
             if (!closed) {
                 // Get the data, making a copy if it's not already the exact length required
                 int[] length = new int[1];
@@ -99,7 +99,7 @@ public class MemoryFile extends File {
                 if (data.length != length[0])
                     data = toByteArray();
 
-                super.close();
+                super.doClose();
 
                 memoryFile.setData(data);
                 closed = true;
