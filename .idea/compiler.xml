@@ -43,12 +43,12 @@
         <module name="jsimple-json" />
         <module name="jsimple-logging" />
         <module name="jsimple-logging-api" />
-
         <module name="jsimple-logging-stdimpl" />
         <module name="jsimple-net" />
         <module name="jsimple-oauth" />
         <module name="jsimple-unit" />
         <module name="jsimple-util" />
+        <module name="msbuild-maven-package-plugin" />
         <module name="msbuild-maven-plugin" />
       </profile>
     </annotationProcessing>

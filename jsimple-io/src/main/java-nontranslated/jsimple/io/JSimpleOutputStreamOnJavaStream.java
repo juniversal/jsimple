@@ -46,7 +46,7 @@ public class JSimpleOutputStreamOnJavaStream extends OutputStream {
         }
     }
 
-    @Override public void close() {
+    @Override protected void doClose() {
         try {
             javaOutputStream.close();
         } catch (java.io.IOException e) {

@@ -3,6 +3,7 @@ namespace jsimple.io
 
 	using StringUtils = jsimple.util.StringUtils;
 
+
 	/// <summary>
 	/// This class was based on, and modified from, the Apache Harmony java.io.OutputStream class.  Unlike the standard Java
 	/// OutputStream class, this doesn't throw any checked exceptions.
@@ -20,21 +21,7 @@ namespace jsimple.io
 	/// @since 10/7/12 12:31 AM </seealso>
 	public abstract class OutputStream : jsimple.lang.AutoCloseable
 	{
-		/// <summary>
-		/// Closes this stream. Implementations of this method should free any resources used by the stream. This
-		/// implementation does nothing.
-		/// </summary>
-		/// <exception cref="IOException"> if an error occurs while closing this stream. </exception>
-		public override abstract void close();
-
-		/// <summary>
-		/// Flushes this stream. Implementations of this method should ensure that any buffered data is written out. This
-		/// implementation does nothing.
-		/// </summary>
-		/// <exception cref="IOException"> if an error occurs while flushing this stream </exception>
-		public virtual void flush()
-		{
-		}
+		private ClosedListener closedListener = null;
 
 		/// <summary>
 		/// Writes the entire contents of the byte array {@code buffer} to this stream.
@@ -80,6 +67,15 @@ namespace jsimple.io
 		}
 
 		/// <summary>
+		/// Flushes this stream. Implementations of this method should ensure that any buffered data is written out. This
+		/// implementation does nothing.
+		/// </summary>
+		/// <exception cref="IOException"> if an error occurs while flushing this stream </exception>
+		public virtual void flush()
+		{
+		}
+
+		/// <summary>
 		/// Write the string to the stream using UTF-8 encoding.
 		/// </summary>
 		/// <param name="s"> string to write </param>
@@ -90,6 +86,40 @@ namespace jsimple.io
 
 			write(bytes, 0, length[0]);
 		}
+
+		/// <summary>
+		/// Closes this stream, freeing any resources associated with it and then calling the closedListener, if one is set.
+		/// </summary>
+		/// <exception cref="IOException"> if an error occurs while closing this stream. </exception>
+		public override void close()
+		{
+			doClose();
+
+			if (closedListener != null)
+				closedListener.onClosed();
+		}
+
+		/// <summary>
+		/// This is an internal method, implemented by subclasses to close any resources associated with the stream.
+		/// The external close() method calls this method, then calls all the closed listeners (if any), assuming this
+		/// method didn't throw an exception, to notify of the stream being closed.  Implementations of this method should
+		/// free any resources used by the stream.
+		/// </summary>
+		/// <exception cref="IOException"> if an error occurs while closing this stream. </exception>
+		protected internal abstract void doClose();
+
+		public virtual ClosedListener ClosedListener
+		{
+			get
+			{
+				return closedListener;
+			}
+			set
+			{
+				this.closedListener = value;
+			}
+		}
+
 	}
 
 }

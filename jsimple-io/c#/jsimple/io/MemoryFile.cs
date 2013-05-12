@@ -112,7 +112,7 @@ namespace jsimple.io
 			/// stream (like any stream) can be closed multiple times, but only the first close actually does anything, grabbing
 			/// the data and saving it off.  Subsequent closes are ignored.
 			/// </summary>
-			public override void close()
+			protected internal override void doClose()
 			{
 				if (!closed)
 				{
@@ -122,7 +122,7 @@ namespace jsimple.io
 					if (data.Length != length[0])
 						data = toByteArray();
 
-					base.close();
+					base.doClose();
 
 					memoryFile.Data = data;
 					closed = true;
