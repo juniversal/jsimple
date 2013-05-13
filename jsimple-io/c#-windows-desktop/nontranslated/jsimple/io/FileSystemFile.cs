@@ -33,7 +33,21 @@ namespace jsimple.io
             }
         }
 
+
         public override OutputStream openForCreate()
+        {
+            try
+            {
+                FileStream fileStream = System.IO.File.OpenWrite(filePath);
+                return new DotNetStreamOutputStream(fileStream);
+            }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
+
+        public override OutputStream openForCreateAtomic()
         {
             try
             {
