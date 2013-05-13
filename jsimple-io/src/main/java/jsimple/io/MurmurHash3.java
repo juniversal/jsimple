@@ -38,6 +38,12 @@ public class MurmurHash3 {
     final int /* const uint32_t */ c3 = 0x38b34ae5;
     final int /* const uint32_t */ c4 = 0xa1e38b93;
 
+    public final static int BUFFER_SIZE = 16 * 4;       // 16 16-byte blocks (256 bytes)
+    int[] buffer = new int[BUFFER_SIZE];
+    int bufferOffset = 0;
+    int totalLengthInBytes = 0;
+    boolean finished = false;
+
     MurmurHash3(int seed) {
         h1 = seed;
         h2 = seed;
@@ -49,49 +55,182 @@ public class MurmurHash3 {
         this(0);
     }
 
-    public void computeMurmurHash3_x86_128(InputStream data) {
-        final int BUFFER_SIZE = 4096;
+    public void addByte(byte b) {
+        emptyBufferIfFull();
+        buffer[bufferOffset++] = b;
+        totalLengthInBytes += 1;
+    }
 
-        byte[] buffer = new byte[4096];
-        int length = 0;
+    public void addChar(char c) {
+        emptyBufferIfFull();
+        buffer[bufferOffset++] = c;
+        totalLengthInBytes += 2;
+    }
+
+    public void addInt(int i) {
+        emptyBufferIfFull();
+        buffer[bufferOffset++] = i;
+        totalLengthInBytes += 4;
+    }
+
+    public void addLong(long l) {
+        addInt((int) l);
+        addInt((int) (l >> 32));
+    }
+
+    public void addString(String s) {
+        int length = s.length();
+        int evenLength = (length / 2) * 2;
+
+        for (int i = 0; i < evenLength - 1; ) {
+            addInt(s.charAt(i + 1) << 16 | (s.charAt(i) & 0xFFFF));
+            i += 2;
+        }
+
+        // If there's an odd number of characters, add the last one zero padded, filling up a full int
+        if (length > evenLength)
+            addChar(s.charAt(length - 1));
+    }
+
+    public void addBytes(byte[] data, int offset, int length) {
+        int bytesToAdd = length - offset;
+        int fullIntsToAdd = bytesToAdd / 4;
+
+        while (fullIntsToAdd > 0) {
+            emptyBufferIfFull();
+
+            int intsToAddThisPass = Math.min(fullIntsToAdd, BUFFER_SIZE - bufferOffset);
+
+            for (int i = 0; i < intsToAddThisPass; ++i) {
+                buffer[bufferOffset++] = (data[offset + 0] & 0xff) |
+                        ((data[offset + 1] & 0xff) << 8) |
+                        ((data[offset + 2] & 0xff) << 16) |
+                        ((data[offset + 3] & 0xff) << 24);
+                offset += 4;
+            }
+
+            fullIntsToAdd -= intsToAddThisPass;
+        }
+
+        // If 1, 2, or 3 bytes are left over, add one more int that includes them (zero padded)
+        if (bytesToAdd % 4 != 0) {
+            byte b1 = 0;
+            byte b2 = 0;
+            byte b3 = 0;
+
+            switch (bytesToAdd % 4) {
+                case 3:
+                    b3 = data[offset + 2];
+                case 2:
+                    b2 = data[offset + 1];
+                case 1:
+                    b1 = data[offset + 0];
+            }
+
+            emptyBufferIfFull();
+            buffer[bufferOffset++] = (b1 & 0xff) |
+                    ((b2 & 0xff) << 8) |
+                    ((b3 & 0xff) << 16);
+        }
+
+        totalLengthInBytes += bytesToAdd;
+    }
+
+    public void addStream(InputStream data) {
+        byte[] byteBuffer = new byte[4096];                  // Have a 4K read buffer for stream input
 
         while (true) {
-            int amountRead = data.readFully(buffer);
-            if (amountRead == -1)
+            int bytesRead = data.readFully(byteBuffer);
+            if (bytesRead == -1)
                 break;
-            length += amountRead;
 
-            int bufferOffset = body(buffer, amountRead);
+            addBytes(byteBuffer, 0, bytesRead);
+        }
+    }
 
-            if (amountRead != BUFFER_SIZE) {
-                tail(buffer, bufferOffset, length & 15);
-                break;
+    private void emptyBufferIfFull() {
+        if (bufferOffset >= BUFFER_SIZE) {
+            body(buffer, BUFFER_SIZE / 4);
+            bufferOffset = 0;
+        }
+    }
+
+    private void ensureFinished() {
+        if (finished)
+            return;
+
+        int fullBlocks = bufferOffset / 4;
+        int intsInLastPartialBlock = bufferOffset % 4;
+
+        // If the total bytes don't go to the end of the block, but the ints do go to the end of the block (which is
+        // true when the last block has 13, 14, or 15 bytes), then treat the last block as a partial block, running tail
+        // instead of body on it.  We just do that because the normal MurmurHash algorithm does it, in order to always
+        // get exactly the same results as standard Murmur, when hashing a stream or byte array.
+        if (bufferOffset > 0 && intsInLastPartialBlock == 0 && totalLengthInBytes % 16 != 0) {
+            --fullBlocks;
+            intsInLastPartialBlock = 4;
+        }
+
+        body(buffer, fullBlocks);
+
+        if (intsInLastPartialBlock > 0) {
+            int tailBlockOffset = fullBlocks * 4;
+
+            int /* uint32_t */ k1;
+            int /* uint32_t */ k2;
+            int /* uint32_t */ k3;
+            int /* uint32_t */ k4;
+
+            switch (intsInLastPartialBlock) {
+                case 4:
+                    k4 = buffer[tailBlockOffset + 3];
+                    k4 *= c4;
+                    k4 = ((k4 << 18) | (k4 >>> (-18)));
+                    k4 *= c1;
+                    h4 ^= k4;
+
+                case 3:
+                    k3 = buffer[tailBlockOffset + 2];
+                    k3 *= c3;
+                    k3 = ((k3 << 17) | (k3 >>> (-17)));
+                    k3 *= c4;
+                    h3 ^= k3;
+
+                case 2:
+                    k2 = buffer[tailBlockOffset + 1];
+                    k2 *= c2;
+                    k2 = ((k2 << 16) | (k2 >>> (-16)));
+                    k2 *= c3;
+                    h2 ^= k2;
+
+                case 1:
+                    k1 = buffer[tailBlockOffset + 0];
+                    k1 *= c1;
+                    k1 = ((k1 << 15) | (k1 >>> (-15)));
+                    k1 *= c2;
+                    h1 ^= k1;
             }
         }
 
-        finalization(length);
+        finalization(totalLengthInBytes);
+
+        finished = true;
     }
 
     public long getHash64() {
+        ensureFinished();
         return (((long) h1) & 0xffffffffL) | ((((long) h2) & 0xffffffffL) << 32);
     }
 
     public byte[] getHash128() {
-        byte[] hash = new byte[16];
+        ensureFinished();
 
+        byte[] hash = new byte[16];
         putblock32(hash, 0, h1);
         putblock32(hash, 4, h2);
         putblock32(hash, 8, h3);
         putblock32(hash, 12, h4);
-
         return hash;
-    }
-
-    private int getblock32(byte[] buffer, int offset) {
-        return (buffer[offset + 0] & 0xff) |
-                ((buffer[offset + 1] & 0xff) << 8) |
-                ((buffer[offset + 2] & 0xff) << 16) |
-                ((buffer[offset + 3] & 0xff) << 24);
     }
 
     private void putblock32(byte[] buffer, int offset, int value) {
@@ -101,112 +240,48 @@ public class MurmurHash3 {
         buffer[offset + 3] = (byte) ((value >> 24) & 0xff);
     }
 
-    private int body(byte[] buffer, int length) {
-        int bufferOffset = 0;
-        while (length - bufferOffset >= 16) {
-            int /* uint32_t */ k1 = getblock32(buffer, bufferOffset + 0);
-            int /* uint32_t */ k2 = getblock32(buffer, bufferOffset + 4);
-            int /* uint32_t */ k3 = getblock32(buffer, bufferOffset + 8);
-            int /* uint32_t */ k4 = getblock32(buffer, bufferOffset + 12);
+    private void body(int[] buffer, int nblocks) {
+        for (int i = 0; i < nblocks; ++i) {
+            int /* uint32_t */ k1 = buffer[i * 4];
+            int /* uint32_t */ k2 = buffer[i * 4 + 1];
+            int /* uint32_t */ k3 = buffer[i * 4 + 2];
+            int /* uint32_t */ k4 = buffer[i * 4 + 3];
 
             k1 *= c1;
             k1 = ((k1 << 15) | (k1 >>> (-15)));
             k1 *= c2;
             h1 ^= k1;
 
-            h1 = ((h1 << 19) | (h1 >>> (-19)));
+            h1 = ((h1 << 19) | (h1 >>> -19));
             h1 += h2;
             h1 = h1 * 5 + 0x561ccd1b;
 
             k2 *= c2;
-            k2 = ((k2 << 16) | (k2 >>> (-16)));
+            k2 = ((k2 << 16) | (k2 >>> -16));
             k2 *= c3;
             h2 ^= k2;
 
-            h2 = ((h2 << 17) | (h2 >>> (-17)));
+            h2 = ((h2 << 17) | (h2 >>> -17));
             h2 += h3;
             h2 = h2 * 5 + 0x0bcaa747;
 
             k3 *= c3;
-            k3 = ((k3 << 17) | (k3 >>> (-17)));
+            k3 = ((k3 << 17) | (k3 >>> -17));
             k3 *= c4;
             h3 ^= k3;
 
-            h3 = ((h3 << 15) | (h3 >>> (-15)));
+            h3 = ((h3 << 15) | (h3 >>> -15));
             h3 += h4;
             h3 = h3 * 5 + 0x96cd1c35;
 
             k4 *= c4;
-            k4 = ((k4 << 18) | (k4 >>> (-18)));
+            k4 = ((k4 << 18) | (k4 >>> -18));
             k4 *= c1;
             h4 ^= k4;
 
-            h4 = ((h4 << 13) | (h4 >>> (-13)));
+            h4 = ((h4 << 13) | (h4 >>> -13));
             h4 += h1;
             h4 = h4 * 5 + 0x32ac3b17;
-
-            bufferOffset += 16;
-        }
-
-        return bufferOffset;
-    }
-
-    private void tail(byte[] buffer, int bufferOffset, int amountLeft) {
-        int /* uint32_t */ k1 = 0;
-        int /* uint32_t */ k2 = 0;
-        int /* uint32_t */ k3 = 0;
-        int /* uint32_t */ k4 = 0;
-
-        switch (amountLeft) {
-            case 15:
-                k4 ^= ((int) buffer[bufferOffset + 14] & 0xff) << 16;
-            case 14:
-                k4 ^= ((int) buffer[bufferOffset + 13] & 0xff) << 8;
-            case 13:
-                k4 ^= ((int) buffer[bufferOffset + 12] & 0xff) << 0;
-                k4 *= c4;
-                k4 = ((k4 << 18) | (k4 >>> (-18)));
-                k4 *= c1;
-                h4 ^= k4;
-
-            case 12:
-                k3 ^= ((int) buffer[bufferOffset + 11] & 0xff) << 24;
-            case 11:
-                k3 ^= ((int) buffer[bufferOffset + 10] & 0xff) << 16;
-            case 10:
-                k3 ^= ((int) buffer[bufferOffset + 9] & 0xff) << 8;
-            case 9:
-                k3 ^= ((int) buffer[bufferOffset + 8] & 0xff) << 0;
-                k3 *= c3;
-                k3 = ((k3 << 17) | (k3 >>> (-17)));
-                k3 *= c4;
-                h3 ^= k3;
-
-            case 8:
-                k2 ^= ((int) buffer[bufferOffset + 7] & 0xff) << 24;
-            case 7:
-                k2 ^= ((int) buffer[bufferOffset + 6] & 0xff) << 16;
-            case 6:
-                k2 ^= ((int) buffer[bufferOffset + 5] & 0xff) << 8;
-            case 5:
-                k2 ^= ((int) buffer[bufferOffset + 4] & 0xff) << 0;
-                k2 *= c2;
-                k2 = ((k2 << 16) | (k2 >>> (-16)));
-                k2 *= c3;
-                h2 ^= k2;
-
-            case 4:
-                k1 ^= ((int) buffer[bufferOffset + 3] & 0xff) << 24;
-            case 3:
-                k1 ^= ((int) buffer[bufferOffset + 2] & 0xff) << 16;
-            case 2:
-                k1 ^= ((int) buffer[bufferOffset + 1] & 0xff) << 8;
-            case 1:
-                k1 ^= ((int) buffer[bufferOffset + 0] & 0xff) << 0;
-                k1 *= c1;
-                k1 = ((k1 << 15) | (k1 >>> (-15)));
-                k1 *= c2;
-                h1 ^= k1;
         }
     }
 
