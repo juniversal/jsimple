@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace jsimple.io
 {
 
@@ -229,7 +231,7 @@ namespace jsimple.io
 				keyBuffer[i] = (sbyte)(i * 3);
 
 			MurmurHash3 murmurHash3 = new MurmurHash3(length);
-			murmurHash3.computeMurmurHash3_x86_128(new ByteArrayInputStream(keyBuffer, 0, length));
+			murmurHash3.addStream(new ByteArrayInputStream(keyBuffer, 0, length));
 			assertEquals(expectedHash, murmurHash3.Hash64);
 		}
 
@@ -239,8 +241,34 @@ namespace jsimple.io
 			for (int i = 0; i < length; i++)
 				keyBuffer[i] = (sbyte)(i * 3);
 
-			MurmurHash3 murmurHash3 = new MurmurHash3();
-			murmurHash3.computeMurmurHash3_x86_128(new ByteArrayInputStream(keyBuffer, 0, length));
+			MurmurHash3 murmurHash3;
+
+			murmurHash3 = new MurmurHash3();
+			murmurHash3.addStream(new ByteArrayInputStream(keyBuffer, 0, length));
+			assertEquals(expectedHash, murmurHash3.Hash64);
+
+			murmurHash3 = new MurmurHash3();
+			murmurHash3.addBytes(keyBuffer, 0, length);
+			assertEquals(expectedHash, murmurHash3.Hash64);
+
+			if (length % 2 == 0 || (length / 4) + 1 == length)
+			{
+				murmurHash3 = new MurmurHash3();
+
+				StringBuilder stringBuilder = new StringBuilder();
+				int evenLength = (length / 2) * 2;
+				for (int i = 0; i < evenLength;)
+				{
+					char c = (char)((keyBuffer[i + 1] << 8) | (keyBuffer[i] & 0xFF));
+					stringBuilder.Append(c);
+					i += 2;
+				}
+
+				murmurHash3.addString(stringBuilder.ToString());
+				if (length > evenLength)
+					murmurHash3.addByte(keyBuffer[length - 1]);
+			}
+
 			assertEquals(expectedHash, murmurHash3.Hash64);
 		}
 
@@ -250,7 +278,7 @@ namespace jsimple.io
 				keyBuffer[i] = (sbyte)(i * 3);
 
 			MurmurHash3 murmurHash3 = new MurmurHash3();
-			murmurHash3.computeMurmurHash3_x86_128(new ByteArrayInputStream(keyBuffer, 0, length));
+			murmurHash3.addStream(new ByteArrayInputStream(keyBuffer, 0, length));
 
 			sbyte[] hash = murmurHash3.Hash128;
 

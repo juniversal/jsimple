@@ -61,6 +61,10 @@ public class MurmurHash3 {
         totalLengthInBytes += 1;
     }
 
+    public void addBoolean(boolean b) {
+        addByte(b ? (byte) 1 : (byte) 0);
+    }
+
     public void addChar(char c) {
         emptyBufferIfFull();
         buffer[bufferOffset++] = c;
