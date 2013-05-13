@@ -95,7 +95,7 @@ public final class JsonObject extends JsonObjectOrArray {
 
     public boolean getBooleanOrDefault(String name, boolean defaultValue) {
         @Nullable Boolean value = getBooleanOrNull(name);
-        return value == null ? defaultValue : value;
+        return value == null ? defaultValue : (boolean) value;
     }
 
     public String getString(String name) {

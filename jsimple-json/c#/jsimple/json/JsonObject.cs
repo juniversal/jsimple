@@ -102,7 +102,7 @@ namespace jsimple.json
 		public bool getBooleanOrDefault(string name, bool defaultValue)
 		{
 			bool? value = getBooleanOrNull(name);
-			return value == null ? defaultValue : value;
+			return value == null ? defaultValue : (bool) value;
 		}
 
 		public string getString(string name)
