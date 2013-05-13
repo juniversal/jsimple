@@ -99,6 +99,12 @@ namespace jsimple.json
 			return (bool?) getOrNull(name);
 		}
 
+		public bool getBooleanOrDefault(string name, bool defaultValue)
+		{
+			bool? value = getBooleanOrNull(name);
+			return value == null ? defaultValue : value;
+		}
+
 		public string getString(string name)
 		{
 			return (string) get(name);

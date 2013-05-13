@@ -93,6 +93,11 @@ public final class JsonObject extends JsonObjectOrArray {
         return (Boolean) getOrNull(name);
     }
 
+    public boolean getBooleanOrDefault(String name, boolean defaultValue) {
+        @Nullable Boolean value = getBooleanOrNull(name);
+        return value == null ? defaultValue : value;
+    }
+
     public String getString(String name) {
         return (String) get(name);
     }
