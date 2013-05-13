@@ -7,6 +7,7 @@ import jsimple.util.BasicException;
  * @since 11/22/12 12:14 AM
  */
 public abstract class File extends Path {
+
     public abstract InputStream openForRead();
 
     /**
@@ -17,6 +18,9 @@ public abstract class File extends Path {
      * @return output stream, to write the file contents
      */
     public abstract OutputStream openForCreate();
+
+    public abstract OutputStream openForCreateAtomic() ;
+    /*
 
     public OutputStream openForCreateAtomic() {
         // FIRST CREATE OutputStream, to file name + "-temp"
@@ -36,11 +40,12 @@ public abstract class File extends Path {
         });
 
 
-        */
+
 
         // TODO: IMPLEMENT THIS
         return null;
     }
+    */
 
     /**
      * Delete this file.
@@ -65,7 +70,12 @@ public abstract class File extends Path {
      *
      * @param newName
      */
-    public /* abstract */ void rename(String newName) {
+
+    public abstract  void rename(String newName);
+
+    /*
+    public  abstract void rename(String newName) {
         throw new BasicException("rename not implemented for this implementation");
     }
+    */
 }

@@ -44,6 +44,10 @@ public class MemoryFile extends File {
         return new MemoryFileByteArrayOutputStream(this);
     }
 
+    @Override public OutputStream openForCreateAtomic() {
+        return new MemoryFileByteArrayOutputStream(this);
+    }
+
     /**
      * Get the name of this file/directory--the last component of the path.
      *
@@ -105,5 +109,9 @@ public class MemoryFile extends File {
                 closed = true;
             }
         }
+    }
+
+    @Override public void rename(String newName) {
+
     }
 }
