@@ -71,5 +71,11 @@ namespace jsimple.io
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
             }
         }
+
+        public override void rename(string newName)
+        {
+            // TODO: Implement this
+            throw new NotImplementedException();
+        }
     }
 }

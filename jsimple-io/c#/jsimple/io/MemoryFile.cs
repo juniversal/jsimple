@@ -48,6 +48,11 @@ namespace jsimple.io
 			return new MemoryFileByteArrayOutputStream(this);
 		}
 
+		public override OutputStream openForCreateAtomic()
+		{
+			return new MemoryFileByteArrayOutputStream(this);
+		}
+
 		/// <summary>
 		/// Get the name of this file/directory--the last component of the path.
 		/// </summary>
@@ -128,6 +133,11 @@ namespace jsimple.io
 					closed = true;
 				}
 			}
+		}
+
+		public override void rename(string newName)
+		{
+
 		}
 	}
 

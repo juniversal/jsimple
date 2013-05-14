@@ -9,6 +9,7 @@ namespace jsimple.io
 	/// </summary>
 	public abstract class File : Path
 	{
+
 		public abstract InputStream openForRead();
 
 		/// <summary>
@@ -19,30 +20,33 @@ namespace jsimple.io
 		/// <returns> output stream, to write the file contents </returns>
 		public abstract OutputStream openForCreate();
 
-		public virtual OutputStream openForCreateAtomic()
-		{
-			// FIRST CREATE OutputStream, to file name + "-temp"
-
-			// SET ClosedListener for OutputStream SO WHEN CALLBACK TO IT, AFTER CLOSE, CAN DELETE ORIGINAL FILE AND
-			// RENAME -temp to ORIGINAL FILE
-
-			/*
+		public abstract OutputStream openForCreateAtomic();
+		/*
 	
-			File tempFile = new File(...);
-			OutputStream stream = tempFile.openForCreate();
-			stream.setCLosedHandler(new OutputStream.ClosedHandler {
-			    void onClosed() {
-			        // DELETE ORIGINAL FILE
-			        // RENAME -temp TO ORIGINAL NAME
-			    }
-			});
+		public OutputStream openForCreateAtomic() {
+		    // FIRST CREATE OutputStream, to file name + "-temp"
+	
+		    // SET ClosedListener for OutputStream SO WHEN CALLBACK TO IT, AFTER CLOSE, CAN DELETE ORIGINAL FILE AND
+		    // RENAME -temp to ORIGINAL FILE
+	
+		    /*
+	
+		    File tempFile = new File(...);
+		    OutputStream stream = tempFile.openForCreate();
+		    stream.setCLosedHandler(new OutputStream.ClosedHandler {
+		        void onClosed() {
+		            // DELETE ORIGINAL FILE
+		            // RENAME -temp TO ORIGINAL NAME
+		        }
+		    });
 	
 	
-			*/
-
-			// TODO: IMPLEMENT THIS
-			return null;
+	
+	
+		    // TODO: IMPLEMENT THIS
+		    return null;
 		}
+		*/
 
 		/// <summary>
 		/// Delete this file.
@@ -66,10 +70,14 @@ namespace jsimple.io
 		/// support for that.
 		/// </summary>
 		/// <param name="newName"> </param>
-		public virtual void rename(string newName) // abstract
-		{
-			throw new BasicException("rename not implemented for this implementation");
+
+		public abstract void rename(string newName);
+
+		/*
+		public  abstract void rename(String newName) {
+		    throw new BasicException("rename not implemented for this implementation");
 		}
+		*/
 	}
 
 }

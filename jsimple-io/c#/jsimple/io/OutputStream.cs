@@ -1,5 +1,5 @@
-namespace jsimple.io
-{
+  namespace jsimple.io
+  {
 
 	using StringUtils = jsimple.util.StringUtils;
 
@@ -122,4 +122,4 @@ namespace jsimple.io
 
 	}
 
-}
+  }

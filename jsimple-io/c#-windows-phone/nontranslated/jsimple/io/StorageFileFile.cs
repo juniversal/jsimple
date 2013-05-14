@@ -52,5 +52,11 @@ namespace jsimple.io
         {
             storageFile.DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
         }
+
+        public override void rename(string newName)
+        {
+            // TODO: Implement this
+            throw new System.NotImplementedException();
+        }
     }
 }
