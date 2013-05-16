@@ -74,8 +74,14 @@ namespace jsimple.io
 
         public override void rename(string newName)
         {
-            // TODO: Implement this
-            throw new NotImplementedException();
+            try
+            {
+                System.IO.File.Move(filePath, newName);
+            }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
         }
     }
 }
