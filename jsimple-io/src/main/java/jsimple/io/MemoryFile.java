@@ -3,6 +3,8 @@ package jsimple.io;
 import jsimple.util.PlatformUtils;
 import org.jetbrains.annotations.Nullable;
 
+import java.nio.file.*;
+
 /**
  * A MemoryFile is a File object that exists completely in memory.  It can be used in unit tests, where it can be more
  * convenient to construct directories/files in memory rather than on disk.  It can also be used for "temporary" files.
@@ -48,10 +50,6 @@ public class MemoryFile extends File {
         return new MemoryFileByteArrayOutputStream(this);
     }
 
-    @Override public OutputStream openForCreateAtomic() {
-        return new MemoryFileByteArrayOutputStream(this);
-    }
-
     /**
      * Get the name of this file/directory--the last component of the path.
      *
@@ -59,6 +57,11 @@ public class MemoryFile extends File {
      */
     @Override public String getName() {
         return name;
+    }
+
+    @Override public File getAtomicFile(){
+        MemoryFile atomicFile = new MemoryFile(this.parent, this.parent.getName());
+        return atomicFile;
     }
 
     /**
@@ -118,4 +121,5 @@ public class MemoryFile extends File {
     @Override public void rename(String newName) {
 
     }
+
 }

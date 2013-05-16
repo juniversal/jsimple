@@ -16,33 +16,24 @@ public abstract class File extends Path {
      */
     public abstract OutputStream openForCreate();
 
-    public abstract OutputStream openForCreateAtomic() ;
-    /*
+    public abstract File getAtomicFile();
 
     public OutputStream openForCreateAtomic() {
-        // FIRST CREATE OutputStream, to file name + "-temp"
+        final String fileName = getName();
+        final File tempFile= getParent().getFile(fileName + "-temp");
 
-        // SET ClosedListener for OutputStream SO WHEN CALLBACK TO IT, AFTER CLOSE, CAN DELETE ORIGINAL FILE AND
-        // RENAME -temp to ORIGINAL FILE
-
-        /*
-
-        File tempFile = new File(...);
         OutputStream stream = tempFile.openForCreate();
-        stream.setCLosedHandler(new OutputStream.ClosedHandler {
-            void onClosed() {
-                // DELETE ORIGINAL FILE
-                // RENAME -temp TO ORIGINAL NAME
+
+        stream.setClosedListener(new ClosedListener() {
+            @Override public void onClosed() {
+
+                delete();
+                tempFile.rename(fileName);
             }
         });
 
-
-
-
-        // TODO: IMPLEMENT THIS
-        return null;
+        return stream;
     }
-    */
 
     /**
      * Delete this file.

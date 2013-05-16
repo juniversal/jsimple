@@ -1,9 +1,7 @@
 package jsimple.io;
 
-import java.nio.file.FileVisitOption;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
-import java.nio.file.Files;
+import java.nio.file.*;
+import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.EnumSet;
 
@@ -98,5 +96,9 @@ public class FileSystemDirectory extends Directory {
         } catch (java.io.IOException e){
             throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }
+    }
+
+    public Path getJavaPath() {
+        return javaPath;
     }
 }
