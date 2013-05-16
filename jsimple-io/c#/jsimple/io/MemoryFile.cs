@@ -13,7 +13,7 @@ namespace jsimple.io
 	/// </summary>
 	public class MemoryFile : File
 	{
-		private MemoryDirectory parent;
+		internal MemoryDirectory parent;
 		private string name;
 		private long lastModificationTime;
 		private sbyte[] data = null;
@@ -27,6 +27,14 @@ namespace jsimple.io
 			this.parent = parent;
 			this.name = name;
 			this.lastModificationTime = PlatformUtils.CurrentTimeMillis;
+		}
+
+		public override Directory Parent
+		{
+			get
+			{
+				return parent;
+			}
 		}
 
 		public override InputStream openForRead()

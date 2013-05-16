@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
  * @since 3/23/13 1:51 PM
  */
 public class MemoryFile extends File {
-    private MemoryDirectory parent;
+    MemoryDirectory parent;
     private String name;
     private long lastModificationTime;
     private @Nullable byte[] data = null;
@@ -25,6 +25,10 @@ public class MemoryFile extends File {
         this.parent = parent;
         this.name = name;
         this.lastModificationTime = PlatformUtils.getCurrentTimeMillis();
+    }
+
+    @Override public Directory getParent() {
+        return parent;
     }
 
     @Override public InputStream openForRead() {

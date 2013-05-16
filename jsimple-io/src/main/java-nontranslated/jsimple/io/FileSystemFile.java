@@ -12,17 +12,24 @@ import jsimple.io.OutputStream;
  * @since 11/22/12 12:29 AM
  */
 public class FileSystemFile extends File {
+    private FileSystemDirectory parent;
     private java.nio.file.Path javaPath;
     private String originFilePath;
 
-    public FileSystemFile(String filePath) {
+    public FileSystemFile(FileSystemDirectory parent, String filePath) {
+        this.parent = parent;
         this.javaPath = Paths.get(filePath);
         this.originFilePath = filePath;
     }
 
-    public FileSystemFile(java.nio.file.Path javaPath) {
+    public FileSystemFile(FileSystemDirectory parent, java.nio.file.Path javaPath) {
+        this.parent = parent;
         this.javaPath = javaPath;
         this.originFilePath = javaPath.toFile().getAbsolutePath();
+    }
+
+    @Override public Directory getParent() {
+        return parent;
     }
 
     @Override public InputStream openForRead() {
@@ -47,7 +54,7 @@ public class FileSystemFile extends File {
         String originPath = javaPath.toFile().getAbsolutePath();
 
         final String newPath = originPath + "_temp";
-        FileSystemFile tempSystemFile = new FileSystemFile(newPath);
+        FileSystemFile tempSystemFile = new FileSystemFile(parent, newPath);
 
         OutputStream stream = tempSystemFile.openForCreate();
 
@@ -80,5 +87,4 @@ public class FileSystemFile extends File {
             java.io.File originFile = new java.io.File(originFilePath);
             tempFile.renameTo(originFile);
     }
-
 }

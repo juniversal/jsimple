@@ -6,16 +6,23 @@ namespace jsimple.io
 {
     public class StorageFileFile : File
     {
+        private readonly StorageFolderDirectory parent;
         private readonly StorageFile storageFile;
 
-        public StorageFileFile(StorageFile storageFile)
+        public StorageFileFile(StorageFolderDirectory parent, StorageFile storageFile)
         {
+            this.parent = parent;
             this.storageFile = storageFile;
         }
 
         public override string Name
         {
             get { return storageFile.Name; }
+        }
+
+        public override Directory Parent
+        {
+            get { return parent; }
         }
 
         public override InputStream openForRead()

@@ -14,13 +14,19 @@ public class Utf8InputStreamReaderTest extends UnitTest {
         // Test UTF-8 decoding by reading the UTF-8 stress test file, along with a Unicode encoded version of it,
         // and test the UTF-8 decoder on each line, ensuring the decoded text matches the Unicode version
 
-        InputStream unicodeFile = new FileSystemFile(getJavaProjectDirectory() + "/src/test/resources/UTF-8-test.unicode").openForRead();
+        String resourcesDirectoryPath = getJavaProjectDirectory() + "/src/test/resources";
+
+        FileSystemDirectory resourcesDirectory = new FileSystemDirectory(resourcesDirectoryPath);
+
+        InputStream unicodeFile = new FileSystemFile(resourcesDirectory,
+                resourcesDirectoryPath + "/UTF-8-test.unicode").openForRead();
         int bomByte1 = unicodeFile.read();
         int bomByte2 = unicodeFile.read();
         char bomChar = (char) (bomByte1 | (bomByte2 << 8));
         assertEquals(0xfeff, bomChar);
 
-        InputStream utf8File = new FileSystemFile(getJavaProjectDirectory() + "/src/test/resources/UTF-8-test.utf8").openForRead();
+        InputStream utf8File = new FileSystemFile(resourcesDirectory, resourcesDirectoryPath +
+                "/UTF-8-test.utf8").openForRead();
         bomByte1 = utf8File.read();
         assertEquals(0xef, bomByte1);
         bomByte2 = utf8File.read();
