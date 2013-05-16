@@ -5,10 +5,12 @@ namespace jsimple.io
 {
     public class FileSystemFile : File
     {
+        private readonly FileSystemDirectory parent;
         private string filePath;
 
-        public FileSystemFile(string filePath)
+        public FileSystemFile(FileSystemDirectory parent, string filePath)
         {
+            this.parent = parent;
             this.filePath = filePath;
         }
 
@@ -18,6 +20,11 @@ namespace jsimple.io
             {
                 return System.IO.Path.GetFileName(filePath);
             }
+        }
+
+        public override Directory Parent
+        {
+            get { return parent; }
         }
 
         public override InputStream openForRead()

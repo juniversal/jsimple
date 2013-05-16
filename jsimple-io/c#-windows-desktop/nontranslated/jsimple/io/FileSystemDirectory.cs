@@ -24,12 +24,12 @@ namespace jsimple.io
 
         public override File getFile(string name)
         {
-            return new FileSystemFile(getChildPath(name));
+            return new FileSystemFile(this, getChildPath(name));
         }
 
         public override File createFile(string name)
         {
-            return new FileSystemFile(getChildPath(name));
+            return new FileSystemFile(this, getChildPath(name));
         }
 
         public override Directory getDirectory(string name)
@@ -79,7 +79,7 @@ namespace jsimple.io
                     if ((fileSystemInfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
                         visitor.visit(new FileSystemDirectory(fileSystemInfo.FullName),
                                       fileSystemPathAttributes);
-                    else visitor.visit(new FileSystemFile(fileSystemInfo.FullName),
+                    else visitor.visit(new FileSystemFile(this, fileSystemInfo.FullName),
                                       fileSystemPathAttributes);
                 }
             }

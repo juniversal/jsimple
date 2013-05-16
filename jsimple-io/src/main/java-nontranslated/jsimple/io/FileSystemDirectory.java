@@ -27,11 +27,11 @@ public class FileSystemDirectory extends Directory {
     }
 
     @Override public File getFile(String name) {
-        return new FileSystemFile(javaPath.resolve(name));
+        return new FileSystemFile(this, javaPath.resolve(name));
     }
 
     @Override public File createFile(String name) {
-        return new FileSystemFile(javaPath.resolve(name));
+        return new FileSystemFile(this, javaPath.resolve(name));
     }
 
     @Override public Directory getDirectory(String name) {
@@ -71,7 +71,7 @@ public class FileSystemDirectory extends Directory {
                         return visitor.visit(new FileSystemDirectory(file), pathAttributes) ?
                                 FileVisitResult.CONTINUE : FileVisitResult.TERMINATE;
                     else
-                        return visitor.visit(new FileSystemFile(file), pathAttributes) ?
+                        return visitor.visit(new FileSystemFile(FileSystemDirectory.this, file), pathAttributes) ?
                                 FileVisitResult.CONTINUE : FileVisitResult.TERMINATE;
                 }
 

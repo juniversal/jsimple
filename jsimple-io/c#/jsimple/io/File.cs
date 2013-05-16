@@ -1,15 +1,12 @@
 namespace jsimple.io
 {
 
-	using BasicException = jsimple.util.BasicException;
-
 	/// <summary>
 	/// @author Bret Johnson
 	/// @since 11/22/12 12:14 AM
 	/// </summary>
 	public abstract class File : Path
 	{
-
 		public abstract InputStream openForRead();
 
 		/// <summary>
@@ -73,11 +70,7 @@ namespace jsimple.io
 
 		public abstract void rename(string newName);
 
-		/*
-		public  abstract void rename(String newName) {
-		    throw new BasicException("rename not implemented for this implementation");
-		}
-		*/
+		public abstract Directory Parent {get;}
 	}
 
 }

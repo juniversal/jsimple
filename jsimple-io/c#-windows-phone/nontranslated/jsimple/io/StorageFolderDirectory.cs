@@ -29,7 +29,7 @@ namespace jsimple.io
         {
             try
             {
-                return new StorageFileFile(storageFolder.GetFileAsync(name).DoSynchronously());
+                return new StorageFileFile(this, storageFolder.GetFileAsync(name).DoSynchronously());
             }
             catch (System.IO.IOException e)
             {
@@ -41,7 +41,7 @@ namespace jsimple.io
         {
             try
             {
-                return new StorageFileFile(storageFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting).DoSynchronously());
+                return new StorageFileFile(this, storageFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting).DoSynchronously());
             }
             catch (System.IO.IOException e)
             {
@@ -88,7 +88,7 @@ namespace jsimple.io
                     if (storageItem is IStorageFolder)
                         visitor.visit(new StorageFolderDirectory((StorageFolder)storageItem), pathAttributes);
                     else if (storageItem is IStorageFile)
-                        visitor.visit(new StorageFileFile((StorageFile)storageItem), pathAttributes);
+                        visitor.visit(new StorageFileFile(this, (StorageFile)storageItem), pathAttributes);
                     else throw new Exception("Unknown type of StorageItem: " + storageItem);
                 }
             }

@@ -1,13 +1,10 @@
 package jsimple.io;
 
-import jsimple.util.BasicException;
-
 /**
  * @author Bret Johnson
  * @since 11/22/12 12:14 AM
  */
 public abstract class File extends Path {
-
     public abstract InputStream openForRead();
 
     /**
@@ -71,11 +68,7 @@ public abstract class File extends Path {
      * @param newName
      */
 
-    public abstract  void rename(String newName);
+    public abstract void rename(String newName);
 
-    /*
-    public  abstract void rename(String newName) {
-        throw new BasicException("rename not implemented for this implementation");
-    }
-    */
+    public abstract Directory getParent();
 }
