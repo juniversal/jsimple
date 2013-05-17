@@ -56,11 +56,6 @@ namespace jsimple.io
 			return new MemoryFileByteArrayOutputStream(this);
 		}
 
-		public override OutputStream openForCreateAtomic()
-		{
-			return new MemoryFileByteArrayOutputStream(this);
-		}
-
 		/// <summary>
 		/// Get the name of this file/directory--the last component of the path.
 		/// </summary>
@@ -70,6 +65,15 @@ namespace jsimple.io
 			get
 			{
 				return name;
+			}
+		}
+
+		public override File AtomicFile
+		{
+			get
+			{
+				MemoryFile atomicFile = new MemoryFile(this.parent, this.parent.Name);
+				return atomicFile;
 			}
 		}
 
@@ -147,6 +151,7 @@ namespace jsimple.io
 		{
 
 		}
+
 	}
 
 }

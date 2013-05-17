@@ -44,17 +44,6 @@ namespace jsimple.io
             return new DotNetStreamOutputStream(outputStream.AsStreamForWrite());
         }
 
-        public override OutputStream openForCreateAtomic()
-        {
-            // TODO: Possibly rework this some, since for one thing openForCreate won't truncate the file if it already exists.  Reconsider the spec here.
-            IRandomAccessStream randomAccessStream = storageFile.OpenAsync(FileAccessMode.ReadWrite).DoSynchronously();
-
-            IOutputStream outputStream = randomAccessStream.GetOutputStreamAt(0);
-
-            // Use the default buffer for AsStreamForWrite()
-            return new DotNetStreamOutputStream(outputStream.AsStreamForWrite());
-        }
-
         public override void delete()
         {
             storageFile.DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
@@ -63,7 +52,15 @@ namespace jsimple.io
         public override void rename(string newName)
         {
             // TODO: Implement this
-            throw new System.NotImplementedException();
+            try
+            {
+                Windows.Storage.IStorageFolder storageFolder = (IStorageFolder)this.parent;
+                storageFile.MoveAsync(storageFolder, newName);
+            }
+            catch (IOException e)
+            {
+                throw new System.NotImplementedException();
+            }
         }
     }
 }

@@ -17,33 +17,45 @@ namespace jsimple.io
 		/// <returns> output stream, to write the file contents </returns>
 		public abstract OutputStream openForCreate();
 
-		public abstract OutputStream openForCreateAtomic();
-		/*
-	
-		public OutputStream openForCreateAtomic() {
-		    // FIRST CREATE OutputStream, to file name + "-temp"
-	
-		    // SET ClosedListener for OutputStream SO WHEN CALLBACK TO IT, AFTER CLOSE, CAN DELETE ORIGINAL FILE AND
-		    // RENAME -temp to ORIGINAL FILE
-	
-		    /*
-	
-		    File tempFile = new File(...);
-		    OutputStream stream = tempFile.openForCreate();
-		    stream.setCLosedHandler(new OutputStream.ClosedHandler {
-		        void onClosed() {
-		            // DELETE ORIGINAL FILE
-		            // RENAME -temp TO ORIGINAL NAME
-		        }
-		    });
-	
-	
-	
-	
-		    // TODO: IMPLEMENT THIS
-		    return null;
+		public abstract File AtomicFile {get;}
+
+		public virtual OutputStream openForCreateAtomic()
+		{
+//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
+//ORIGINAL LINE: final String fileName = getName();
+			string fileName = Name;
+//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
+//ORIGINAL LINE: final File tempFile= getParent().getFile(fileName + "-temp");
+			File tempFile = Parent.getFile(fileName + "-temp");
+
+			OutputStream stream = tempFile.openForCreate();
+
+			stream.ClosedListener = new ClosedListenerAnonymousInnerClassHelper(this, fileName, tempFile);
+
+			return stream;
 		}
-		*/
+
+		private class ClosedListenerAnonymousInnerClassHelper : ClosedListener
+		{
+			private readonly File outerInstance;
+
+			private string fileName;
+			private jsimple.io.File tempFile;
+
+			public ClosedListenerAnonymousInnerClassHelper(File outerInstance, string fileName, jsimple.io.File tempFile)
+			{
+				this.outerInstance = outerInstance;
+				this.fileName = fileName;
+				this.tempFile = tempFile;
+			}
+
+			public virtual void onClosed()
+			{
+
+				outerInstance.delete();
+				tempFile.rename(fileName);
+			}
+		}
 
 		/// <summary>
 		/// Delete this file.

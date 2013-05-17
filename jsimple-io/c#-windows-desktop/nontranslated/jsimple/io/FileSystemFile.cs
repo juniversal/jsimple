@@ -54,19 +54,6 @@ namespace jsimple.io
             }
         }
 
-        public override OutputStream openForCreateAtomic()
-        {
-            try
-            {
-                FileStream fileStream = System.IO.File.OpenWrite(filePath);
-                return new DotNetStreamOutputStream(fileStream);
-            }
-            catch (System.IO.IOException e)
-            {
-                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-            }
-        }
-
         public override void delete()
         {
             try
