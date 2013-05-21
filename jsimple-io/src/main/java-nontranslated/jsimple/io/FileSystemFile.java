@@ -28,12 +28,14 @@ public class FileSystemFile extends File {
         return parent;
     }
 
+    /*
     @Override public File getAtomicFile(){
         System.out.println(javaPath.toFile().getAbsolutePath());
         FileSystemFile atomicFile = new FileSystemFile(this.parent, javaPath.toFile().getAbsolutePath() + "-temp");
 
         return atomicFile;
     }
+    */
 
     @Override public InputStream openForRead() {
         try {

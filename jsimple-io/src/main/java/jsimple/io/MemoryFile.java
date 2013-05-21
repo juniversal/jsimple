@@ -59,10 +59,12 @@ public class MemoryFile extends File {
         return name;
     }
 
+    /*
     @Override public File getAtomicFile(){
         MemoryFile atomicFile = new MemoryFile(this.parent, this.parent.getName());
         return atomicFile;
     }
+    */
 
     /**
      * Override the data in the file, setting it to the passed byte array.

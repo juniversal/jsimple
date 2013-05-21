@@ -16,7 +16,9 @@ public abstract class File extends Path {
      */
     public abstract OutputStream openForCreate();
 
+    /*
     public abstract File getAtomicFile();
+    */
 
     public OutputStream openForCreateAtomic() {
         final String fileName = getName();
