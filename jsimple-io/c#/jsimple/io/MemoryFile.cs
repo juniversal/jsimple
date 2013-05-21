@@ -68,14 +68,12 @@ namespace jsimple.io
 			}
 		}
 
-		public override File AtomicFile
-		{
-			get
-			{
-				MemoryFile atomicFile = new MemoryFile(this.parent, this.parent.Name);
-				return atomicFile;
-			}
+		/*
+		@Override public File getAtomicFile(){
+		    MemoryFile atomicFile = new MemoryFile(this.parent, this.parent.getName());
+		    return atomicFile;
 		}
+		*/
 
 		/// <summary>
 		/// Override the data in the file, setting it to the passed byte array.

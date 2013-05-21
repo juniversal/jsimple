@@ -17,7 +17,9 @@ namespace jsimple.io
 		/// <returns> output stream, to write the file contents </returns>
 		public abstract OutputStream openForCreate();
 
-		public abstract File AtomicFile {get;}
+		/*
+		public abstract File getAtomicFile();
+		*/
 
 		public virtual OutputStream openForCreateAtomic()
 		{
