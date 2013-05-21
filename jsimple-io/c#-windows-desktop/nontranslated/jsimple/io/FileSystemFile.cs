@@ -14,6 +14,17 @@ namespace jsimple.io
             this.filePath = filePath;
         }
 
+        /*
+        public override File AtomicFile
+        {
+            get
+            {
+                FileSystemFile atomicFile = new FileSystemFile(this.parent, this.filePath + "-temp");
+                return atomicFile;
+            }
+        }
+         */
+
         public override string Name
         {
             get
