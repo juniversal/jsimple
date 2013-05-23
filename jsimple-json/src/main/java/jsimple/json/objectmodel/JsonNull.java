@@ -1,4 +1,4 @@
-package jsimple.json;
+package jsimple.json.objectmodel;
 
 /**
  * This class is used to represent a "null" literal in JSON.  By having an explicit class, instead of just the regular
@@ -8,6 +8,7 @@ package jsimple.json;
  * @author Bret Johnson
  * @since 5/20/12 9:52 PM
  */
+// TODO: Remove this & just treat as null
 public final class JsonNull {
     static public JsonNull singleton = new JsonNull();
 

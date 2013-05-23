@@ -3,17 +3,64 @@ package jsimple.json;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonNull;
 import jsimple.json.objectmodel.JsonObject;
+import jsimple.json.readerwriter.*;
 import jsimple.json.text.JsonParsingException;
 import jsimple.unit.UnitTest;
 import org.junit.Test;
 
 /**
  * @author Bret Johnson
- * @since 5/6/12 12:33 AM
+ * @since 5/23/13 1:41 AM
  */
-public class JsonParserTest extends UnitTest {
+public class ReaderWriterTest extends UnitTest {
+    private static final int JSON_STRING_VAL = 1;
+    private static final int JSON_INT_VAL = 2;
+    private static final int JSON_LONG_VAL = 3;
+    private static final int JSON_BOOLEAN_VAL = 4;
+    private static final int JSON_ARRAY_VAL = 5;
+    private static final int JSON_OBJECT_VAL = 6;
+
+    private static final JsonObjectType jsonObjectType = new JsonObjectType();
+    private static final JsonStringProperty jsonStringVal = jsonObjectType.createStringProperty("stringVal", JSON_STRING_VAL);
+    private static final JsonIntProperty jsonIntVal = jsonObjectType.createIntProperty("intVal", JSON_INT_VAL);
+    private static final JsonLongProperty jsonLongVal = jsonObjectType.createLongProperty("longVal", JSON_LONG_VAL);
+    private static final JsonBooleanProperty jsonBooleanVal = jsonObjectType.createBooleanProperty("booleanVal", JSON_BOOLEAN_VAL);
+    private static final JsonArrayProperty jsonArrayVal = jsonObjectType.createArrayProperty("arrayVal", JSON_ARRAY_VAL);
+    private static final JsonObjectProperty jsonObjectVal = jsonObjectType.createObjectProperty("objectVal", JSON_OBJECT_VAL);
+
     @Test public void testParseObject() {
-        assertEquals(null, parseJsonObject("{}").getOrNull("abc"));
+        validateParseObject(jsonStringVal, "abc");
+
+
+    }
+
+    private void validateParseObject(JsonProperty jsonProperty, Object value) {
+        String json = "{ " + jsonProperty.getName() + ": " + value.toString();
+
+        JsonObjectReader objectReader = Json.readObject(json);
+
+        boolean foundProperty = false;
+        while (! objectReader.atEnd()) {
+            if (foundProperty)
+                fail("Found > 1 property on object");
+
+            JsonProperty readProperty = objectReader.readProperty();
+            assertEquals(jsonProperty, readProperty);
+            foundProperty = true;
+
+            readProperty.
+
+
+
+
+        }
+
+
+    }
+
+    assertEquals(null, parseJsonObject("{stringVal = \"abc\"}").getOrNull("abc"));
+
+
         assertEquals(3, parseJsonObject("{\"abc\": 3}").getOrNull("abc"));
         assertEquals(true, parseJsonObject("{\"abc\": 3, \"def\": true}").getOrNull("def"));
 
@@ -63,4 +110,3 @@ public class JsonParserTest extends UnitTest {
             assertEquals(exceptionMessage, e.getMessage());
         }
     }
-}

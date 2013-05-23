@@ -1,4 +1,4 @@
-package jsimple.json;
+package jsimple.json.objectmodel;
 
 import java.util.ArrayList;
 

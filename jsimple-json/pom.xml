@@ -25,6 +25,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.nokia.jsimple</groupId>
+            <artifactId>jsimple-util</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.intellij</groupId>
             <artifactId>annotations</artifactId>
             <version>9.0.4</version>

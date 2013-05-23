@@ -1,5 +1,9 @@
 package jsimple.json;
 
+import jsimple.json.objectmodel.JsonArray;
+import jsimple.json.objectmodel.JsonNull;
+import jsimple.json.objectmodel.JsonObject;
+import jsimple.json.objectmodel.JsonObjectOrArray;
 import jsimple.unit.UnitTest;
 import org.junit.Test;
 

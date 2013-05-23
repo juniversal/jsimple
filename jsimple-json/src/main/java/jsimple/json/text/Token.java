@@ -1,17 +1,20 @@
-package jsimple.json;
+package jsimple.json.text;
+
+import jsimple.json.JsonException;
+import jsimple.json.objectmodel.JsonNull;
 
 /**
  * @author Bret Johnson
  * @since 5/6/12 12:18 AM
  */
-final class Token {
+public final class Token {
     private String json;
     private int jsonLength;
     private TokenType type;
     private Object primitiveValue;
     private int currIndex;  // Next character to be processed
 
-    Token(String json) {
+    public Token(String json) {
         this.json = json;
         jsonLength = json.length();
         currIndex = 0;
@@ -21,6 +24,21 @@ final class Token {
         primitiveValue = JsonNull.singleton;
 
         advance();
+    }
+
+    /**
+     * Return true if the particular character should be considered a control character and specified via Unicode escape
+     * sequence in JSON.  The JSON spec is a bit ambiguous (as far as I can tell) on which exact Unicode characters are
+     * "control characters" and must be escaped, so we have to make some reasonable assumption.  We consider control
+     * characters to be the 65 characters in the ranges U+0000..U+001F and U+007F..U+009F, according to
+     * http://unicode.org/glossary/#control_codes.  Note that this includes '\0', which is the end of string for us when
+     * parsing.
+     *
+     * @param c character in question
+     * @return whether specified character is a control character
+     */
+    public static boolean isControlCharacter(char c) {
+        return c <= '\u001F' || (c >= '\u007F' && c <= '\u009F');
     }
 
     public TokenType getType() {
@@ -37,7 +55,7 @@ final class Token {
      *
      * @return token description phrase
      */
-    String getDescription() {
+    public String getDescription() {
         if (type == TokenType.PRIMITIVE) {
             if (primitiveValue instanceof Integer || primitiveValue instanceof Long)
                 return primitiveValue.toString();
@@ -128,7 +146,7 @@ final class Token {
                 return;
             } else
                 throw new JsonParsingException("Unexpected character '" + lookahead +
-                        "' in JSON; if that character should start a string, it must be quoted", this);
+                        "' in JSON; if that character should start a string, it must be quoted");
         }
     }
 
@@ -136,14 +154,35 @@ final class Token {
         int length = expected.length();
 
         if (currIndex + length > json.length())
-            throw new JsonParsingException(quote(expected), quote(json.substring(currIndex, json.length())), this);
+            throw new JsonParsingException(quote(expected), quote(json.substring(currIndex, json.length())));
 
         String encountered = json.substring(currIndex, currIndex + length);
 
         if (!expected.equals(encountered))
-            throw new JsonParsingException(quote(expected), quote(encountered), this);
+            throw new JsonParsingException(quote(expected), quote(encountered));
 
         currIndex += length;
+    }
+
+    /**
+     * Validate that the token is the expected type (throwing an exception if it isn't), then advance to the next
+     * token.
+     *
+     * @param expectedType expected token type
+     */
+    public void checkAndAdvance(TokenType expectedType) {
+        check(expectedType);
+        advance();
+    }
+
+    /**
+     * Validate that the token is the expected type (throwing an exception if it isn't).
+     *
+     * @param expectedType expected token type
+     */
+    public void check(TokenType expectedType) {
+        if (type != expectedType)
+            throw new JsonParsingException(Token.getTokenTypeDescription(expectedType), this);
     }
 
     private String readStringToken() {
@@ -158,8 +197,8 @@ final class Token {
                 return string.toString();
             else if (c == '\\')
                 string.append(readEscapedChar());
-            else if (JsonUtil.isControlCharacter(c))
-                throw new JsonParsingException(charDescription('\"'), charDescription(c), this);
+            else if (isControlCharacter(c))
+                throw new JsonParsingException(charDescription('\"'), charDescription(c));
             else
                 string.append(c);
         }
@@ -196,9 +235,9 @@ final class Token {
                 return readUnicodeChar();
         }
 
-        if (JsonUtil.isControlCharacter(c))
-            throw new JsonParsingException("Invalid escape character code following backslash: " + charDescription(c), this);
-        else throw new JsonParsingException("Invalid character escape: '\\" + c + "'", this);
+        if (isControlCharacter(c))
+            throw new JsonParsingException("Invalid escape character code following backslash: " + charDescription(c));
+        else throw new JsonParsingException("Invalid character escape: '\\" + c + "'");
     }
 
     private char lookaheadChar() {
@@ -230,7 +269,7 @@ final class Token {
             return 10 + (digitChar - 'a');
         else if (digitChar >= 'A' && digitChar <= 'F')
             return 10 + (digitChar - 'A');
-        else throw new JsonParsingException("valid hex digit for unicode escape", charDescription(digitChar), this);
+        else throw new JsonParsingException("valid hex digit for unicode escape", charDescription(digitChar));
     }
 
     private String charDescription(char c) {
@@ -242,7 +281,7 @@ final class Token {
             return "newline";
         else if (c == '\t')
             return "tab";
-        else if (JsonUtil.isControlCharacter(c)) {
+        else if (isControlCharacter(c)) {
             int remaining = c;
 
             int digit4 = remaining % 16;
@@ -284,7 +323,7 @@ final class Token {
             return (char) ((int) '0' + num);
         else if (num >= 10 && num <= 15)
             return (char) ((int) 'a' + (num - 10));
-        else throw new JsonException("Digit " + num + " should be < 16 (and > 0) in call to numToHexDigitChar");
+        else throw new JsonException("Digit {} should be < 16 (and > 0) in call to numToHexDigitChar", num);
     }
 
     private Object readNumberToken(char lookahead) {
@@ -295,7 +334,7 @@ final class Token {
             lookahead = lookaheadChar();
 
             if (!(lookahead >= '0' && lookahead <= '9'))
-                throw new JsonParsingException("Expected a digit to follow a minus sign", this);
+                throw new JsonParsingException("a digit to follow a minus sign", quote(Character.toString(lookahead)));
         }
 
         long value = 0;
@@ -307,9 +346,9 @@ final class Token {
 
                 if (negative) {
                     if (-1 * value < (Long.MIN_VALUE + digit) / 10)
-                        throw new JsonParsingException("Negative number is too big, overflowing the size of a long", this);
+                        throw new JsonParsingException("Negative number is too big, overflowing the size of a long");
                 } else if (value > (Long.MAX_VALUE - digit) / 10)
-                    throw new JsonParsingException("Number is too big, overflowing the size of a long", this);
+                    throw new JsonParsingException("Number is too big, overflowing the size of a long");
 
                 value = 10 * value + digit;
                 ++currIndex;
@@ -319,7 +358,7 @@ final class Token {
                     doubleValue = -doubleValue;
                 return doubleValue;
             } else if (lookahead == 'e' || lookahead == 'E')
-                throw new JsonParsingException("Numbers in scientific notation aren't currently supported", this);
+                throw new JsonParsingException("Numbers in scientific notation aren't currently supported");
             else break;
         }
 
@@ -341,7 +380,7 @@ final class Token {
      */
     private double readFractionalPartOfDouble() {
         if (lookaheadChar() != '.')
-            throw new JsonParsingException("Expected fraction to start with a '.'", this);
+            throw new JsonParsingException("fraction to start with a '.'", Character.toString(lookaheadChar()));
         ++currIndex;
 
         double value = 0;
@@ -356,7 +395,7 @@ final class Token {
                 value += digit * place;
                 place /= 10;
             } else if (lookahead == 'e' || lookahead == 'E')
-                throw new JsonParsingException("Numbers in scientific notation aren't currently supported", this);
+                throw new JsonParsingException("Numbers in scientific notation aren't currently supported");
             else break;
         }
 
@@ -382,7 +421,7 @@ final class Token {
             case EOF:
                 return "end of JSON text";
             default:
-                throw new JsonException("Unknown TokenType: " + type.toString());
+                throw new JsonException("Unknown TokenType: {}", type.toString());
         }
     }
 }

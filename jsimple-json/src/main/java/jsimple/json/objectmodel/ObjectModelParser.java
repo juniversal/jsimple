@@ -1,17 +1,21 @@
-package jsimple.json;
+package jsimple.json.objectmodel;
+
+import jsimple.json.text.JsonParsingException;
+import jsimple.json.text.Token;
+import jsimple.json.text.TokenType;
 
 /**
  * @author Bret Johnson
  * @since 5/6/12 12:17 AM
  */
-public final class JsonParser {
+public final class ObjectModelParser {
     private Token token;
 
     /**
      * Parse the specified JSON text.  getResult() can then be used to get the resulting JSON result tree.
      * @param text JSON text to parse
      */
-    public JsonParser(String text) {
+    public ObjectModelParser(String text) {
         this.token = new Token(text);
     }
 
@@ -20,20 +24,20 @@ public final class JsonParser {
 
         JsonObjectOrArray result;
         if (lookahead == TokenType.LEFT_BRACE)
-            result = parseObject();
+            result = readObject();
         else if (lookahead == TokenType.LEFT_BRACKET)
             result = parseArray();
-        else throw new JsonParsingException("{ or [, starting an object or array", token.getDescription(), token);
+        else throw new JsonParsingException("{ or [, starting an object or array", token);
 
-        check(TokenType.EOF);
+        token.check(TokenType.EOF);
 
         return result;
     }
 
-    public JsonObject parseObject() {
+    private JsonObject readObject() {
         JsonObject jsonObject = new JsonObject();
 
-        checkAndAdvance(TokenType.LEFT_BRACE);
+        token.checkAndAdvance(TokenType.LEFT_BRACE);
 
         // Handle the empty object case here (which makes the code below simpler)
         if (token.getType() == TokenType.RIGHT_BRACE) {
@@ -45,12 +49,12 @@ public final class JsonParser {
             Object nameObject = token.getPrimitiveValue();
 
             if (! (nameObject instanceof String))
-                throw new JsonParsingException("string for object key", token.getDescription(), token);
+                throw new JsonParsingException("string for object key", token);
 
             String name = (String) nameObject;
             advance();
 
-            checkAndAdvance(TokenType.COLON);
+            token.checkAndAdvance(TokenType.COLON);
 
             Object value = parseValue();
 
@@ -62,7 +66,7 @@ public final class JsonParser {
             }
             else if (token.getType() == TokenType.COMMA)
                 advance();
-            else throw new JsonParsingException(", or }", token.getDescription(), token);
+            else throw new JsonParsingException(", or }", token);
         }
 
         return jsonObject;
@@ -77,10 +81,10 @@ public final class JsonParser {
             advance();
         }
         else if (lookahead == TokenType.LEFT_BRACE)
-            value = parseObject();
+            value = readObject();
         else if (lookahead == TokenType.LEFT_BRACKET)
             value = parseArray();
-        else throw new JsonParsingException("primitive type, object, or array", token.getDescription(), token);
+        else throw new JsonParsingException("primitive type, object, or array", token);
 
         return value;
     }
@@ -88,7 +92,7 @@ public final class JsonParser {
     public JsonArray parseArray() {
         JsonArray jsonArray = new JsonArray();
 
-        checkAndAdvance(TokenType.LEFT_BRACKET);
+        token.checkAndAdvance(TokenType.LEFT_BRACKET);
 
         // Handle the empty array case here (which makes the code below simpler)
         if (token.getType() == TokenType.RIGHT_BRACKET) {
@@ -107,31 +111,10 @@ public final class JsonParser {
             }
             else if (token.getType() == TokenType.COMMA)
                 advance();
-            else throw new JsonParsingException(", or ]", token.getDescription(), token);
+            else throw new JsonParsingException(", or ]", token);
         }
 
         return jsonArray;
-    }
-
-    /**
-     * Validate that the token is the expected type (throwing an exception if it isn't), then advance to the next
-     * token.
-     *
-     * @param expectedType expected token type
-     */
-    public void checkAndAdvance(TokenType expectedType) {
-        check(expectedType);
-        token.advance();
-    }
-
-    /**
-     * Validate that the token is the expected type (throwing an exception if it isn't).
-     *
-     * @param expectedType expected token type
-     */
-    public void check(TokenType expectedType) {
-        if (token.getType() != expectedType)
-            throw new JsonParsingException(Token.getTokenTypeDescription(expectedType), token.getDescription(), token);
     }
 
     /**

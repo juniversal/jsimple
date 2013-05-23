@@ -1,4 +1,4 @@
-package jsimple.json;
+package jsimple.json.text;
 
 /**
  * @author Bret Johnson

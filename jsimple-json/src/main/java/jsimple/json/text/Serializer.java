@@ -1,10 +1,16 @@
-package jsimple.json;
+package jsimple.json.text;
+
+import jsimple.json.JsonException;
+import jsimple.json.objectmodel.JsonArray;
+import jsimple.json.objectmodel.JsonNull;
+import jsimple.json.objectmodel.JsonObject;
+import jsimple.json.objectmodel.JsonObjectOrArray;
 
 /**
  * @author Bret Johnson
  * @since 7/8/12 3:46 AM
  */
-public final class JsonSerializer {
+public final class Serializer {
     StringBuilder text = new StringBuilder();
     int indent = 0;
 
@@ -14,32 +20,36 @@ public final class JsonSerializer {
      *
      * @param jsonObjectOrArray JSON root object to serialize
      */
-    void serialize(JsonObjectOrArray jsonObjectOrArray) {
+    public void serialize(JsonObjectOrArray jsonObjectOrArray) {
         append(jsonObjectOrArray);
         text.append("\n");    // Terminate the last line
     }
 
-    String getResult() {
+    public String getResult() {
         return text.toString();
     }
 
-    public void append(Object obj) {
+    public void appendPrimitive(Object obj) {
         if (obj instanceof String)
             appendString((String) obj);
         else if (obj instanceof Integer)
             text.append(((Integer) obj).intValue());
         else if (obj instanceof Long)
             text.append(((Long) obj).longValue());
-        else if (obj instanceof JsonObject)
-            appendJsonObject((JsonObject) obj);
-        else if (obj instanceof JsonArray)
-            appendJsonArray((JsonArray) obj);
         else if (obj instanceof Boolean) {
             boolean booleanValue = (boolean) (Boolean) obj;
             text.append(booleanValue ? "true" : "false");
         } else if (obj instanceof JsonNull)
             text.append("null");
         else throw new JsonException("Unexpected JSON object type");
+    }
+
+    public void append(Object obj) {
+        if (obj instanceof JsonObject)
+            appendJsonObject((JsonObject) obj);
+        else if (obj instanceof JsonArray)
+            appendJsonArray((JsonArray) obj);
+        else appendPrimitive(obj);
     }
 
     /**
@@ -59,10 +69,8 @@ public final class JsonSerializer {
             for (int i = 0; i < size; ++i) {
                 appendIndent();
 
-                text.append("\"");
-                text.append(jsonObject.getName(i));
-                text.append("\": ");
-
+                appendString(jsonObject.getName(i));
+                appendRaw(": ");
                 append(jsonObject.getValue(i));
 
                 if (i < size - 1)
@@ -181,7 +189,7 @@ public final class JsonSerializer {
                     break;
 
                 default:
-                    if (JsonUtil.isControlCharacter(c))
+                    if (Token.isControlCharacter(c))
                         appendUnicodeEscape(c);
                     else text.append(c);
             }
@@ -204,10 +212,19 @@ public final class JsonSerializer {
             text.append((char) ('0' + hexDigit));
         else if (hexDigit <= 15)
             text.append((char) ('A' + (hexDigit - 10)));
-        else throw new JsonException("Hex digit out of range: " + hexDigit);
+        else throw new JsonException("Hex digit out of range: {}", hexDigit);
     }
 
     public void appendRaw(String rawText) {
         text.append(rawText);
+    }
+
+    /**
+     * Increment (or decrement if negative) the prevailing indent by the specified amount.
+     *
+     * @param amount amount to change indent
+     */
+    public void indent(int amount) {
+        indent += amount;
     }
 }
