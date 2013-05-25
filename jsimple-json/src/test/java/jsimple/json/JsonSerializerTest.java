@@ -1,9 +1,6 @@
 package jsimple.json;
 
-import jsimple.json.objectmodel.JsonArray;
-import jsimple.json.objectmodel.JsonNull;
-import jsimple.json.objectmodel.JsonObject;
-import jsimple.json.objectmodel.JsonObjectOrArray;
+import jsimple.json.objectmodel.*;
 import jsimple.unit.UnitTest;
 import org.junit.Test;
 
@@ -76,6 +73,6 @@ public class JsonSerializerTest extends UnitTest {
             jsonTextBuilder.append(line + "\n");
         String jsonText = jsonTextBuilder.toString();
 
-        assertEquals(jsonText, Json.serialize(json));
+        assertEquals(jsonText, json.toString());
     }
 }

@@ -3,6 +3,7 @@ using System.Text;
 namespace jsimple.json
 {
 
+	using jsimple.json.objectmodel;
 	using UnitTest = jsimple.unit.UnitTest;
 	using NUnit.Framework;
 
@@ -33,7 +34,7 @@ namespace jsimple.json
 				jsonTextBuilder.Append(line + "\n");
 			string jsonText = jsonTextBuilder.ToString();
 
-			assertEquals(jsonText, Json.serialize(json));
+			assertEquals(jsonText, json.ToString());
 		}
 	}
 

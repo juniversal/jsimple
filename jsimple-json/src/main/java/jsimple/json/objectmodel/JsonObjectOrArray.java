@@ -1,8 +1,8 @@
 package jsimple.json.objectmodel;
 
-import jsimple.json.Json;
-import jsimple.json.readerwriter.JsonArrayWriter;
-import jsimple.json.readerwriter.JsonObjectWriter;
+import jsimple.io.StringWriter;
+import jsimple.io.Writer;
+import jsimple.json.text.Serializer;
 
 /**
  * This class is simply used to represent, in a type safe way, either a JSON object or an array.  According to the spec
@@ -12,7 +12,14 @@ import jsimple.json.readerwriter.JsonObjectWriter;
  * @since 7/8/12 1:56 PM
  */
 abstract public class JsonObjectOrArray {
+    public void serialize(Writer writer) {
+        Serializer serializer = new Serializer(writer);
+        serializer.serialize(this);
+    }
+
     @Override public String toString() {
-        return Json.serialize(this);
+        StringWriter stringWriter = new StringWriter();
+        serialize(stringWriter);
+        return stringWriter.toString();
     }
 }

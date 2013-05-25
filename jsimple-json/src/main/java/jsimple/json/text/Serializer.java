@@ -1,5 +1,6 @@
 package jsimple.json.text;
 
+import jsimple.io.Writer;
 import jsimple.json.JsonException;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonNull;
@@ -11,8 +12,18 @@ import jsimple.json.objectmodel.JsonObjectOrArray;
  * @since 7/8/12 3:46 AM
  */
 public final class Serializer {
-    StringBuilder text = new StringBuilder();
-    int indent = 0;
+    private Writer writer;
+    private char[] buffer = new char[BUFFER_SIZE];
+    private int currIndex;      // Next character to be processed
+    int indent;
+
+    private static final int BUFFER_SIZE = 256;
+
+    public Serializer(Writer writer) {
+        this.writer = writer;
+        currIndex = 0;
+        indent = 0;
+    }
 
     /**
      * Serialize an entire JSON root object.  If this method is called, generally none of other append methods are used
@@ -22,25 +33,20 @@ public final class Serializer {
      */
     public void serialize(JsonObjectOrArray jsonObjectOrArray) {
         append(jsonObjectOrArray);
-        text.append("\n");    // Terminate the last line
-    }
-
-    public String getResult() {
-        return text.toString();
+        write("\n");    // Terminate the last line
+        flush();
     }
 
     public void appendPrimitive(Object obj) {
         if (obj instanceof String)
             appendString((String) obj);
-        else if (obj instanceof Integer)
-            text.append(((Integer) obj).intValue());
-        else if (obj instanceof Long)
-            text.append(((Long) obj).longValue());
+        else if (obj instanceof Integer || obj instanceof Long)
+            write(obj.toString());
         else if (obj instanceof Boolean) {
             boolean booleanValue = (boolean) (Boolean) obj;
-            text.append(booleanValue ? "true" : "false");
+            write(booleanValue ? "true" : "false");
         } else if (obj instanceof JsonNull)
-            text.append("null");
+            write("null");
         else throw new JsonException("Unexpected JSON object type");
     }
 
@@ -61,9 +67,9 @@ public final class Serializer {
     public void appendJsonObject(JsonObject jsonObject) {
         int size = jsonObject.size();
         if (size == 0)
-            text.append("{}");
+            write("{}");
         else {
-            text.append("{\n");
+            write("{\n");
             indent += 2;
 
             for (int i = 0; i < size; ++i) {
@@ -74,13 +80,13 @@ public final class Serializer {
                 append(jsonObject.getValue(i));
 
                 if (i < size - 1)
-                    text.append(",\n");
-                else text.append("\n");
+                    write(",\n");
+                else write("\n");
             }
 
             indent -= 2;
             appendIndent();
-            text.append("}");
+            write("}");
         }
     }
 
@@ -94,7 +100,7 @@ public final class Serializer {
     public void appendJsonArray(JsonArray array) {
         int size = array.size();
         if (size == 0)
-            text.append("[]");
+            write("[]");
         else {
             boolean allSimpleObjects = true;
 
@@ -112,10 +118,10 @@ public final class Serializer {
 
             boolean useMultipleLines = !allSimpleObjects;
 
-            text.append("[");
+            write("[");
 
             if (useMultipleLines) {
-                text.append("\n");
+                write("\n");
                 indent += 2;
 
                 for (int i = 0; i < size; ++i) {
@@ -124,8 +130,8 @@ public final class Serializer {
                     append(array.get(i));
 
                     if (i < size - 1)
-                        text.append(",\n");
-                    else text.append("\n");
+                        write(",\n");
+                    else write("\n");
                 }
 
                 indent -= 2;
@@ -135,11 +141,11 @@ public final class Serializer {
                     append(array.get(i));
 
                     if (i < size - 1)
-                        text.append(", ");
+                        write(", ");
                 }
             }
 
-            text.append(']');
+            write(']');
         }
     }
 
@@ -148,11 +154,11 @@ public final class Serializer {
      */
     public void appendIndent() {
         for (int i = 0; i < indent; ++i)
-            text.append(' ');
+            write(' ');
     }
 
     public void appendString(String string) {
-        text.append("\"");
+        write("\"");
 
         int length = string.length();
         for (int i = 0; i < length; ++i) {
@@ -161,45 +167,45 @@ public final class Serializer {
             // Check for characters that need to be escaped
             switch (c) {
                 case '\"':
-                    text.append("\\\"");
+                    write("\\\"");
                     break;
 
                 case '\\':
-                    text.append("\\\\");
+                    write("\\\\");
                     break;
 
                 case '\b':
-                    text.append("\\b");
+                    write("\\b");
                     break;
 
                 case '\f':
-                    text.append("\\f");
+                    write("\\f");
                     break;
 
                 case '\n':
-                    text.append("\\n");
+                    write("\\n");
                     break;
 
                 case '\r':
-                    text.append("\\r");
+                    write("\\r");
                     break;
 
                 case '\t':
-                    text.append("\\t");
+                    write("\\t");
                     break;
 
                 default:
                     if (Token.isControlCharacter(c))
                         appendUnicodeEscape(c);
-                    else text.append(c);
+                    else write(c);
             }
         }
 
-        text.append("\"");
+        write("\"");
     }
 
     public void appendUnicodeEscape(char c) {
-        text.append("\\u");
+        write("\\u");
 
         appendHexDigit((c & 0xF000) >>> 12);
         appendHexDigit((c & 0x0F00) >>> 8);
@@ -209,14 +215,31 @@ public final class Serializer {
 
     public void appendHexDigit(int hexDigit) {
         if (hexDigit <= 9)
-            text.append((char) ('0' + hexDigit));
+            write((char) ('0' + hexDigit));
         else if (hexDigit <= 15)
-            text.append((char) ('A' + (hexDigit - 10)));
+            write((char) ('A' + (hexDigit - 10)));
         else throw new JsonException("Hex digit out of range: {}", hexDigit);
     }
 
     public void appendRaw(String rawText) {
-        text.append(rawText);
+        write(rawText);
+    }
+
+    private void write(String s) {
+        int length = s.length();
+        for (int i = 0; i < length; i++)
+            write(s.charAt(i));
+    }
+
+    private void write(char c) {
+        if (currIndex >= BUFFER_SIZE)
+            flush();
+        buffer[currIndex++] = c;
+    }
+
+    public void flush() {
+        writer.write(buffer, 0, currIndex);
+        currIndex = 0;
     }
 
     /**

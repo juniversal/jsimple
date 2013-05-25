@@ -10,7 +10,7 @@ public class JsonObjectProperty extends JsonProperty {
     }
 
     public JsonObjectReader readValue(JsonObjectReader objectReader) {
-        return objectReader.readObjectPropertyValue();
+        return (JsonObjectReader) objectReader.readPropertyValue();
     }
 
     public JsonObjectWriter write(JsonObjectWriter objectWriter) {

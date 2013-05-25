@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 
-namespace jsimple.json
+namespace jsimple.json.objectmodel
 {
-
 
 
 	/// <summary>
 	/// A JsonObject represents an ordered list of name/value pairs.  Note that unlike a HashMap, the list is ordered, so
-	/// that the order in the serialized text can be controlled.  For now, queries just do a linear search, but we might add
+	/// that the order in the serialized text can be controlled.  For now, queries just do a linear search, but we might create
 	/// a HashMap later, say if there are > 5 items in the object, for performance.  There's currently no prohibition against
 	/// a name being duplicated in the object; if that happens the value of the first occurrence is returned currently but
 	/// future implementations may change that.
@@ -66,7 +65,7 @@ namespace jsimple.json
 					return values[i];
 			}
 
-			throw new JsonException("JSON object is expected to have a value for " + name + "but doesn't");
+			throw new JsonException("JSON object is expected to have a value for {} but doesn't", name);
 		}
 
 		/// <summary>

@@ -19,9 +19,15 @@ import jsimple.json.text.Serializer;
 public class JsonArrayWriter {
     Serializer serializer;
     boolean outputSomething = false;
+    boolean flushWhenDone = false;
 
     public JsonArrayWriter(Serializer serializer) {
         this.serializer = serializer;
+    }
+
+    public JsonArrayWriter(Serializer serializer, boolean flushWhenDone) {
+        this.serializer = serializer;
+        this.flushWhenDone = flushWhenDone;
     }
 
     /**
@@ -69,6 +75,9 @@ public class JsonArrayWriter {
             serializer.appendIndent();
             serializer.appendRaw("]");
         }
+
+        if (flushWhenDone)
+            serializer.flush();
     }
 
     /**

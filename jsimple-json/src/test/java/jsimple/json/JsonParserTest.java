@@ -1,5 +1,6 @@
 package jsimple.json;
 
+import jsimple.io.StringReader;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonNull;
 import jsimple.json.objectmodel.JsonObject;
@@ -48,16 +49,16 @@ public class JsonParserTest extends UnitTest {
     }
 
     private JsonObject parseJsonObject(String jsonText) {
-        return (JsonObject) Json.parse(jsonText);
+        return (JsonObject) Json.parse(new StringReader(jsonText));
     }
 
     private JsonArray parseJsonArray(String jsonText) {
-        return (JsonArray) Json.parse(jsonText);
+        return (JsonArray) Json.parse(new StringReader(jsonText));
     }
 
     private void validateParsingException(String exceptionMessage, String jsonText) {
         try {
-            Json.parse(jsonText);
+            Json.parse(new StringReader(jsonText));
             fail();
         } catch (JsonParsingException e) {
             assertEquals(exceptionMessage, e.getMessage());

@@ -17,9 +17,11 @@ import org.jetbrains.annotations.Nullable;
  */
 public class JsonObjectReader {
     protected Token token;
-    private @Nullable JsonObjectType objectType = null;
+    private JsonObjectType objectType = emptyObjectType;   // This is the default, if no explicit ObjectType is set
     private boolean atBeginning = true;
     private boolean atEnd = false;
+
+    private static final JsonObjectType emptyObjectType = new JsonObjectType();
 
     public JsonObjectReader(Token token) {
         this.token = token;
@@ -53,27 +55,21 @@ public class JsonObjectReader {
         return property;
     }
 
-    public JsonObjectReader readObjectPropertyValue() {
-        if (token.getType() != TokenType.LEFT_BRACE)
-            throw new JsonParsingException("object as the value, starting with {", token);
-
-        return new JsonObjectReader(token);
-    }
-
-    public JsonArrayReader readArrayPropertyValue() {
-        if (token.getType() != TokenType.LEFT_BRACKET)
-            throw new JsonParsingException("array as the value, starting with [", token);
-
-        return new JsonArrayReader(token);
-    }
-
-    public Object readPrimitiveValue() {
-        Object value = token.getPrimitiveValue();
-        if (value == JsonNull.singleton)
-            throw new JsonParsingException("non-null value", token);
-
-        token.advance();
-        return value;
+    public Object readPropertyValue() {
+        switch (token.getType()) {
+            case PRIMITIVE:
+                Object value = token.getPrimitiveValue();
+                token.advance();
+                return value;
+            case LEFT_BRACKET:
+                return new JsonArrayReader(token);
+            case LEFT_BRACE:
+                return new JsonObjectReader(token);
+            default:
+                if (atEnd())
+                    throw new JsonException("No more object properties");
+                else throw new JsonParsingException("start of property value", token);
+        }
     }
 
     public boolean atEnd() {

@@ -1,8 +1,6 @@
 package jsimple.json;
 
-import jsimple.json.objectmodel.JsonArray;
-import jsimple.json.objectmodel.JsonNull;
-import jsimple.json.objectmodel.JsonObject;
+import jsimple.io.StringReader;
 import jsimple.json.readerwriter.*;
 import jsimple.json.text.JsonParsingException;
 import jsimple.unit.UnitTest;
@@ -30,17 +28,63 @@ public class ReaderWriterTest extends UnitTest {
 
     @Test public void testParseObject() {
         validateParseObject(jsonStringVal, "abc");
+        validateParseObject(jsonIntVal, 3);
+        validateParseObject(jsonLongVal, 5000000000L);
+        validateParseObject(jsonBooleanVal, true);
+        validateParseObject(jsonBooleanVal, false);
 
+        // Test array property
+        String json = "{ \"arrayVal\": [] }";
+        JsonObjectReader objectReader = Json.readObject(new StringReader(json));
+        objectReader.setObjectType(jsonObjectType);
 
+        assertEquals(jsonArrayVal, objectReader.readProperty());
+
+        JsonArrayReader subArrayReader = jsonArrayVal.readValue(objectReader);
+        assertTrue(subArrayReader.atEnd());
+
+        // Test subobject property
+        json = "{ \"objectVal\": {} }";
+        objectReader = Json.readObject(new StringReader(json));
+        objectReader.setObjectType(jsonObjectType);
+
+        assertEquals(jsonObjectVal, objectReader.readProperty());
+
+        JsonObjectReader subObjectReader = jsonObjectVal.readValue(objectReader);
+        assertTrue(subArrayReader.atEnd());
     }
 
-    private void validateParseObject(JsonProperty jsonProperty, Object value) {
-        String json = "{ " + jsonProperty.getName() + ": " + value.toString();
+    @Test public void testParseArray() {
+        String json = "[\"abc\", 1, -1, 5000000000, true, false, [], {}]";
 
-        JsonObjectReader objectReader = Json.readObject(json);
+        JsonArrayReader arrayReader = Json.readArray(new StringReader(json));
+
+        assertEquals("abc", arrayReader.readString());
+        assertEquals(1, arrayReader.readInt());
+        assertEquals(-1, arrayReader.readInt());
+        assertEquals(5000000000L, arrayReader.readLong());
+        assertEquals(true, arrayReader.readBoolean());
+        assertEquals(false, arrayReader.readBoolean());
+
+        JsonArrayReader subArrayReader = arrayReader.readArray();
+        assertTrue(subArrayReader.atEnd());
+
+        JsonObjectReader subObjectReader = arrayReader.readObject();
+        assertTrue(subObjectReader.atEnd());
+    }
+
+    private void validateParseObject(JsonProperty jsonProperty, Object expectedValue) {
+        String expectedValueJson = expectedValue.toString();
+        if (expectedValue instanceof String)
+            expectedValueJson = "\"" + expectedValueJson + "\"";
+
+        String json = "{ \"" + jsonProperty.getName() + "\": " + expectedValueJson + " }";
+
+        JsonObjectReader objectReader = Json.readObject(new StringReader(json));
+        objectReader.setObjectType(jsonObjectType);
 
         boolean foundProperty = false;
-        while (! objectReader.atEnd()) {
+        while (!objectReader.atEnd()) {
             if (foundProperty)
                 fail("Found > 1 property on object");
 
@@ -48,16 +92,12 @@ public class ReaderWriterTest extends UnitTest {
             assertEquals(jsonProperty, readProperty);
             foundProperty = true;
 
-            readProperty.
-
-
-
-
+            Object actualValue = readProperty.readValueUntyped(objectReader);
+            assertEquals(expectedValue, actualValue);
         }
-
-
     }
 
+    /*
     assertEquals(null, parseJsonObject("{stringVal = \"abc\"}").getOrNull("abc"));
 
 
@@ -95,18 +135,20 @@ public class ReaderWriterTest extends UnitTest {
     }
 
     private JsonObject parseJsonObject(String jsonText) {
-        return (JsonObject) Json.parse(jsonText);
+        return (JsonObject) JsonObjectModel.parse(jsonText);
     }
 
     private JsonArray parseJsonArray(String jsonText) {
-        return (JsonArray) Json.parse(jsonText);
+        return (JsonArray) JsonObjectModel.parse(jsonText);
     }
+*/
 
     private void validateParsingException(String exceptionMessage, String jsonText) {
         try {
-            Json.parse(jsonText);
+            Json.parse(new StringReader(jsonText));
             fail();
         } catch (JsonParsingException e) {
             assertEquals(exceptionMessage, e.getMessage());
         }
     }
+}

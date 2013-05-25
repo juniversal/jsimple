@@ -1,6 +1,11 @@
 namespace jsimple.json
 {
 
+	using StringReader = jsimple.io.StringReader;
+	using JsonArray = jsimple.json.objectmodel.JsonArray;
+	using JsonNull = jsimple.json.objectmodel.JsonNull;
+	using JsonObject = jsimple.json.objectmodel.JsonObject;
+	using JsonParsingException = jsimple.json.text.JsonParsingException;
 	using UnitTest = jsimple.unit.UnitTest;
 	using NUnit.Framework;
 
@@ -48,19 +53,19 @@ namespace jsimple.json
 
 		private JsonObject parseJsonObject(string jsonText)
 		{
-			return (JsonObject) Json.parse(jsonText);
+			return (JsonObject) Json.parse(new StringReader(jsonText));
 		}
 
 		private JsonArray parseJsonArray(string jsonText)
 		{
-			return (JsonArray) Json.parse(jsonText);
+			return (JsonArray) Json.parse(new StringReader(jsonText));
 		}
 
 		private void validateParsingException(string exceptionMessage, string jsonText)
 		{
 			try
 			{
-				Json.parse(jsonText);
+				Json.parse(new StringReader(jsonText));
 				fail();
 			}
 			catch (JsonParsingException e)

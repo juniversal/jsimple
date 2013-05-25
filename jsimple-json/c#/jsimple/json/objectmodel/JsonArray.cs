@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace jsimple.json
+namespace jsimple.json.objectmodel
 {
 
 	/// <summary>

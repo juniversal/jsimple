@@ -1,4 +1,4 @@
-namespace jsimple.json
+namespace jsimple.json.objectmodel
 {
 
 	/// <summary>
@@ -9,6 +9,7 @@ namespace jsimple.json
 	/// @author Bret Johnson
 	/// @since 5/20/12 9:52 PM
 	/// </summary>
+	// TODO: Remove this & just treat as null
 	public sealed class JsonNull
 	{
 		public static JsonNull singleton = new JsonNull();

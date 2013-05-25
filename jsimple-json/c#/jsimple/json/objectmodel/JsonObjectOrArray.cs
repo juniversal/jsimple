@@ -1,5 +1,9 @@
-namespace jsimple.json
+namespace jsimple.json.objectmodel
 {
+
+	using StringWriter = jsimple.io.StringWriter;
+	using Writer = jsimple.io.Writer;
+	using Serializer = jsimple.json.text.Serializer;
 
 	/// <summary>
 	/// This class is simply used to represent, in a type safe way, either a JSON object or an array.  According to the spec
@@ -10,9 +14,17 @@ namespace jsimple.json
 	/// </summary>
 	public abstract class JsonObjectOrArray
 	{
+		public virtual void serialize(Writer writer)
+		{
+			Serializer serializer = new Serializer(writer);
+			serializer.serialize(this);
+		}
+
 		public override string ToString()
 		{
-			return Json.serialize(this);
+			StringWriter stringWriter = new StringWriter();
+			serialize(stringWriter);
+			return stringWriter.ToString();
 		}
 	}
 

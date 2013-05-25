@@ -16,6 +16,7 @@
     <orderEntry type="library" name="Maven: com.intellij:annotations:9.0.4" level="project" />
     <orderEntry type="library" name="Maven: types.checkers:jsr308-all:1.2.6" level="project" />
     <orderEntry type="module" module-name="jsimple-util" />
+    <orderEntry type="module" module-name="jsimple-io" />
   </component>
 </module>
 

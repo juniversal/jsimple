@@ -1,5 +1,6 @@
 package jsimple.json;
 
+import jsimple.io.StringReader;
 import jsimple.json.objectmodel.JsonNull;
 import jsimple.json.text.JsonParsingException;
 import jsimple.json.text.Token;
@@ -14,7 +15,7 @@ import org.junit.Test;
 public class TokenTest extends UnitTest {
     @Test public void testCharacterTokens() {
         String json = "{ } [ ] , :";
-        Token token = new Token(json);
+        Token token = new Token(new StringReader(json));
 
         assertEquals(TokenType.LEFT_BRACE, token.getType());
         token.advance();
@@ -39,7 +40,7 @@ public class TokenTest extends UnitTest {
 
     @Test public void testTrueFalseNullTokens() {
         String json = "true false null";
-        Token token = new Token(json);
+        Token token = new Token(new StringReader(json));
 
         assertEquals(true, token.getPrimitiveValue());
         token.advance();
@@ -88,7 +89,8 @@ public class TokenTest extends UnitTest {
     }
 
     private void validateStringToken(String expectedPrimitiveValue, String stringToken) {
-        Token token = new Token("\"" + stringToken + "\"");
+        String json = "\"" + stringToken + "\"";
+        Token token = new Token(new StringReader(json));
         assertEquals(expectedPrimitiveValue, token.getPrimitiveValue());
     }
 
@@ -149,17 +151,17 @@ public class TokenTest extends UnitTest {
     }
 
     private void validateNumberToken(Integer expectedPrimitiveValue, String numberToken) {
-        Token token = new Token(numberToken);
+        Token token = new Token(new StringReader(numberToken));
         assertEquals(expectedPrimitiveValue, token.getPrimitiveValue());
     }
 
     private void validateNumberToken(Long expectedPrimitiveValue, String numberToken) {
-        Token token = new Token(numberToken);
+        Token token = new Token(new StringReader(numberToken));
         assertEquals(expectedPrimitiveValue, token.getPrimitiveValue());
     }
 
     private void validateFloatingPointNumberToken(Double expectedPrimitiveValue, String doubleToken) {
-        Token token = new Token(doubleToken);
+        Token token = new Token(new StringReader(doubleToken));
         assertEquals(expectedPrimitiveValue, token.getPrimitiveValue());
     }
 
@@ -169,7 +171,7 @@ public class TokenTest extends UnitTest {
 
     private void validateParsingException(String exceptionMessage, String tokenString) {
         try {
-            new Token(tokenString);
+            new Token(new StringReader(tokenString));
             fail();
         } catch (JsonParsingException e) {
             assertEquals(exceptionMessage, e.getMessage());

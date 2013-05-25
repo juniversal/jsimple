@@ -10,9 +10,15 @@ import jsimple.json.text.Serializer;
 public class JsonObjectWriter {
     boolean outputSomething = false;
     Serializer serializer;
+    boolean flushWhenDone = false;
 
     public JsonObjectWriter(Serializer serializer) {
         this.serializer = serializer;
+    }
+
+    public JsonObjectWriter(Serializer serializer, boolean flushWhenDone) {
+        this.serializer = serializer;
+        this.flushWhenDone = flushWhenDone;
     }
 
     public void done() {
@@ -24,6 +30,9 @@ public class JsonObjectWriter {
             serializer.appendIndent();
             serializer.appendRaw("}");
         }
+
+        if (flushWhenDone)
+            serializer.flush();
     }
 
     public void write(JsonProperty property, Object value) {

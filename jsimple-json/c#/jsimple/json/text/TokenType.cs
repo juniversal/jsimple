@@ -1,4 +1,4 @@
-namespace jsimple.json
+namespace jsimple.json.text
 {
 
 	/// <summary>

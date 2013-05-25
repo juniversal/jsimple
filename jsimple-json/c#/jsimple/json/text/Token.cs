@@ -1,31 +1,54 @@
 using System.Text;
 
-namespace jsimple.json
+namespace jsimple.json.text
 {
+
+	using Reader = jsimple.io.Reader;
+	using JsonNull = jsimple.json.objectmodel.JsonNull;
+
 
 	/// <summary>
 	/// @author Bret Johnson
 	/// @since 5/6/12 12:18 AM
 	/// </summary>
-	internal sealed class Token
+	public sealed class Token
 	{
-		private string json;
-		private int jsonLength;
+		private Reader reader;
+		private char[] buffer = new char[BUFFER_SIZE];
+		private int bufferLength;
+		private int currIndex; // Next character to be processed
 		private TokenType type;
 		private object primitiveValue;
-		private int currIndex; // Next character to be processed
+		private StringBuilder checkAndAdvanceBuffer = new StringBuilder();
 
-		internal Token(string json)
+		private const int BUFFER_SIZE = 256;
+
+		public Token(Reader reader)
 		{
-			this.json = json;
-			jsonLength = json.Length;
+			this.reader = reader;
 			currIndex = 0;
+			bufferLength = 0;
 
 			// Initialize to avoid warnings
 			type = TokenType.PRIMITIVE;
 			primitiveValue = JsonNull.singleton;
 
 			advance();
+		}
+
+		/// <summary>
+		/// Return true if the particular character should be considered a control character and specified via Unicode escape
+		/// sequence in JSON.  The JSON spec is a bit ambiguous (as far as I can tell) on which exact Unicode characters are
+		/// "control characters" and must be escaped, so we have to make some reasonable assumption.  We consider control
+		/// characters to be the 65 characters in the ranges U+0000..U+001F and U+007F..U+009F, according to
+		/// http://unicode.org/glossary/#control_codes.  Note that this includes '\0', which is the end of string for us when
+		/// parsing.
+		/// </summary>
+		/// <param name="c"> character in question </param>
+		/// <returns> whether specified character is a control character </returns>
+		public static bool isControlCharacter(char c)
+		{
+			return c <= '\u001F' || (c >= '\u007F' && c <= '\u009F');
 		}
 
 		public TokenType Type
@@ -49,7 +72,7 @@ namespace jsimple.json
 		/// such & such, which isn't what we expected.
 		/// </summary>
 		/// <returns> token description phrase </returns>
-		internal string Description
+		public string Description
 		{
 			get
 			{
@@ -152,7 +175,7 @@ namespace jsimple.json
 					return;
 				}
 				else
-					throw new JsonParsingException("Unexpected character '" + lookahead + "' in JSON; if that character should start a string, it must be quoted", this);
+					throw new JsonParsingException("Unexpected character '" + lookahead + "' in JSON; if that character should start a string, it must be quoted");
 			}
 		}
 
@@ -160,15 +183,37 @@ namespace jsimple.json
 		{
 			int length = expected.Length;
 
-			if (currIndex + length > json.Length)
-				throw new JsonParsingException(quote(expected), quote(json.Substring(currIndex, json.Length - currIndex)), this);
+			checkAndAdvanceBuffer.Length = 0;
+			for (int i = 0; i < length; ++i)
+			{
+				char c = readChar();
+				if (c != '\0')
+					checkAndAdvanceBuffer.Append(c);
+			}
 
-			string encountered = json.Substring(currIndex, length);
+			if (!expected.contentEquals(checkAndAdvanceBuffer))
+				throw new JsonParsingException(quote(expected), quote(checkAndAdvanceBuffer.ToString()));
+		}
 
-			if (!expected.Equals(encountered))
-				throw new JsonParsingException(quote(expected), quote(encountered), this);
+		/// <summary>
+		/// Validate that the token is the expected type (throwing an exception if it isn't), then advance to the next
+		/// token.
+		/// </summary>
+		/// <param name="expectedType"> expected token type </param>
+		public void checkAndAdvance(TokenType expectedType)
+		{
+			check(expectedType);
+			advance();
+		}
 
-			currIndex += length;
+		/// <summary>
+		/// Validate that the token is the expected type (throwing an exception if it isn't).
+		/// </summary>
+		/// <param name="expectedType"> expected token type </param>
+		public void check(TokenType expectedType)
+		{
+			if (type != expectedType)
+				throw new JsonParsingException(Token.getTokenTypeDescription(expectedType), this);
 		}
 
 		private string readStringToken()
@@ -185,8 +230,8 @@ namespace jsimple.json
 					return @string.ToString();
 				else if (c == '\\')
 					@string.Append(readEscapedChar());
-				else if (JsonUtil.isControlCharacter(c))
-					throw new JsonParsingException(charDescription('\"'), charDescription(c), this);
+				else if (isControlCharacter(c))
+					throw new JsonParsingException(charDescription('\"'), charDescription(c));
 				else
 					@string.Append(c);
 			}
@@ -225,24 +270,44 @@ namespace jsimple.json
 					return readUnicodeChar();
 			}
 
-			if (JsonUtil.isControlCharacter(c))
-				throw new JsonParsingException("Invalid escape character code following backslash: " + charDescription(c), this);
+			if (isControlCharacter(c))
+				throw new JsonParsingException("Invalid escape character code following backslash: " + charDescription(c));
 			else
-				throw new JsonParsingException("Invalid character escape: '\\" + c + "'", this);
+				throw new JsonParsingException("Invalid character escape: '\\" + c + "'");
 		}
 
 		private char lookaheadChar()
 		{
-			if (currIndex >= jsonLength)
-				return '\0';
-			return json[currIndex];
+			if (currIndex < bufferLength)
+				return buffer[currIndex];
+			else
+			{
+				int amountRead = reader.read(buffer);
+
+				currIndex = 0;
+				if (amountRead == -1 || amountRead == 0)
+				{
+					bufferLength = 0;
+					return '\0';
+				}
+				else
+				{
+					bufferLength = amountRead;
+					return buffer[currIndex];
+				}
+			}
 		}
 
 		private char readChar()
 		{
-			if (currIndex >= jsonLength)
-				return '\0';
-			return json[currIndex++];
+			if (currIndex < bufferLength)
+				return buffer[currIndex++];
+			else
+			{
+				char c = lookaheadChar();
+				++currIndex;
+				return c;
+			}
 		}
 
 		private char readUnicodeChar()
@@ -265,7 +330,7 @@ namespace jsimple.json
 			else if (digitChar >= 'A' && digitChar <= 'F')
 				return 10 + (digitChar - 'A');
 			else
-				throw new JsonParsingException("valid hex digit for unicode escape", charDescription(digitChar), this);
+				throw new JsonParsingException("valid hex digit for unicode escape", charDescription(digitChar));
 		}
 
 		private string charDescription(char c)
@@ -278,7 +343,7 @@ namespace jsimple.json
 				return "newline";
 			else if (c == '\t')
 				return "tab";
-			else if (JsonUtil.isControlCharacter(c))
+			else if (isControlCharacter(c))
 			{
 				int remaining = c;
 
@@ -326,7 +391,7 @@ namespace jsimple.json
 			else if (num >= 10 && num <= 15)
 				return (char)((int) 'a' + (num - 10));
 			else
-				throw new JsonException("Digit " + num + " should be < 16 (and > 0) in call to numToHexDigitChar");
+				throw new JsonException("Digit {} should be < 16 (and > 0) in call to numToHexDigitChar", num);
 		}
 
 		private object readNumberToken(char lookahead)
@@ -339,7 +404,7 @@ namespace jsimple.json
 				lookahead = lookaheadChar();
 
 				if (!(lookahead >= '0' && lookahead <= '9'))
-					throw new JsonParsingException("Expected a digit to follow a minus sign", this);
+					throw new JsonParsingException("a digit to follow a minus sign", quote(char.ToString(lookahead)));
 			}
 
 			long value = 0;
@@ -354,10 +419,10 @@ namespace jsimple.json
 					if (negative)
 					{
 						if (-1 * value < (long.MinValue + digit) / 10)
-							throw new JsonParsingException("Negative number is too big, overflowing the size of a long", this);
+							throw new JsonParsingException("Negative number is too big, overflowing the size of a long");
 					}
 					else if (value > (long.MaxValue - digit) / 10)
-						throw new JsonParsingException("Number is too big, overflowing the size of a long", this);
+						throw new JsonParsingException("Number is too big, overflowing the size of a long");
 
 					value = 10 * value + digit;
 					++currIndex;
@@ -370,7 +435,7 @@ namespace jsimple.json
 					return doubleValue;
 				}
 				else if (lookahead == 'e' || lookahead == 'E')
-					throw new JsonParsingException("Numbers in scientific notation aren't currently supported", this);
+					throw new JsonParsingException("Numbers in scientific notation aren't currently supported");
 				else
 					break;
 			}
@@ -394,7 +459,7 @@ namespace jsimple.json
 		private double readFractionalPartOfDouble()
 		{
 			if (lookaheadChar() != '.')
-				throw new JsonParsingException("Expected fraction to start with a '.'", this);
+				throw new JsonParsingException("fraction to start with a '.'", char.ToString(lookaheadChar()));
 			++currIndex;
 
 			double value = 0;
@@ -412,7 +477,7 @@ namespace jsimple.json
 					place /= 10;
 				}
 				else if (lookahead == 'e' || lookahead == 'E')
-					throw new JsonParsingException("Numbers in scientific notation aren't currently supported", this);
+					throw new JsonParsingException("Numbers in scientific notation aren't currently supported");
 				else
 					break;
 			}
@@ -424,24 +489,24 @@ namespace jsimple.json
 		{
 			switch (type)
 			{
-				case jsimple.json.TokenType.LEFT_BRACE:
+				case jsimple.json.text.TokenType.LEFT_BRACE:
 					return "'{'";
-				case jsimple.json.TokenType.RIGHT_BRACE:
+				case jsimple.json.text.TokenType.RIGHT_BRACE:
 					return "'}'";
-				case jsimple.json.TokenType.LEFT_BRACKET:
+				case jsimple.json.text.TokenType.LEFT_BRACKET:
 					return "'['";
-				case jsimple.json.TokenType.RIGHT_BRACKET:
+				case jsimple.json.text.TokenType.RIGHT_BRACKET:
 					return "']'";
-				case jsimple.json.TokenType.COMMA:
+				case jsimple.json.text.TokenType.COMMA:
 					return "','";
-				case jsimple.json.TokenType.COLON:
+				case jsimple.json.text.TokenType.COLON:
 					return "':'";
-				case jsimple.json.TokenType.PRIMITIVE:
+				case jsimple.json.text.TokenType.PRIMITIVE:
 					return "primitive (string/number/true/false/null)";
-				case jsimple.json.TokenType.EOF:
+				case jsimple.json.text.TokenType.EOF:
 					return "end of JSON text";
 				default:
-					throw new JsonException("Unknown TokenType: " + type.ToString());
+					throw new JsonException("Unknown TokenType: {}", type.ToString());
 			}
 		}
 	}

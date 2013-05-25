@@ -1,6 +1,11 @@
 namespace jsimple.json
 {
 
+	using StringReader = jsimple.io.StringReader;
+	using JsonNull = jsimple.json.objectmodel.JsonNull;
+	using JsonParsingException = jsimple.json.text.JsonParsingException;
+	using Token = jsimple.json.text.Token;
+	using TokenType = jsimple.json.text.TokenType;
 	using UnitTest = jsimple.unit.UnitTest;
 	using NUnit.Framework;
 
@@ -13,7 +18,7 @@ namespace jsimple.json
 		[Test] public virtual void testCharacterTokens()
 		{
 			string json = "{ } [ ] , :";
-			Token token = new Token(json);
+			Token token = new Token(new StringReader(json));
 
 			assertEquals(TokenType.LEFT_BRACE, token.Type);
 			token.advance();
@@ -39,7 +44,7 @@ namespace jsimple.json
 		[Test] public virtual void testTrueFalseNullTokens()
 		{
 			string json = "true false null";
-			Token token = new Token(json);
+			Token token = new Token(new StringReader(json));
 
 			assertEquals(true, token.PrimitiveValue);
 			token.advance();
@@ -90,7 +95,8 @@ namespace jsimple.json
 
 		private void validateStringToken(string expectedPrimitiveValue, string stringToken)
 		{
-			Token token = new Token("\"" + stringToken + "\"");
+			string json = "\"" + stringToken + "\"";
+			Token token = new Token(new StringReader(json));
 			assertEquals(expectedPrimitiveValue, token.PrimitiveValue);
 		}
 
@@ -98,7 +104,8 @@ namespace jsimple.json
 		{
 			validateNumberToken(123, "123");
 			validateNumberToken(123456, "123456");
-			validateParsingException("Expected a digit to follow a minus sign", "- ");
+			validateParsingException("Expected a digit to follow a minus sign but encountered ' '", "- ");
+			validateParsingException("Expected a digit to follow a minus sign but encountered 'a'", "-a");
 			validateNumberToken(0x7fffffff, "2147483647");
 			validateNumberToken(0x80000000L, "2147483648");
 			validateNumberToken(-0x80000000, "-2147483648");
@@ -131,7 +138,7 @@ namespace jsimple.json
 			validateFloatingPointNumberToken(11.010, "11.010");
 
 			validateFloatingPointNumberToken(11.0, "11.");
-			validateParsingException("Expected a digit to follow a minus sign", "-.1");
+			validateParsingException("Expected a digit to follow a minus sign but encountered '.'", "-.1");
 
 			// 17 digits is about at the limit of precision for a double--17 digit precision is preserved, 18 is not
 			validateFloatingPointNumberToken(123456789012345.11, "123456789012345.11");
@@ -148,19 +155,19 @@ namespace jsimple.json
 
 		private void validateNumberToken(int? expectedPrimitiveValue, string numberToken)
 		{
-			Token token = new Token(numberToken);
+			Token token = new Token(new StringReader(numberToken));
 			assertEquals(expectedPrimitiveValue, token.PrimitiveValue);
 		}
 
 		private void validateNumberToken(long? expectedPrimitiveValue, string numberToken)
 		{
-			Token token = new Token(numberToken);
+			Token token = new Token(new StringReader(numberToken));
 			assertEquals(expectedPrimitiveValue, token.PrimitiveValue);
 		}
 
 		private void validateFloatingPointNumberToken(double? expectedPrimitiveValue, string doubleToken)
 		{
-			Token token = new Token(doubleToken);
+			Token token = new Token(new StringReader(doubleToken));
 			assertEquals(expectedPrimitiveValue, token.PrimitiveValue);
 		}
 
@@ -173,7 +180,7 @@ namespace jsimple.json
 		{
 			try
 			{
-				new Token(tokenString);
+				new Token(new StringReader(tokenString));
 				fail();
 			}
 			catch (JsonParsingException e)

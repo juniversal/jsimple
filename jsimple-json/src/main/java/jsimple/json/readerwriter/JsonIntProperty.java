@@ -10,7 +10,11 @@ public class JsonIntProperty extends JsonProperty {
     }
 
     public int readValue(JsonObjectReader objectReader) {
-        return (Integer) objectReader.readPrimitiveValue();
+        return (Integer) objectReader.readPropertyValue();
+    }
+
+    @Override public Object readValueUntyped(JsonObjectReader objectReader) {
+        return objectReader.readPropertyValue();
     }
 
     public void write(JsonObjectWriter objectWriter, int value) {

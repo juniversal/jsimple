@@ -18,6 +18,10 @@ public class JsonProperty {
         this.id = id;
     }
 
+    public Object readValueUntyped(JsonObjectReader objectReader) {
+        return objectReader.readPropertyValue();
+    }
+
     public String getName() {
         return name;
     }

@@ -1,20 +1,26 @@
-namespace jsimple.json
+namespace jsimple.json.objectmodel
 {
+
+	using Reader = jsimple.io.Reader;
+	using JsonParsingException = jsimple.json.text.JsonParsingException;
+	using Token = jsimple.json.text.Token;
+	using TokenType = jsimple.json.text.TokenType;
 
 	/// <summary>
 	/// @author Bret Johnson
 	/// @since 5/6/12 12:17 AM
 	/// </summary>
-	public sealed class JsonParser
+	public sealed class ObjectModelParser
 	{
 		private Token token;
 
 		/// <summary>
-		/// Parse the specified JSON text.  getResult() can then be used to get the resulting JSON result tree. </summary>
-		/// <param name="text"> JSON text to parse </param>
-		public JsonParser(string text)
+		/// Parse the specified JSON text.  getResult() can then be used to get the resulting JSON result tree.
+		/// </summary>
+		/// <param name="reader"> JSON text to parse </param>
+		public ObjectModelParser(Reader reader)
 		{
-			this.token = new Token(text);
+			this.token = new Token(reader);
 		}
 
 		public JsonObjectOrArray parseRoot()
@@ -27,18 +33,18 @@ namespace jsimple.json
 			else if (lookahead == TokenType.LEFT_BRACKET)
 				result = parseArray();
 			else
-				throw new JsonParsingException("{ or [, starting an object or array", token.Description, token);
+				throw new JsonParsingException("{ or [, starting an object or array", token);
 
-			check(TokenType.EOF);
+			token.check(TokenType.EOF);
 
 			return result;
 		}
 
-		public JsonObject parseObject()
+		private JsonObject parseObject()
 		{
 			JsonObject jsonObject = new JsonObject();
 
-			checkAndAdvance(TokenType.LEFT_BRACE);
+			token.checkAndAdvance(TokenType.LEFT_BRACE);
 
 			// Handle the empty object case here (which makes the code below simpler)
 			if (token.Type == TokenType.RIGHT_BRACE)
@@ -52,12 +58,12 @@ namespace jsimple.json
 				object nameObject = token.PrimitiveValue;
 
 				if (!(nameObject is string))
-					throw new JsonParsingException("string for object key", token.Description, token);
+					throw new JsonParsingException("string for object key", token);
 
 				string name = (string) nameObject;
 				advance();
 
-				checkAndAdvance(TokenType.COLON);
+				token.checkAndAdvance(TokenType.COLON);
 
 				object value = parseValue();
 
@@ -71,7 +77,7 @@ namespace jsimple.json
 				else if (token.Type == TokenType.COMMA)
 					advance();
 				else
-					throw new JsonParsingException(", or }", token.Description, token);
+					throw new JsonParsingException(", or }", token);
 			}
 
 			return jsonObject;
@@ -92,7 +98,7 @@ namespace jsimple.json
 			else if (lookahead == TokenType.LEFT_BRACKET)
 				value = parseArray();
 			else
-				throw new JsonParsingException("primitive type, object, or array", token.Description, token);
+				throw new JsonParsingException("primitive type, object, or array", token);
 
 			return value;
 		}
@@ -101,7 +107,7 @@ namespace jsimple.json
 		{
 			JsonArray jsonArray = new JsonArray();
 
-			checkAndAdvance(TokenType.LEFT_BRACKET);
+			token.checkAndAdvance(TokenType.LEFT_BRACKET);
 
 			// Handle the empty array case here (which makes the code below simpler)
 			if (token.Type == TokenType.RIGHT_BRACKET)
@@ -124,31 +130,10 @@ namespace jsimple.json
 				else if (token.Type == TokenType.COMMA)
 					advance();
 				else
-					throw new JsonParsingException(", or ]", token.Description, token);
+					throw new JsonParsingException(", or ]", token);
 			}
 
 			return jsonArray;
-		}
-
-		/// <summary>
-		/// Validate that the token is the expected type (throwing an exception if it isn't), then advance to the next
-		/// token.
-		/// </summary>
-		/// <param name="expectedType"> expected token type </param>
-		public void checkAndAdvance(TokenType expectedType)
-		{
-			check(expectedType);
-			token.advance();
-		}
-
-		/// <summary>
-		/// Validate that the token is the expected type (throwing an exception if it isn't).
-		/// </summary>
-		/// <param name="expectedType"> expected token type </param>
-		public void check(TokenType expectedType)
-		{
-			if (token.Type != expectedType)
-				throw new JsonParsingException(Token.getTokenTypeDescription(expectedType), token.Description, token);
 		}
 
 		/// <summary>

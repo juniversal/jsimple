@@ -1,23 +1,29 @@
 package jsimple.json.text;
 
+import jsimple.io.Reader;
 import jsimple.json.JsonException;
 import jsimple.json.objectmodel.JsonNull;
+
 
 /**
  * @author Bret Johnson
  * @since 5/6/12 12:18 AM
  */
 public final class Token {
-    private String json;
-    private int jsonLength;
+    private Reader reader;
+    private char[] buffer = new char[BUFFER_SIZE];
+    private int bufferLength;
+    private int currIndex;      // Next character to be processed
     private TokenType type;
     private Object primitiveValue;
-    private int currIndex;  // Next character to be processed
+    private StringBuilder checkAndAdvanceBuffer = new StringBuilder();
 
-    public Token(String json) {
-        this.json = json;
-        jsonLength = json.length();
+    private static final int BUFFER_SIZE = 256;
+
+    public Token(Reader reader) {
+        this.reader = reader;
         currIndex = 0;
+        bufferLength = 0;
 
         // Initialize to avoid warnings
         type = TokenType.PRIMITIVE;
@@ -153,15 +159,15 @@ public final class Token {
     private void checkAndAdvancePast(String expected) {
         int length = expected.length();
 
-        if (currIndex + length > json.length())
-            throw new JsonParsingException(quote(expected), quote(json.substring(currIndex, json.length())));
+        checkAndAdvanceBuffer.setLength(0);
+        for (int i = 0; i < length; ++i) {
+            char c = readChar();
+            if (c != '\0')
+                checkAndAdvanceBuffer.append(c);
+        }
 
-        String encountered = json.substring(currIndex, currIndex + length);
-
-        if (!expected.equals(encountered))
-            throw new JsonParsingException(quote(expected), quote(encountered));
-
-        currIndex += length;
+        if (! expected.contentEquals(checkAndAdvanceBuffer))
+            throw new JsonParsingException(quote(expected), quote(checkAndAdvanceBuffer.toString()));
     }
 
     /**
@@ -241,15 +247,30 @@ public final class Token {
     }
 
     private char lookaheadChar() {
-        if (currIndex >= jsonLength)
-            return '\0';
-        return json.charAt(currIndex);
+        if (currIndex < bufferLength)
+            return buffer[currIndex];
+        else {
+            int amountRead = reader.read(buffer);
+
+            currIndex = 0;
+            if (amountRead == -1 || amountRead == 0) {
+                bufferLength = 0;
+                return '\0';
+            } else {
+                bufferLength = amountRead;
+                return buffer[currIndex];
+            }
+        }
     }
 
     private char readChar() {
-        if (currIndex >= jsonLength)
-            return '\0';
-        return json.charAt(currIndex++);
+        if (currIndex < bufferLength)
+            return buffer[currIndex++];
+        else {
+            char c = lookaheadChar();
+            ++currIndex;
+            return c;
+        }
     }
 
     private char readUnicodeChar() {
