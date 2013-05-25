@@ -10,12 +10,32 @@ namespace jsimple.io
 		public abstract InputStream openForRead();
 
 		/// <summary>
+		/// This is a convenience method to open a UTF8 text file for read.  It does the same thing as calling {@code new
+		/// Utf8InputStreamReader(openForRead())}.
+		/// </summary>
+		/// <returns> Utf8InputStreamReader for reading from this text file </returns>
+		public virtual Utf8InputStreamReader openUtf8ForRead()
+		{
+			return new Utf8InputStreamReader(openForRead());
+		}
+
+		/// <summary>
 		/// Open the file for writing.  If the file already exists, it is truncated.  If the file doesn't exist, it is
 		/// created (assuming Directory.createFile was called to get this File object, otherwise the results are undefined).
 		/// Note that the current JSimple file I/O model is that files, when written, are completely rewritten.
 		/// </summary>
 		/// <returns> output stream, to write the file contents </returns>
 		public abstract OutputStream openForCreate();
+
+		/// <summary>
+		/// This is a convenience method to open a UTF8 text file for writing.  It does the same thing as calling {@code new
+		/// Utf8OutputStreamWriter(openForWrite())}.
+		/// </summary>
+		/// <returns> Utf8OutputStreamWriter for writing to this text file </returns>
+		public virtual Utf8OutputStreamWriter openUtf8ForCreate()
+		{
+			return new Utf8OutputStreamWriter(openForCreate());
+		}
 
 		/*
 		public abstract File getAtomicFile();
