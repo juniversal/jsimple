@@ -55,7 +55,7 @@ namespace jsimple.json
 			assertEquals(JsonNull.singleton, token.PrimitiveValue);
 			token.advance();
 
-			validateParsingException("'true'", "'traf'", "traffic sdf sdf sd  sdfs df");
+			validateParsingException("'true'", "'tra'", "traffic sdf sdf sd  sdfs df");
 			validateParsingException("'true'", "'trx'", "trx");
 			validateParsingException("'true'", "'tr'", "tr");
 			validateParsingException("'true'", "'tr\\r'", "tr\r");

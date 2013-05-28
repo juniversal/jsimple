@@ -10,7 +10,7 @@ public class JsonBooleanProperty extends JsonProperty {
     }
 
     public boolean readValue(JsonObjectReader objectReader) {
-        return (Boolean) objectReader.readPropertyValue();
+        return (boolean) (Boolean) objectReader.readPropertyValue();
     }
 
     @Override public Object readValueUntyped(JsonObjectReader objectReader) {
@@ -18,6 +18,6 @@ public class JsonBooleanProperty extends JsonProperty {
     }
 
     public void write(JsonObjectWriter objectWriter, boolean value) {
-        objectWriter.write(this, value);
+        objectWriter.writeProperty(this, value);
     }
 }

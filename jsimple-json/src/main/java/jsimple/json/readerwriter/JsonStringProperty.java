@@ -18,6 +18,6 @@ public class JsonStringProperty extends JsonProperty {
     }
 
     public void write(JsonObjectWriter objectWriter, String value) {
-        objectWriter.write(this, value);
+        objectWriter.writeProperty(this, value);
     }
 }

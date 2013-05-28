@@ -11,7 +11,7 @@ public class JsonLongProperty extends JsonProperty {
 
     // TODO: Automatically convert int to long
     public long readValue(JsonObjectReader objectReader) {
-        return (Long) objectReader.readPropertyValue();
+        return (long) (Long) objectReader.readPropertyValue();
     }
 
     @Override public Object readValueUntyped(JsonObjectReader objectReader) {
@@ -19,6 +19,6 @@ public class JsonLongProperty extends JsonProperty {
     }
 
     public void write(JsonObjectWriter objectWriter, long value) {
-        objectWriter.write(this, value);
+        objectWriter.writeProperty(this, value);
     }
 }

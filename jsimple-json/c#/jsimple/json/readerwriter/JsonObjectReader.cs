@@ -1,11 +1,9 @@
 namespace jsimple.json.readerwriter
 {
 
-	using JsonNull = jsimple.json.objectmodel.JsonNull;
 	using JsonParsingException = jsimple.json.text.JsonParsingException;
 	using Token = jsimple.json.text.Token;
 	using TokenType = jsimple.json.text.TokenType;
-
 
 	/// <summary>
 	/// JsonObjectReader lets the caller parse the items in an array one by one, iterating through them & processing them as
@@ -62,15 +60,16 @@ namespace jsimple.json.readerwriter
 
 		public virtual object readPropertyValue()
 		{
-			switch (token.Type)
+			TokenType type = token.Type;
+			switch (type)
 			{
-				case PRIMITIVE:
+				case TokenType.PRIMITIVE:
 					object value = token.PrimitiveValue;
 					token.advance();
 					return value;
-				case LEFT_BRACKET:
+				case TokenType.LEFT_BRACKET:
 					return new JsonArrayReader(token);
-				case LEFT_BRACE:
+				case TokenType.LEFT_BRACE:
 					return new JsonObjectReader(token);
 				default:
 					if (atEnd())

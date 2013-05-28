@@ -50,7 +50,7 @@ public class JsonArrayReader {
     }
 
     public boolean readBoolean() {
-        return (Boolean) readPrimitive();
+        return (boolean) (Boolean) readPrimitive();
     }
 
     public String readString() {
@@ -58,12 +58,12 @@ public class JsonArrayReader {
     }
 
     public int readInt() {
-        return (Integer) readPrimitive();
+        return (int) (Integer) readPrimitive();
     }
 
     // TODO: Automatically convert int to long
     public long readLong() {
-        return (Long) readPrimitive();
+        return (long) (Long) readPrimitive();
     }
 
     public JsonObjectReader readObject() {

@@ -14,7 +14,7 @@ namespace jsimple.json.readerwriter
 		// TODO: Automatically convert int to long
 		public virtual long readValue(JsonObjectReader objectReader)
 		{
-			return (long?) objectReader.readPropertyValue();
+			return (long)(long?) objectReader.readPropertyValue();
 		}
 
 		public override object readValueUntyped(JsonObjectReader objectReader)
@@ -24,7 +24,7 @@ namespace jsimple.json.readerwriter
 
 		public virtual void write(JsonObjectWriter objectWriter, long value)
 		{
-			objectWriter.write(this, value);
+			objectWriter.writeProperty(this, value);
 		}
 	}
 

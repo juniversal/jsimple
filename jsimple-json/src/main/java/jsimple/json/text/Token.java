@@ -16,7 +16,6 @@ public final class Token {
     private int currIndex;      // Next character to be processed
     private TokenType type;
     private Object primitiveValue;
-    private StringBuilder checkAndAdvanceBuffer = new StringBuilder();
 
     private static final int BUFFER_SIZE = 256;
 
@@ -159,15 +158,15 @@ public final class Token {
     private void checkAndAdvancePast(String expected) {
         int length = expected.length();
 
-        checkAndAdvanceBuffer.setLength(0);
         for (int i = 0; i < length; ++i) {
             char c = readChar();
-            if (c != '\0')
-                checkAndAdvanceBuffer.append(c);
+            if (c != expected.charAt(i)) {
+                String encountered = expected.substring(0, i);
+                if (c != '\0')
+                    encountered += c;
+                throw new JsonParsingException(quote(expected), quote(encountered));
+            }
         }
-
-        if (! expected.contentEquals(checkAndAdvanceBuffer))
-            throw new JsonParsingException(quote(expected), quote(checkAndAdvanceBuffer.toString()));
     }
 
     /**

@@ -23,7 +23,7 @@ namespace jsimple.json.readerwriter
 
 		public virtual void write(JsonObjectWriter objectWriter, string value)
 		{
-			objectWriter.write(this, value);
+			objectWriter.writeProperty(this, value);
 		}
 	}
 

@@ -1,7 +1,6 @@
 namespace jsimple.json.readerwriter
 {
 
-	using JsonObjectOrArray = jsimple.json.objectmodel.JsonObjectOrArray;
 	using Serializer = jsimple.json.text.Serializer;
 
 	/// <summary>
@@ -17,11 +16,12 @@ namespace jsimple.json.readerwriter
 	/// @author Bret Johnson
 	/// @since 7/29/12 3:08 PM
 	/// </summary>
-	public class JsonArrayWriter
+	public class JsonArrayWriter : jsimple.lang.AutoCloseable
 	{
 		internal Serializer serializer;
-		internal bool outputSomething = false;
 		internal bool flushWhenDone = false;
+		internal bool singleLine = false;
+		internal bool outputSomething = false;
 
 		public JsonArrayWriter(Serializer serializer)
 		{
@@ -34,15 +34,28 @@ namespace jsimple.json.readerwriter
 			this.flushWhenDone = flushWhenDone;
 		}
 
+		public virtual bool SingleLine
+		{
+			get
+			{
+				return singleLine;
+			}
+			set
+			{
+				this.singleLine = value;
+			}
+		}
+
+
 		/// <summary>
 		/// Add a value to the array, serializing it.  value can be any valid JSON value class (JsonObject, JsonArray,
 		/// String, Integer, Long, Boolean, or JsonNull).
 		/// </summary>
 		/// <param name="value"> JSON value for array item </param>
-		public virtual void writePrimitive(object value)
+		public virtual void writeValue(object value)
 		{
 			writeElementPrefix();
-			serializer.appendPrimitive(value);
+			serializer.writeValue(value);
 		}
 
 		public virtual JsonObjectWriter writeObject()
@@ -59,156 +72,55 @@ namespace jsimple.json.readerwriter
 
 		private void writeElementPrefix()
 		{
-			if (!outputSomething)
+			if (singleLine)
 			{
-				serializer.appendRaw("[\n");
-				serializer.indent(2);
-				outputSomething = true;
+				if (!outputSomething)
+				{
+					serializer.write("[");
+					outputSomething = true;
+				}
+				else
+					serializer.write(", ");
 			}
 			else
-				serializer.appendRaw(",\n");
+			{
+				if (!outputSomething)
+				{
+					serializer.write("[\n");
+					serializer.indent(2);
+					outputSomething = true;
+				}
+				else
+					serializer.write(",\n");
 
-			serializer.appendIndent();
+				serializer.writeIndent();
+			}
 		}
 
 		/// <summary>
 		/// Finish the serialization, outputting the closing bracket and returning the resulting string.
 		/// </summary>
 		/// <returns> string containing JSON text for entire serialized array </returns>
-		public virtual void done()
+		public override void close()
 		{
 			if (!outputSomething)
-				serializer.appendRaw("[]");
+				serializer.write("[]");
 			else
 			{
-				serializer.appendRaw("\n");
-				serializer.indent(-2);
-				serializer.appendIndent();
-				serializer.appendRaw("]");
+				if (singleLine)
+					serializer.write("]");
+				else
+				{
+					serializer.write("\n");
+					serializer.indent(-2);
+					serializer.writeIndent();
+					serializer.write("]");
+				}
 			}
 
 			if (flushWhenDone)
 				serializer.flush();
 		}
-
-		/// <summary>
-		/// Serialize an entire JSON root object.  If this method is called, generally none of other append methods are used
-		/// by the caller.
-		/// </summary>
-		/// <param name="jsonObjectOrArray"> JSON root object to serialize </param>
-		public virtual void serialize(JsonObjectOrArray jsonObjectOrArray)
-		{
-			writePrimitive(jsonObjectOrArray);
-			serializer.appendRaw("\n"); // Terminate the last line
-		}
-
-	/*
-	    */
-	/// <summary>
-	/// Append a JSON object.  Each name/value pair is output on a separate line, indented by two spaces.  If the object
-	/// is empty, just "{}" is appended.
-	/// </summary>
-	/// <param name="jsonObject"> object to append </param>
-	//JAVA TO C# CONVERTER NOTE: Beginning of line comments are not maintained by Java to C# Converter:
-	//ORIGINAL LINE: 
-	 internal * int size = jsonObject.size();
-			if (size == 0)
-				text.append("{}");
-			else
-			{
-				text.append("{\n");
-				indent += 2;
-
-				for (int i = 0; i < size; ++i)
-				{
-					appendIndent();
-
-					appendString(jsonObject.getName(i));
-					writePrimitive(": ");
-					writePrimitive(jsonObject.getValue(i));
-
-					if (i < size - 1)
-						text.append(",\n");
-					else
-						text.append("\n");
-				}
-
-				indent -= 2;
-				appendIndent();
-				text.append("}");
-			}
-	}
-
-		*/ * int size = array.size();
-	/// <summary>
-	/// Append a JSON array.  If the array is empty or its elements are all simple objects (that is, literals or embedded
-	/// objects/arrays that are empty), then output it all on one line.  Otherwise, each array element is on a separate
-	/// line.
-	/// </summary>
-	/// <param name="array"> array to append </param>
-	//JAVA TO C# CONVERTER NOTE: Beginning of line comments are not maintained by Java to C# Converter:
-	//ORIGINAL LINE: 
-			if (size == 0)
-				text.append("[]");
-			else
-			{
-				bool allSimpleObjects = true;
-
-				for (int i = 0; i < size; ++i)
-				{
-					object item = array.get(i);
-
-					if (item is JsonObject && ((JsonObject) item).size() > 0)
-					{
-						allSimpleObjects = false;
-						break;
-					}
-					else if (item is JsonArray && ((JsonArray) item).size() > 0)
-					{
-						allSimpleObjects = false;
-						break;
-					}
-				}
-
-				bool useMultipleLines = !allSimpleObjects;
-
-				text.append("[");
-
-				if (useMultipleLines)
-				{
-					text.append("\n");
-					indent += 2;
-
-					for (int i = 0; i < size; ++i)
-					{
-						appendIndent();
-
-						writePrimitive(array.get(i));
-
-						if (i < size - 1)
-							text.append(",\n");
-						else
-							text.append("\n");
-					}
-
-					indent -= 2;
-					appendIndent();
-				}
-				else
-				{
-					for (int i = 0; i < size; ++i)
-					{
-						writePrimitive(array.get(i));
-
-						if (i < size - 1)
-							text.append(", ");
-					}
-				}
-
-				text.append(']');
-			}
-}
-	*/
 	}
 
 }

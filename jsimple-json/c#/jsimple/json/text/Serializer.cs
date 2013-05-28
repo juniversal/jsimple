@@ -5,7 +5,6 @@ namespace jsimple.json.text
 	using JsonArray = jsimple.json.objectmodel.JsonArray;
 	using JsonNull = jsimple.json.objectmodel.JsonNull;
 	using JsonObject = jsimple.json.objectmodel.JsonObject;
-	using JsonObjectOrArray = jsimple.json.objectmodel.JsonObjectOrArray;
 
 	/// <summary>
 	/// @author Bret Johnson
@@ -27,22 +26,10 @@ namespace jsimple.json.text
 			indent_Renamed = 0;
 		}
 
-		/// <summary>
-		/// Serialize an entire JSON root object.  If this method is called, generally none of other append methods are used
-		/// by the caller.
-		/// </summary>
-		/// <param name="jsonObjectOrArray"> JSON root object to serialize </param>
-		public void serialize(JsonObjectOrArray jsonObjectOrArray)
-		{
-			append(jsonObjectOrArray);
-			write("\n"); // Terminate the last line
-			flush();
-		}
-
-		public void appendPrimitive(object obj)
+		public void writeValue(object obj)
 		{
 			if (obj is string)
-				appendString((string) obj);
+				writeString((string) obj);
 			else if (obj is int? || obj is long?)
 				write(obj.ToString());
 			else if (obj is bool?)
@@ -50,28 +37,22 @@ namespace jsimple.json.text
 				bool booleanValue = (bool)(bool?) obj;
 				write(booleanValue ? "true" : "false");
 			}
+			else if (obj is JsonObject)
+				writeJsonObject((JsonObject) obj);
+			else if (obj is JsonArray)
+				writeJsonArray((JsonArray) obj);
 			else if (obj is JsonNull)
 				write("null");
 			else
 				throw new JsonException("Unexpected JSON object type");
 		}
 
-		public void append(object obj)
-		{
-			if (obj is JsonObject)
-				appendJsonObject((JsonObject) obj);
-			else if (obj is JsonArray)
-				appendJsonArray((JsonArray) obj);
-			else
-				appendPrimitive(obj);
-		}
-
 		/// <summary>
-		/// Append a JSON object.  Each name/value pair is output on a separate line, indented by two spaces.  If the object
+		/// Write a JSON object.  Each name/value pair is output on a separate line, indented by two spaces.  If the object
 		/// is empty, just "{}" is appended.
 		/// </summary>
 		/// <param name="jsonObject"> object to append </param>
-		public void appendJsonObject(JsonObject jsonObject)
+		public void writeJsonObject(JsonObject jsonObject)
 		{
 			int size = jsonObject.size();
 			if (size == 0)
@@ -83,11 +64,11 @@ namespace jsimple.json.text
 
 				for (int i = 0; i < size; ++i)
 				{
-					appendIndent();
+					writeIndent();
 
-					appendString(jsonObject.getName(i));
-					appendRaw(": ");
-					append(jsonObject.getValue(i));
+					writeString(jsonObject.getName(i));
+					write(": ");
+					writeValue(jsonObject.getValue(i));
 
 					if (i < size - 1)
 						write(",\n");
@@ -96,7 +77,7 @@ namespace jsimple.json.text
 				}
 
 				indent_Renamed -= 2;
-				appendIndent();
+				writeIndent();
 				write("}");
 			}
 		}
@@ -107,7 +88,7 @@ namespace jsimple.json.text
 		/// line.
 		/// </summary>
 		/// <param name="array"> array to append </param>
-		public void appendJsonArray(JsonArray array)
+		public void writeJsonArray(JsonArray array)
 		{
 			int size = array.size();
 			if (size == 0)
@@ -143,9 +124,9 @@ namespace jsimple.json.text
 
 					for (int i = 0; i < size; ++i)
 					{
-						appendIndent();
+						writeIndent();
 
-						append(array.get(i));
+						writeValue(array.get(i));
 
 						if (i < size - 1)
 							write(",\n");
@@ -154,13 +135,13 @@ namespace jsimple.json.text
 					}
 
 					indent_Renamed -= 2;
-					appendIndent();
+					writeIndent();
 				}
 				else
 				{
 					for (int i = 0; i < size; ++i)
 					{
-						append(array.get(i));
+						writeValue(array.get(i));
 
 						if (i < size - 1)
 							write(", ");
@@ -174,15 +155,15 @@ namespace jsimple.json.text
 		/// <summary>
 		/// Append spaces for the current indent.
 		/// </summary>
-		public void appendIndent()
+		public void writeIndent()
 		{
 			for (int i = 0; i < indent_Renamed; ++i)
 				write(' ');
 		}
 
-		public void appendString(string @string)
+		public void writeString(string @string)
 		{
-			write("\"");
+			write('\"');
 
 			int length = @string.Length;
 			for (int i = 0; i < length; ++i)
@@ -222,7 +203,7 @@ namespace jsimple.json.text
 
 					default:
 						if (Token.isControlCharacter(c))
-							appendUnicodeEscape(c);
+							writeUnicodeEscape(c);
 						else
 							write(c);
 						break;
@@ -232,17 +213,17 @@ namespace jsimple.json.text
 			write("\"");
 		}
 
-		public void appendUnicodeEscape(char c)
+		public void writeUnicodeEscape(char c)
 		{
 			write("\\u");
 
-			appendHexDigit((int)((uint)(c & 0xF000) >> 12));
-			appendHexDigit((int)((uint)(c & 0x0F00) >> 8));
-			appendHexDigit((int)((uint)(c & 0x00F0) >> 4));
-			appendHexDigit(c & 0x000F);
+			writeHexDigit((int)((uint)(c & 0xF000) >> 12));
+			writeHexDigit((int)((uint)(c & 0x0F00) >> 8));
+			writeHexDigit((int)((uint)(c & 0x00F0) >> 4));
+			writeHexDigit(c & 0x000F);
 		}
 
-		public void appendHexDigit(int hexDigit)
+		public void writeHexDigit(int hexDigit)
 		{
 			if (hexDigit <= 9)
 				write((char)('0' + hexDigit));
@@ -252,12 +233,7 @@ namespace jsimple.json.text
 				throw new JsonException("Hex digit out of range: {}", hexDigit);
 		}
 
-		public void appendRaw(string rawText)
-		{
-			write(rawText);
-		}
-
-		private void write(string s)
+		public void write(string s)
 		{
 			int length = s.Length;
 			for (int i = 0; i < length; i++)

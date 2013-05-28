@@ -59,7 +59,7 @@ namespace jsimple.json.readerwriter
 
 		public virtual bool readBoolean()
 		{
-			return (bool?) readPrimitive();
+			return (bool)(bool?) readPrimitive();
 		}
 
 		public virtual string readString()
@@ -69,13 +69,13 @@ namespace jsimple.json.readerwriter
 
 		public virtual int readInt()
 		{
-			return (int?) readPrimitive();
+			return (int)(int?) readPrimitive();
 		}
 
 		// TODO: Automatically convert int to long
 		public virtual long readLong()
 		{
-			return (long?) readPrimitive();
+			return (long)(long?) readPrimitive();
 		}
 
 		public virtual JsonObjectReader readObject()

@@ -67,8 +67,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="HashMapGetHelperClass.cs" />
     <Compile Include="jsimple\**\*.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\jsimple-io\c#\jsimple-io.csproj">
+      <Project>{0271a18c-eeac-4cac-bf2e-89a693b354ef}</Project>
+      <Name>jsimple-io</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\jsimple-util\c#\jsimple-util.csproj">
+      <Project>{7de38eb4-9d6a-4d5a-ae5f-4769befbda74}</Project>
+      <Name>jsimple-util</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

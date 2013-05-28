@@ -14,16 +14,18 @@ namespace jsimple.json.objectmodel
 	/// </summary>
 	public abstract class JsonObjectOrArray
 	{
-		public virtual void serialize(Writer writer)
+		public virtual void write(Writer writer)
 		{
 			Serializer serializer = new Serializer(writer);
-			serializer.serialize(this);
+			serializer.writeValue(this);
+			serializer.write("\n"); // Terminate the last line
+			serializer.flush();
 		}
 
 		public override string ToString()
 		{
 			StringWriter stringWriter = new StringWriter();
-			serialize(stringWriter);
+			write(stringWriter);
 			return stringWriter.ToString();
 		}
 	}

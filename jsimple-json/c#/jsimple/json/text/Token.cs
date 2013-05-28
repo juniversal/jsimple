@@ -19,7 +19,6 @@ namespace jsimple.json.text
 		private int currIndex; // Next character to be processed
 		private TokenType type;
 		private object primitiveValue;
-		private StringBuilder checkAndAdvanceBuffer = new StringBuilder();
 
 		private const int BUFFER_SIZE = 256;
 
@@ -183,16 +182,17 @@ namespace jsimple.json.text
 		{
 			int length = expected.Length;
 
-			checkAndAdvanceBuffer.Length = 0;
 			for (int i = 0; i < length; ++i)
 			{
 				char c = readChar();
-				if (c != '\0')
-					checkAndAdvanceBuffer.Append(c);
+				if (c != expected[i])
+				{
+					string encountered = expected.Substring(0, i);
+					if (c != '\0')
+						encountered += c;
+					throw new JsonParsingException(quote(expected), quote(encountered));
+				}
 			}
-
-			if (!expected.contentEquals(checkAndAdvanceBuffer))
-				throw new JsonParsingException(quote(expected), quote(checkAndAdvanceBuffer.ToString()));
 		}
 
 		/// <summary>

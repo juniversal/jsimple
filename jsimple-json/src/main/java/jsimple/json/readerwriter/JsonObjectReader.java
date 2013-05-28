@@ -1,11 +1,9 @@
 package jsimple.json.readerwriter;
 
 import jsimple.json.JsonException;
-import jsimple.json.objectmodel.JsonNull;
 import jsimple.json.text.JsonParsingException;
 import jsimple.json.text.Token;
 import jsimple.json.text.TokenType;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * JsonObjectReader lets the caller parse the items in an array one by one, iterating through them & processing them as
@@ -56,7 +54,8 @@ public class JsonObjectReader {
     }
 
     public Object readPropertyValue() {
-        switch (token.getType()) {
+        TokenType type = token.getType();
+        switch (type) {
             case PRIMITIVE:
                 Object value = token.getPrimitiveValue();
                 token.advance();

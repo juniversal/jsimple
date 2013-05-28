@@ -12,14 +12,16 @@ import jsimple.json.text.Serializer;
  * @since 7/8/12 1:56 PM
  */
 abstract public class JsonObjectOrArray {
-    public void serialize(Writer writer) {
+    public void write(Writer writer) {
         Serializer serializer = new Serializer(writer);
-        serializer.serialize(this);
+        serializer.writeValue(this);
+        serializer.write("\n");    // Terminate the last line
+        serializer.flush();
     }
 
     @Override public String toString() {
         StringWriter stringWriter = new StringWriter();
-        serialize(stringWriter);
+        write(stringWriter);
         return stringWriter.toString();
     }
 }

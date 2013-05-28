@@ -13,7 +13,7 @@ namespace jsimple.json.readerwriter
 
 		public virtual bool readValue(JsonObjectReader objectReader)
 		{
-			return (bool?) objectReader.readPropertyValue();
+			return (bool)(bool?) objectReader.readPropertyValue();
 		}
 
 		public override object readValueUntyped(JsonObjectReader objectReader)
@@ -23,7 +23,7 @@ namespace jsimple.json.readerwriter
 
 		public virtual void write(JsonObjectWriter objectWriter, bool value)
 		{
-			objectWriter.write(this, value);
+			objectWriter.writeProperty(this, value);
 		}
 	}
 

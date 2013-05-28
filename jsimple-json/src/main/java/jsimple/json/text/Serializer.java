@@ -5,7 +5,6 @@ import jsimple.json.JsonException;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonNull;
 import jsimple.json.objectmodel.JsonObject;
-import jsimple.json.objectmodel.JsonObjectOrArray;
 
 /**
  * @author Bret Johnson
@@ -25,46 +24,30 @@ public final class Serializer {
         indent = 0;
     }
 
-    /**
-     * Serialize an entire JSON root object.  If this method is called, generally none of other append methods are used
-     * by the caller.
-     *
-     * @param jsonObjectOrArray JSON root object to serialize
-     */
-    public void serialize(JsonObjectOrArray jsonObjectOrArray) {
-        append(jsonObjectOrArray);
-        write("\n");    // Terminate the last line
-        flush();
-    }
-
-    public void appendPrimitive(Object obj) {
+    public void writeValue(Object obj) {
         if (obj instanceof String)
-            appendString((String) obj);
+            writeString((String) obj);
         else if (obj instanceof Integer || obj instanceof Long)
             write(obj.toString());
         else if (obj instanceof Boolean) {
             boolean booleanValue = (boolean) (Boolean) obj;
             write(booleanValue ? "true" : "false");
-        } else if (obj instanceof JsonNull)
+        } else if (obj instanceof JsonObject)
+            writeJsonObject((JsonObject) obj);
+        else if (obj instanceof JsonArray)
+            writeJsonArray((JsonArray) obj);
+        else if (obj instanceof JsonNull)
             write("null");
         else throw new JsonException("Unexpected JSON object type");
     }
 
-    public void append(Object obj) {
-        if (obj instanceof JsonObject)
-            appendJsonObject((JsonObject) obj);
-        else if (obj instanceof JsonArray)
-            appendJsonArray((JsonArray) obj);
-        else appendPrimitive(obj);
-    }
-
     /**
-     * Append a JSON object.  Each name/value pair is output on a separate line, indented by two spaces.  If the object
+     * Write a JSON object.  Each name/value pair is output on a separate line, indented by two spaces.  If the object
      * is empty, just "{}" is appended.
      *
      * @param jsonObject object to append
      */
-    public void appendJsonObject(JsonObject jsonObject) {
+    public void writeJsonObject(JsonObject jsonObject) {
         int size = jsonObject.size();
         if (size == 0)
             write("{}");
@@ -73,11 +56,11 @@ public final class Serializer {
             indent += 2;
 
             for (int i = 0; i < size; ++i) {
-                appendIndent();
+                writeIndent();
 
-                appendString(jsonObject.getName(i));
-                appendRaw(": ");
-                append(jsonObject.getValue(i));
+                writeString(jsonObject.getName(i));
+                write(": ");
+                writeValue(jsonObject.getValue(i));
 
                 if (i < size - 1)
                     write(",\n");
@@ -85,7 +68,7 @@ public final class Serializer {
             }
 
             indent -= 2;
-            appendIndent();
+            writeIndent();
             write("}");
         }
     }
@@ -97,7 +80,7 @@ public final class Serializer {
      *
      * @param array array to append
      */
-    public void appendJsonArray(JsonArray array) {
+    public void writeJsonArray(JsonArray array) {
         int size = array.size();
         if (size == 0)
             write("[]");
@@ -125,9 +108,9 @@ public final class Serializer {
                 indent += 2;
 
                 for (int i = 0; i < size; ++i) {
-                    appendIndent();
+                    writeIndent();
 
-                    append(array.get(i));
+                    writeValue(array.get(i));
 
                     if (i < size - 1)
                         write(",\n");
@@ -135,10 +118,10 @@ public final class Serializer {
                 }
 
                 indent -= 2;
-                appendIndent();
+                writeIndent();
             } else {
                 for (int i = 0; i < size; ++i) {
-                    append(array.get(i));
+                    writeValue(array.get(i));
 
                     if (i < size - 1)
                         write(", ");
@@ -152,13 +135,13 @@ public final class Serializer {
     /**
      * Append spaces for the current indent.
      */
-    public void appendIndent() {
+    public void writeIndent() {
         for (int i = 0; i < indent; ++i)
             write(' ');
     }
 
-    public void appendString(String string) {
-        write("\"");
+    public void writeString(String string) {
+        write('\"');
 
         int length = string.length();
         for (int i = 0; i < length; ++i) {
@@ -196,7 +179,7 @@ public final class Serializer {
 
                 default:
                     if (Token.isControlCharacter(c))
-                        appendUnicodeEscape(c);
+                        writeUnicodeEscape(c);
                     else write(c);
             }
         }
@@ -204,16 +187,16 @@ public final class Serializer {
         write("\"");
     }
 
-    public void appendUnicodeEscape(char c) {
+    public void writeUnicodeEscape(char c) {
         write("\\u");
 
-        appendHexDigit((c & 0xF000) >>> 12);
-        appendHexDigit((c & 0x0F00) >>> 8);
-        appendHexDigit((c & 0x00F0) >>> 4);
-        appendHexDigit(c & 0x000F);
+        writeHexDigit((c & 0xF000) >>> 12);
+        writeHexDigit((c & 0x0F00) >>> 8);
+        writeHexDigit((c & 0x00F0) >>> 4);
+        writeHexDigit(c & 0x000F);
     }
 
-    public void appendHexDigit(int hexDigit) {
+    public void writeHexDigit(int hexDigit) {
         if (hexDigit <= 9)
             write((char) ('0' + hexDigit));
         else if (hexDigit <= 15)
@@ -221,11 +204,7 @@ public final class Serializer {
         else throw new JsonException("Hex digit out of range: {}", hexDigit);
     }
 
-    public void appendRaw(String rawText) {
-        write(rawText);
-    }
-
-    private void write(String s) {
+    public void write(String s) {
         int length = s.length();
         for (int i = 0; i < length; i++)
             write(s.charAt(i));
