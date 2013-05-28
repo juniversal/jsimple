@@ -16,7 +16,7 @@ namespace jsimple.io
 		{
 			Directory applicationDataDirectory = Paths.ApplicationDataDirectory;
 
-			File file = applicationDataDirectory.createFile("testfile.txt");
+			File file = applicationDataDirectory.getFile("testfile.txt");
 
 			createFileWithTestContents(file);
 			validateTestContents(file);

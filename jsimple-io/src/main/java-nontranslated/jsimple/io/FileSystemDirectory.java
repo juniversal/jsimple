@@ -28,10 +28,6 @@ public class FileSystemDirectory extends Directory {
         return new FileSystemFile(this, javaPath.resolve(name));
     }
 
-    @Override public File createFile(String name) {
-        return new FileSystemFile(this, javaPath.resolve(name));
-    }
-
     @Override public Directory getDirectory(String name) {
         return new FileSystemDirectory(javaPath.resolve(name));
     }

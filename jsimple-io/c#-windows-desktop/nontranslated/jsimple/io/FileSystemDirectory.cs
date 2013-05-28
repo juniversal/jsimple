@@ -27,11 +27,6 @@ namespace jsimple.io
             return new FileSystemFile(this, getChildPath(name));
         }
 
-        public override File createFile(string name)
-        {
-            return new FileSystemFile(this, getChildPath(name));
-        }
-
         public override Directory getDirectory(string name)
         {
             return new FileSystemDirectory(getChildPath(name));
@@ -48,7 +43,7 @@ namespace jsimple.io
             return new FileSystemDirectory(subdirectoryPath);
         }
 
-        private string getChildPath(string name)
+        public string getChildPath(string name)
         {
             StringBuilder childPath = new StringBuilder(directoryPath);
 

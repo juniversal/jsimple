@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using jsimple.util;
 
 namespace jsimple.io
 {
@@ -81,11 +82,26 @@ namespace jsimple.io
         {
             try
             {
-                System.IO.File.Move(filePath, newName);
+                System.IO.File.Move(filePath, parent.getChildPath(newName));
             }
             catch (System.IO.IOException e)
             {
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
+
+        public override long LastModifiedTime
+        {
+            set
+            {
+                try
+                {
+                    System.IO.File.SetLastWriteTimeUtc(filePath, PlatformUtils.toDotNetDateTimeFromMillis(value));
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
             }
         }
     }

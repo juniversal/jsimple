@@ -2,6 +2,7 @@ package jsimple.io;
 
 import java.io.*;
 import java.nio.file.*;
+import java.nio.file.attribute.FileTime;
 
 import jsimple.io.OutputStream;
 
@@ -71,6 +72,14 @@ public class FileSystemFile extends File {
         java.nio.file.Path newPath = parent.getJavaPath().resolve(newName);
         try {
             Files.move(javaPath, newPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (java.io.IOException e) {
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        }
+    }
+
+    @Override public void setLastModifiedTime(long time) {
+        try {
+            Files.setLastModifiedTime(javaPath, FileTime.fromMillis(time));
         } catch (java.io.IOException e) {
             throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }

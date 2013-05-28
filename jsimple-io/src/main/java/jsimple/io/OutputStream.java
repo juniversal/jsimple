@@ -1,4 +1,4 @@
-  package jsimple.io;
+package jsimple.io;
 
 import jsimple.util.StringUtils;
 import org.jetbrains.annotations.Nullable;
@@ -89,21 +89,28 @@ public abstract class OutputStream extends jsimple.lang.AutoCloseable {
 
     /**
      * Closes this stream, freeing any resources associated with it and then calling the closedListener, if one is set.
+     * If the stream is closed multiple times, the closedListener is called exactly once, on the first close.
      *
      * @throws IOException if an error occurs while closing this stream.
      */
     @Override public final void close() {
         doClose();
 
-        if (closedListener != null)
-            closedListener.onClosed();
+        // If there's a closedListener, null it out (so we don't call it multiple times), then call it.  Note that we
+        // null it out before calling onClosed, so a close() call from inside onClosed won't generate another call
+        // to onClosed.
+        if (closedListener != null) {
+            ClosedListener localClosedListener = closedListener;
+            closedListener = null;
+            localClosedListener.onClosed();
+        }
     }
 
     /**
-     * This is an internal method, implemented by subclasses to close any resources associated with the stream.
-     * The external close() method calls this method, then calls all the closed listeners (if any), assuming this
-     * method didn't throw an exception, to notify of the stream being closed.  Implementations of this method should
-     * free any resources used by the stream.
+     * This is an internal method, implemented by subclasses to close any resources associated with the stream. The
+     * external close() method calls this method, then calls all the closed listeners (if any), assuming this method
+     * didn't throw an exception, to notify of the stream being closed.  Implementations of this method should free any
+     * resources used by the stream.
      *
      * @throws IOException if an error occurs while closing this stream.
      */

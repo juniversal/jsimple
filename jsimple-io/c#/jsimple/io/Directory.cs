@@ -8,26 +8,11 @@ namespace jsimple.io
 	public abstract class Directory : Path
 	{
 		/// <summary>
-		/// Get the file, which must already exist under the directory.  If the file doesn't exist, the results are undefined
-		/// (for some implementations it will fail right away & others will fail later, like when open it for read).
+		/// Get a file under the directory, which may or may not already exist.
 		/// </summary>
 		/// <param name="name"> file name </param>
 		/// <returns> File object, that's a child of this directory </returns>
 		public abstract File getFile(string name);
-
-		/// <summary>
-		/// Create a new file under this directory.  If a file with that name already exists, it will be overwritten.
-		/// File.openForCreate must be called at some point after this method to actually open the file; these methods must
-		/// be called as a pair--if one is called without the other, the results are undefined (meaning they are different
-		/// for different implementations). Some implementations actually create an empty file when this is called, while
-		/// others delay file creation until File.openForCreate is called and the contents are written (which is the
-		/// preferred implementation, as it's generally more efficient).
-		/// <p/>
-		/// TODO: Reconsider this spec
-		/// </summary>
-		/// <param name="name"> file name </param>
-		/// <returns> File object, that's a child of this directory </returns>
-		public abstract File createFile(string name);
 
 		/// <summary>
 		/// Get the child directory, which must already exist under this directory.  If the directory doesn't exist, the

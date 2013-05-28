@@ -19,34 +19,17 @@ namespace jsimple.io
 
         public override string Name
         {
-            get
-            {
-                return storageFolder.Name;
-            }
+            get { return storageFolder.Name; }
+        }
+
+        public StorageFolder StorageFolder
+        {
+            get { return storageFolder; }
         }
 
         public override File getFile(string name)
         {
-            try
-            {
-                return new StorageFileFile(this, storageFolder.GetFileAsync(name).DoSynchronously());
-            }
-            catch (System.IO.IOException e)
-            {
-                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-            }
-        }
-
-        public override File createFile(string name)
-        {
-            try
-            {
-                return new StorageFileFile(this, storageFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting).DoSynchronously());
-            }
-            catch (System.IO.IOException e)
-            {
-                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-            }
+            return new StorageFileFile(this, name);
         }
 
         public override Directory getDirectory(string name)

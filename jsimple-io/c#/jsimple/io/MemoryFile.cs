@@ -15,18 +15,20 @@ namespace jsimple.io
 	{
 		internal MemoryDirectory parent;
 		private string name;
-		private long lastModificationTime;
+		private long lastModifiedTime;
 		private sbyte[] data = null;
 
 		/// <summary>
-		/// Create a new MemoryFile, with the specified name.
+		/// Construct a new MemoryFile, with the specified name.  Note that the MemoryFile doesn't actually exist in the
+		/// "file system" until openForCreate is called, some contents optionally written, and the stream is closed.  The
+		/// file is actually created when the stream is closed.
 		/// </summary>
 		/// <param name="name"> file name </param>
 		public MemoryFile(MemoryDirectory parent, string name)
 		{
 			this.parent = parent;
 			this.name = name;
-			this.lastModificationTime = PlatformUtils.CurrentTimeMillis;
+			this.lastModifiedTime = PlatformUtils.CurrentTimeMillis;
 		}
 
 		public override Directory Parent
@@ -53,7 +55,34 @@ namespace jsimple.io
 		/// <returns> output stream, to write the file contents </returns>
 		public override OutputStream openForCreate()
 		{
-			return new MemoryFileByteArrayOutputStream(this);
+//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
+//ORIGINAL LINE: final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+			byteArrayOutputStream.ClosedListener = new ClosedListenerAnonymousInnerClassHelper(this, byteArrayOutputStream);
+
+			return byteArrayOutputStream;
+		}
+
+		private class ClosedListenerAnonymousInnerClassHelper : ClosedListener
+		{
+			private readonly MemoryFile outerInstance;
+
+			private jsimple.io.ByteArrayOutputStream byteArrayOutputStream;
+
+			public ClosedListenerAnonymousInnerClassHelper(MemoryFile outerInstance, jsimple.io.ByteArrayOutputStream byteArrayOutputStream)
+			{
+				this.outerInstance = outerInstance;
+				this.byteArrayOutputStream = byteArrayOutputStream;
+			}
+
+			public virtual void onClosed()
+			{
+				sbyte[] data = byteArrayOutputStream.closeAndGetByteArray();
+				outerInstance.Data = data;
+
+				outerInstance.parent.addOrReplaceFile(outerInstance);
+			}
 		}
 
 		/// <summary>
@@ -84,15 +113,29 @@ namespace jsimple.io
 			set
 			{
 				this.data = value;
-				this.lastModificationTime = PlatformUtils.CurrentTimeMillis;
+				this.lastModifiedTime = PlatformUtils.CurrentTimeMillis;
 			}
 		}
 
-		public virtual long LastModificationTime
+		public override long LastModifiedTime
+		{
+			set
+			{
+				if (data == null)
+					throw new IOException("File {} hasn't yet been created", name);
+    
+				lastModifiedTime = value;
+			}
+		}
+
+		public virtual long LastModifiedTimeInternal
 		{
 			get
 			{
-				return lastModificationTime;
+				if (data == null)
+					throw new IOException("File {} hasn't yet been created", name);
+    
+				return lastModifiedTime;
 			}
 		}
 
@@ -112,44 +155,13 @@ namespace jsimple.io
 			parent.deleteFile(name);
 		}
 
-		private class MemoryFileByteArrayOutputStream : ByteArrayOutputStream
-		{
-			internal MemoryFile memoryFile;
-			internal bool closed = false;
-
-			public MemoryFileByteArrayOutputStream(MemoryFile memoryFile)
-			{
-				this.memoryFile = memoryFile;
-			}
-
-			/// <summary>
-			/// Closes this stream. This releases system resources used for this stream.  The closed flag is needed so that the
-			/// stream (like any stream) can be closed multiple times, but only the first close actually does anything, grabbing
-			/// the data and saving it off.  Subsequent closes are ignored.
-			/// </summary>
-			protected internal override void doClose()
-			{
-				if (!closed)
-				{
-					// Get the data, making a copy if it's not already the exact length required
-					int[] length = new int[1];
-					sbyte[] data = getByteArray(length);
-					if (data.Length != length[0])
-						data = toByteArray();
-
-					base.doClose();
-
-					memoryFile.Data = data;
-					closed = true;
-				}
-			}
-		}
-
 		public override void rename(string newName)
 		{
+			if (data == null)
+				throw new IOException("File {} hasn't yet been created", name);
 
+			name = newName;
 		}
-
 	}
 
 }

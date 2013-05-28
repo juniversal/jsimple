@@ -3,8 +3,6 @@ package jsimple.io;
 import jsimple.util.PlatformUtils;
 import org.jetbrains.annotations.Nullable;
 
-import java.nio.file.*;
-
 /**
  * A MemoryFile is a File object that exists completely in memory.  It can be used in unit tests, where it can be more
  * convenient to construct directories/files in memory rather than on disk.  It can also be used for "temporary" files.
@@ -15,18 +13,20 @@ import java.nio.file.*;
 public class MemoryFile extends File {
     MemoryDirectory parent;
     private String name;
-    private long lastModificationTime;
+    private long lastModifiedTime;
     private @Nullable byte[] data = null;
 
     /**
-     * Create a new MemoryFile, with the specified name.
+     * Construct a new MemoryFile, with the specified name.  Note that the MemoryFile doesn't actually exist in the
+     * "file system" until openForCreate is called, some contents optionally written, and the stream is closed.  The
+     * file is actually created when the stream is closed.
      *
      * @param name file name
      */
     public MemoryFile(MemoryDirectory parent, String name) {
         this.parent = parent;
         this.name = name;
-        this.lastModificationTime = PlatformUtils.getCurrentTimeMillis();
+        this.lastModifiedTime = PlatformUtils.getCurrentTimeMillis();
     }
 
     @Override public Directory getParent() {
@@ -47,7 +47,18 @@ public class MemoryFile extends File {
      * @return output stream, to write the file contents
      */
     @Override public OutputStream openForCreate() {
-        return new MemoryFileByteArrayOutputStream(this);
+        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        byteArrayOutputStream.setClosedListener(new ClosedListener() {
+            @Override public void onClosed() {
+                byte[] data = byteArrayOutputStream.closeAndGetByteArray();
+                setData(data);
+
+                parent.addOrReplaceFile(MemoryFile.this);
+            }
+        });
+
+        return byteArrayOutputStream;
     }
 
     /**
@@ -73,11 +84,21 @@ public class MemoryFile extends File {
      */
     public void setData(byte[] data) {
         this.data = data;
-        this.lastModificationTime = PlatformUtils.getCurrentTimeMillis();
+        this.lastModifiedTime = PlatformUtils.getCurrentTimeMillis();
     }
 
-    public long getLastModificationTime() {
-        return lastModificationTime;
+    @Override public void setLastModifiedTime(long time) {
+        if (data == null)
+            throw new IOException("File {} hasn't yet been created", name);
+
+        lastModifiedTime = time;
+    }
+
+    public long getLastModifiedTimeInternal() {
+        if (data == null)
+            throw new IOException("File {} hasn't yet been created", name);
+
+        return lastModifiedTime;
     }
 
     public int getSize() {
@@ -91,37 +112,10 @@ public class MemoryFile extends File {
         parent.deleteFile(name);
     }
 
-    private static class MemoryFileByteArrayOutputStream extends ByteArrayOutputStream {
-        private MemoryFile memoryFile;
-        boolean closed = false;
-
-        public MemoryFileByteArrayOutputStream(MemoryFile memoryFile) {
-            this.memoryFile = memoryFile;
-        }
-
-        /**
-         * Closes this stream. This releases system resources used for this stream.  The closed flag is needed so that the
-         * stream (like any stream) can be closed multiple times, but only the first close actually does anything, grabbing
-         * the data and saving it off.  Subsequent closes are ignored.
-         */
-        @Override protected void doClose() {
-            if (!closed) {
-                // Get the data, making a copy if it's not already the exact length required
-                int[] length = new int[1];
-                byte[] data = getByteArray(length);
-                if (data.length != length[0])
-                    data = toByteArray();
-
-                super.doClose();
-
-                memoryFile.setData(data);
-                closed = true;
-            }
-        }
-    }
-
     @Override public void rename(String newName) {
+        if (data == null)
+            throw new IOException("File {} hasn't yet been created", name);
 
+        name = newName;
     }
-
 }

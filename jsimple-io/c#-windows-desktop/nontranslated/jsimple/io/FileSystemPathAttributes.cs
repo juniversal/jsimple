@@ -14,8 +14,7 @@ namespace jsimple.io
 
         public override long LastModifiedTime
         {
-            get { return PlatformUtils.toMillisFromDateTime(fileSystemInfo.LastAccessTimeUtc); }
-
+            get { return PlatformUtils.toMillisFromDateTime(fileSystemInfo.LastWriteTimeUtc); }
         }
 
         public override long Size

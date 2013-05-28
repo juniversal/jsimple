@@ -12,7 +12,7 @@ public class MemoryDirectoryTest extends UnitTest {
     @Test public void testCreateFile() {
         MemoryDirectory rootDirectory = MemoryDirectory.createRootDirectory();
 
-        File file = rootDirectory.createFile("testfile.txt");
+        File file = rootDirectory.getFile("testfile.txt");
 
         createFileWithTestContents(file);
         validateTestContents(file);

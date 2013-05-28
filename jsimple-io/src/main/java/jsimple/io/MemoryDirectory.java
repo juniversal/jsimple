@@ -1,5 +1,6 @@
 package jsimple.io;
 
+import jsimple.util.PlatformUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class MemoryDirectory extends Directory {
     private @Nullable MemoryDirectory parent;
     private String name;
-    private long lastModificationTime;
+    private long lastModifiedTime;
     private ArrayList<MemoryDirectory> subdirectories = new ArrayList<MemoryDirectory>();
     private ArrayList<MemoryFile> files = new ArrayList<MemoryFile>();
 
@@ -20,46 +21,46 @@ public class MemoryDirectory extends Directory {
     }
 
     private MemoryDirectory(@Nullable MemoryDirectory parent, String name) {
+        this.parent = parent;
         this.name = name;
+        this.lastModifiedTime = PlatformUtils.getCurrentTimeMillis();
     }
 
     /**
      * Get the file, which must already exist under the directory.  If the file doesn't exist, the results are undefined
      * (for some implementations it will fail right away & others will fail later, like when open it for read).
      *
-     * @param name file name
+     * @param fileName file name
      * @return File object, that's a child of this directory
      */
-    @Override public File getFile(String name) {
+    @Override public File getFile(String fileName) {
         for (MemoryFile memoryFile : files) {
-            if (memoryFile.getName().equals(name))
+            if (memoryFile.getName().equals(fileName))
                 return memoryFile;
         }
 
-        throw new PathNotFoundException("MemoryFile {} not found", name);
+        return new MemoryFile(this, fileName);
     }
 
     /**
-     * Create a new file under this directory.  If a file with that name already exists, it will be overwritten.
-     * File.openForCreate must be called at some point after this method to actually open the file; these methods must
-     * be called as a pair--if one is called without the other, the results are undefined (meaning they are different
-     * for different implementations). Some implementations actually create an empty file when this is called, while
-     * others delay file creation until File.openForCreate is called and the contents are written (which is the
-     * preferred implementation, as it's generally more efficient).
-     * <p/>
+     * Add the specified file to this directory, replacing a file with the same name if it already exists.  This method
+     * is called from the close handler on the OutputStream returned from MemoryFile.openForCreate, as that's the public
+     * API for creating/updating a file.
      *
-     * @param name file name
-     * @return File object, that's a child of this directory
+     * @param file MemoryFile to add/replace
      */
-    @Override public File createFile(String name) {
-        for (MemoryFile memoryFile : files) {
-            if (memoryFile.getName().equals(name))
-                return memoryFile;
+    void addOrReplaceFile(MemoryFile file) {
+        String fileName = file.getName();
+
+        int length = files.size();
+        for (int i = 0; i < length; i++) {
+            if (files.get(i).getName().equals(fileName)) {
+                files.set(i, file);
+                return;
+            }
         }
 
-        MemoryFile newMemoryFile = new MemoryFile(this, name);
-        files.add(newMemoryFile);
-        return newMemoryFile;
+        files.add(file);
     }
 
     public void deleteFile(String name) {
@@ -126,10 +127,10 @@ public class MemoryDirectory extends Directory {
      */
     @Override public void visitChildren(DirectoryVisitor visitor) {
         for (MemoryFile file : files)
-            visitor.visit(file, new MemoryPathAttributes(file.getLastModificationTime(), file.getSize()));
+            visitor.visit(file, new MemoryPathAttributes(file.getLastModifiedTimeInternal(), file.getSize()));
 
         for (MemoryDirectory subdirectory : subdirectories)
-            visitor.visit(subdirectory, new MemoryPathAttributes(subdirectory.getLastModificationTime(), 0));
+            visitor.visit(subdirectory, new MemoryPathAttributes(subdirectory.getLastModifiedTime(), 0));
     }
 
     /**
@@ -141,8 +142,8 @@ public class MemoryDirectory extends Directory {
         return name;
     }
 
-    public long getLastModificationTime() {
-        return lastModificationTime;
+    public long getLastModifiedTime() {
+        return lastModifiedTime;
     }
 
     @Override public void delete() {
@@ -164,14 +165,14 @@ public class MemoryDirectory extends Directory {
          * @return last time the directory/file was modified, in millis.
          */
         @Override public long getLastModifiedTime() {
-            return 0;  //To change body of implemented methods use File | Settings | File Templates.
+            return lastModifiedTime;
         }
 
         /**
          * @return for a file its size in bytes and for a directory the results are implementation specific
          */
         @Override public long getSize() {
-            return 0;  //To change body of implemented methods use File | Settings | File Templates.
+            return 0;
         }
     }
 }

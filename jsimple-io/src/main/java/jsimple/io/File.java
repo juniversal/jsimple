@@ -36,20 +36,42 @@ public abstract class File extends Path {
         return new Utf8OutputStreamWriter(openForCreate());
     }
 
-    /*
-    public abstract File getAtomicFile();
-    */
-
     public OutputStream openForCreateAtomic() {
+        return openForCreateAtomic(0);
+    }
+
+    /**
+     * Open the file for writing/creating, replacing the current file if it already exists.
+     * <p/>
+     * All writes are first made to a temp file (filename + "-temp" suffix, in the same directory).  When the returned
+     * stream is closed, the new file is committed by renaming the -temp file to the original.  That way, the file is
+     * either completely updated or not updated at all, never left in a half-updated state.
+     * <p/>
+     * If lastModifiedTime is non-zero, then it's set as the last modified time on the file, as part of the atomic
+     * update (the timestamp is set on the temp file first & preserved on the rename).
+     *
+     * @param lastModifiedTime modification time in millis, set on updated file; ignored if zero
+     * @return OutputStream, with a close handler attached to update the original file when closed
+     */
+    public OutputStream openForCreateAtomic(final long lastModifiedTime) {
         final String fileName = getName();
-        final File tempFile= getParent().getFile(fileName + "-temp");
+        final File tempFile = getParent().getFile(fileName + "-temp");
 
         OutputStream stream = tempFile.openForCreate();
 
         stream.setClosedListener(new ClosedListener() {
             @Override public void onClosed() {
+                if (lastModifiedTime != 0)
+                    tempFile.setLastModifiedTime(lastModifiedTime);
 
+                // TODO: Switch to do atomic rename when supported, using this:
+                // http://stackoverflow.com/questions/167414/is-an-atomic-file-rename-with-overwrite-possible-on-windows
+                // TODO: Add openForReadAtomic for case when it's not supported, cleaning up temp file and using temp
+                // file if original deleted
+
+                // After the delete the file update is committed
                 delete();
+
                 tempFile.rename(fileName);
             }
         });
@@ -80,8 +102,17 @@ public abstract class File extends Path {
      *
      * @param newName
      */
-
     public abstract void rename(String newName);
+
+    /**
+     * Set the last modified / last write timestamp of this file.  Of the 3 file timestamps (created, modified, and
+     * accessed) on files, modified is most important in Windows.  It's the one displayed by default with the "dir"
+     * command and shown in file details in Explorer.  It's also the timestamp used for most other applications. So
+     * that's the timestamp that JSimple best supports querying and changing.
+     *
+     * @param time time in millis (milliseconds since Jan 1, 1970 UTC)
+     */
+    public abstract void setLastModifiedTime(long time);
 
     public abstract Directory getParent();
 }

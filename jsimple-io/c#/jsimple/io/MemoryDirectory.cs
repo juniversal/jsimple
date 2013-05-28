@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace jsimple.io
 {
 
+	using PlatformUtils = jsimple.util.PlatformUtils;
 
 
 	/// <summary>
@@ -14,7 +15,7 @@ namespace jsimple.io
 	{
 		private MemoryDirectory parent;
 		private string name;
-		private long lastModificationTime;
+		private long lastModifiedTime;
 		private List<MemoryDirectory> subdirectories = new List<MemoryDirectory>();
 		private List<MemoryFile> files = new List<MemoryFile>();
 
@@ -25,48 +26,49 @@ namespace jsimple.io
 
 		private MemoryDirectory(MemoryDirectory parent, string name)
 		{
+			this.parent = parent;
 			this.name = name;
+			this.lastModifiedTime = PlatformUtils.CurrentTimeMillis;
 		}
 
 		/// <summary>
 		/// Get the file, which must already exist under the directory.  If the file doesn't exist, the results are undefined
 		/// (for some implementations it will fail right away & others will fail later, like when open it for read).
 		/// </summary>
-		/// <param name="name"> file name </param>
+		/// <param name="fileName"> file name </param>
 		/// <returns> File object, that's a child of this directory </returns>
-		public override File getFile(string name)
+		public override File getFile(string fileName)
 		{
 			foreach (MemoryFile memoryFile in files)
 			{
-				if (memoryFile.Name.Equals(name))
+				if (memoryFile.Name.Equals(fileName))
 					return memoryFile;
 			}
 
-			throw new PathNotFoundException("MemoryFile {} not found", name);
+			return new MemoryFile(this, fileName);
 		}
 
 		/// <summary>
-		/// Create a new file under this directory.  If a file with that name already exists, it will be overwritten.
-		/// File.openForCreate must be called at some point after this method to actually open the file; these methods must
-		/// be called as a pair--if one is called without the other, the results are undefined (meaning they are different
-		/// for different implementations). Some implementations actually create an empty file when this is called, while
-		/// others delay file creation until File.openForCreate is called and the contents are written (which is the
-		/// preferred implementation, as it's generally more efficient).
-		/// <p/>
+		/// Add the specified file to this directory, replacing a file with the same name if it already exists.  This method
+		/// is called from the close handler on the OutputStream returned from MemoryFile.openForCreate, as that's the public
+		/// API for creating/updating a file.
 		/// </summary>
-		/// <param name="name"> file name </param>
-		/// <returns> File object, that's a child of this directory </returns>
-		public override File createFile(string name)
+		/// <param name="file"> MemoryFile to add/replace </param>
+		internal virtual void addOrReplaceFile(MemoryFile file)
 		{
-			foreach (MemoryFile memoryFile in files)
+			string fileName = file.Name;
+
+			int length = files.Count;
+			for (int i = 0; i < length; i++)
 			{
-				if (memoryFile.Name.Equals(name))
-					return memoryFile;
+				if (files[i].Name.Equals(fileName))
+				{
+					files[i] = file;
+					return;
+				}
 			}
 
-			MemoryFile newMemoryFile = new MemoryFile(this, name);
-			files.Add(newMemoryFile);
-			return newMemoryFile;
+			files.Add(file);
 		}
 
 		public virtual void deleteFile(string name)
@@ -142,10 +144,10 @@ namespace jsimple.io
 		public override void visitChildren(DirectoryVisitor visitor)
 		{
 			foreach (MemoryFile file in files)
-				visitor.visit(file, new MemoryPathAttributes(file.LastModificationTime, file.Size));
+				visitor.visit(file, new MemoryPathAttributes(file.LastModifiedTimeInternal, file.Size));
 
 			foreach (MemoryDirectory subdirectory in subdirectories)
-				visitor.visit(subdirectory, new MemoryPathAttributes(subdirectory.LastModificationTime, 0));
+				visitor.visit(subdirectory, new MemoryPathAttributes(subdirectory.LastModifiedTime, 0));
 		}
 
 		/// <summary>
@@ -160,11 +162,11 @@ namespace jsimple.io
 			}
 		}
 
-		public virtual long LastModificationTime
+		public virtual long LastModifiedTime
 		{
 			get
 			{
-				return lastModificationTime;
+				return lastModifiedTime;
 			}
 		}
 
@@ -191,7 +193,7 @@ namespace jsimple.io
 			{
 				get
 				{
-					return 0; //To change body of implemented methods use File | Settings | File Templates.
+					return lastModifiedTime;
 				}
 			}
 
@@ -200,7 +202,7 @@ namespace jsimple.io
 			{
 				get
 				{
-					return 0; //To change body of implemented methods use File | Settings | File Templates.
+					return 0;
 				}
 			}
 		}

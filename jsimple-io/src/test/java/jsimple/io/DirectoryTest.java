@@ -11,7 +11,7 @@ public class DirectoryTest extends UnitTest {
     @Test public void testCreateFile() throws Exception {
         Directory applicationDataDirectory = Paths.getApplicationDataDirectory();
 
-        File file = applicationDataDirectory.createFile("testfile.txt");
+        File file = applicationDataDirectory.getFile("testfile.txt");
 
         createFileWithTestContents(file);
         validateTestContents(file);
