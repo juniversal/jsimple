@@ -9,4 +9,5 @@ package jsimple.lang;
  * @since 4/26/13 11:58 PM
  */
 public abstract class AutoCloseable implements java.lang.AutoCloseable {
+    public abstract void close();
 }
