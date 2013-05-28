@@ -1,6 +1,7 @@
 package jsimple.logging.stdimpl;
 
 import jsimple.logging.Level;
+import jsimple.logging.LogEnterLeave;
 import jsimple.logging.Logger;
 
 import java.util.List;
@@ -53,6 +54,12 @@ public class StdLogger extends Logger {
     @Override public void log(Level level, String msg, Throwable t) {
         if (isLevelEnabled(level))
             log(new LoggingEvent(name, level, msg, t));
+    }
+
+    @Override public LogEnterLeave logStartAndEndWithVarargs(Level level, String format, Object... arguments) {
+        if (isLevelEnabled(level))
+            return new LogEnterLeaveStdImpl(this, level, format, arguments);
+        else return null;
     }
 
     /**

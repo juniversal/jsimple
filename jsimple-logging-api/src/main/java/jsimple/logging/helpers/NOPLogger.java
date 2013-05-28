@@ -25,6 +25,7 @@
 package jsimple.logging.helpers;
 
 import jsimple.logging.Level;
+import jsimple.logging.LogEnterLeave;
 import jsimple.logging.Logger;
 
 /**
@@ -69,5 +70,9 @@ public class NOPLogger extends Logger {
 
     @Override
     public void log(Level level, String msg, Throwable t) {
+    }
+
+    @Override public LogEnterLeave logStartAndEndWithVarargs(Level level, String format, Object... arguments) {
+        return null;
     }
 }

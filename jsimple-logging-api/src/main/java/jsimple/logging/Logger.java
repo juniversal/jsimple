@@ -502,4 +502,37 @@ public abstract class Logger {
      * @param t     the exception (throwable) to log
      */
     public abstract void log(Level level, String msg, Throwable t);
+
+    public LogEnterLeave debugEnterLeave(String msg) {
+        return logEnterLeave(Level.DEBUG, msg);
+    }
+
+    public LogEnterLeave debugEnterLeave(String format, Object... arguments) {
+        return logEnterLeave(Level.DEBUG, format, arguments);
+    }
+
+    public LogEnterLeave traceEnterLeave(String msg) {
+        return logEnterLeave(Level.TRACE, msg);
+    }
+
+    public LogEnterLeave traceEnterLeave(String format, Object... arguments) {
+        return logEnterLeave(Level.TRACE, format, arguments);
+    }
+
+    public LogEnterLeave logEnterLeave(Level level, String format, Object... arguments) {
+        if (isLevelEnabled(level))
+            return logStartAndEndWithVarargs(level, format, arguments);
+        else return null;
+    }
+
+    /**
+     * Log start and end messages at the specified level, with the specified message format and arguments.  This method
+     * is the same as the logEnterLeave varargs method, except that it has a different name, with no overloads, to
+     * force use of the varargs version no matter how few arguments are passed.
+     *
+     * @param level     logging level to log at
+     * @param format    the format string
+     * @param arguments a list of 0 or more arguments
+     */
+    public abstract LogEnterLeave logStartAndEndWithVarargs(Level level, String format, Object... arguments);
 }

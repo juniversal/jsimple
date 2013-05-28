@@ -67,6 +67,14 @@ namespace jsimple.logging.stdimpl
 				log(new LoggingEvent(name, level, msg, t));
 		}
 
+		public override LogEnterLeave logStartAndEndWithVarargs(Level level, string format, params object[] arguments)
+		{
+			if (isLevelEnabled(level))
+				return new LogEnterLeaveStdImpl(this, level, format, arguments);
+			else
+				return null;
+		}
+
 		/// <summary>
 		/// Log the specified logging event to the appenders.  At this point, the isLevelEnabled check is assumed to have
 		/// already passed.

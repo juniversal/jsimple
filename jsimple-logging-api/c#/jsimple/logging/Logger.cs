@@ -517,6 +517,44 @@ namespace jsimple.logging
 		/// <param name="msg">   the message accompanying the exception </param>
 		/// <param name="t">     the exception (throwable) to log </param>
 		public abstract void log(Level level, string msg, Exception t);
+
+		public virtual LogEnterLeave debugEnterLeave(string msg)
+		{
+			return logEnterLeave(Level.DEBUG, msg);
+		}
+
+		public virtual LogEnterLeave debugEnterLeave(string format, params object[] arguments)
+		{
+			return logEnterLeave(Level.DEBUG, format, arguments);
+		}
+
+		public virtual LogEnterLeave traceEnterLeave(string msg)
+		{
+			return logEnterLeave(Level.TRACE, msg);
+		}
+
+		public virtual LogEnterLeave traceEnterLeave(string format, params object[] arguments)
+		{
+			return logEnterLeave(Level.TRACE, format, arguments);
+		}
+
+		public virtual LogEnterLeave logEnterLeave(Level level, string format, params object[] arguments)
+		{
+			if (isLevelEnabled(level))
+				return logStartAndEndWithVarargs(level, format, arguments);
+			else
+				return null;
+		}
+
+		/// <summary>
+		/// Log start and end messages at the specified level, with the specified message format and arguments.  This method
+		/// is the same as the logEnterLeave varargs method, except that it has a different name, with no overloads, to
+		/// force use of the varargs version no matter how few arguments are passed.
+		/// </summary>
+		/// <param name="level">     logging level to log at </param>
+		/// <param name="format">    the format string </param>
+		/// <param name="arguments"> a list of 0 or more arguments </param>
+		public abstract LogEnterLeave logStartAndEndWithVarargs(Level level, string format, params object[] arguments);
 	}
 
 }

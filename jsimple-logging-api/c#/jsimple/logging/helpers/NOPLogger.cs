@@ -76,6 +76,11 @@ namespace jsimple.logging.helpers
 		public override void log(Level level, string msg, Exception t)
 		{
 		}
+
+		public override LogEnterLeave logStartAndEndWithVarargs(Level level, string format, params object[] arguments)
+		{
+			return null;
+		}
 	}
 
 }
