@@ -66,6 +66,11 @@ namespace jsimple.io
             }
         }
 
+        public override bool exists()
+        {
+            return System.IO.File.Exists(filePath);
+        }
+        
         public override void delete()
         {
             try
