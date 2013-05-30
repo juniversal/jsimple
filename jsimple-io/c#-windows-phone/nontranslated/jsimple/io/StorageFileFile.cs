@@ -36,7 +36,7 @@ namespace jsimple.io
 
         public override InputStream openForRead()
         {
-            ensureExists();
+            ensureGotStorageFile();
 
             try
             {
@@ -71,13 +71,27 @@ namespace jsimple.io
 
         public override void delete()
         {
-            ensureExists();
+            ensureGotStorageFile();
             storageFile.DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
         }
+        
+        public override bool exists()
+        {
+            try
+            {
+                ensureGotStorageFile();
+            }
+            catch (PathNotFoundException)
+            {
+                return false;
+            }
 
+            return true;
+        }
+            
         public override void rename(string newName)
         {
-            ensureExists();
+            ensureGotStorageFile();
 
             try
             {
@@ -89,10 +103,19 @@ namespace jsimple.io
             }
         }
 
-        private void ensureExists()
+        private void ensureGotStorageFile()
         {
             if (storageFile == null)
-                throw new PathNotFoundException("StorageFile {} doesn't exist", name);
+            {
+                try
+                {
+                    storageFile = parent.StorageFolder.GetFileAsync(name).DoSynchronously();
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
         }
 
         public override long LastModifiedTime

@@ -55,8 +55,6 @@ namespace jsimple.io
 		/// <returns> output stream, to write the file contents </returns>
 		public override OutputStream openForCreate()
 		{
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
 			byteArrayOutputStream.ClosedListener = new ClosedListenerAnonymousInnerClassHelper(this, byteArrayOutputStream);
@@ -153,6 +151,11 @@ namespace jsimple.io
 		public override void delete()
 		{
 			parent.deleteFile(name);
+		}
+
+		public override bool exists()
+		{
+			return data != null;
 		}
 
 		public override void rename(string newName)

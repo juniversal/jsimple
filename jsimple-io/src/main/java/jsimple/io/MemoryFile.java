@@ -112,6 +112,10 @@ public class MemoryFile extends File {
         parent.deleteFile(name);
     }
 
+    @Override public boolean exists() {
+        return data != null;
+    }
+
     @Override public void rename(String newName) {
         if (data == null)
             throw new IOException("File {} hasn't yet been created", name);

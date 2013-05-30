@@ -69,8 +69,11 @@ public abstract class File extends Path {
                 // TODO: Add openForReadAtomic for case when it's not supported, cleaning up temp file and using temp
                 // file if original deleted
 
-                // After the delete the file update is committed
-                delete();
+                // Delete the original file, if it exists; after the delete the file update is considered committed
+                try {
+                    delete();
+                } catch (PathNotFoundException e) {
+                }
 
                 tempFile.rename(fileName);
             }
@@ -91,9 +94,7 @@ public abstract class File extends Path {
      *
      * @return true if the file exists
      */
-    public boolean exists() {
-        return false;
-    }
+    public abstract boolean exists();
 
     /**
      * Rename this file, giving it a new name in the same directory.  If a file with the specified name already exists,

@@ -54,15 +54,9 @@ namespace jsimple.io
 		/// </summary>
 		/// <param name="lastModifiedTime"> modification time in millis, set on updated file; ignored if zero </param>
 		/// <returns> OutputStream, with a close handler attached to update the original file when closed </returns>
-//JAVA TO C# CONVERTER WARNING: 'final' parameters are not allowed in .NET:
-//ORIGINAL LINE: public OutputStream openForCreateAtomic(final long lastModifiedTime)
 		public virtual OutputStream openForCreateAtomic(long lastModifiedTime)
 		{
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final String fileName = getName();
 			string fileName = Name;
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final File tempFile = getParent().getFile(fileName + "-temp");
 			File tempFile = Parent.getFile(fileName + "-temp");
 
 			OutputStream stream = tempFile.openForCreate();
@@ -98,8 +92,14 @@ namespace jsimple.io
 				// TODO: Add openForReadAtomic for case when it's not supported, cleaning up temp file and using temp
 				// file if original deleted
 
-				// After the delete the file update is committed
-				outerInstance.delete();
+				// Delete the original file, if it exists; after the delete the file update is considered committed
+				try
+				{
+					outerInstance.delete();
+				}
+				catch (PathNotFoundException)
+				{
+				}
 
 				tempFile.rename(fileName);
 			}
@@ -116,10 +116,7 @@ namespace jsimple.io
 		/// existing from there being an error checking.
 		/// </summary>
 		/// <returns> true if the file exists </returns>
-		public virtual bool exists()
-		{
-			return false;
-		}
+		public abstract bool exists();
 
 		/// <summary>
 		/// Rename this file, giving it a new name in the same directory.  If a file with the specified name already exists,
