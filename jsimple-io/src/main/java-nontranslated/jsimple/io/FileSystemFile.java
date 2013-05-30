@@ -59,6 +59,10 @@ public class FileSystemFile extends File {
         return javaPath.getFileName().toString();
     }
 
+    @Override public boolean exists() {
+        return Files.exists(javaPath);
+    }
+
     @Override public void delete(){
         try{
             if(javaPath.toFile().exists())
