@@ -71,18 +71,23 @@ namespace jsimple.io
 			files.Add(file);
 		}
 
-		public virtual void deleteFile(string name)
+		/// <summary>
+		/// Delete the specified file name, if it exists.
+		/// </summary>
+		/// <param name="name"> file name </param>
+		/// <returns> true if file found and deleted; false if it wasn't found </returns>
+		internal virtual bool deleteFile(string name)
 		{
 			foreach (MemoryFile memoryFile in files)
 			{
 				if (memoryFile.Name.Equals(name))
 				{
 					files.Remove(memoryFile);
-					return;
+					return true;
 				}
 			}
 
-			throw new PathNotFoundException("MemoryFile {} not found", name);
+			return false;
 		}
 
 		/// <summary>

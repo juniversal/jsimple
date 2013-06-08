@@ -109,7 +109,8 @@ public class MemoryFile extends File {
     }
 
     @Override public void delete() {
-        parent.deleteFile(name);
+        if (!parent.deleteFile(name))
+            throw new PathNotFoundException("File {} doesn't exist", name);
     }
 
     @Override public boolean exists() {
@@ -119,6 +120,13 @@ public class MemoryFile extends File {
     @Override public void rename(String newName) {
         if (data == null)
             throw new IOException("File {} hasn't yet been created", name);
+
+        // Renaming to current name is a no-op
+        if (newName.equals(name))
+            return;
+
+        // Delete any existing file with the old name
+        parent.deleteFile(name);
 
         name = newName;
     }

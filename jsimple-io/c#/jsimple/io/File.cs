@@ -92,15 +92,6 @@ namespace jsimple.io
 				// TODO: Add openForReadAtomic for case when it's not supported, cleaning up temp file and using temp
 				// file if original deleted
 
-				// Delete the original file, if it exists; after the delete the file update is considered committed
-				try
-				{
-					outerInstance.delete();
-				}
-				catch (PathNotFoundException)
-				{
-				}
-
 				tempFile.rename(fileName);
 			}
 		}
@@ -120,8 +111,8 @@ namespace jsimple.io
 
 		/// <summary>
 		/// Rename this file, giving it a new name in the same directory.  If a file with the specified name already exists,
-		/// an exception is thrown.  If/when there's the need to move a File to a different directory, we'll add separate
-		/// support for that.
+		/// it's replaced.  If/when there's the need to move a File to a different directory, we'll add separate support for
+		/// that.
 		/// </summary>
 		/// <param name="newName"> </param>
 		public abstract void rename(string newName);

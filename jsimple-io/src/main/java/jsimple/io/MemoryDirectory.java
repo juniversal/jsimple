@@ -63,15 +63,21 @@ public class MemoryDirectory extends Directory {
         files.add(file);
     }
 
-    public void deleteFile(String name) {
+    /**
+     * Delete the specified file name, if it exists.
+     *
+     * @param name file name
+     * @return true if file found and deleted; false if it wasn't found
+     */
+    boolean deleteFile(String name) {
         for (MemoryFile memoryFile : files) {
             if (memoryFile.getName().equals(name)) {
                 files.remove(memoryFile);
-                return;
+                return true;
             }
         }
 
-        throw new PathNotFoundException("MemoryFile {} not found", name);
+        return false;
     }
 
     /**

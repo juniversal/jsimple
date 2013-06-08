@@ -95,7 +95,7 @@ namespace jsimple.io
 
             try
             {
-                storageFile.RenameAsync(newName).DoSynchronously();
+                storageFile.RenameAsync(newName, NameCollisionOption.ReplaceExisting).DoSynchronously();
             }
             catch (System.IO.IOException e)
             {

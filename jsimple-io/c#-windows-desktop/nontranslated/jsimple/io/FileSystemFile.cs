@@ -87,6 +87,7 @@ namespace jsimple.io
         {
             try
             {
+                // TODO: Catch exception and overwrite file if already exists
                 System.IO.File.Move(filePath, parent.getChildPath(newName));
             }
             catch (System.IO.IOException e)

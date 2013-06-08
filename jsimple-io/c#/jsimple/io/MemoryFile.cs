@@ -150,7 +150,8 @@ namespace jsimple.io
 
 		public override void delete()
 		{
-			parent.deleteFile(name);
+			if (!parent.deleteFile(name))
+				throw new PathNotFoundException("File {} doesn't exist", name);
 		}
 
 		public override bool exists()
@@ -162,6 +163,13 @@ namespace jsimple.io
 		{
 			if (data == null)
 				throw new IOException("File {} hasn't yet been created", name);
+
+			// Renaming to current name is a no-op
+			if (newName.Equals(name))
+				return;
+
+			// Delete any existing file with the old name
+			parent.deleteFile(name);
 
 			name = newName;
 		}
