@@ -25,37 +25,25 @@ namespace jsimple.oauth.utils
 		{
 		}
 
-//JAVA TO C# CONVERTER WARNING: 'final' parameters are not allowed in .NET:
-//ORIGINAL LINE: private static final int rol(final int nValue, final int nBits)
 		private static int rol(int nValue, int nBits)
 		{
 			return ((nValue << nBits) | ((int)((uint)nValue >> (32 - nBits))));
 		}
 
-//JAVA TO C# CONVERTER WARNING: 'final' parameters are not allowed in .NET:
-//ORIGINAL LINE: private final int blk0(final int nI)
 		private int blk0(int nI)
 		{
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final int[] b = m_block;
 			int[] b = m_block;
 			return b[nI] = ((rol(b[nI], 24) & -16711936) | (rol(b[nI], 8) & 0x00ff00ff)); // Need to express as negative decimal, not hex, so C# treats as int, not long
 		}
 
-//JAVA TO C# CONVERTER WARNING: 'final' parameters are not allowed in .NET:
-//ORIGINAL LINE: private final int blk(final int nI)
 		private int blk(int nI)
 		{
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final int[] b = m_block;
 			int[] b = m_block;
 			return (b[nI & 15] = rol(b[(nI + 13) & 15] ^ b[(nI + 8) & 15] ^ b[(nI + 2) & 15] ^ b[nI & 15], 1));
 		}
 
 		private void transform()
 		{
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final int[] data = new int[5];
 			int[] data = new int[5];
 			data[0] = m_state[0];
 			data[1] = m_state[1];
@@ -219,15 +207,9 @@ namespace jsimple.oauth.utils
 			return StringUtils.toHexStringFromBytes(m_digestBits);
 		}
 
-//JAVA TO C# CONVERTER WARNING: 'final' parameters are not allowed in .NET:
-//ORIGINAL LINE: public static byte[] mac(final byte[] key, final byte[] text)
 		public static sbyte[] mac(sbyte[] key, sbyte[] text)
 		{
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final byte[] pkey = new byte[64];
 			sbyte[] pkey = new sbyte[64];
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final byte[] buf = new byte[64];
 			sbyte[] buf = new sbyte[64];
 			if (key != null && key.Length > 0)
 			{
@@ -235,12 +217,8 @@ namespace jsimple.oauth.utils
 					Array.Copy(key, 0, pkey, 0, key.Length);
 				else
 				{
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final Sha1 shakey = new Sha1();
 					Sha1 shakey = new Sha1();
 					shakey.doFinal(key);
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final byte[] keya = shakey.getDigest();
 					sbyte[] keya = shakey.Digest;
 					Array.Copy(keya, 0, pkey, 0, keya.Length);
 				}
@@ -249,20 +227,14 @@ namespace jsimple.oauth.utils
 			for (int i = 0; i < 64; i++)
 				buf[i] = unchecked((sbyte)((0x36 ^ pkey[i]) & 0xff));
 
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final Sha1 sha1 = new Sha1();
 			Sha1 sha1 = new Sha1();
 			sha1.update(buf);
 			sha1.doFinal(text);
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final byte[] h1 = sha1.getDigest();
 			sbyte[] h1 = sha1.Digest;
 
 			for (int i = 0; i < 64; i++)
 				buf[i] = unchecked((sbyte)((0x5C ^ pkey[i]) & 0xff));
 
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final Sha1 sha2 = new Sha1();
 			Sha1 sha2 = new Sha1();
 			sha2.update(buf);
 			sha2.doFinal(h1);

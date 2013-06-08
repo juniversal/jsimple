@@ -1,12 +1,12 @@
 package jsimple.oauth.model;
 
 import jsimple.io.IOUtils;
-import jsimple.net.HttpRequest;
-import jsimple.net.HttpRequestParams;
-import jsimple.net.UnknownHostException;
-import jsimple.net.Url;
+import jsimple.logging.Logger;
+import jsimple.logging.LoggerFactory;
+import jsimple.net.*;
 import jsimple.oauth.exceptions.OAuthConnectionException;
 import jsimple.oauth.exceptions.OAuthException;
+import jsimple.util.PlatformUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -18,6 +18,8 @@ import java.util.Map;
  * @author Pablo Fernandez
  */
 public class OAuthRequest {
+    final static Logger logger = LoggerFactory.getLogger("OAuthRequest");
+
     private String url;
     private String verb;
     private ParameterList queryStringParams;
@@ -130,7 +132,19 @@ public class OAuthRequest {
         }
 
         try {
-            return new OAuthResponse(httpReq.send());
+            OAuthResponse response;
+
+            if (logger.isDebugEnabled()) {
+                long startTime = PlatformUtils.getCurrentTimeMillis();
+
+                response = new OAuthResponse(httpReq.send());
+
+                long duration = PlatformUtils.getCurrentTimeMillis() - startTime;
+                logger.trace("{} {}; took {}ms", verb, getUrl(), duration);
+            }
+            else response = new OAuthResponse(httpReq.send());
+
+            return response;
         } catch (UnknownHostException e) {
             throw new OAuthException("The IP address of a host could not be determined.", e);
         }

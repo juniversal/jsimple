@@ -6,12 +6,12 @@ namespace jsimple.oauth.model
 {
 
 	using IOUtils = jsimple.io.IOUtils;
-	using HttpRequest = jsimple.net.HttpRequest;
-	using HttpRequestParams = jsimple.net.HttpRequestParams;
-	using UnknownHostException = jsimple.net.UnknownHostException;
-	using Url = jsimple.net.Url;
+	using Logger = jsimple.logging.Logger;
+	using LoggerFactory = jsimple.logging.LoggerFactory;
+	using jsimple.net;
 	using OAuthConnectionException = jsimple.oauth.exceptions.OAuthConnectionException;
 	using OAuthException = jsimple.oauth.exceptions.OAuthException;
+	using PlatformUtils = jsimple.util.PlatformUtils;
 
 
 
@@ -22,6 +22,8 @@ namespace jsimple.oauth.model
 	/// </summary>
 	public class OAuthRequest
 	{
+		internal static readonly Logger logger = LoggerFactory.getLogger("OAuthRequest");
+
 		private string url;
 		private string verb;
 		private ParameterList queryStringParams;
@@ -147,7 +149,21 @@ namespace jsimple.oauth.model
 
 			try
 			{
-				return new OAuthResponse(httpReq.send());
+				OAuthResponse response;
+
+				if (logger.DebugEnabled)
+				{
+					long startTime = PlatformUtils.CurrentTimeMillis;
+
+					response = new OAuthResponse(httpReq.send());
+
+					long duration = PlatformUtils.CurrentTimeMillis - startTime;
+					logger.debug("{} {}; took {}ms", verb, Url, duration);
+				}
+				else
+					response = new OAuthResponse(httpReq.send());
+
+				return response;
 			}
 			catch (UnknownHostException e)
 			{
