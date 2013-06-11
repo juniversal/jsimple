@@ -51,8 +51,14 @@ public class JavaHttpResponse extends HttpResponse {
 
     @Override public InputStream getBodyStream() {
         if (bodyStream == null) {
+            int statusCode = getStatusCode();
             try {
-                bodyStream = new JSimpleInputStreamOnJavaStream(httpUrlConnection.getInputStream());
+                // TODO: Check status status code is exactly right (check Java source) and handle case where
+                // getErrorStream returns null
+
+                if (statusCode < 200 || statusCode >= 300)
+                    bodyStream = new JSimpleInputStreamOnJavaStream(httpUrlConnection.getErrorStream());
+                else bodyStream = new JSimpleInputStreamOnJavaStream(httpUrlConnection.getInputStream());
             } catch (java.io.IOException e) {
                 throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
             }

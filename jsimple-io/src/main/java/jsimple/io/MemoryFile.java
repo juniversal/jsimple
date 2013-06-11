@@ -94,7 +94,7 @@ public class MemoryFile extends File {
         lastModifiedTime = time;
     }
 
-    public long getLastModifiedTimeInternal() {
+    @Override public long getLastModifiedTime() {
         if (data == null)
             throw new IOException("File {} hasn't yet been created", name);
 

@@ -81,6 +81,15 @@ public class FileSystemFile extends File {
         }
     }
 
+    @Override public long getLastModifiedTime() {
+        try {
+            FileTime fileTime = Files.getLastModifiedTime(javaPath);
+            return fileTime.toMillis();
+        } catch (java.io.IOException e) {
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        }
+    }
+
     @Override public void setLastModifiedTime(long time) {
         try {
             Files.setLastModifiedTime(javaPath, FileTime.fromMillis(time));

@@ -100,6 +100,16 @@ public abstract class File extends Path {
     public abstract void rename(String newName);
 
     /**
+     * Get the last modified / last write timestamp of this file.  Of the 3 file timestamps (created, modified, and
+     * accessed) on files, modified is most important in Windows.  It's the one displayed by default with the "dir"
+     * command and shown in file details in Explorer.  It's also the timestamp used for most other applications. So
+     * that's the timestamp that JSimple best supports querying and changing.
+     *
+     * @return last modified timestamp for file
+     */
+    public abstract long getLastModifiedTime();
+
+    /**
      * Set the last modified / last write timestamp of this file.  Of the 3 file timestamps (created, modified, and
      * accessed) on files, modified is most important in Windows.  It's the one displayed by default with the "dir"
      * command and shown in file details in Explorer.  It's also the timestamp used for most other applications. So

@@ -133,7 +133,7 @@ public class MemoryDirectory extends Directory {
      */
     @Override public void visitChildren(DirectoryVisitor visitor) {
         for (MemoryFile file : files)
-            visitor.visit(file, new MemoryPathAttributes(file.getLastModifiedTimeInternal(), file.getSize()));
+            visitor.visit(file, new MemoryPathAttributes(file.getLastModifiedTime(), file.getSize()));
 
         for (MemoryDirectory subdirectory : subdirectories)
             visitor.visit(subdirectory, new MemoryPathAttributes(subdirectory.getLastModifiedTime(), 0));
