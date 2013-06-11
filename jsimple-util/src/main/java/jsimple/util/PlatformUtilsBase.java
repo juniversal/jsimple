@@ -32,9 +32,18 @@ public class PlatformUtilsBase {
     //public static <T extends Comparable<? super T>> void sortList(List<T> list)
 
     /**
+     * Sort the elements of the list based on the Comparator callback passed in.  The sort isn't guaranteed to be stable
+     * (it actually is in the Java version but not in the C# version).
+     *
+     * @param list input list
+     * @param <T>  list element type
+     */
+    //public static <T> void sortList(List<T> list, Comparator<? super T> comparator)
+
+    /**
      * Get the default line separator (typically newline or carriage return/newline) for the platform.
      *
      * @return default line separator for the platform
      */
-    //public static String getLineSeparator();
+    //public static String getLineSeparator()
 }

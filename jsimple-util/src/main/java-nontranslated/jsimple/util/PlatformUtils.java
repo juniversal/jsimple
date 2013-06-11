@@ -1,6 +1,7 @@
 package jsimple.util;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -21,6 +22,10 @@ public class PlatformUtils extends PlatformUtilsBase {
 
     public static <T extends Comparable<? super T>> void sortList(List<T> list) {
         Collections.sort(list);
+    }
+
+    public static <T> void sortList(List<T> list, Comparator<? super T> comparator) {
+        Collections.sort(list, comparator);
     }
 
     private static String lineSeparator = System.getProperty("line.separator");
