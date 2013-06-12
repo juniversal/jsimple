@@ -124,10 +124,6 @@ namespace jsimple.io
     
 				lastModifiedTime = value;
 			}
-		}
-
-		public virtual long LastModifiedTimeInternal
-		{
 			get
 			{
 				if (data == null)
@@ -136,6 +132,7 @@ namespace jsimple.io
 				return lastModifiedTime;
 			}
 		}
+
 
 		public virtual int Size
 		{

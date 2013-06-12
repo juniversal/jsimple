@@ -118,13 +118,14 @@ namespace jsimple.io
 		public abstract void rename(string newName);
 
 		/// <summary>
-		/// Set the last modified / last write timestamp of this file.  Of the 3 file timestamps (created, modified, and
+		/// Get the last modified / last write timestamp of this file.  Of the 3 file timestamps (created, modified, and
 		/// accessed) on files, modified is most important in Windows.  It's the one displayed by default with the "dir"
 		/// command and shown in file details in Explorer.  It's also the timestamp used for most other applications. So
 		/// that's the timestamp that JSimple best supports querying and changing.
 		/// </summary>
-		/// <param name="time"> time in millis (milliseconds since Jan 1, 1970 UTC) </param>
-		public abstract long LastModifiedTime {set;}
+		/// <returns> last modified timestamp for file </returns>
+		public abstract long LastModifiedTime {get;set;}
+
 
 		public abstract Directory Parent {get;}
 	}

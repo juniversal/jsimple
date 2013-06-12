@@ -149,7 +149,7 @@ namespace jsimple.io
 		public override void visitChildren(DirectoryVisitor visitor)
 		{
 			foreach (MemoryFile file in files)
-				visitor.visit(file, new MemoryPathAttributes(file.LastModifiedTimeInternal, file.Size));
+				visitor.visit(file, new MemoryPathAttributes(file.LastModifiedTime, file.Size));
 
 			foreach (MemoryDirectory subdirectory in subdirectories)
 				visitor.visit(subdirectory, new MemoryPathAttributes(subdirectory.LastModifiedTime, 0));

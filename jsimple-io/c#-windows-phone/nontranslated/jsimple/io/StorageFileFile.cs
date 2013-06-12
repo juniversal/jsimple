@@ -2,13 +2,14 @@
 using System.IO;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using jsimple.util;
 
 namespace jsimple.io
 {
     public class StorageFileFile : File
     {
-        private readonly StorageFolderDirectory parent;
         private readonly string name;
+        private readonly StorageFolderDirectory parent;
         private StorageFile storageFile;
 
         public StorageFileFile(StorageFolderDirectory parent, string name)
@@ -20,7 +21,7 @@ namespace jsimple.io
         public StorageFileFile(StorageFolderDirectory parent, StorageFile storageFile)
         {
             this.parent = parent;
-            this.name = storageFile.Name;
+            name = storageFile.Name;
             this.storageFile = storageFile;
         }
 
@@ -32,6 +33,27 @@ namespace jsimple.io
         public override Directory Parent
         {
             get { return parent; }
+        }
+
+        public override long LastModifiedTime
+        {
+            get
+            {
+                ensureGotStorageFile();
+
+                try
+                {
+                    // It's not possible (that I've found) to get the modification date/time on Windows Phone, so
+                    // use the created date instead
+                    return PlatformUtils.toMillisFromDateTimeOffset(storageFile.DateCreated);
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
+
+            set { throw new NotImplementedException("Setting LastModifiedTime isn't supported on Windows Phone"); }
         }
 
         public override InputStream openForRead()
@@ -55,9 +77,12 @@ namespace jsimple.io
         {
             try
             {
-                storageFile = parent.StorageFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting).DoSynchronously();
+                storageFile =
+                    parent.StorageFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting)
+                          .DoSynchronously();
 
-                IRandomAccessStream randomAccessStream = storageFile.OpenAsync(FileAccessMode.ReadWrite).DoSynchronously();
+                IRandomAccessStream randomAccessStream =
+                    storageFile.OpenAsync(FileAccessMode.ReadWrite).DoSynchronously();
                 IOutputStream outputStream = randomAccessStream.GetOutputStreamAt(0);
 
                 // Use the default buffer for AsStreamForWrite()
@@ -74,7 +99,7 @@ namespace jsimple.io
             ensureGotStorageFile();
             storageFile.DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
         }
-        
+
         public override bool exists()
         {
             try
@@ -88,7 +113,7 @@ namespace jsimple.io
 
             return true;
         }
-            
+
         public override void rename(string newName)
         {
             ensureGotStorageFile();
@@ -116,13 +141,6 @@ namespace jsimple.io
                     throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
                 }
             }
-        }
-
-        public override long LastModifiedTime
-        {
-            // TODO: Implement an alternative to this (probably store timestamps in the media library instead on WP)
-            //set { throw new NotImplementedException("Setting LastModifiedTime isn't supported on Windows Phone"); }
-            set {  }
         }
     }
 }
