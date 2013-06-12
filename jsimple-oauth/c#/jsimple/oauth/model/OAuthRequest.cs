@@ -158,7 +158,7 @@ namespace jsimple.oauth.model
 					response = new OAuthResponse(httpReq.send());
 
 					long duration = PlatformUtils.CurrentTimeMillis - startTime;
-					logger.debug("{} {}; took {}ms", verb, Url, duration);
+					logger.trace("{} {}; took {}ms", verb, Url, duration);
 				}
 				else
 					response = new OAuthResponse(httpReq.send());

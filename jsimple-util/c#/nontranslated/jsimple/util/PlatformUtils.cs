@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace jsimple.util
@@ -66,6 +67,17 @@ namespace jsimple.util
         public static void sortList<T>(List<T> list) where T : IComparable<T>
         {
             list.Sort();
+        }
+
+        /// <summary>
+        /// Sort the elements of the list based on the Comparator callback passed in.  The sort isn't guaranteed to be stable
+        /// (it actually is in the Java version but not in the C# version).
+        /// </summary>
+        /// <param name="list"> input list </param>
+        /// <param name="comparer"> list element comparer </param>
+        public static void sortList<T>(List<T> list, IComparer<T> comparer)
+        {
+            list.Sort(comparer);
         }
 
         /// <summary>

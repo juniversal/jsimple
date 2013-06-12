@@ -32,10 +32,18 @@ namespace jsimple.util
 		//public static <T extends Comparable<? super T>> void sortList(List<T> list)
 
 		/// <summary>
+		/// Sort the elements of the list based on the Comparator callback passed in.  The sort isn't guaranteed to be stable
+		/// (it actually is in the Java version but not in the C# version).
+		/// </summary>
+		/// <param name="list"> input list </param>
+		/// @param <T>  list element type </param>
+		//public static <T> void sortList(List<T> list, Comparator<? super T> comparator)
+
+		/// <summary>
 		/// Get the default line separator (typically newline or carriage return/newline) for the platform.
 		/// </summary>
 		/// <returns> default line separator for the platform </returns>
-		//public static String getLineSeparator();
+		//public static String getLineSeparator()
 	}
 
 }

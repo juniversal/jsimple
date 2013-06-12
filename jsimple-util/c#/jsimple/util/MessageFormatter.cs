@@ -149,8 +149,6 @@ namespace jsimple.util
 		/// <param name="arg2">           The argument to be substituted in place of the second formatting
 		///                       anchor </param>
 		/// <returns> The formatted message </returns>
-//JAVA TO C# CONVERTER WARNING: 'final' parameters are not allowed in .NET:
-//ORIGINAL LINE: public static FormattingTuple format(final String messagePattern, Object arg1, Object arg2)
 		public static FormattingTuple format(string messagePattern, object arg1, object arg2)
 		{
 			return arrayFormat(messagePattern, new object[]{arg1, arg2});
@@ -161,8 +159,6 @@ namespace jsimple.util
 			if (argArray.Length == 0)
 				return null;
 
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final Object lastEntry = argArray[argArray.length - 1];
 			object lastEntry = argArray[argArray.Length - 1];
 			if (lastEntry is Exception)
 				return (Exception) lastEntry;
@@ -177,8 +173,6 @@ namespace jsimple.util
 		/// <param name="argArray">       An array of arguments to be substituted in place of formatting
 		///                       anchors </param>
 		/// <returns> The formatted message </returns>
-//JAVA TO C# CONVERTER WARNING: 'final' parameters are not allowed in .NET:
-//ORIGINAL LINE: public static FormattingTuple arrayFormat(final String messagePattern, final Object[] argArray)
 		public static FormattingTuple arrayFormat(string messagePattern, object[] argArray)
 		{
 			Exception throwableCandidate = getThrowableCandidate(argArray);
@@ -310,8 +304,6 @@ namespace jsimple.util
 				if (argArray == null || argArray.Length == 0)
 					throw new Exception("non-sensical empty or null argument array");
 
-//JAVA TO C# CONVERTER WARNING: The original Java variable was marked 'final':
-//ORIGINAL LINE: final int trimemdLen = argArray.length - 1;
 				int trimemdLen = argArray.Length - 1;
 				object[] trimmed = new object[trimemdLen];
 				Array.Copy(argArray, 0, trimmed, 0, trimemdLen);
