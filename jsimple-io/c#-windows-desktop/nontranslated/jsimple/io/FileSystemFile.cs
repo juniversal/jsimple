@@ -98,6 +98,18 @@ namespace jsimple.io
 
         public override long LastModifiedTime
         {
+            get
+            {
+                try
+                {
+                    return PlatformUtils.toMillisFromDateTime(System.IO.File.GetLastWriteTimeUtc(filePath));
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
+
             set
             {
                 try
