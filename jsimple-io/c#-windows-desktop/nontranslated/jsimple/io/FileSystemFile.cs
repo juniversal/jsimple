@@ -1,13 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using jsimple.util;
 
 namespace jsimple.io
 {
     public class FileSystemFile : File
     {
+        private readonly string filePath;
         private readonly FileSystemDirectory parent;
-        private string filePath;
 
         public FileSystemFile(FileSystemDirectory parent, string filePath)
         {
@@ -28,15 +27,39 @@ namespace jsimple.io
 
         public override string Name
         {
-            get
-            {
-                return System.IO.Path.GetFileName(filePath);
-            }
+            get { return System.IO.Path.GetFileName(filePath); }
         }
 
         public override Directory Parent
         {
             get { return parent; }
+        }
+
+        public override long LastModifiedTime
+        {
+            get
+            {
+                try
+                {
+                    return PlatformUtils.toMillisFromDateTime(System.IO.File.GetLastWriteTimeUtc(filePath));
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
+
+            set
+            {
+                try
+                {
+                    System.IO.File.SetLastWriteTimeUtc(filePath, PlatformUtils.toDotNetDateTimeFromMillis(value));
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
         }
 
         public override InputStream openForRead()
@@ -70,7 +93,7 @@ namespace jsimple.io
         {
             return System.IO.File.Exists(filePath);
         }
-        
+
         public override void delete()
         {
             try
@@ -85,41 +108,30 @@ namespace jsimple.io
 
         public override void rename(string newName)
         {
+            string destPath = parent.getChildPath(newName);
+
             try
             {
-                // TODO: Catch exception and overwrite file if already exists
-                System.IO.File.Move(filePath, parent.getChildPath(newName));
+                System.IO.File.Move(filePath, destPath);
             }
             catch (System.IO.IOException e)
             {
+                // If the destination file already exists (0x800700B7 is "Cannot create a file when that file already
+                // exists"), then delete it and retry the move.
+                if (e.HResult == unchecked((int) 0x800700B7))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(destPath);
+                        System.IO.File.Move(filePath, destPath);
+                    }
+                    catch (System.IO.IOException e2)
+                    {
+                        throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e2);
+                    }
+                }
+            else
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-            }
-        }
-
-        public override long LastModifiedTime
-        {
-            get
-            {
-                try
-                {
-                    return PlatformUtils.toMillisFromDateTime(System.IO.File.GetLastWriteTimeUtc(filePath));
-                }
-                catch (System.IO.IOException e)
-                {
-                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                }
-            }
-
-            set
-            {
-                try
-                {
-                    System.IO.File.SetLastWriteTimeUtc(filePath, PlatformUtils.toDotNetDateTimeFromMillis(value));
-                }
-                catch (System.IO.IOException e)
-                {
-                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                }
             }
         }
     }

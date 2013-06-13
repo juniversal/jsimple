@@ -53,7 +53,7 @@ namespace jsimple.io
                 }
             }
 
-            set { throw new NotImplementedException("Setting LastModifiedTime isn't supported on Windows Phone"); }
+            set { }
         }
 
         public override InputStream openForRead()
