@@ -50,7 +50,7 @@ public class MemoryFile extends File {
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         byteArrayOutputStream.setClosedListener(new ClosedListener() {
-            @Override public void onClosed() {
+            public void onClosed() {
                 byte[] data = byteArrayOutputStream.closeAndGetByteArray();
                 setData(data);
 

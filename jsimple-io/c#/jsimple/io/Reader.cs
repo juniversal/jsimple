@@ -16,7 +16,7 @@ namespace jsimple.io
 		/// <summary>
 		/// Closes this reader. Implementations of this method should free any resources associated with the reader.
 		/// </summary>
-		public override abstract void close();
+		public abstract void close();
 
 		/// <summary>
 		/// Reads a single character from this reader and returns it as an integer with the two higher-order bytes set to 0.

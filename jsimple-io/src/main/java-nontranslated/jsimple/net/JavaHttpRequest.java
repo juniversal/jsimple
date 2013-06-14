@@ -79,7 +79,7 @@ public class JavaHttpRequest extends HttpRequest {
     }
 
     public static class JavaHttpRequestFactory implements HttpRequestFactory {
-        @Override public HttpRequest createHttpRequest(String url) {
+        public HttpRequest createHttpRequest(String url) {
             return new JavaHttpRequest(url);
         }
     }

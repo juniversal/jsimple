@@ -60,7 +60,7 @@ public abstract class File extends Path {
         OutputStream stream = tempFile.openForCreate();
 
         stream.setClosedListener(new ClosedListener() {
-            @Override public void onClosed() {
+             public void onClosed() {
                 if (lastModifiedTime != 0)
                     tempFile.setLastModifiedTime(lastModifiedTime);
 

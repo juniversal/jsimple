@@ -84,15 +84,15 @@ namespace jsimple.io
 
 			public virtual void onClosed()
 			{
-				if (lastModifiedTime != 0)
-					tempFile.LastModifiedTime = lastModifiedTime;
+			   if (lastModifiedTime != 0)
+				   tempFile.LastModifiedTime = lastModifiedTime;
 
-				// TODO: Switch to do atomic rename when supported, using this:
-				// http://stackoverflow.com/questions/167414/is-an-atomic-file-rename-with-overwrite-possible-on-windows
-				// TODO: Add openForReadAtomic for case when it's not supported, cleaning up temp file and using temp
-				// file if original deleted
+			   // TODO: Switch to do atomic rename when supported, using this:
+			   // http://stackoverflow.com/questions/167414/is-an-atomic-file-rename-with-overwrite-possible-on-windows
+			   // TODO: Add openForReadAtomic for case when it's not supported, cleaning up temp file and using temp
+			   // file if original deleted
 
-				tempFile.rename(fileName);
+			   tempFile.rename(fileName);
 			}
 		}
 

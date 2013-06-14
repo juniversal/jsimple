@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>jsimple</name>
+	<comment></comment>
+	<projects>
+		<project>java-to-csharp-converter-maven-plugin</project>
+		<project>jsimple-io</project>
+		<project>jsimple-json</project>
+		<project>jsimple-logging-api</project>
+		<project>jsimple-logging-stdimpl</project>
+		<project>jsimple-oauth</project>
+		<project>jsimple-unit</project>
+		<project>jsimple-util</project>
+		<project>msbuild-maven-package-plugin</project>
+		<project>msbuild-maven-plugin</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.m2e.core.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+	</natures>
+</projectDescription>

@@ -24,12 +24,12 @@ namespace jsimple.io
 		/// implementations of this class should free any resources during close.
 		/// </summary>
 		/// <exception cref="IOException"> if an error occurs while closing this stream </exception>
-		public override abstract void close();
+		public abstract void close();
 
-		~InputStream()
-		{
+		 ~InputStream()
+		 {
 			close();
-		}
+		 }
 
 		/// <summary>
 		/// Reads a single byte from this stream and returns it as an integer in the range from 0 to 255. Returns -1 if the
