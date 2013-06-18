@@ -10,11 +10,25 @@ namespace jsimple.json.readerwriter
 	/// </summary>
 	public class JsonObjectType
 	{
+		private JsonObjectType superclass;
 		private Dictionary<string, JsonProperty> properties = new Dictionary<string, JsonProperty>();
+
+		public JsonObjectType(JsonObjectType superclass)
+		{
+			this.superclass = superclass;
+		}
+
+		public JsonObjectType() : this(null)
+		{
+		}
 
 		public virtual JsonProperty getProperty(string name)
 		{
-			return properties.GetValueOrNull(name);
+			JsonProperty value = properties.GetValueOrNull(name);
+			if (value != null)
+				return value;
+			else
+				return superclass.getProperty(name);
 		}
 
 		public virtual JsonProperty createProperty(string name, int id)

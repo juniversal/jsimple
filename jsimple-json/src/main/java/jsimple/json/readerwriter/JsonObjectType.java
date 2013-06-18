@@ -1,6 +1,7 @@
 package jsimple.json.readerwriter;
 
 import jsimple.json.JsonException;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 
@@ -9,10 +10,22 @@ import java.util.HashMap;
  * @since 5/19/13 3:10 PM
  */
 public class JsonObjectType {
+    private @Nullable JsonObjectType superclass;
     private HashMap<String, JsonProperty> properties = new HashMap<String, JsonProperty>();
 
-    public JsonProperty getProperty(String name) {
-        return properties.get(name);
+    public JsonObjectType(@Nullable JsonObjectType superclass) {
+        this.superclass = superclass;
+    }
+
+    public JsonObjectType() {
+        this(null);
+    }
+
+    public @Nullable JsonProperty getProperty(String name) {
+        @Nullable JsonProperty value = properties.get(name);
+        if (value != null)
+            return value;
+        else return superclass.getProperty(name);
     }
 
     public JsonProperty createProperty(String name, int id) {

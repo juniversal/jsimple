@@ -6,6 +6,7 @@ namespace jsimple.oauth.model
 {
 
 	using IOUtils = jsimple.io.IOUtils;
+	using OutputStream = jsimple.io.OutputStream;
 	using Logger = jsimple.logging.Logger;
 	using LoggerFactory = jsimple.logging.LoggerFactory;
 	using jsimple.net;
@@ -185,7 +186,10 @@ namespace jsimple.oauth.model
 			if (httpRequest.getHeader(HttpRequest.HEADER_CONTENT_TYPE) == null)
 				httpRequest.setHeader(HttpRequest.HEADER_CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
 
-			httpRequest.createRequestBodyStream().write(content, offset, length);
+			using (OutputStream bodyStream = httpRequest.createRequestBodyStream())
+			{
+				bodyStream.write(content, offset, length);
+			}
 		}
 
 		/// <summary>

@@ -255,6 +255,10 @@ public final class DateTime {
         millis = totalSeconds * 1000L - MILLIS_FROM_1601_TO_1970 + millisOfSecond;
     }
 
+    @Override public String toString() {
+        return toRFC3339String();
+    }
+
     public static boolean isLeapYear(int year) {
         return (year % 4) == 0 && (year % 100 != 0 || year % 400 == 0);
     }

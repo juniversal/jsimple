@@ -1,6 +1,7 @@
 package jsimple.oauth.model;
 
 import jsimple.io.IOUtils;
+import jsimple.io.OutputStream;
 import jsimple.logging.Logger;
 import jsimple.logging.LoggerFactory;
 import jsimple.net.*;
@@ -162,7 +163,9 @@ public class OAuthRequest {
         if (httpRequest.getHeader(HttpRequest.HEADER_CONTENT_TYPE) == null)
             httpRequest.setHeader(HttpRequest.HEADER_CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
 
-        httpRequest.createRequestBodyStream().write(content, offset, length);
+        try (OutputStream bodyStream = httpRequest.createRequestBodyStream()) {
+            bodyStream.write(content, offset, length);
+        }
     }
 
     /**
