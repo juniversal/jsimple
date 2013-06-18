@@ -24,7 +24,7 @@ namespace jsimple.io
 		/// implementations of this class should free any resources during close.
 		/// </summary>
 		/// <exception cref="IOException"> if an error occurs while closing this stream </exception>
-		public abstract void close();
+		public override abstract void close();
 
 		 ~InputStream()
 		 {

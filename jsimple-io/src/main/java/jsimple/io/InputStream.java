@@ -24,7 +24,7 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
      *
      * @throws IOException if an error occurs while closing this stream
      */
-    public abstract void close();
+    @Override public abstract void close();
 
      protected void finalize() {
         close();
