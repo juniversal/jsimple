@@ -43,9 +43,7 @@ namespace jsimple.io
 
                 try
                 {
-                    // It's not possible (that I've found) to get the modification date/time on Windows Phone, so
-                    // use the created date instead
-                    return PlatformUtils.toMillisFromDateTimeOffset(storageFile.DateCreated);
+                    return PlatformUtils.toMillisFromDateTimeOffset(storageFile.GetBasicPropertiesAsync().DoSynchronously().DateModified);
                 }
                 catch (System.IO.IOException e)
                 {
@@ -64,6 +62,7 @@ namespace jsimple.io
             {
                 IInputStream inputStream = storageFile.OpenSequentialReadAsync().DoSynchronously();
 
+                // TODO: Need to close the inputStream itself; add a closedListener to InputStream, i think
                 // Use the default 16K buffer for AsStreamForRead()
                 return new DotNetStreamInputStream(inputStream.AsStreamForRead());
             }
