@@ -35,7 +35,6 @@
             <artifactId>jsr308-all</artifactId>
             <version>1.2.6</version>
         </dependency>
-
     </dependencies>
 
     <build>

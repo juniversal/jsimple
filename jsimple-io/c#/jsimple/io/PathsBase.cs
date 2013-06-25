@@ -10,7 +10,7 @@ namespace jsimple.io
 	public class PathsBase
 	{
 		/// <returns> the directory where the application should store its private data. </returns>
-		//static Directory getApplicationDataDirectory();
+		//public static Directory getApplicationDataDirectory();
 
 		/// <summary>
 		/// Return the Directory object corresponding to the string serialized representation.  If the directory doesn't
@@ -23,7 +23,7 @@ namespace jsimple.io
 		/// </summary>
 		/// <param name="directoryString">
 		/// @return </param>
-		//static Directory getDirectory(String directoryPathString);
+		//public static Directory getDirectory(String directoryPathString);
 	}
 
 }

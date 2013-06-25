@@ -3,8 +3,6 @@ package jsimple.unit;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 
-import java.io.File;
-
 /**
  * Created with IntelliJ IDEA.
  *
@@ -14,6 +12,7 @@ import java.io.File;
 public class UnitTest extends UnitTestBase {
 
     private static @Nullable String projectDirectory = null;
+
     @Override public String getJavaProjectDirectory() {
         if (projectDirectory == null)
             projectDirectory = System.getProperty("user.dir");

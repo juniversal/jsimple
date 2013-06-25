@@ -10,7 +10,7 @@ public class PathsBase {
     /**
      * @return the directory where the application should store its private data.
      */
-    //static Directory getApplicationDataDirectory();
+    //public static Directory getApplicationDataDirectory();
 
     /**
      * Return the Directory object corresponding to the string serialized representation.  If the directory doesn't
@@ -24,5 +24,5 @@ public class PathsBase {
      * @param directoryString
      * @return
      */
-    //static Directory getDirectory(String directoryPathString);
+    //public static Directory getDirectory(String directoryPathString);
 }
