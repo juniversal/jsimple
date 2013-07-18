@@ -263,7 +263,7 @@ public final class DateTime {
         return (year % 4) == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
-    public long getMillis() {
+    public long toMillis() {
         return millis;
     }
 
@@ -359,6 +359,18 @@ public final class DateTime {
         else return new DateTime(this.millis + millis);
     }
 
+    public DateTime plusSeconds(long seconds) {
+        return plusMillis(seconds * 1000);
+    }
+
+    public DateTime plusMinutes(long minutes) {
+        return plusMillis(minutes * 60 * 1000);
+    }
+
+    public DateTime plusHours(long hours) {
+        return plusMillis(hours * 60 * 60 * 1000);
+    }
+
     /**
      * Given the RFC3339 date/time string, return the time in millis (milliseconds since Jan 1, 1970, UTC).  If the RFC
      * 3339 string isn't in a valid format, an InvalidFormatException is thrown.
@@ -367,7 +379,7 @@ public final class DateTime {
      * @return time in millis
      */
     public static long rfc3339ToMillis(String rfc3339DateTime) {
-        return parseRFC3339(rfc3339DateTime).getMillis();
+        return parseRFC3339(rfc3339DateTime).toMillis();
     }
 
     public static DateTime parseRFC3339(String rfc3339DateTime) {

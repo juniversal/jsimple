@@ -265,12 +265,9 @@ namespace jsimple.util
 			return (year % 4) == 0 && (year % 100 != 0 || year % 400 == 0);
 		}
 
-		public long Millis
+		public long toMillis()
 		{
-			get
-			{
-				return millis;
-			}
+			return millis;
 		}
 
 		public int Year
@@ -394,6 +391,21 @@ namespace jsimple.util
 				return new DateTime(this.millis + millis);
 		}
 
+		public DateTime plusSeconds(long seconds)
+		{
+			return plusMillis(seconds * 1000);
+		}
+
+		public DateTime plusMinutes(long minutes)
+		{
+			return plusMillis(minutes * 60 * 1000);
+		}
+
+		public DateTime plusHours(long hours)
+		{
+			return plusMillis(hours * 60 * 60 * 1000);
+		}
+
 		/// <summary>
 		/// Given the RFC3339 date/time string, return the time in millis (milliseconds since Jan 1, 1970, UTC).  If the RFC
 		/// 3339 string isn't in a valid format, an InvalidFormatException is thrown.
@@ -402,7 +414,7 @@ namespace jsimple.util
 		/// <returns> time in millis </returns>
 		public static long rfc3339ToMillis(string rfc3339DateTime)
 		{
-			return parseRFC3339(rfc3339DateTime).Millis;
+			return parseRFC3339(rfc3339DateTime).toMillis();
 		}
 
 		public static DateTime parseRFC3339(string rfc3339DateTime)

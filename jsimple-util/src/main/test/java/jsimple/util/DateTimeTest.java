@@ -156,7 +156,7 @@ public class DateTimeTest extends UnitTest {
         String dateTimeString = dateTime.toRFC3339String();
         assertEquals(expectedDatedTimeString, dateTimeString);
 
-        assertEquals(millis, DateTime.parseRFC3339(dateTimeString).getMillis());
+        assertEquals(millis, DateTime.parseRFC3339(dateTimeString).toMillis());
     }
 
     /**
@@ -169,7 +169,7 @@ public class DateTimeTest extends UnitTest {
 
     private void validateRoundTrip(long daysSinceEpoch) {
         long millis = daysSinceEpoch * 24 * 3600 * 1000;
-        assertEquals(millis, DateTime.parseRFC3339(new DateTime(millis).toRFC3339String()).getMillis());
+        assertEquals(millis, DateTime.parseRFC3339(new DateTime(millis).toRFC3339String()).toMillis());
     }
 
     @Test public void testGetDayOfWeek() {
