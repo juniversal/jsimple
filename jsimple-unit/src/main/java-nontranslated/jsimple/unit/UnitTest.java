@@ -10,8 +10,7 @@ import org.junit.Assert;
  * @since 1/1/13 9:06 PM
  */
 public class UnitTest extends UnitTestBase {
-
-    private static @Nullable String projectDirectory = null;
+    private static volatile @Nullable String projectDirectory = null;
 
     @Override public String getJavaProjectDirectory() {
         if (projectDirectory == null)
