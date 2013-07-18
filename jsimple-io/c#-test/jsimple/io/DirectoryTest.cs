@@ -10,13 +10,18 @@ namespace jsimple.io
 	/// </summary>
 	public class DirectoryTest : UnitTest
 	{
+		public DirectoryTest()
+		{
+			JSimpleIO.init();
+		}
+
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 //ORIGINAL LINE: [Test] public void testCreateFile() throws Exception
 		[Test] public virtual void testCreateFile()
 		{
-			Directory applicationDataDirectory = Paths.ApplicationDataDirectory;
+			Directory testOutputDirectory = Paths.Instance.getTestOutputDirectory("testCreateFile");
 
-			File file = applicationDataDirectory.getFile("testfile.txt");
+			File file = testOutputDirectory.getFile("testfile.txt");
 
 			createFileWithTestContents(file);
 			validateTestContents(file);
@@ -26,13 +31,24 @@ namespace jsimple.io
 //ORIGINAL LINE: [Test] public void testGetOrCreateDirectory() throws Exception
 		[Test] public virtual void testGetOrCreateDirectory()
 		{
-			Directory applicationDataDirectory = Paths.ApplicationDataDirectory;
+			Directory testOutputDirectory = Paths.Instance.getTestOutputDirectory("testGetOrCreateDirectory");
 
-			Directory testDirectory = applicationDataDirectory.getOrCreateDirectory("test-dir");
-			Directory childDirectory = testDirectory.getOrCreateDirectory("test-child-dir");
+			Directory dir = testOutputDirectory.createDirectory("dir");
+			Directory childDirectory = testOutputDirectory.createDirectory("child-dir");
 
-			Directory regetChildDirectory = testDirectory.getDirectory("test-dir");
+			Directory regetChildDirectory = testOutputDirectory.getDirectory("child-dir");
+		}
 
+		[Test] public virtual void testDeleteContents()
+		{
+			Directory testOutputDirectory = Paths.Instance.getTestOutputDirectory("testDeleteContents");
+
+			Directory directory = testOutputDirectory.createDirectory("dir");
+			Directory childDirectory = testOutputDirectory.createDirectory("child-dir");
+
+			testOutputDirectory.deleteContents();
+
+			assertTrue(testOutputDirectory.Empty);
 		}
 
 		private void createFileWithTestContents(File file)

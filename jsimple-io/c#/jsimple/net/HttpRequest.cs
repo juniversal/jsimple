@@ -40,7 +40,7 @@ namespace jsimple.net
 		public const string HEADER_USER_AGENT = "User-Agent";
 		public const string HEADER_ACCEPT = "Accept";
 
-		private static HttpRequestFactory factory;
+		private static volatile HttpRequestFactory factory;
 
 		/// <summary>
 		/// Create an HttpRequest, using the global factory.  This method is the normal way to create an HttpRequest, using
@@ -52,7 +52,6 @@ namespace jsimple.net
 		{
 			if (factory == null)
 				throw new Exception("HttpRequest factory isn't set; did you forget to call JSimpleIO.init()?");
-
 			return factory.createHttpRequest(url);
 		}
 
@@ -142,6 +141,5 @@ namespace jsimple.net
 		{
 			HttpRequest createHttpRequest(string url);
 		}
-
 	}
 }

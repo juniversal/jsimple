@@ -36,7 +36,7 @@ public abstract class HttpRequest {
     public static final String HEADER_USER_AGENT = "User-Agent";
     public static final String HEADER_ACCEPT = "Accept";
 
-    static private @Nullable HttpRequestFactory factory;
+    private static volatile @Nullable HttpRequestFactory factory;
 
     /**
      * Create an HttpRequest, using the global factory.  This method is the normal way to create an HttpRequest, using
@@ -48,7 +48,6 @@ public abstract class HttpRequest {
     public static HttpRequest create(String url) {
         if (factory == null)
             throw new RuntimeException("HttpRequest factory isn't set; did you forget to call JSimpleIO.init()?");
-
         return factory.createHttpRequest(url);
     }
 
@@ -140,5 +139,4 @@ public abstract class HttpRequest {
     public interface HttpRequestFactory {
         HttpRequest createHttpRequest(String url);
     }
-
 }

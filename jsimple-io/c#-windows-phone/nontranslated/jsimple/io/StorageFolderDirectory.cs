@@ -10,21 +10,47 @@ namespace jsimple.io
 {
     public class StorageFolderDirectory : Directory
     {
-        private readonly StorageFolder storageFolder;
+        private readonly StorageFolderDirectory parent;
+        private readonly string name;
+        private StorageFolder storageFolder;
 
-        public StorageFolderDirectory(StorageFolder storageFolder)
+        public StorageFolderDirectory(StorageFolderDirectory parent, string name)
         {
+            this.parent = parent;
+            this.name = name;
+            this.storageFolder = null;
+        }
+         
+        public StorageFolderDirectory(StorageFolderDirectory parent, StorageFolder storageFolder)
+        {
+            this.parent = parent;
+            this.name = storageFolder.Name;
             this.storageFolder = storageFolder;
         }
 
         public override string Name
         {
-            get { return storageFolder.Name; }
+            get { return name; }
         }
 
         public StorageFolder StorageFolder
         {
-            get { return storageFolder; }
+            get
+            {
+                if (storageFolder == null)
+                {
+                    try
+                    {
+                        storageFolder = parent.StorageFolder.GetFolderAsync(name).DoSynchronously();
+                    }
+                    catch (System.IO.IOException e)
+                    {
+                        throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                    }
+                }
+
+                return storageFolder;
+            }
         }
 
         public override File getFile(string name)
@@ -34,42 +60,42 @@ namespace jsimple.io
 
         public override Directory getDirectory(string name)
         {
-            try
-            {
-                return new StorageFolderDirectory(storageFolder.GetFolderAsync(name).DoSynchronously());
-            }
-            catch (System.IO.IOException e)
-            {
-                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-            }
+            return new StorageFolderDirectory(this, name);
         }
 
-        public override Directory getOrCreateDirectory(string name)
+        public override bool exists()
         {
             try
             {
-                return
-                    new StorageFolderDirectory(
-                        storageFolder.CreateFolderAsync(name, CreationCollisionOption.OpenIfExists).DoSynchronously());
+                StorageFolder temp = StorageFolder;
             }
-            catch (System.IO.IOException e)
+            catch (PathNotFoundException)
             {
-                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                return false;
             }
+
+            return true;
+        }
+
+        public override void create()
+        {
+            if (storageFolder == null)
+                storageFolder =
+                    parent.StorageFolder.CreateFolderAsync(name, CreationCollisionOption.OpenIfExists).DoSynchronously();
         }
 
         public override void visitChildren(DirectoryVisitor visitor)
         {
             try
             {
-                IReadOnlyList<IStorageItem> storageItems = storageFolder.GetItemsAsync().DoSynchronously();
+                IReadOnlyList<IStorageItem> storageItems = StorageFolder.GetItemsAsync().DoSynchronously();
 
                 foreach (IStorageItem storageItem in storageItems)
                 {
                     StorageItemPathAttributes pathAttributes = new StorageItemPathAttributes(storageItem);
 
                     if (storageItem is IStorageFolder)
-                        visitor.visit(new StorageFolderDirectory((StorageFolder)storageItem), pathAttributes);
+                        visitor.visit(new StorageFolderDirectory(this, (StorageFolder)storageItem), pathAttributes);
                     else if (storageItem is IStorageFile)
                         visitor.visit(new StorageFileFile(this, (StorageFile)storageItem), pathAttributes);
                     else throw new Exception("Unknown type of StorageItem: " + storageItem);
@@ -83,7 +109,8 @@ namespace jsimple.io
 
         public override void delete()
         {
-            storageFolder.DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
+            StorageFolder.DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
+            storageFolder = null;
         }
     }
 }

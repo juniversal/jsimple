@@ -14,9 +14,7 @@ public abstract class Directory extends Path {
     public abstract File getFile(String name);
 
     /**
-     * Get the child directory, which must already exist under this directory.  If the directory doesn't exist, the
-     * results are undefined (for some implementations it will fail right away & others will fail later, like when visit
-     * the children of the directory or open a file).
+     * Get the child directory, which may or may not already exist.
      *
      * @param name directory name
      * @return Directory object, that's a child of this directory
@@ -24,13 +22,32 @@ public abstract class Directory extends Path {
     public abstract Directory getDirectory(String name);
 
     /**
-     * Get the child directory, creating it if it doesn't already exist.  For all implementations, the persistent
-     * directory will actually exist after this method returns.
+     * Get the child directory, creating it if it doesn't already exist.
      *
      * @param name directory name
-     * @return child directory
+     * @return Directory object, that's a child of this directory
      */
-    public abstract Directory getOrCreateDirectory(String name);
+    public Directory createDirectory(String name) {
+        Directory directory = getDirectory(name);
+        directory.create();
+
+        return directory;
+    }
+
+    /**
+     * See if the directory exists.  If there's an error checking if the directory exists, this method throws an
+     * exception when possible, though for some platform implementations it'll just return false if platform can't
+     * distinguish not existing from there being an error checking.
+     *
+     * @return true if the file exists
+     */
+    public abstract boolean exists();
+
+    /**
+     * Create the directory, if it doesn't already exist.  All ancestor directories are created as well.  If the
+     * directory already exists, this method does nothing.
+     */
+    public abstract void create();
 
     /**
      * Visit the child elements of this path--basically list the files and subdirectories of a directory, calling the
@@ -44,4 +61,46 @@ public abstract class Directory extends Path {
      * implementations it will fail and for others delete the directory and its contents.
      */
     public abstract void delete();
+
+    /**
+     * Delete the contents of this directory, recursively.
+     */
+    public void deleteContents() {
+        visitChildren(new DirectoryVisitor() {
+            @Override public boolean visit(File file, PathAttributes attributes) {
+                file.delete();
+                return true;
+            }
+
+            @Override public boolean visit(Directory directory, PathAttributes attributes) {
+                directory.deleteContents();
+                directory.delete();
+                return true;
+            }
+        });
+    }
+
+    /**
+     * Check if this directory has any contents.
+     *
+     * @return true if the directory is empty, containing no files or subdirectories
+     */
+    public boolean isEmpty() {
+        final boolean[] foundSomething = new boolean[1];
+        foundSomething[0] = false;
+
+        visitChildren(new DirectoryVisitor() {
+            @Override public boolean visit(File file, PathAttributes attributes) {
+                foundSomething[0] = true;
+                return false;
+            }
+
+            @Override public boolean visit(Directory directory, PathAttributes attributes) {
+                foundSomething[0] = true;
+                return false;
+            }
+        });
+
+        return !foundSomething[0];
+    }
 }

@@ -21,8 +21,7 @@ namespace jsimple.io
 
 		/// <summary>
 		/// Open the file for writing.  If the file already exists, it is truncated.  If the file doesn't exist, it is
-		/// created (assuming Directory.createFile was called to get this File object, otherwise the results are undefined).
-		/// Note that the current JSimple file I/O model is that files, when written, are completely rewritten.
+		/// created. Note that the current JSimple file I/O model is that files, when written, are completely rewritten.
 		/// </summary>
 		/// <returns> output stream, to write the file contents </returns>
 		public abstract OutputStream openForCreate();
@@ -84,15 +83,15 @@ namespace jsimple.io
 
 			public virtual void onClosed()
 			{
-			   if (lastModifiedTime != 0)
-				   tempFile.LastModifiedTime = lastModifiedTime;
+				if (lastModifiedTime != 0)
+					tempFile.LastModifiedTime = lastModifiedTime;
 
-			   // TODO: Switch to do atomic rename when supported, using this:
-			   // http://stackoverflow.com/questions/167414/is-an-atomic-file-rename-with-overwrite-possible-on-windows
-			   // TODO: Add openForReadAtomic for case when it's not supported, cleaning up temp file and using temp
-			   // file if original deleted
+				// TODO: Switch to do atomic rename when supported, using this:
+				// http://stackoverflow.com/questions/167414/is-an-atomic-file-rename-with-overwrite-possible-on-windows
+				// TODO: Add openForReadAtomic for case when it's not supported, cleaning up temp file and using temp
+				// file if original deleted
 
-			   tempFile.rename(fileName);
+				tempFile.rename(fileName);
 			}
 		}
 
@@ -125,6 +124,12 @@ namespace jsimple.io
 		/// </summary>
 		/// <returns> last modified timestamp for file </returns>
 		public abstract long LastModifiedTime {get;set;}
+
+		/// <summary>
+		/// Get the size of this file.
+		/// </summary>
+		/// <returns> file size </returns>
+		public abstract long Size {get;}
 
 
 		public abstract Directory Parent {get;}

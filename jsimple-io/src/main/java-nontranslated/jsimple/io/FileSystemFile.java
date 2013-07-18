@@ -1,13 +1,11 @@
 package jsimple.io;
 
-import java.io.*;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.FileTime;
 
-import jsimple.io.OutputStream;
-
 /**
- *
  * @author Bret Johnson
  * @since 11/22/12 12:29 AM
  */
@@ -63,16 +61,16 @@ public class FileSystemFile extends File {
         return Files.exists(javaPath);
     }
 
-    @Override public void delete(){
-        try{
-            if(javaPath.toFile().exists())
+    @Override public void delete() {
+        try {
+            if (javaPath.toFile().exists())
                 Files.delete(javaPath);
-        } catch (java.io.IOException e){
+        } catch (java.io.IOException e) {
             throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }
     }
 
-    @Override public void rename(String newName){
+    @Override public void rename(String newName) {
         java.nio.file.Path newPath = parent.getJavaPath().resolve(newName);
         try {
             Files.move(javaPath, newPath, StandardCopyOption.REPLACE_EXISTING);
@@ -98,4 +96,11 @@ public class FileSystemFile extends File {
         }
     }
 
+    @Override public long getSize() {
+        try {
+            return Files.size(javaPath);
+        } catch (java.io.IOException e) {
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        }
+    }
 }

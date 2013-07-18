@@ -6,6 +6,18 @@ package jsimple.io;
  */
 public abstract class DirectoryVisitor {
     public abstract boolean visit(File file, PathAttributes attributes);
+
     public abstract boolean visit(Directory directory, PathAttributes attributes);
-    public abstract boolean visitFailed(String name, IOException exception);
+
+    /**
+     * Called to indicate that the visit to the file/directory fails (e.g. because don't have rights to read the
+     * file/directory attributes).
+     *
+     * @param name
+     * @param exception
+     * @return true to continue, false to abort
+     */
+    public boolean visitFailed(String name, IOException exception) {
+        throw exception;
+    }
 }

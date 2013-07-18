@@ -32,16 +32,16 @@ public class FileSystemDirectory extends Directory {
         return new FileSystemDirectory(javaPath.resolve(name));
     }
 
-    @Override public Directory getOrCreateDirectory(String name) {
-        java.nio.file.Path childPath = javaPath.resolve(name);
+    @Override public boolean exists() {
+        return javaPath.toFile().exists();
+    }
 
+    @Override public void create() {
         try {
-            Files.createDirectories(childPath);
+            Files.createDirectories(javaPath);
         } catch (java.io.IOException e) {
             throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }
-
-        return new FileSystemDirectory(childPath);
     }
 
     /**
@@ -56,7 +56,6 @@ public class FileSystemDirectory extends Directory {
                     return FileVisitResult.CONTINUE;
                 }
 
-             
                 public FileVisitResult visitFile(java.nio.file.Path file, BasicFileAttributes attrs) throws java.io.IOException {
                     PathAttributes pathAttributes = new FileSystemPathAttributes(attrs);
 
@@ -68,14 +67,15 @@ public class FileSystemDirectory extends Directory {
                                 FileVisitResult.CONTINUE : FileVisitResult.TERMINATE;
                 }
 
-              
+                // TODO: Test error handling here
                 public FileVisitResult visitFileFailed(java.nio.file.Path file, java.io.IOException exc) throws java.io.IOException {
                     return visitor.visitFailed(file.getFileName().toString(),
                             JavaIOUtils.jSimpleExceptionFromJavaIOException(exc)) ?
                             FileVisitResult.CONTINUE : FileVisitResult.TERMINATE;
                 }
 
-              
+
+                // TODO: Test error handling here
                 public FileVisitResult postVisitDirectory(java.nio.file.Path dir, java.io.IOException exc) throws java.io.IOException {
                     return FileVisitResult.CONTINUE;
                 }

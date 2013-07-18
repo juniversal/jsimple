@@ -8,11 +8,17 @@ import jsimple.net.JavaHttpRequest;
  * @since 4/18/13 10:53 PM
  */
 public class JSimpleIO {
+    private static boolean initialized = false;
+
     /**
-     * This method should be called before jsimple.net is used.  It's normally called at app startup. It initializes
-     * any factory classes to use the default implementation appropriate for the current platform.
+     * This method should be called before jsimple.net is used.  It's normally called at app startup. It initializes any
+     * factory classes to use the default implementation appropriate for the current platform.
      */
-    public static void init() {
-        HttpRequest.setFactory(new JavaHttpRequest.JavaHttpRequestFactory());
+    public static synchronized void init() {
+        if (!initialized) {
+            HttpRequest.setFactory(new JavaHttpRequest.JavaHttpRequestFactory());
+            Paths.setInstance(new JavaPaths());
+            initialized = true;
+        }
     }
 }

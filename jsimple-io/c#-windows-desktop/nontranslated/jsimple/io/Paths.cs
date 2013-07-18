@@ -3,13 +3,13 @@ using System.IO.IsolatedStorage;
 
 namespace jsimple.io
 {
-    public class Paths : PathsBase
+    public class WindowsDesktopPaths : Paths
     {
         private static readonly object lockObject = new Object();
         static volatile FileSystemDirectory applicationDataDirectory = null;
 
         /// <returns> the directory where the application should store its private data. </returns>
-        public static Directory ApplicationDataDirectory
+        public override Directory ApplicationDataDirectory
         {
             get
             {
@@ -34,12 +34,12 @@ namespace jsimple.io
         /// </summary>
         /// <param name="testName"> test name, used as part of directory name </param>
         /// <returns> directory to hold test output </returns>
-        public static Directory getTestOutputDirectory(string testName)
+        public override Directory getTestOutputDirectory(string testName)
         {
-            Directory projectDirectory = Paths.ApplicationDataDirectory;
-            Directory testOutputBase = projectDirectory.getOrCreateDirectory("target").getOrCreateDirectory("test-output");
+            Directory projectDirectory = ApplicationDataDirectory;
+            Directory testOutputBase = projectDirectory.createDirectory("target").createDirectory("test-output");
 
-            return testOutputBase.getOrCreateDirectory(testName);
+            return testOutputBase.createDirectory(testName);
         }
     }
 }

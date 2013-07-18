@@ -19,8 +19,7 @@ public abstract class File extends Path {
 
     /**
      * Open the file for writing.  If the file already exists, it is truncated.  If the file doesn't exist, it is
-     * created (assuming Directory.createFile was called to get this File object, otherwise the results are undefined).
-     * Note that the current JSimple file I/O model is that files, when written, are completely rewritten.
+     * created. Note that the current JSimple file I/O model is that files, when written, are completely rewritten.
      *
      * @return output stream, to write the file contents
      */
@@ -60,7 +59,7 @@ public abstract class File extends Path {
         OutputStream stream = tempFile.openForCreate();
 
         stream.setClosedListener(new ClosedListener() {
-             public void onClosed() {
+            public void onClosed() {
                 if (lastModifiedTime != 0)
                     tempFile.setLastModifiedTime(lastModifiedTime);
 
@@ -108,6 +107,13 @@ public abstract class File extends Path {
      * @return last modified timestamp for file
      */
     public abstract long getLastModifiedTime();
+
+    /**
+     * Get the size of this file.
+     *
+     * @return file size
+     */
+    public abstract long getSize();
 
     /**
      * Set the last modified / last write timestamp of this file.  Of the 3 file timestamps (created, modified, and

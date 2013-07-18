@@ -8,23 +8,37 @@ import org.junit.Test;
  * @since 3/16/13 12:20 AM
  */
 public class DirectoryTest extends UnitTest {
-    @Test public void testCreateFile() throws Exception {
-        Directory applicationDataDirectory = Paths.getApplicationDataDirectory();
+    public DirectoryTest() {
+        JSimpleIO.init();
+    }
 
-        File file = applicationDataDirectory.getFile("testfile.txt");
+    @Test public void testCreateFile() throws Exception {
+        Directory testOutputDirectory = Paths.getInstance().getTestOutputDirectory("testCreateFile");
+
+        File file = testOutputDirectory.getFile("testfile.txt");
 
         createFileWithTestContents(file);
         validateTestContents(file);
     }
 
     @Test public void testGetOrCreateDirectory() throws Exception {
-        Directory applicationDataDirectory = Paths.getApplicationDataDirectory();
+        Directory testOutputDirectory = Paths.getInstance().getTestOutputDirectory("testGetOrCreateDirectory");
 
-        Directory testDirectory = applicationDataDirectory.getOrCreateDirectory("test-dir");
-        Directory childDirectory = testDirectory.getOrCreateDirectory("test-child-dir");
+        Directory dir = testOutputDirectory.createDirectory("dir");
+        Directory childDirectory = testOutputDirectory.createDirectory("child-dir");
 
-        Directory regetChildDirectory = testDirectory.getDirectory("test-dir");
+        Directory regetChildDirectory = testOutputDirectory.getDirectory("child-dir");
+    }
 
+    @Test public void testDeleteContents() {
+        Directory testOutputDirectory = Paths.getInstance().getTestOutputDirectory("testDeleteContents");
+
+        Directory directory = testOutputDirectory.createDirectory("dir");
+        Directory childDirectory = testOutputDirectory.createDirectory("child-dir");
+
+        testOutputDirectory.deleteContents();
+
+        assertTrue(testOutputDirectory.isEmpty());
     }
 
     private void createFileWithTestContents(File file) {

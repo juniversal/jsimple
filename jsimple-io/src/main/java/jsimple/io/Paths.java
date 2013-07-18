@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -7,10 +9,16 @@ package jsimple.io;
  * @since 1/19/13 4:31 PM
  */
 public abstract class Paths {
-    public static JavaPaths instance = null;
+    public static volatile @Nullable Paths instance = null;
 
-    public static JavaPaths getInstance() {
+    public static Paths getInstance() {
+        if (instance == null)
+            throw new RuntimeException("Paths instance isn't set; did you forget to call JSimpleIO.init()?");
         return instance;
+    }
+
+    public static void setInstance(Paths instance) {
+        Paths.instance = instance;
     }
 
     /**
@@ -24,10 +32,10 @@ public abstract class Paths {
      * PathNotFoundException is thrown when the returned directory is used--different implementations do different
      * things there.
      * <p/>
-     * Not all implementations of Directory support serializing it as a string.  An exception is thrown if it's
-     * not supported.
+     * Not all implementations of Directory support serializing it as a string.  An exception is thrown if it's not
+     * supported.
      *
-     * @param directoryString
+     * @param directoryPathString
      * @return
      */
     public abstract Directory getDirectory(String directoryPathString);
@@ -43,10 +51,10 @@ public abstract class Paths {
      * @return directory to hold test output
      */
     public Directory getTestOutputDirectory(String testName) {
-        Directory projectDirectory = JavaPaths.getInstance().getApplicationDataDirectory();
-        Directory testOutputBase = projectDirectory.getOrCreateDirectory("target").getOrCreateDirectory("test-output");
+        Directory projectDirectory = Paths.getInstance().getApplicationDataDirectory();
+        Directory testOutputBase = projectDirectory.createDirectory("target").createDirectory("test-output");
 
-        Directory testOutputDirectory = testOutputBase.getOrCreateDirectory(testName);
+        Directory testOutputDirectory = testOutputBase.createDirectory(testName);
         testOutputDirectory.deleteContents();
         return testOutputDirectory;
     }

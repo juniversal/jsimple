@@ -8,8 +8,20 @@ namespace jsimple.io
 	public abstract class DirectoryVisitor
 	{
 		public abstract bool visit(File file, PathAttributes attributes);
+
 		public abstract bool visit(Directory directory, PathAttributes attributes);
-		public abstract bool visitFailed(string name, IOException exception);
+
+		/// <summary>
+		/// Called to indicate that the visit to the file/directory fails (e.g. because don't have rights to read the
+		/// file/directory attributes).
+		/// </summary>
+		/// <param name="name"> </param>
+		/// <param name="exception"> </param>
+		/// <returns> true to continue, false to abort </returns>
+		public virtual bool visitFailed(string name, IOException exception)
+		{
+			throw exception;
+		}
 	}
 
 }
