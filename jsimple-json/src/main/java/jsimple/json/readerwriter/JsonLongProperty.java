@@ -11,7 +11,10 @@ public class JsonLongProperty extends JsonProperty {
 
     // TODO: Automatically convert int to long
     public long readValue(JsonObjectReader objectReader) {
-        return (long) (Long) objectReader.readPropertyValue();
+        Object value = objectReader.readPropertyValue();
+        if (value instanceof Integer)
+            return (long) (int) (Integer) value;
+        else return (long) (Long) value;
     }
 
     @Override public Object readValueUntyped(JsonObjectReader objectReader) {
