@@ -8,6 +8,18 @@ public abstract class File extends Path {
     public abstract InputStream openForRead();
 
     /**
+     * Copy the contents of this file to the specified output stream.  If an error occurs when copying, the file input
+     * stream is closed (as you'd expect), an exception is thrown, and the output stream may be partially written to.
+     *
+     * @param outputStream output stream to write to
+     */
+    public void copyTo(OutputStream outputStream) {
+        try (InputStream inputStream = openForRead()) {
+            inputStream.copyTo(outputStream);
+        }
+    }
+
+    /**
      * This is a convenience method to open a UTF8 text file for read.  It does the same thing as calling {@code new
      * Utf8InputStreamReader(openForRead())}.
      *
