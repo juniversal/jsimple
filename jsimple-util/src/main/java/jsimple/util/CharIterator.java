@@ -58,6 +58,28 @@ public class CharIterator {
             ++index;
     }
 
+    private void advance(int charCount) {
+        index += charCount;
+        if (index > length)
+            index = length;
+    }
+
+    public boolean matches(String substring) {
+        return getRemaining().startsWith(substring);
+    }
+
+    public boolean match(String substring) {
+        if (matches(substring)) {
+            advance(substring.length());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean matchOneOf(String substring1, String substring2) {
+        return match(substring1) || match(substring2);
+    }
+
     /**
      * Search for the the next occurrence of the specified substring & advance the iterator just past it.  If that
      * substring isn't found, an exception is thrown.
@@ -142,6 +164,11 @@ public class CharIterator {
     public boolean isDigit() {
         int c = curr();
         return c >= '0' && c <= '9';
+    }
+
+    public boolean isAsciiLetter() {
+        int c = curr();
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
     }
 
     public boolean isWhitespaceOnSameLine() {

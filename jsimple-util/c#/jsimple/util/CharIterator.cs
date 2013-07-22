@@ -77,6 +77,33 @@ namespace jsimple.util
 				++index;
 		}
 
+		private void advance(int charCount)
+		{
+			index += charCount;
+			if (index > length)
+				index = length;
+		}
+
+		public virtual bool matches(string substring)
+		{
+			return Remaining.StartsWith(substring);
+		}
+
+		public virtual bool match(string substring)
+		{
+			if (matches(substring))
+			{
+				advance(substring.Length);
+				return true;
+			}
+			return false;
+		}
+
+		public virtual bool matchOneOf(string substring1, string substring2)
+		{
+			return match(substring1) || match(substring2);
+		}
+
 		/// <summary>
 		/// Search for the the next occurrence of the specified substring & advance the iterator just past it.  If that
 		/// substring isn't found, an exception is thrown.
@@ -173,6 +200,15 @@ namespace jsimple.util
 			{
 				int c = curr();
 				return c >= '0' && c <= '9';
+			}
+		}
+
+		public virtual bool AsciiLetter
+		{
+			get
+			{
+				int c = curr();
+				return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 			}
 		}
 
