@@ -25,7 +25,9 @@ public class JsonObjectType {
         @Nullable JsonProperty value = properties.get(name);
         if (value != null)
             return value;
-        else return superclass.getProperty(name);
+        if (superclass != null)
+            return superclass.getProperty(name);
+        return null;
     }
 
     public JsonProperty createProperty(String name, int id) {
