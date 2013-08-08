@@ -73,9 +73,23 @@ namespace jsimple.util
 		/// <returns> resulting string </returns>
 		public static string toStringFromLatin1Bytes(sbyte[] bytes)
 		{
-			int length = bytes.Length;
+			return toStringFromLatin1Bytes(new ByteArrayRange(bytes));
+		}
+
+		/// <summary>
+		/// Convert a ByteArrayRange, assumed to be a Latin1 (aka 8859-1 aka Windows 1252) encoded string, to a regular Java
+		/// string.  Latin1 is the first 256 characters of Unicode, so this conversion is just a straight pass through,
+		/// turning bytes in chars.  Note that ASCII is a subset of Latin1.
+		/// </summary>
+		/// <param name="byteArrayRange"> byte array data </param>
+		/// <returns> resulting string </returns>
+		public static string toStringFromLatin1Bytes(ByteArrayRange byteArrayRange)
+		{
+			sbyte[] bytes = byteArrayRange.Bytes;
+
+			int length = byteArrayRange.Length;
 			char[] chars = new char[length];
-			for (int i = 0; i < length; i++)
+			for (int i = byteArrayRange.Position; i < length; i++)
 				chars[i] = (char) bytes[i];
 			return new string(chars);
 		}

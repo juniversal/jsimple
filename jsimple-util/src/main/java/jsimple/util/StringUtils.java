@@ -68,9 +68,23 @@ public class StringUtils {
      * @return resulting string
      */
     public static String toStringFromLatin1Bytes(byte[] bytes) {
-        int length = bytes.length;
+        return toStringFromLatin1Bytes(new ByteArrayRange(bytes));
+    }
+
+    /**
+     * Convert a ByteArrayRange, assumed to be a Latin1 (aka 8859-1 aka Windows 1252) encoded string, to a regular Java
+     * string.  Latin1 is the first 256 characters of Unicode, so this conversion is just a straight pass through,
+     * turning bytes in chars.  Note that ASCII is a subset of Latin1.
+     *
+     * @param byteArrayRange byte array data
+     * @return resulting string
+     */
+    public static String toStringFromLatin1Bytes(ByteArrayRange byteArrayRange) {
+        byte[] bytes = byteArrayRange.getBytes();
+
+        int length = byteArrayRange.getLength();
         char[] chars = new char[length];
-        for (int i = 0; i < length; i++)
+        for (int i = byteArrayRange.getPosition(); i < length; i++)
             chars[i] = (char) bytes[i];
         return new String(chars);
     }
