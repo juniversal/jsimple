@@ -41,7 +41,7 @@ namespace jsimple.oauth.services
 		{
 			//byte[] toUtf8BytesFromString(String s, int[] length) {
 
-			sbyte[] signature = Sha1.mac(IOUtils.toUtf8BytesFromString(keyString), IOUtils.toUtf8BytesFromString(toSign));
+			sbyte[] signature = Sha1.mac(IOUtils.toUtf8BytesFromString(keyString).toByteArray(), IOUtils.toUtf8BytesFromString(toSign).toByteArray());
 			return Base64.encodeBase64AsString(signature);
 
 			/*

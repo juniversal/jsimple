@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace jsimple.oauth.model
 {
 
+	using ByteArrayRange = jsimple.util.ByteArrayRange;
 	using IOUtils = jsimple.io.IOUtils;
 	using OutputStream = jsimple.io.OutputStream;
 	using Logger = jsimple.logging.Logger;
@@ -32,7 +33,7 @@ namespace jsimple.oauth.model
 		private IDictionary<string, string> headers;
 		private string payload = null;
 		private HttpRequest httpRequest = null;
-		private sbyte[] bytePayload = null; //@Nullable
+		private ByteArrayRange bytePayload = null;
 		private int? timeout = null;
 		private IDictionary<string, string> oauthParameters;
 
@@ -142,11 +143,7 @@ namespace jsimple.oauth.model
 			addHeaders(httpReq);
 
 			if (verb.Equals("PUT") || verb.Equals("POST"))
-			{
-				int[] length = new int[1];
-				sbyte[] bodyBytes = getByteBodyContents(length);
-				addBody(httpReq, bodyBytes, 0, length[0]);
-			}
+				addBody(httpReq, ByteBodyContents);
 
 			try
 			{
@@ -178,9 +175,9 @@ namespace jsimple.oauth.model
 				httpRequest.setHeader(key, headers.GetValueOrNull(key));
 		}
 
-		internal virtual void addBody(HttpRequest httpRequest, sbyte[] content, int offset, int length)
+		internal virtual void addBody(HttpRequest httpRequest, ByteArrayRange byteArrayRange)
 		{
-			httpRequest.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, Convert.ToString(content.Length));
+			httpRequest.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, Convert.ToString(byteArrayRange.Length));
 
 			// Set default content type if none is set
 			if (httpRequest.getHeader(HttpRequest.HEADER_CONTENT_TYPE) == null)
@@ -188,7 +185,7 @@ namespace jsimple.oauth.model
 
 			using (OutputStream bodyStream = httpRequest.createRequestBodyStream())
 			{
-				bodyStream.write(content, offset, length);
+				bodyStream.write(byteArrayRange);
 			}
 		}
 
@@ -251,6 +248,15 @@ namespace jsimple.oauth.model
 		/// </summary>
 		/// <param name="payload"> </param>
 		public virtual void addPayload(sbyte[] payload)
+		{
+			addPayload(new ByteArrayRange(payload));
+		}
+
+		/// <summary>
+		/// Overloaded version for byte arrays
+		/// </summary>
+		/// <param name="payload"> </param>
+		public virtual void addPayload(ByteArrayRange payload)
 		{
 			this.bytePayload = payload;
 		}
@@ -320,16 +326,16 @@ namespace jsimple.oauth.model
 			}
 		}
 
-		internal virtual sbyte[] getByteBodyContents(int[] length)
+		internal virtual ByteArrayRange ByteBodyContents
 		{
-			if (bytePayload != null)
+			get
 			{
-				length[0] = bytePayload.Length;
-				return bytePayload;
+				if (bytePayload != null)
+					return bytePayload;
+    
+				string body = (payload != null) ? payload : bodyParams.asFormUrlEncodedString();
+				return IOUtils.toUtf8BytesFromString(body);
 			}
-
-			string body = (payload != null) ? payload : bodyParams.asFormUrlEncodedString();
-			return IOUtils.toUtf8BytesFromString(body, length);
 		}
 
 		/// <summary>

@@ -1,5 +1,6 @@
 package jsimple.oauth.model;
 
+import jsimple.util.ByteArrayRange;
 import jsimple.io.IOUtils;
 import jsimple.io.OutputStream;
 import jsimple.logging.Logger;
@@ -28,7 +29,7 @@ public class OAuthRequest {
     private Map<String, String> headers;
     private @Nullable String payload = null;
     private @Nullable HttpRequest httpRequest = null;
-    private byte/*@Nullable*/[] bytePayload = null;
+    private @Nullable ByteArrayRange bytePayload = null;
     private @Nullable Integer timeout = null;
     private Map<String, String> oauthParameters;
 
@@ -126,11 +127,8 @@ public class OAuthRequest {
 
         addHeaders(httpReq);
 
-        if (verb.equals("PUT") || verb.equals("POST")) {
-            int[] length = new int[1];
-            byte[] bodyBytes = getByteBodyContents(length);
-            addBody(httpReq, bodyBytes, 0, length[0]);
-        }
+        if (verb.equals("PUT") || verb.equals("POST"))
+            addBody(httpReq, getByteBodyContents());
 
         try {
             OAuthResponse response;
@@ -156,15 +154,15 @@ public class OAuthRequest {
             httpRequest.setHeader(key, headers.get(key));
     }
 
-    void addBody(HttpRequest httpRequest, byte[] content, int offset, int length) {
-        httpRequest.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, String.valueOf(content.length));
+    void addBody(HttpRequest httpRequest, ByteArrayRange byteArrayRange) {
+        httpRequest.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, String.valueOf(byteArrayRange.getLength()));
 
         // Set default content type if none is set
         if (httpRequest.getHeader(HttpRequest.HEADER_CONTENT_TYPE) == null)
             httpRequest.setHeader(HttpRequest.HEADER_CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
 
         try (OutputStream bodyStream = httpRequest.createRequestBodyStream()) {
-            bodyStream.write(content, offset, length);
+            bodyStream.write(byteArrayRange);
         }
     }
 
@@ -228,6 +226,15 @@ public class OAuthRequest {
      * @param payload
      */
     public void addPayload(byte[] payload) {
+        addPayload(new ByteArrayRange(payload));
+    }
+
+    /**
+     * Overloaded version for byte arrays
+     *
+     * @param payload
+     */
+    public void addPayload(ByteArrayRange payload) {
         this.bytePayload = payload;
     }
 
@@ -284,14 +291,12 @@ public class OAuthRequest {
         return sanitizedUrl;
     }
 
-    byte[] getByteBodyContents(int[] length) {
-        if (bytePayload != null) {
-            length[0] = bytePayload.length;
+    ByteArrayRange getByteBodyContents() {
+        if (bytePayload != null)
             return bytePayload;
-        }
 
         String body = (payload != null) ? payload : bodyParams.asFormUrlEncodedString();
-        return IOUtils.toUtf8BytesFromString(body, length);
+        return IOUtils.toUtf8BytesFromString(body);
     }
 
     /**

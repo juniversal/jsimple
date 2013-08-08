@@ -31,7 +31,8 @@ public class HMACSha1SignatureService implements SignatureService {
     private String doSign(String toSign, String keyString) {
         //byte[] toUtf8BytesFromString(String s, int[] length) {
 
-        byte[] signature = Sha1.mac(IOUtils.toUtf8BytesFromString(keyString), IOUtils.toUtf8BytesFromString(toSign));
+        byte[] signature = Sha1.mac(IOUtils.toUtf8BytesFromString(keyString).toByteArray(),
+                IOUtils.toUtf8BytesFromString(toSign).toByteArray());
         return Base64.encodeBase64AsString(signature);
 
         /*
