@@ -35,25 +35,6 @@ namespace jsimple.io
             get { return parent; }
         }
 
-        public override long LastModifiedTime
-        {
-            get
-            {
-                ensureGotStorageFile();
-
-                try
-                {
-                    return PlatformUtils.toMillisFromDateTimeOffset(storageFile.GetBasicPropertiesAsync().DoSynchronously().DateModified);
-                }
-                catch (System.IO.IOException e)
-                {
-                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                }
-            }
-
-            set { }
-        }
-
         public override InputStream openForRead()
         {
             ensureGotStorageFile();
@@ -124,6 +105,42 @@ namespace jsimple.io
             catch (System.IO.IOException e)
             {
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
+
+        public override long LastModifiedTime
+        {
+            get
+            {
+                ensureGotStorageFile();
+
+                try
+                {
+                    return PlatformUtils.toMillisFromDateTimeOffset(storageFile.GetBasicPropertiesAsync().DoSynchronously().DateModified);
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
+
+            set { }
+        }
+
+        public override long Size
+        {
+            get
+            {
+                ensureGotStorageFile();
+
+                try
+                {
+                    return (long) storageFile.GetBasicPropertiesAsync().DoSynchronously().Size;
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
             }
         }
 
