@@ -4,6 +4,7 @@ namespace jsimple.io
 {
 
 	using UnitTest = jsimple.unit.UnitTest;
+	using ByteArrayRange = jsimple.util.ByteArrayRange;
 	using StringUtils = jsimple.util.StringUtils;
 	using NUnit.Framework;
 
@@ -50,14 +51,10 @@ namespace jsimple.io
 			StringUtils.appendCodePoint(uni, highWord | 0xFFFF);
 		}
 
-
 		private void testRoundTripping(string input)
 		{
-			int[] length = new int[1];
-				sbyte[] utf8Bytes = IOUtils.toUtf8BytesFromString(input, length);
-
-			string output = IOUtils.toStringFromUtf8Bytes(utf8Bytes, 0, length[0]);
-
+			ByteArrayRange utf8Bytes = IOUtils.toUtf8BytesFromString(input);
+			string output = IOUtils.toStringFromUtf8Bytes(utf8Bytes);
 			assertEquals(input, output);
 		}
 
@@ -81,8 +78,7 @@ namespace jsimple.io
 
 			try
 			{
-				int[] length = new int[1];
-				sbyte[] utf8Bytes = IOUtils.toUtf8BytesFromString(input, length);
+				IOUtils.toUtf8BytesFromString(input);
 			}
 			catch (CharConversionException e)
 			{
@@ -101,10 +97,9 @@ namespace jsimple.io
 		{
 			// If there's only a lead surrogate at the end of the string, then it's skipped (without generating an error) &
 			// nothing is written to the output bytes for it
-			int[] length = new int[1];
-			sbyte[] utf8Bytes = IOUtils.toUtf8BytesFromString("\uD800", length);
+			ByteArrayRange utf8Bytes = IOUtils.toUtf8BytesFromString("\uD800");
 
-			assertEquals(0, length[0]);
+			assertEquals(0, utf8Bytes.Length);
 		}
 
 		[Test] public virtual void testBreakInMiddleOfSurrogate()
@@ -118,10 +113,8 @@ namespace jsimple.io
 			utf8OutputStreamWriter.write(s[1]);
 			utf8OutputStreamWriter.flush();
 
-			int[] length = new int[1];
-			sbyte[] bytes = byteArrayOutputStream.closeAndGetByteArray(length);
-
-			assertEquals(s, IOUtils.toStringFromUtf8Bytes(bytes, 0, length[0]));
+			ByteArrayRange byteArrayRange = byteArrayOutputStream.closeAndGetByteArray();
+			assertEquals(s, IOUtils.toStringFromUtf8Bytes(byteArrayRange));
 		}
 	}
 

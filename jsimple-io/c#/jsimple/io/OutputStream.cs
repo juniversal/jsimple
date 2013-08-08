@@ -1,6 +1,7 @@
 namespace jsimple.io
 {
 
+	using ByteArrayRange = jsimple.util.ByteArrayRange;
 	using StringUtils = jsimple.util.StringUtils;
 
 
@@ -47,6 +48,11 @@ namespace jsimple.io
 				write(buffer[i]);
 		}
 
+		public virtual void write(ByteArrayRange byteArrayRange)
+		{
+			write(byteArrayRange.Bytes, byteArrayRange.Position, byteArrayRange.Length);
+		}
+
 		/// <summary>
 		/// Writes a single byte to this stream. Only the least significant byte of the integer {@code oneByte} is written to
 		/// the stream.
@@ -81,10 +87,7 @@ namespace jsimple.io
 		/// <param name="s"> string to write </param>
 		public virtual void writeUtf8EncodedString(string s)
 		{
-			int[] length = new int[1];
-			sbyte[] bytes = IOUtils.toUtf8BytesFromString(s, length);
-
-			write(bytes, 0, length[0]);
+			write(IOUtils.toUtf8BytesFromString(s));
 		}
 
 		/// <summary>

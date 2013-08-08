@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import jsimple.util.ByteArrayRange;
+
 /**
  * @author Bret Johnson
  * @since 10/13/12 4:26 PM
@@ -9,21 +11,18 @@ public class IOUtils {
      * Converts the string to a UTF-8 byte array.  The array is returned, but it can be bigger than is otherwise needed.
      * Only the first length[0] bytes of the array should be used.
      *
-     * @param s      string input
-     * @param length int[1] array, returning number of bytes at beginning of array containing the data
+     * @param s string input
      * @return byte array, for the UTF-8 encoded string
      */
-    public static byte[] toUtf8BytesFromString(String s, int[] length) {
+    public static ByteArrayRange toUtf8BytesFromString(String s) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(s.length());
 
-        Utf8OutputStreamWriter utf8OutputStreamWriter = new Utf8OutputStreamWriter(byteArrayOutputStream);
-        utf8OutputStreamWriter.write(s);
-        utf8OutputStreamWriter.flush();
+        try (Utf8OutputStreamWriter utf8OutputStreamWriter = new Utf8OutputStreamWriter(byteArrayOutputStream)) {
+            utf8OutputStreamWriter.write(s);
+            utf8OutputStreamWriter.flush();
 
-        byte[] bytes = byteArrayOutputStream.getByteArray(length);
-
-        utf8OutputStreamWriter.close();
-        return bytes;
+            return byteArrayOutputStream.getByteArray();
+        }
     }
 
     /**
@@ -36,6 +35,7 @@ public class IOUtils {
      * @param s string input
      * @return byte array, for the UTF-8 encoded string
      */
+/*
     public static byte[] toUtf8BytesFromString(String s) {
         int[] length = new int[1];
         byte[] bytes = toUtf8BytesFromString(s, length);
@@ -48,6 +48,7 @@ public class IOUtils {
             return copy;
         }
     }
+*/
 
     /**
      * Converts the stream contents, assumed to be a UTF-8 character data, to a string.  The inputStream is closed on
@@ -68,8 +69,13 @@ public class IOUtils {
      * @return String for UTF-8 data
      */
     public static String toStringFromUtf8Bytes(byte[] utf8Bytes, int position, int length) {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(utf8Bytes, 0, length);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(utf8Bytes, position, length);
         return toStringFromReader(new Utf8InputStreamReader(byteArrayInputStream));
+    }
+
+    public static String toStringFromUtf8Bytes(ByteArrayRange byteArrayRange) {
+        return toStringFromUtf8Bytes(byteArrayRange.getBytes(), byteArrayRange.getPosition(),
+                byteArrayRange.getLength());
     }
 
     /**
@@ -93,7 +99,7 @@ public class IOUtils {
      * @return string contents of reader
      */
     public static String toStringFromReader(Reader reader) {
-        char[] buffer = new char[8*1024];
+        char[] buffer = new char[8 * 1024];
         StringBuilder out = new StringBuilder();
         int charsRead;
         do {
@@ -106,38 +112,16 @@ public class IOUtils {
     }
 
     /**
-     * Read the remaining data from the input stream into a byte array, which is returned.  Only the first length[0]
-     * bytes of the byte array should be used.  The inputStream is closed after it's completely read.
+     * Read the remaining data from the input stream into a byte array, which is returned.  Only the first
+     * ByteArrayRange.getLength() bytes of the byte array should be used.  The inputStream is closed after it's
+     * completely read, though it won't be closed if an except occurs in the middle of reading from it.
      *
      * @param inputStream input stream
-     * @param length      int[1] array; length of the data is returned in length[0]
-     * @return byte array contain the data in the stream, in the first length[0] bytes
+     * @return ByteArrayRange containing the data in the stream
      */
-    public static byte[] toBytesFromStream(InputStream inputStream, int[] length) {
+    public ByteArrayRange toBytesFromStream(InputStream inputStream) {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         inputStream.copyTo(byteStream);
-        return byteStream.closeAndGetByteArray(length);
-    }
-
-    /**
-     * Read the remaining data from the input stream into a byte array, which is returned.  inputStream is closed after
-     * it's completely read.  Unlike the version with the length parameter, this method returns an array of exactly the
-     * right size, containing just the data in question and no more.  However, that convenience comes at the expense of
-     * performance, as normally an extra copy of the array is required.
-     *
-     * @param inputStream input stream
-     * @return byte array contain the data in the stream
-     */
-    public static byte[] toBytesFromStream(InputStream inputStream) {
-        int[] length = new int[1];
-        byte[] bytes = toBytesFromStream(inputStream, length);
-
-        if (bytes.length == length[0])
-            return bytes;
-        else {
-            byte[] copy = new byte[length[0]];
-            System.arraycopy(bytes, 0, copy, 0, length[0]);
-            return copy;
-        }
+        return byteStream.closeAndGetByteArray();
     }
 }

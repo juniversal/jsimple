@@ -1,5 +1,6 @@
 package jsimple.net;
 
+import jsimple.util.ByteArrayRange;
 import jsimple.io.IOUtils;
 
 /**
@@ -51,9 +52,11 @@ public class UrlEncoder {
     private static final String digits = "0123456789ABCDEF";
 
     private static void convert(String s, StringBuilder buffer) {
-        int[] length = new int[1];
-        byte[] bytes = IOUtils.toUtf8BytesFromString(s, length);
-        for (int j = 0; j < length[0]; j++) {
+        ByteArrayRange byteArrayRange = IOUtils.toUtf8BytesFromString(s);
+        int length = byteArrayRange.getLength();
+        byte[] bytes = byteArrayRange.getBytes();
+
+        for (int j = byteArrayRange.getPosition(); j < length; j++) {
             buffer.append('%');
             byte currByte = bytes[j];
             buffer.append(digits.charAt((currByte & 0xf0) >> 4));

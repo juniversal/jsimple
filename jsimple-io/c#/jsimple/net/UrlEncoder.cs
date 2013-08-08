@@ -3,6 +3,7 @@ using System.Text;
 namespace jsimple.net
 {
 
+	using ByteArrayRange = jsimple.util.ByteArrayRange;
 	using IOUtils = jsimple.io.IOUtils;
 
 	/// <summary>
@@ -60,9 +61,11 @@ namespace jsimple.net
 
 		private static void convert(string s, StringBuilder buffer)
 		{
-			int[] length = new int[1];
-			sbyte[] bytes = IOUtils.toUtf8BytesFromString(s, length);
-			for (int j = 0; j < length[0]; j++)
+			ByteArrayRange byteArrayRange = IOUtils.toUtf8BytesFromString(s);
+			int length = byteArrayRange.Length;
+			sbyte[] bytes = byteArrayRange.Bytes;
+
+			for (int j = byteArrayRange.Position; j < length; j++)
 			{
 				buffer.Append('%');
 				sbyte currByte = bytes[j];

@@ -3,6 +3,8 @@ using System;
 namespace jsimple.io
 {
 
+	using ByteArrayRange = jsimple.util.ByteArrayRange;
+
 	/// <summary>
 	/// This class was based on, and modified from, the Apache Harmony java.io.ByteArrayOutputStream class.  Unlike the Java
 	/// OutputStream class, none of the methods are synchronized & this class provides a way to get the underlying byte array
@@ -54,43 +56,23 @@ namespace jsimple.io
 		}
 
 		/// <summary>
-		/// Closes this stream and returns the byte array associated with it.  Note that the returned array may be the
-		/// original buffer used by this stream or a copy; the original is used if it's already exactly the right size (with
-		/// no extra space at the end), otherwise a copy is made with the right size.
-		/// </summary>
-		/// <returns> byte array associated with stream </returns>
-		public virtual sbyte[] closeAndGetByteArray()
-		{
-			sbyte[] data;
-			if (buffer.Length == count)
-				data = buffer;
-			else
-				data = toByteArray();
-
-			close();
-			buffer = null;
-
-			return data;
-		}
-
-		/// <summary>
-		/// Closes the stream and returns its contents as a byte array.  Only the first length[0] bytes of this array contain
-		/// the stream data.  This just returns a reference to the internal byte array.  That has the advantage of
-		/// potentially better performance--no copy is needed--but less convenience than getting a byte array of exactly the
-		/// right size.  If the returned byte array will exist of a while, it can also be more memory efficient to get a
-		/// version that's no bigger than needed.
+		/// Closes the stream and returns its contents as a ByteArrayRange.  Only the first ByteArrayRange.getLength() bytes
+		/// of the ByteArrayRange contain the stream data--the remainder is is just overage that never got used.  The caller
+		/// can use ByteArrayRange.toByteArray() if they wish to obtain a byte[] of exactly the right length.  Doing that
+		/// normally results in making a copy, unless the source byte array is already exactly the right size, and is less
+		/// efficient.  On the other hand, getting a byte array of exactly the right size can be more convenient in some
+		/// cases & if it'll stick around for a long time more memory efficient.
 		/// </summary>
 		/// <returns> this stream's current contents as a byte array; the array can be arbitrarily big, but only the first
-		///         length[0] bytes contain stream data </returns>
-		public virtual sbyte[] closeAndGetByteArray(int[] length)
+		///         ByteArrayRange.getLength() bytes contain stream data </returns>
+		public virtual ByteArrayRange closeAndGetByteArray()
 		{
-			length[0] = count;
-			sbyte[] data = buffer;
+			ByteArrayRange byteArrayRange = new ByteArrayRange(buffer, 0, count);
 
 			close();
 			buffer = null;
 
-			return data;
+			return byteArrayRange;
 		}
 
 		private void expand(int i)
@@ -133,10 +115,12 @@ namespace jsimple.io
 		/// </summary>
 		/// <returns> this stream's current contents as a byte array; the array can be arbitrarily big, but only the first
 		///         length[0] bytes contain stream data </returns>
-		public virtual sbyte[] getByteArray(int[] length)
+		public virtual ByteArrayRange ByteArray
 		{
-			length[0] = count;
-			return buffer;
+			get
+			{
+				return new ByteArrayRange(buffer, 0, count);
+			}
 		}
 
 		/// <summary>

@@ -1,6 +1,7 @@
 package jsimple.io;
 
 import jsimple.unit.UnitTest;
+import jsimple.util.ByteArrayRange;
 import jsimple.util.StringUtils;
 import org.junit.Test;
 
@@ -44,13 +45,9 @@ public class Utf8OutputStreamWriterTest extends UnitTest {
         StringUtils.appendCodePoint(uni, highWord | 0xFFFF);
     }
 
-
     private void testRoundTripping(String input) {
-        int[] length = new int[1];
-            byte[] utf8Bytes = IOUtils.toUtf8BytesFromString(input, length);
-
-        String output = IOUtils.toStringFromUtf8Bytes(utf8Bytes, 0, length[0]);
-
+        ByteArrayRange utf8Bytes = IOUtils.toUtf8BytesFromString(input);
+        String output = IOUtils.toStringFromUtf8Bytes(utf8Bytes);
         assertEquals(input, output);
     }
 
@@ -71,8 +68,7 @@ public class Utf8OutputStreamWriterTest extends UnitTest {
         boolean encounteredError = false;
 
         try {
-            int[] length = new int[1];
-            byte[] utf8Bytes = IOUtils.toUtf8BytesFromString(input, length);
+            IOUtils.toUtf8BytesFromString(input);
         } catch (CharConversionException e) {
             String message = e.getMessage();
             if (message == null)
@@ -88,10 +84,9 @@ public class Utf8OutputStreamWriterTest extends UnitTest {
     @Test public void testSingleLeadSurrogate() {
         // If there's only a lead surrogate at the end of the string, then it's skipped (without generating an error) &
         // nothing is written to the output bytes for it
-        int[] length = new int[1];
-        byte[] utf8Bytes = IOUtils.toUtf8BytesFromString("\uD800", length);
+        ByteArrayRange utf8Bytes = IOUtils.toUtf8BytesFromString("\uD800");
 
-        assertEquals(0, length[0]);
+        assertEquals(0, utf8Bytes.getLength());
     }
 
     @Test public void testBreakInMiddleOfSurrogate() {
@@ -104,9 +99,7 @@ public class Utf8OutputStreamWriterTest extends UnitTest {
         utf8OutputStreamWriter.write(s.charAt(1));
         utf8OutputStreamWriter.flush();
 
-        int[] length = new int[1];
-        byte[] bytes = byteArrayOutputStream.closeAndGetByteArray(length);
-
-        assertEquals(s, IOUtils.toStringFromUtf8Bytes(bytes, 0, length[0]));
+        ByteArrayRange byteArrayRange = byteArrayOutputStream.closeAndGetByteArray();
+        assertEquals(s, IOUtils.toStringFromUtf8Bytes(byteArrayRange));
     }
 }

@@ -35,33 +35,6 @@ namespace jsimple.io
             get { return parent; }
         }
 
-        public override long LastModifiedTime
-        {
-            get
-            {
-                try
-                {
-                    return PlatformUtils.toMillisFromDateTime(System.IO.File.GetLastWriteTimeUtc(filePath));
-                }
-                catch (System.IO.IOException e)
-                {
-                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                }
-            }
-
-            set
-            {
-                try
-                {
-                    System.IO.File.SetLastWriteTimeUtc(filePath, PlatformUtils.toDotNetDateTimeFromMillis(value));
-                }
-                catch (System.IO.IOException e)
-                {
-                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                }
-            }
-        }
-
         public override InputStream openForRead()
         {
             try
@@ -132,6 +105,48 @@ namespace jsimple.io
                 }
             else
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
+
+        public override long LastModifiedTime
+        {
+            get
+            {
+                try
+                {
+                    return PlatformUtils.toMillisFromDateTime(System.IO.File.GetLastWriteTimeUtc(filePath));
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
+
+            set
+            {
+                try
+                {
+                    System.IO.File.SetLastWriteTimeUtc(filePath, PlatformUtils.toDotNetDateTimeFromMillis(value));
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
+        }
+
+        public override long Size
+        {
+            get
+            {
+                try
+                {
+                    return new FileInfo(filePath).Length;
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package jsimple.io;
 
+import jsimple.util.ByteArrayRange;
 import jsimple.util.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,6 +47,10 @@ public abstract class OutputStream extends jsimple.lang.AutoCloseable {
             write(buffer[i]);
     }
 
+    public void write(ByteArrayRange byteArrayRange) {
+        write(byteArrayRange.getBytes(), byteArrayRange.getPosition(), byteArrayRange.getLength());
+    }
+
     /**
      * Writes a single byte to this stream. Only the least significant byte of the integer {@code oneByte} is written to
      * the stream.
@@ -81,10 +86,7 @@ public abstract class OutputStream extends jsimple.lang.AutoCloseable {
      * @param s string to write
      */
     public void writeUtf8EncodedString(String s) {
-        int[] length = new int[1];
-        byte[] bytes = IOUtils.toUtf8BytesFromString(s, length);
-
-        write(bytes, 0, length[0]);
+        write(IOUtils.toUtf8BytesFromString(s));
     }
 
     /**

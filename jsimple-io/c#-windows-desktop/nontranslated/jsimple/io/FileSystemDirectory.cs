@@ -32,15 +32,31 @@ namespace jsimple.io
             return new FileSystemDirectory(getChildPath(name));
         }
 
-        public override Directory getOrCreateDirectory(string name)
+        public override void create()
         {
-            String subdirectoryPath = getChildPath(name);
+            try
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+                if (!directoryInfo.Exists)
+                    directoryInfo.Create();
+            }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
 
-            DirectoryInfo directoryInfo = new DirectoryInfo(subdirectoryPath);
-            if (! directoryInfo.Exists)
-                directoryInfo.Create();
-
-            return new FileSystemDirectory(subdirectoryPath);
+        public override bool exists()
+        {
+            try
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+                return directoryInfo.Exists;
+            }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
         }
 
         public string getChildPath(string name)
