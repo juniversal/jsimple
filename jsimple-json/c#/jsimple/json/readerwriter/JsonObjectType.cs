@@ -27,8 +27,9 @@ namespace jsimple.json.readerwriter
 			JsonProperty value = properties.GetValueOrNull(name);
 			if (value != null)
 				return value;
-			else
+			if (superclass != null)
 				return superclass.getProperty(name);
+			return null;
 		}
 
 		public virtual JsonProperty createProperty(string name, int id)
