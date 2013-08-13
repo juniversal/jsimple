@@ -41,7 +41,7 @@ namespace jsimple.logging.stdimpl
 		/// logger will get the default level, set on the factory, otherwise the override sets the level.
 		/// </summary>
 		/// <param name="loggerLevel"> level of info to log </param>
-		public virtual Level Level
+		public override Level Level
 		{
 			set
 			{

@@ -444,6 +444,13 @@ namespace jsimple.logging
 		public abstract bool isLevelEnabled(Level level);
 
 		/// <summary>
+		/// Set the level for this logger.  The logger implementation is free to define the exact semantics of changing the
+		/// level--what other loggers may be affected (if there's some kind of hierarchy), etc.
+		/// </summary>
+		/// <param name="level"> new level </param>
+		public abstract Level Level {set;}
+
+		/// <summary>
 		/// Log a message at the specified level.
 		/// </summary>
 		/// <param name="level"> logging level to log at </param>
@@ -548,8 +555,8 @@ namespace jsimple.logging
 
 		/// <summary>
 		/// Log start and end messages at the specified level, with the specified message format and arguments.  This method
-		/// is the same as the logEnterLeave varargs method, except that it has a different name, with no overloads, to
-		/// force use of the varargs version no matter how few arguments are passed.
+		/// is the same as the logEnterLeave varargs method, except that it has a different name, with no overloads, to force
+		/// use of the varargs version no matter how few arguments are passed.
 		/// </summary>
 		/// <param name="level">     logging level to log at </param>
 		/// <param name="format">    the format string </param>

@@ -69,6 +69,13 @@ namespace jsimple.logging.helpers
 			return false;
 		}
 
+		public override Level Level
+		{
+			set
+			{
+			}
+		}
+
 		public override void logWithVarargs(Level level, string format, params object[] arguments)
 		{
 		}

@@ -38,12 +38,12 @@ namespace jsimple.io
 		/// </summary>
 		/// <returns> the byte read or -1 if the end of stream has been reached </returns>
 		/// <exception cref="IOException"> if an error occurs while reading </exception>
-		public virtual int read()
-		{
-			sbyte[] buffer = new sbyte[1];
-			int result = read(buffer, 0, 1);
-			return result == -1 ? - 1 : buffer[0] & 0xff;
-		}
+		public abstract int read();
+		/* {
+		    byte[] buffer = new byte[1];
+		    int result = read(buffer, 0, 1);
+		    return result == -1 ? -1 : buffer[0] & 0xff;
+		} */
 
 		/// <summary>
 		/// Reads bytes from this stream and stores them in the byte array {@code b}.
@@ -80,26 +80,24 @@ namespace jsimple.io
 		/// <param name="length"> the maximum number of bytes to store in {@code b} </param>
 		/// <returns> the number of bytes actually read or -1 if the end of the stream has been reached </returns>
 		/// <exception cref="IOException"> if an error occurs while reading </exception>
-		public virtual int read(sbyte[] buffer, int offset, int length)
+		public abstract int read(sbyte[] buffer, int offset, int length);
+		/*
 		{
-			for (int i = 0; i < length; i++)
-			{
-				int c;
-				try
-				{
-					if ((c = read()) == -1)
-						return i == 0 ? - 1 : i;
-				}
-				catch (IOException e)
-				{
-					if (i != 0)
-						return i;
-					throw e;
-				}
-				buffer[offset + i] = (sbyte) c;
-			}
-			return length;
+		    for (int i = 0; i < length; i++) {
+		        int c;
+		        try {
+		            if ((c = read()) == -1)
+		                return i == 0 ? -1 : i;
+		        } catch (IOException e) {
+		            if (i != 0)
+		                return i;
+		            throw e;
+		        }
+		        buffer[offset + i] = (byte) c;
+		    }
+		    return length;
 		}
+		*/
 
 		/// <summary>
 		/// This method is the same as read except that it's guaranteed to read as much as possible, blocking until it's read

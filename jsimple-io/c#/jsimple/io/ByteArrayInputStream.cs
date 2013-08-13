@@ -3,6 +3,8 @@ using System;
 namespace jsimple.io
 {
 
+	using ByteArrayRange = jsimple.util.ByteArrayRange;
+
 	/// <summary>
 	/// This class was based on, and modified from, the Apache Harmony java.io.ByteArrayInputStream class.  Unlike the Java
 	/// InputStream class, this doesn't support mark, reset, or skip, doesn't throw any checked exceptions, and none of the
@@ -41,7 +43,11 @@ namespace jsimple.io
 			this.count = buf.Length;
 		}
 
-		public override void close()
+		/// <summary>
+		/// Constructs a new {@code ByteArrayInputStream} on the byte array range.
+		/// </summary>
+		/// <param name="byteArrayRange"> the byte array range to stream over </param>
+		public ByteArrayInputStream(ByteArrayRange byteArrayRange) : this(byteArrayRange.Bytes, byteArrayRange.Position, byteArrayRange.Length)
 		{
 		}
 
@@ -57,6 +63,10 @@ namespace jsimple.io
 			this.buf = buf;
 			pos = offset;
 			count = offset + length > buf.Length ? buf.Length : offset + length;
+		}
+
+		public override void close()
+		{
 		}
 
 		/// <summary>

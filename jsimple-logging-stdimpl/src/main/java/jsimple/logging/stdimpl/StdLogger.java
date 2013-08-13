@@ -37,7 +37,7 @@ public class StdLogger extends Logger {
      *
      * @param loggerLevel level of info to log
      */
-    public void setLevel(Level loggerLevel) {
+    @Override public void setLevel(Level loggerLevel) {
         this.loggerLevel = loggerLevel;
         updateEffectiveLevel();
     }
