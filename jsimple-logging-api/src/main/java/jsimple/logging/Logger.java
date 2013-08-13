@@ -427,6 +427,14 @@ public abstract class Logger {
     public abstract boolean isLevelEnabled(Level level);
 
     /**
+     * Set the level for this logger.  The logger implementation is free to define the exact semantics of changing the
+     * level--what other loggers may be affected (if there's some kind of hierarchy), etc.
+     *
+     * @param level new level
+     */
+    public abstract void setLevel(Level level);
+
+    /**
      * Log a message at the specified level.
      *
      * @param level logging level to log at
@@ -527,8 +535,8 @@ public abstract class Logger {
 
     /**
      * Log start and end messages at the specified level, with the specified message format and arguments.  This method
-     * is the same as the logEnterLeave varargs method, except that it has a different name, with no overloads, to
-     * force use of the varargs version no matter how few arguments are passed.
+     * is the same as the logEnterLeave varargs method, except that it has a different name, with no overloads, to force
+     * use of the varargs version no matter how few arguments are passed.
      *
      * @param level     logging level to log at
      * @param format    the format string

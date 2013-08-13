@@ -59,17 +59,17 @@ public class NOPLogger extends Logger {
      * @param level log level
      * @return whether logging should be enabled; the NOPLogger always returns false here
      */
-    @Override
-    public boolean isLevelEnabled(Level level) {
+    @Override public boolean isLevelEnabled(Level level) {
         return false;
     }
 
-    @Override
-    public void logWithVarargs(Level level, String format, Object... arguments) {
+    @Override public void setLevel(Level level) {
     }
 
-    @Override
-    public void log(Level level, String msg, Throwable t) {
+    @Override public void logWithVarargs(Level level, String format, Object... arguments) {
+    }
+
+    @Override public void log(Level level, String msg, Throwable t) {
     }
 
     @Override public LogEnterLeave logStartAndEndWithVarargs(Level level, String format, Object... arguments) {

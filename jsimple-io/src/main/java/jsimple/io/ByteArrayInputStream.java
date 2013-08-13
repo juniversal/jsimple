@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import jsimple.util.ByteArrayRange;
+
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.ByteArrayInputStream class.  Unlike the Java
  * InputStream class, this doesn't support mark, reset, or skip, doesn't throw any checked exceptions, and none of the
@@ -37,7 +39,13 @@ public class ByteArrayInputStream extends InputStream {
         this.count = buf.length;
     }
 
-    @Override public void close() {
+    /**
+     * Constructs a new {@code ByteArrayInputStream} on the byte array range.
+     *
+     * @param byteArrayRange the byte array range to stream over
+     */
+    public ByteArrayInputStream(ByteArrayRange byteArrayRange) {
+        this(byteArrayRange.getBytes(), byteArrayRange.getPosition(), byteArrayRange.getLength());
     }
 
     /**
@@ -52,6 +60,9 @@ public class ByteArrayInputStream extends InputStream {
         this.buf = buf;
         pos = offset;
         count = offset + length > buf.length ? buf.length : offset + length;
+    }
+
+    @Override public void close() {
     }
 
     /**

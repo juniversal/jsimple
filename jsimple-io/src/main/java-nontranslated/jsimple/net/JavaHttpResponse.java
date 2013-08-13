@@ -53,17 +53,32 @@ public class JavaHttpResponse extends HttpResponse {
         if (bodyStream == null) {
             int statusCode = getStatusCode();
             try {
-                // TODO: Check status status code is exactly right (check Java source) and handle case where
-                // getErrorStream returns null
+                // TODO: Check status status code is exactly right (check Java source)
 
-                if (statusCode < 200 || statusCode >= 300)
-                    bodyStream = new JSimpleInputStreamOnJavaStream(httpUrlConnection.getErrorStream());
-                else bodyStream = new JSimpleInputStreamOnJavaStream(httpUrlConnection.getInputStream());
+                if (statusCode < 200 || statusCode >= 300) {
+                    java.io.InputStream errorStream = httpUrlConnection.getErrorStream();
+                    if (errorStream == null)
+                        bodyStream = new EmptyInputStream();
+                    else bodyStream = new JSimpleInputStreamOnJavaStream(errorStream);
+                } else bodyStream = new JSimpleInputStreamOnJavaStream(httpUrlConnection.getInputStream());
             } catch (java.io.IOException e) {
                 throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
             }
         }
 
         return bodyStream;
+    }
+
+    public static class EmptyInputStream extends InputStream {
+        @Override public int read() {
+            return -1;
+        }
+
+        @Override public int read(byte[] buffer, int offset, int length) {
+            return length == 0 ? 0 : -1;
+        }
+
+        @Override public void close() {
+        }
     }
 }
