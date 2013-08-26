@@ -18,6 +18,21 @@ namespace jsimple.net
 			assertEquals("xëĆҸabcﮚ", UrlDecoder.decode("x%C3%AB%C4%86%D2%B8abc%EF%AE%9A"));
 			assertEquals("abc=def?sdf&hil sdlkfj l sdf slkdfj 123&def", UrlDecoder.decode("abc%3Ddef%3Fsdf%26hil+sdlkfj+l+sdf+slkdfj+123%26def"));
 		}
+
+		[Test] public virtual void testDecodePath()
+		{
+			assertEquals("/", UrlDecoder.decodePath("/").ToString());
+			assertEquals("/", UrlDecoder.decodePath("").ToString());
+
+			assertEquals("/abc", UrlDecoder.decodePath("abc").ToString());
+
+			assertEquals("/abc/def", UrlDecoder.decodePath("abc/def").ToString());
+			assertEquals("/abc/def", UrlDecoder.decodePath("abc/def/").ToString());
+
+			assertEquals("/a!@#/def", UrlDecoder.decodePath("a!%40%23/def/").ToString());
+			assertEquals("/ab/c/def", UrlDecoder.decodePath("/ab%2Fc/def").ToString());
+			assertEquals("ab/c", UrlDecoder.decodePath("/ab%2Fc/def").PathElements.get(0));
+		}
 	}
 
 }

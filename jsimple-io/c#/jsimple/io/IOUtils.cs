@@ -12,8 +12,8 @@ namespace jsimple.io
 	public class IOUtils
 	{
 		/// <summary>
-		/// Converts the string to a UTF-8 byte array.  The array is returned, but it can be bigger than is otherwise needed.
-		/// Only the first length[0] bytes of the array should be used.
+		/// Converts the string to a UTF-8 byte array.  The array is returned inside a ByteArrayRange.  The array can be
+		/// bigger than needed; only the specified length should be used.
 		/// </summary>
 		/// <param name="s"> string input </param>
 		/// <returns> byte array, for the UTF-8 encoded string </returns>

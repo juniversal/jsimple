@@ -1,14 +1,17 @@
 package jsimple.oauth.model;
 
-import jsimple.util.ByteArrayRange;
+import jsimple.io.File;
 import jsimple.io.IOUtils;
+import jsimple.io.InputStream;
 import jsimple.io.OutputStream;
 import jsimple.logging.Logger;
 import jsimple.logging.LoggerFactory;
 import jsimple.net.*;
 import jsimple.oauth.exceptions.OAuthConnectionException;
 import jsimple.oauth.exceptions.OAuthException;
+import jsimple.util.ByteArrayRange;
 import jsimple.util.PlatformUtils;
+import jsimple.util.TextualPath;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -27,9 +30,10 @@ public class OAuthRequest {
     private ParameterList queryStringParams;
     private ParameterList bodyParams;
     private Map<String, String> headers;
-    private @Nullable String payload = null;
-    private @Nullable HttpRequest httpRequest = null;
     private @Nullable ByteArrayRange bytePayload = null;
+    private @Nullable String stringPayload = null;
+    private @Nullable File filePayload = null;
+    private @Nullable HttpRequest httpRequest = null;
     private @Nullable Integer timeout = null;
     private Map<String, String> oauthParameters;
 
@@ -38,9 +42,9 @@ public class OAuthRequest {
     private static final String OAUTH_PREFIX = "oauth_";
 
     /**
-     * Default constructor.
+     * Construct an OAuthRequest to apply to specified verb against the specified resource URL.
      *
-     * @param verb Http verb/method
+     * @param verb HTTP verb/method
      * @param url  resource URL
      */
     public OAuthRequest(String verb, String url) {
@@ -51,6 +55,18 @@ public class OAuthRequest {
         this.headers = new HashMap<String, String>();
 
         this.oauthParameters = new HashMap<String, String>();
+    }
+
+    /**
+     * Construct an OAuthRequest to apply to specified verb against the specified resource.
+     *
+     * @param verb         HTTP verb/method
+     * @param baseUrl      base URL, including server/port and optionally start of path; this should NOT end with a /
+     *                     character
+     * @param resourcePath path to resource on server, which will be appended to baseUrl
+     */
+    public OAuthRequest(String verb, String baseUrl, TextualPath resourcePath) {
+        this(verb, baseUrl + UrlEncoder.encode(resourcePath));
     }
 
     /**
@@ -125,10 +141,11 @@ public class OAuthRequest {
         if (timeout != null)
             httpReq.setTimeout(timeout.intValue());
 
-        addHeaders(httpReq);
+        for (String key : headers.keySet())
+            httpReq.setHeader(key, headers.get(key));
 
         if (verb.equals("PUT") || verb.equals("POST"))
-            addBody(httpReq, getByteBodyContents());
+            addBody(httpReq);
 
         try {
             OAuthResponse response;
@@ -140,8 +157,7 @@ public class OAuthRequest {
 
                 long duration = PlatformUtils.getCurrentTimeMillis() - startTime;
                 logger.trace("{} {}; took {}ms", verb, getUrl(), duration);
-            }
-            else response = new OAuthResponse(httpReq.send());
+            } else response = new OAuthResponse(httpReq.send());
 
             return response;
         } catch (UnknownHostException e) {
@@ -149,20 +165,25 @@ public class OAuthRequest {
         }
     }
 
-    void addHeaders(HttpRequest httpRequest) {
-        for (String key : headers.keySet())
-            httpRequest.setHeader(key, headers.get(key));
-    }
-
-    void addBody(HttpRequest httpRequest, ByteArrayRange byteArrayRange) {
-        httpRequest.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, String.valueOf(byteArrayRange.getLength()));
-
+    private void addBody(HttpRequest httpReq) {
         // Set default content type if none is set
-        if (httpRequest.getHeader(HttpRequest.HEADER_CONTENT_TYPE) == null)
-            httpRequest.setHeader(HttpRequest.HEADER_CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
+        if (httpReq.getHeader(HttpRequest.HEADER_CONTENT_TYPE) == null)
+            httpReq.setHeader(HttpRequest.HEADER_CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
 
-        try (OutputStream bodyStream = httpRequest.createRequestBodyStream()) {
-            bodyStream.write(byteArrayRange);
+        if (filePayload != null) {
+            httpReq.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, String.valueOf(filePayload.getSize()));
+
+            try (InputStream fileStream = filePayload.openForRead()) {
+                try (OutputStream bodyStream = httpReq.createRequestBodyStream()) {
+                    fileStream.copyTo(bodyStream);
+                }
+            }
+        } else {
+            ByteArrayRange byteArrayRange = getByteBodyContents();
+            httpReq.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, String.valueOf(byteArrayRange.getLength()));
+            try (OutputStream bodyStream = httpReq.createRequestBodyStream()) {
+                bodyStream.write(byteArrayRange);
+            }
         }
     }
 
@@ -217,7 +238,7 @@ public class OAuthRequest {
      * @param payload the body of the request
      */
     public void addPayload(String payload) {
-        this.payload = payload;
+        this.stringPayload = payload;
     }
 
     /**
@@ -236,6 +257,15 @@ public class OAuthRequest {
      */
     public void addPayload(ByteArrayRange payload) {
         this.bytePayload = payload;
+    }
+
+    /**
+     * Overloaded version for byte arrays
+     *
+     * @param filePayload
+     */
+    public void addPayload(File filePayload) {
+        this.filePayload = filePayload;
     }
 
     /**
@@ -295,7 +325,7 @@ public class OAuthRequest {
         if (bytePayload != null)
             return bytePayload;
 
-        String body = (payload != null) ? payload : bodyParams.asFormUrlEncodedString();
+        String body = (stringPayload != null) ? stringPayload : bodyParams.asFormUrlEncodedString();
         return IOUtils.toUtf8BytesFromString(body);
     }
 

@@ -87,7 +87,10 @@ namespace jsimple.io
 		/// <param name="s"> string to write </param>
 		public virtual void writeUtf8EncodedString(string s)
 		{
-			write(IOUtils.toUtf8BytesFromString(s));
+			using (Utf8OutputStreamWriter writer = new Utf8OutputStreamWriter(this, false))
+			{
+				writer.write(s);
+			}
 		}
 
 		/// <summary>

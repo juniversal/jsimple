@@ -1,7 +1,9 @@
 package jsimple.net;
 
 import jsimple.io.IOUtils;
+import jsimple.util.StringTokenizer;
 import jsimple.util.StringUtils;
+import jsimple.util.TextualPath;
 
 /**
  * This class was based on, and modified from, the Apache Harmony java.net.URLDecoder class.  Unlike the standard Java
@@ -19,8 +21,7 @@ public class UrlDecoder {
      * '+' will be converted to space, '%' and two following hex digit characters are converted to the equivalent byte
      * value. All other characters are passed through unmodified. For example "A+B+C %24%25" -> "A B C $%".
      *
-     *
-     * @param s   the encoded string
+     * @param s the encoded string
      * @return the decoded clear-text representation of the given string
      */
     public static String decode(String s) {
@@ -35,8 +36,7 @@ public class UrlDecoder {
             }
 
             return new String(str);
-        }
-        else return decodeEncodedString(s);
+        } else return decodeEncodedString(s);
     }
 
     private static String decodeEncodedString(String s) {
@@ -68,5 +68,26 @@ public class UrlDecoder {
         }
 
         return str_buf.toString();
+    }
+
+    /**
+     * Decode a path, delimited with "/" characters.  Note that decoding then looking for / characters isn't completely
+     * correct--that produces the wrong result if elements of the path contact URL encoded / characters not intended to
+     * be path delimiters.  That's one reason for this method's existence--it first finds the / characters then decodes
+     * each element of the path, producing the correct result.
+     *
+     * @param pathString path string
+     * @return TextualPath, holding a list of strings forming the elements of the path
+     */
+    public static TextualPath decodePath(String pathString) {
+        TextualPath path = new TextualPath();
+
+        StringTokenizer stringTokenizer = new StringTokenizer(pathString, "/");
+        while (stringTokenizer.hasMoreTokens()) {
+            String pathElement = decode(stringTokenizer.nextToken());
+            path.add(pathElement);
+        }
+
+        return path;
     }
 }

@@ -62,6 +62,7 @@ public class FileSystemFile extends File {
     }
 
     @Override public void delete() {
+        // TODO: Change to just catch FileNotFoundException, I think
         try {
             if (javaPath.toFile().exists())
                 Files.delete(javaPath);

@@ -15,9 +15,11 @@ import org.jetbrains.annotations.Nullable;
  */
 public class Utf8OutputStreamWriter extends Writer {
     private @Nullable OutputStream out;
+    private boolean closeOuterStream;
     private byte[] destBuffer;
     private int destPosition = 0;
     private int queuedLeadSurrogate = -1;
+
     private static final int BUFFER_SIZE = 1024;
 
     /**
@@ -26,22 +28,29 @@ public class Utf8OutputStreamWriter extends Writer {
      * @param out the non-null target stream to write converted bytes to
      */
     public Utf8OutputStreamWriter(OutputStream out) {
+        this(out, true);
+    }
+
+    /**
+     * Constructs a new OutputStreamWriter using {@code out} as the target stream to write converted characters to.
+     *
+     * @param out              the non-null target stream to write converted bytes to
+     * @param closeOuterStream whether or not to close the outer stream when this stream is close
+     */
+    public Utf8OutputStreamWriter(OutputStream out, boolean closeOuterStream) {
         this.out = out;
         destBuffer = new byte[BUFFER_SIZE];
+        this.closeOuterStream = closeOuterStream;
     }
 
     /**
-    @Override protected void finalize() {
-        close();
-    }
-
-    /**
-     * Closes this writer. This implementation flushes the buffer as well as the target stream. The target stream is
+     * @throws IOException if an error occurs while closing this writer.
+     * @Override protected void finalize() { close(); }
+     * <p/>
+     * /** Closes this writer. This implementation flushes the buffer as well as the target stream. The target stream is
      * then closed and the resources for the buffer and converter are released.
      * <p/>
      * Only the first invocation of this method has any effect. Subsequent calls do nothing.
-     *
-     * @throws IOException if an error occurs while closing this writer.
      */
     @Override public void close() {
         // If already closed, do nothing
@@ -51,7 +60,8 @@ public class Utf8OutputStreamWriter extends Writer {
         flush();
 
         assert out != null : "@SuppressWarnings(nullness)";
-        out.close();
+        if (closeOuterStream)
+            out.close();
         out = null;
     }
 

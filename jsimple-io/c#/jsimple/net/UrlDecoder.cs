@@ -5,7 +5,9 @@ namespace jsimple.net
 {
 
 	using IOUtils = jsimple.io.IOUtils;
+	using StringTokenizer = jsimple.util.StringTokenizer;
 	using StringUtils = jsimple.util.StringUtils;
+	using TextualPath = jsimple.util.TextualPath;
 
 	/// <summary>
 	/// This class was based on, and modified from, the Apache Harmony java.net.URLDecoder class.  Unlike the standard Java
@@ -23,9 +25,8 @@ namespace jsimple.net
 		/// <p/>
 		/// '+' will be converted to space, '%' and two following hex digit characters are converted to the equivalent byte
 		/// value. All other characters are passed through unmodified. For example "A+B+C %24%25" -> "A B C $%".
-		/// 
 		/// </summary>
-		/// <param name="s">   the encoded string </param>
+		/// <param name="s"> the encoded string </param>
 		/// <returns> the decoded clear-text representation of the given string </returns>
 		public static string decode(string s)
 		{
@@ -82,6 +83,28 @@ namespace jsimple.net
 			}
 
 			return str_buf.ToString();
+		}
+
+		/// <summary>
+		/// Decode a path, delimited with "/" characters.  Note that decoding then looking for / characters isn't completely
+		/// correct--that produces the wrong result if elements of the path contact URL encoded / characters not intended to
+		/// be path delimiters.  That's one reason for this method's existence--it first finds the / characters then decodes
+		/// each element of the path, producing the correct result.
+		/// </summary>
+		/// <param name="pathString"> path string </param>
+		/// <returns> TextualPath, holding a list of strings forming the elements of the path </returns>
+		public static TextualPath decodePath(string pathString)
+		{
+			TextualPath path = new TextualPath();
+
+			StringTokenizer stringTokenizer = new StringTokenizer(pathString, "/");
+			while (stringTokenizer.hasMoreTokens())
+			{
+				string pathElement = decode(stringTokenizer.nextToken());
+				path.add(pathElement);
+			}
+
+			return path;
 		}
 	}
 

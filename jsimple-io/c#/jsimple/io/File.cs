@@ -109,7 +109,7 @@ namespace jsimple.io
 		}
 
 		/// <summary>
-		/// Delete this file.
+		/// Delete this file.  If the file doesn't exist, no excepting is thrown.
 		/// </summary>
 		public abstract void delete();
 

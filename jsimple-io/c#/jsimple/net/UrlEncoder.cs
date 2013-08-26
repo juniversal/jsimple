@@ -3,8 +3,9 @@ using System.Text;
 namespace jsimple.net
 {
 
-	using ByteArrayRange = jsimple.util.ByteArrayRange;
 	using IOUtils = jsimple.io.IOUtils;
+	using ByteArrayRange = jsimple.util.ByteArrayRange;
+	using TextualPath = jsimple.util.TextualPath;
 
 	/// <summary>
 	/// @author Bret Johnson
@@ -13,8 +14,7 @@ namespace jsimple.net
 	public class UrlEncoder
 	{
 		/// <summary>
-		/// Encodes the given string {@code s} in a x-www-form-urlencoded string using the specified encoding scheme {@code
-		/// enc}.
+		/// Encodes the given string {@code s} in a x-www-form-urlencoded string using UTF8 character encoding.
 		/// <p/>
 		/// All characters except letters ('a'..'z', 'A'..'Z') and numbers ('0'..'9') and characters '.', '-', '*', '_' are
 		/// converted into their hexadecimal value prepended by '%'. For example: '#' -> %23. In addition, spaces are
@@ -55,6 +55,22 @@ namespace jsimple.net
 				convert(s.Substring(start, s.Length - start), buffer);
 
 			return buffer.ToString();
+		}
+
+		public static string encode(TextualPath path)
+		{
+			if (path.Empty)
+				return "/";
+			else
+			{
+				StringBuilder encodedPath = new StringBuilder();
+				foreach (string pathElement in path.PathElements)
+				{
+					encodedPath.Append("/");
+					encodedPath.Append(encode(pathElement));
+				}
+				return encodedPath.ToString();
+			}
 		}
 
 		private const string digits = "0123456789ABCDEF";

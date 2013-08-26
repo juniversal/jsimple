@@ -36,8 +36,10 @@ public class SequenceInputStream extends InputStream {
         if (s1 == null)
             throw new NullPointerException();
 
-        ArrayList<InputStream> inVector = new ArrayList<InputStream>(1);
-        inVector.add(s2);
+        inputStreams = new ArrayList<InputStream>(2);
+        inputStreams.add(s1);
+        inputStreams.add(s2);
+
         currentInputStreamIndex = 0;
         currentInputStream = s1;
     }

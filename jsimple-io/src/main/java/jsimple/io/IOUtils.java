@@ -8,8 +8,8 @@ import jsimple.util.ByteArrayRange;
  */
 public class IOUtils {
     /**
-     * Converts the string to a UTF-8 byte array.  The array is returned, but it can be bigger than is otherwise needed.
-     * Only the first length[0] bytes of the array should be used.
+     * Converts the string to a UTF-8 byte array.  The array is returned inside a ByteArrayRange.  The array can be
+     * bigger than needed; only the specified length should be used.
      *
      * @param s string input
      * @return byte array, for the UTF-8 encoded string

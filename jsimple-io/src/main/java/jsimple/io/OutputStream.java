@@ -86,7 +86,9 @@ public abstract class OutputStream extends jsimple.lang.AutoCloseable {
      * @param s string to write
      */
     public void writeUtf8EncodedString(String s) {
-        write(IOUtils.toUtf8BytesFromString(s));
+        try (Utf8OutputStreamWriter writer = new Utf8OutputStreamWriter(this, false)) {
+            writer.write(s);
+        }
     }
 
     /**

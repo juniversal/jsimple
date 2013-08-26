@@ -22,7 +22,7 @@ public class BasicException extends RuntimeException {
     }
 
     public BasicException(String message, Object... args) {
-        this(MessageFormatter.format(message, args));
+        this(MessageFormatter.arrayFormat(message, args));
     }
 
     public BasicException(MessageFormatter.FormattingTuple formattingTuple) {

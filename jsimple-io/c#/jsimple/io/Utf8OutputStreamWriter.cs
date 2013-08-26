@@ -19,33 +19,40 @@ namespace jsimple.io
 	public class Utf8OutputStreamWriter : Writer
 	{
 		private OutputStream @out;
+		private bool closeOuterStream;
 		private sbyte[] destBuffer;
 		private int destPosition = 0;
 		private int queuedLeadSurrogate = -1;
+
 		private const int BUFFER_SIZE = 1024;
 
 		/// <summary>
 		/// Constructs a new OutputStreamWriter using {@code out} as the target stream to write converted characters to.
 		/// </summary>
 		/// <param name="out"> the non-null target stream to write converted bytes to </param>
-		public Utf8OutputStreamWriter(OutputStream @out)
+		public Utf8OutputStreamWriter(OutputStream @out) : this(@out, true)
 		{
-			this.@out = @out;
-			destBuffer = new sbyte[BUFFER_SIZE];
 		}
 
 		/// <summary>
-		/// @Override protected void finalize() {
-		///    close();
-		/// }
-		/// 
-		/// /**
-		/// Closes this writer. This implementation flushes the buffer as well as the target stream. The target stream is
+		/// Constructs a new OutputStreamWriter using {@code out} as the target stream to write converted characters to.
+		/// </summary>
+		/// <param name="out">              the non-null target stream to write converted bytes to </param>
+		/// <param name="closeOuterStream"> whether or not to close the outer stream when this stream is close </param>
+		public Utf8OutputStreamWriter(OutputStream @out, bool closeOuterStream)
+		{
+			this.@out = @out;
+			destBuffer = new sbyte[BUFFER_SIZE];
+			this.closeOuterStream = closeOuterStream;
+		}
+
+		/// <exception cref="IOException"> if an error occurs while closing this writer.
+		/// @Override protected void finalize() { close(); }
+		/// <p/>
+		/// /** Closes this writer. This implementation flushes the buffer as well as the target stream. The target stream is
 		/// then closed and the resources for the buffer and converter are released.
 		/// <p/>
-		/// Only the first invocation of this method has any effect. Subsequent calls do nothing.
-		/// </summary>
-		/// <exception cref="IOException"> if an error occurs while closing this writer. </exception>
+		/// Only the first invocation of this method has any effect. Subsequent calls do nothing. </exception>
 		public override void close()
 		{
 			// If already closed, do nothing
@@ -55,7 +62,8 @@ namespace jsimple.io
 			flush();
 
 			Debug.Assert(@out != null, "@SuppressWarnings(nullness)");
-			@out.close();
+			if (closeOuterStream)
+				@out.close();
 			@out = null;
 		}
 

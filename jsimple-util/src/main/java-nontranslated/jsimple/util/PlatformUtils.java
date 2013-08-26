@@ -38,4 +38,6 @@ public class PlatformUtils extends PlatformUtilsBase {
     public static String getLineSeparator() {
         return lineSeparator;
     }
+
+
 }

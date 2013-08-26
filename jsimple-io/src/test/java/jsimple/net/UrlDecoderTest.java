@@ -17,4 +17,18 @@ public class UrlDecoderTest extends UnitTest {
         assertEquals("abc=def?sdf&hil sdlkfj l sdf slkdfj 123&def",
                 UrlDecoder.decode("abc%3Ddef%3Fsdf%26hil+sdlkfj+l+sdf+slkdfj+123%26def"));
     }
+
+    @Test public void testDecodePath() {
+        assertEquals("/", UrlDecoder.decodePath("/").toString());
+        assertEquals("/", UrlDecoder.decodePath("").toString());
+
+        assertEquals("/abc", UrlDecoder.decodePath("abc").toString());
+
+        assertEquals("/abc/def", UrlDecoder.decodePath("abc/def").toString());
+        assertEquals("/abc/def", UrlDecoder.decodePath("abc/def/").toString());
+
+        assertEquals("/a!@#/def", UrlDecoder.decodePath("a!%40%23/def/").toString());
+        assertEquals("/ab/c/def", UrlDecoder.decodePath("/ab%2Fc/def").toString());
+        assertEquals("ab/c", UrlDecoder.decodePath("/ab%2Fc/def").getPathElements().get(0));
+    }
 }

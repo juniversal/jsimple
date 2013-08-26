@@ -1,7 +1,8 @@
 package jsimple.net;
 
-import jsimple.util.ByteArrayRange;
 import jsimple.io.IOUtils;
+import jsimple.util.ByteArrayRange;
+import jsimple.util.TextualPath;
 
 /**
  * @author Bret Johnson
@@ -9,8 +10,7 @@ import jsimple.io.IOUtils;
  */
 public class UrlEncoder {
     /**
-     * Encodes the given string {@code s} in a x-www-form-urlencoded string using the specified encoding scheme {@code
-     * enc}.
+     * Encodes the given string {@code s} in a x-www-form-urlencoded string using UTF8 character encoding.
      * <p/>
      * All characters except letters ('a'..'z', 'A'..'Z') and numbers ('0'..'9') and characters '.', '-', '*', '_' are
      * converted into their hexadecimal value prepended by '%'. For example: '#' -> %23. In addition, spaces are
@@ -47,6 +47,19 @@ public class UrlEncoder {
             convert(s.substring(start, s.length()), buffer);
 
         return buffer.toString();
+    }
+
+    public static String encode(TextualPath path) {
+        if (path.isEmpty())
+            return "/";
+        else {
+            StringBuilder encodedPath = new StringBuilder();
+            for (String pathElement : path.getPathElements()) {
+                encodedPath.append("/");
+                encodedPath.append(encode(pathElement));
+            }
+            return encodedPath.toString();
+        }
     }
 
     private static final String digits = "0123456789ABCDEF";

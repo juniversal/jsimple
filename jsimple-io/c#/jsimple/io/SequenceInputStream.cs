@@ -38,8 +38,10 @@ namespace jsimple.io
 			if (s1 == null)
 				throw new System.NullReferenceException();
 
-			List<InputStream> inVector = new List<InputStream>(1);
-			inVector.Add(s2);
+			inputStreams = new List<InputStream>(2);
+			inputStreams.Add(s1);
+			inputStreams.Add(s2);
+
 			currentInputStreamIndex = 0;
 			currentInputStream = s1;
 		}

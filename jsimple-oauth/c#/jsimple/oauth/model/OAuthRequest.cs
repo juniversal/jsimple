@@ -5,15 +5,18 @@ using System.Collections.Generic;
 namespace jsimple.oauth.model
 {
 
-	using ByteArrayRange = jsimple.util.ByteArrayRange;
+	using File = jsimple.io.File;
 	using IOUtils = jsimple.io.IOUtils;
+	using InputStream = jsimple.io.InputStream;
 	using OutputStream = jsimple.io.OutputStream;
 	using Logger = jsimple.logging.Logger;
 	using LoggerFactory = jsimple.logging.LoggerFactory;
 	using jsimple.net;
 	using OAuthConnectionException = jsimple.oauth.exceptions.OAuthConnectionException;
 	using OAuthException = jsimple.oauth.exceptions.OAuthException;
+	using ByteArrayRange = jsimple.util.ByteArrayRange;
 	using PlatformUtils = jsimple.util.PlatformUtils;
+	using TextualPath = jsimple.util.TextualPath;
 
 
 
@@ -31,9 +34,10 @@ namespace jsimple.oauth.model
 		private ParameterList queryStringParams;
 		private ParameterList bodyParams;
 		private IDictionary<string, string> headers;
-		private string payload = null;
-		private HttpRequest httpRequest = null;
 		private ByteArrayRange bytePayload = null;
+		private string stringPayload = null;
+		private File filePayload = null;
+		private HttpRequest httpRequest = null;
 		private int? timeout = null;
 		private IDictionary<string, string> oauthParameters;
 
@@ -42,9 +46,9 @@ namespace jsimple.oauth.model
 		private const string OAUTH_PREFIX = "oauth_";
 
 		/// <summary>
-		/// Default constructor.
+		/// Construct an OAuthRequest to apply to specified verb against the specified resource URL.
 		/// </summary>
-		/// <param name="verb"> Http verb/method </param>
+		/// <param name="verb"> HTTP verb/method </param>
 		/// <param name="url">  resource URL </param>
 		public OAuthRequest(string verb, string url)
 		{
@@ -55,6 +59,17 @@ namespace jsimple.oauth.model
 			this.headers = new Dictionary<string, string>();
 
 			this.oauthParameters = new Dictionary<string, string>();
+		}
+
+		/// <summary>
+		/// Construct an OAuthRequest to apply to specified verb against the specified resource.
+		/// </summary>
+		/// <param name="verb">         HTTP verb/method </param>
+		/// <param name="baseUrl">      base URL, including server/port and optionally start of path; this should NOT end with a /
+		///                     character </param>
+		/// <param name="resourcePath"> path to resource on server, which will be appended to baseUrl </param>
+		public OAuthRequest(string verb, string baseUrl, TextualPath resourcePath) : this(verb, baseUrl + UrlEncoder.encode(resourcePath))
+		{
 		}
 
 		/// <summary>
@@ -140,10 +155,11 @@ namespace jsimple.oauth.model
 			if (timeout != null)
 				httpReq.Timeout = (int)timeout;
 
-			addHeaders(httpReq);
+			foreach (string key in headers.Keys)
+				httpReq.setHeader(key, headers.GetValueOrNull(key));
 
 			if (verb.Equals("PUT") || verb.Equals("POST"))
-				addBody(httpReq, ByteBodyContents);
+				addBody(httpReq);
 
 			try
 			{
@@ -169,23 +185,32 @@ namespace jsimple.oauth.model
 			}
 		}
 
-		internal virtual void addHeaders(HttpRequest httpRequest)
+		private void addBody(HttpRequest httpReq)
 		{
-			foreach (string key in headers.Keys)
-				httpRequest.setHeader(key, headers.GetValueOrNull(key));
-		}
-
-		internal virtual void addBody(HttpRequest httpRequest, ByteArrayRange byteArrayRange)
-		{
-			httpRequest.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, Convert.ToString(byteArrayRange.Length));
-
 			// Set default content type if none is set
-			if (httpRequest.getHeader(HttpRequest.HEADER_CONTENT_TYPE) == null)
-				httpRequest.setHeader(HttpRequest.HEADER_CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
+			if (httpReq.getHeader(HttpRequest.HEADER_CONTENT_TYPE) == null)
+				httpReq.setHeader(HttpRequest.HEADER_CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
 
-			using (OutputStream bodyStream = httpRequest.createRequestBodyStream())
+			if (filePayload != null)
 			{
-				bodyStream.write(byteArrayRange);
+				httpReq.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, Convert.ToString(filePayload.Size));
+
+				using (InputStream fileStream = filePayload.openForRead())
+				{
+					using (OutputStream bodyStream = httpReq.createRequestBodyStream())
+					{
+						fileStream.copyTo(bodyStream);
+					}
+				}
+			}
+			else
+			{
+				ByteArrayRange byteArrayRange = ByteBodyContents;
+				httpReq.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, Convert.ToString(byteArrayRange.Length));
+				using (OutputStream bodyStream = httpReq.createRequestBodyStream())
+				{
+					bodyStream.write(byteArrayRange);
+				}
 			}
 		}
 
@@ -240,7 +265,7 @@ namespace jsimple.oauth.model
 		/// <param name="payload"> the body of the request </param>
 		public virtual void addPayload(string payload)
 		{
-			this.payload = payload;
+			this.stringPayload = payload;
 		}
 
 		/// <summary>
@@ -259,6 +284,15 @@ namespace jsimple.oauth.model
 		public virtual void addPayload(ByteArrayRange payload)
 		{
 			this.bytePayload = payload;
+		}
+
+		/// <summary>
+		/// Overloaded version for byte arrays
+		/// </summary>
+		/// <param name="filePayload"> </param>
+		public virtual void addPayload(File filePayload)
+		{
+			this.filePayload = filePayload;
 		}
 
 		/// <summary>
@@ -333,7 +367,7 @@ namespace jsimple.oauth.model
 				if (bytePayload != null)
 					return bytePayload;
     
-				string body = (payload != null) ? payload : bodyParams.asFormUrlEncodedString();
+				string body = (stringPayload != null) ? stringPayload : bodyParams.asFormUrlEncodedString();
 				return IOUtils.toUtf8BytesFromString(body);
 			}
 		}
