@@ -38,7 +38,7 @@ public final class Serializer {
             writeJsonArray((JsonArray) obj);
         else if (obj instanceof JsonNull)
             write("null");
-        else throw new JsonException("Unexpected JSON object type");
+        else throw new JsonException("Unexpected JSON object type: {}", obj);
     }
 
     /**

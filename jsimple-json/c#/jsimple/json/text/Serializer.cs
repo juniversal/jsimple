@@ -44,7 +44,7 @@ namespace jsimple.json.text
 			else if (obj is JsonNull)
 				write("null");
 			else
-				throw new JsonException("Unexpected JSON object type");
+				throw new JsonException("Unexpected JSON object type: {}", obj);
 		}
 
 		/// <summary>
