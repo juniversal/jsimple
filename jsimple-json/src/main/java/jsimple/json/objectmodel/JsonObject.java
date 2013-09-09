@@ -107,6 +107,11 @@ public final class JsonObject extends JsonObjectOrArray {
         return (String) getOrNull(name);
     }
 
+    public String getStringOrDefault(String name, String defaultValue) {
+        @Nullable String value = getStringOrNull(name);
+        return value == null ? defaultValue : (String) value;
+    }
+
     public int getInt(String name) {
         return (int) (Integer) get(name);
     }
@@ -115,12 +120,22 @@ public final class JsonObject extends JsonObjectOrArray {
         return (Integer) getOrNull(name);
     }
 
+    public int getIntOrDefault(String name, int defaultValue) {
+        @Nullable Integer value = getIntOrNull(name);
+        return value == null ? defaultValue : (int) value;
+    }
+
     public long getLong(String name) {
         return (long) (Long) get(name);
     }
 
     public @Nullable Long getLongOrNull(String name) {
         return (Long) getOrNull(name);
+    }
+
+    public long getLongOrDefault(String name, long defaultValue) {
+        @Nullable Long value = getLongOrNull(name);
+        return value == null ? defaultValue : (long) value;
     }
 
     public JsonObject getJsonObject(String name) {

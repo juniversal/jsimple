@@ -114,6 +114,12 @@ namespace jsimple.json.objectmodel
 			return (string) getOrNull(name);
 		}
 
+		public string getStringOrDefault(string name, string defaultValue)
+		{
+			string value = getStringOrNull(name);
+			return value == null ? defaultValue : (string) value;
+		}
+
 		public int getInt(string name)
 		{
 			return (int)(int?) get(name);
@@ -124,6 +130,12 @@ namespace jsimple.json.objectmodel
 			return (int?) getOrNull(name);
 		}
 
+		public int getIntOrDefault(string name, int defaultValue)
+		{
+			int? value = getIntOrNull(name);
+			return value == null ? defaultValue : (int) value;
+		}
+
 		public long getLong(string name)
 		{
 			return (long)(long?) get(name);
@@ -132,6 +144,12 @@ namespace jsimple.json.objectmodel
 		public long? getLongOrNull(string name)
 		{
 			return (long?) getOrNull(name);
+		}
+
+		public long getLongOrDefault(string name, long defaultValue)
+		{
+			long? value = getLongOrNull(name);
+			return value == null ? defaultValue : (long) value;
 		}
 
 		public JsonObject getJsonObject(string name)
