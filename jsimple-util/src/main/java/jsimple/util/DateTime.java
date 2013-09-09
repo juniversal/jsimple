@@ -428,9 +428,9 @@ public final class DateTime {
 
         // If a time zone offset is specified, map the time back to UTC
         char timeZoneOffsetChar = charIterator.currAndAdvance();
-        if (timeZoneOffsetChar == 'Z')
-            ;
-        else if (timeZoneOffsetChar == '+' || timeZoneOffsetChar == '-') {
+        if (timeZoneOffsetChar == 'Z') {
+            // Do nothing--already UTC
+        } else if (timeZoneOffsetChar == '+' || timeZoneOffsetChar == '-') {
             int timeZoneOffsetMinutes = parseFixedDigitsInt(charIterator, 2) * 60;
 
             // According to the RFC 3339 and ISO 8601 specs, the colon is mandatory.  However, the Microsoft SkyDrive

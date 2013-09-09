@@ -467,7 +467,9 @@ namespace jsimple.util
 			// If a time zone offset is specified, map the time back to UTC
 			char timeZoneOffsetChar = charIterator.currAndAdvance();
 			if (timeZoneOffsetChar == 'Z')
-				;
+			{
+				// Do nothing--already UTC
+			}
 			else if (timeZoneOffsetChar == '+' || timeZoneOffsetChar == '-')
 			{
 				int timeZoneOffsetMinutes = parseFixedDigitsInt(charIterator, 2) * 60;
