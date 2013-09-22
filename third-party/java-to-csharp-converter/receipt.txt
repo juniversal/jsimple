@@ -1,25 +1,34 @@
 
 Thank you for your purchase!
 
-To download your software, please go to: http://www.tangiblesoftwaresolutions.com/Purchase_Download_CDE_April14_GF/Request_Download.htm
+To download your software, please go to: http://www.tangiblesoftwaresolutions.com/Purchase_Download_TE_Nov30_BFY/Request_Download.htm
 
 Your registration number is:  94343QW134WUL47
 
-Order Number: 6389
 
-Registration Information:
+Order Number: 7317
+
+PayPal Information:
 -----------------
 Bret Johnson 
 
 105 Fox Grape Lane
 Johns Creek, GA 30022
 United States
-4049341946
+
 bret.johnson@nokia.com
 
-The shipping address is the same as the above address
+Shipping Address:
+------------------
+Bret Johnson 
+
+105 Fox Grape Lane
+Johns Creek, GA 30022
+US
+
 
 Comments/More Information
+
 
 Ordering Instructions
 
@@ -28,16 +37,10 @@ Ordering Instructions
 
 Qty  Name                                  SKU            Each Subtotal
 ------------------------------------------------------------------------
-1    Java to C# Converter                              $139.00   $139.00
+6    Java to C# Converter (multi-user license for 6 to 10 users)             $95.00   $570.00
 ------------------------------------------------------------------------
-                                                    Subtotal     $139.00
+                                                    Subtotal     $570.00
                                                    Tax Total       $0.00
-                                                 Grand Total     $139.00
-
-                       Payment type:    Visa
-
-Please come again!
-Store URL: http://www.tangiblesoftwaresolutions.com/
+                                                 Grand Total     $570.00
 
 
-This store is powered by ShopSite web catalog software.
