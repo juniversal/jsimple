@@ -138,12 +138,22 @@ namespace jsimple.json.objectmodel
 
 		public long getLong(string name)
 		{
-			return (long)(long?) get(name);
+			object value = get(name);
+			if (value is int?)
+				return (long)(int?) value;
+			else
+				return (long)(long?) value;
 		}
 
 		public long? getLongOrNull(string name)
 		{
-			return (long?) getOrNull(name);
+			object value = get(name);
+			if (value == null)
+				return null;
+			else if (value is int?)
+				return (long)(int?) value;
+			else
+				return (long?) value;
 		}
 
 		public long getLongOrDefault(string name, long defaultValue)

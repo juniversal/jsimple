@@ -126,11 +126,19 @@ public final class JsonObject extends JsonObjectOrArray {
     }
 
     public long getLong(String name) {
-        return (long) (Long) get(name);
+        Object value = get(name);
+        if (value instanceof Integer)
+            return (long) (Integer) value;
+        else return (long) (Long) value;
     }
 
     public @Nullable Long getLongOrNull(String name) {
-        return (Long) getOrNull(name);
+        @Nullable Object value = get(name);
+        if (value == null)
+            return null;
+        else if (value instanceof Integer)
+            return (long) (Integer) value;
+        else return (Long) value;
     }
 
     public long getLongOrDefault(String name, long defaultValue) {
