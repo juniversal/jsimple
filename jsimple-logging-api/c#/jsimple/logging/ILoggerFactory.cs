@@ -29,11 +29,12 @@ namespace jsimple.logging
 	/// <summary>
 	/// <code>ILoggerFactory</code> instances manufacture <seealso cref="Logger"/> instances by name.
 	/// <p/>
-	/// <p>Most users retrieve <seealso cref="Logger"/> instances through the static <seealso cref="LoggerFactory#getLogger(String)"/> method. An
+	/// <para>Most users retrieve <seealso cref="Logger"/> instances through the static <seealso cref="LoggerFactory#getLogger(String)"/> method. An
 	/// instance of of this interface is bound internally with <seealso cref="LoggerFactory"/> class at compile time.
 	/// 
 	/// @author Ceki G&uuml;lc&uuml;
 	/// @author Bret Johnson modified for JSimple
+	/// </para>
 	/// </summary>
 	public interface ILoggerFactory
 	{

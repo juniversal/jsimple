@@ -47,10 +47,8 @@ namespace jsimple.oauth.oauth
 		{
 			string accessTokenEndpoint = api.AccessTokenEndpoint;
 			if (accessTokenEndpoint.Contains("?grant_type="))
-			{
 				// handle the ugly case where the grant_type parameter is already hardcoded in the constant url
 				accessTokenEndpoint = accessTokenEndpoint.Substring(0, accessTokenEndpoint.IndexOf("?"));
-			}
 
 			OAuthRequest request = new OAuthRequest(api.AccessTokenVerb, accessTokenEndpoint);
 			request.addQueryStringParameter(OAuthConstants.CLIENT_ID, config.ApiKey);

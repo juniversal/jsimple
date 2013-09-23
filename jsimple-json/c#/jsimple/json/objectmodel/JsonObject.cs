@@ -182,8 +182,10 @@ namespace jsimple.json.objectmodel
 		public bool containsKey(string keyName)
 		{
 			foreach (string name in names)
+			{
 				if (name.Equals(keyName))
 					return true;
+			}
 			return false;
 		}
 

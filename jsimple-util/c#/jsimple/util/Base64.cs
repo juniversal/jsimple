@@ -5,9 +5,9 @@ namespace jsimple.util
 
 
 	/// <summary>
-	/// Provides Base64 encoding and decoding as defined by RFC 2045. <p/> <p>This class implements section <cite>6.8. Base64
+	/// Provides Base64 encoding and decoding as defined by RFC 2045. <p/> <para>This class implements section <cite>6.8. Base64
 	/// Content-Transfer-Encoding</cite> from RFC 2045 <cite>Multipurpose Internet Mail Extensions (MIME) Part One: Format of
-	/// Internet Message Bodies</cite> by Freed and Borenstein.</p>
+	/// Internet Message Bodies</cite> by Freed and Borenstein.</para>
 	/// <p/>
 	/// Sent to us from Nurmi Raimo.T (Nokia-MP/Espoo) <raimo.t.nurmi@nokia.com> & Lindholm Samu (Nokia-MP/Espoo)
 	/// <Samu.Lindholm@nokia.com>.  It's original package name was "mango.client.util".
@@ -19,8 +19,8 @@ namespace jsimple.util
 	public class Base64
 	{
 		/// <summary>
-		/// Chunk size per RFC 2045 section 6.8. <p/> <p>The {@value} character limit does not count the trailing CRLF, but
-		/// counts all other characters, including any equal signs.</p>
+		/// Chunk size per RFC 2045 section 6.8. <p/> <para>The {@value} character limit does not count the trailing CRLF, but
+		/// counts all other characters, including any equal signs.</para>
 		/// </summary>
 		/// <seealso cref= <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045 section 6.8</a> </seealso>
 		internal const int CHUNK_SIZE = 76;
@@ -151,15 +151,11 @@ namespace jsimple.util
 			int nbrChunks = 0;
 
 			if (fewerThan24bits != 0)
-			{
 				//data not divisible by 24 bit
 				encodedDataLength = (numberTriplets + 1) * 4;
-			}
 			else
-			{
 				// 16 or 8 bit
 				encodedDataLength = numberTriplets * 4;
-			}
 
 			// If the output is to be "chunked" into 76 character sections,
 			// for compliance with RFC 2045 MIME, then it is important to
@@ -311,10 +307,8 @@ namespace jsimple.util
 					decodedData[encodedIndex + 2] = (sbyte)(b3 << 6 | b4);
 				}
 				else if (marker0 == PAD)
-				{
 					//Two PAD e.g. 3c[Pad][Pad]
 					decodedData[encodedIndex] = (sbyte)(b1 << 2 | b2 >> 4);
-				}
 				else if (marker1 == PAD)
 				{
 					//One PAD e.g. 3cQ[Pad]

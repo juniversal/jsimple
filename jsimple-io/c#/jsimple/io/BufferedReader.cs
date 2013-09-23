@@ -38,12 +38,14 @@ namespace jsimple.io
 		/// Pos points to the next readable character. End is one greater than the last readable character. When {@code pos
 		/// == end}, the buffer is empty and must be <seealso cref="#fillBuf() filled"/> before characters can be read.
 		/// <p/>
-		/// <p>Mark is the value pos will be set to on calls to <seealso cref="#reset"/>. Its value is in the range {@code [0...pos]}.
+		/// <para>Mark is the value pos will be set to on calls to <seealso cref="#reset"/>. Its value is in the range {@code [0...pos]}.
 		/// If the mark is {@code -1}, the buffer cannot be reset.
 		/// <p/>
-		/// <p>MarkLimit limits the distance between the mark and the pos. When this limit is exceeded, <seealso cref="#reset"/> is
+		/// </para>
+		/// <para>MarkLimit limits the distance between the mark and the pos. When this limit is exceeded, <seealso cref="#reset"/> is
 		/// permitted (but not required) to throw an exception. For shorter distances, <seealso cref="#reset"/> shall not throw (unless
 		/// the reader is closed).
+		/// </para>
 		/// </summary>
 		private char[] buf;
 		private int pos;
@@ -321,10 +323,8 @@ namespace jsimple.io
 					return result.ToString();
 				// attempt to fill buffer
 				if (fillBuf() == -1)
-				{
 					// characters or null.
 					return result.Length > 0 || eol != '\0' ? result.ToString() : null;
-				}
 				for (int charPos = pos; charPos < end; charPos++)
 				{
 					char c = buf[charPos];

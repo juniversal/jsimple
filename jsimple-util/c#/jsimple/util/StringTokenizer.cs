@@ -185,8 +185,10 @@ namespace jsimple.util
 
 				// otherwise find a character which is not a delimiter
 				for (int i = position; i < length; i++)
+				{
 					if (delimiters.IndexOf(@string[i], 0) == -1)
 						return true;
+				}
 			}
 			return false;
 		}
@@ -222,8 +224,10 @@ namespace jsimple.util
 					if (delimiters.IndexOf(@string[position], 0) >= 0)
 						return Convert.ToString(@string[position++]);
 					for (position++; position < length; position++)
+					{
 						if (delimiters.IndexOf(@string[position], 0) >= 0)
 							return @string.Substring(i, position - i);
+					}
 					return @string.Substring(i);
 				}
 
@@ -233,8 +237,10 @@ namespace jsimple.util
 				if (i < length)
 				{
 					for (position++; position < length; position++)
+					{
 						if (delimiters.IndexOf(@string[position], 0) >= 0)
 							return @string.Substring(i, position - i);
+					}
 					return @string.Substring(i);
 				}
 			}
