@@ -53,11 +53,11 @@ public class TextualPath {
         if (!(o instanceof TextualPath))
             return false;
         TextualPath that = (TextualPath) o;
-        return pathElements.equals(that.pathElements);
+        return Utils.arrayListsEqual(pathElements, that.pathElements);
     }
 
     @Override public int hashCode() {
-        return pathElements.hashCode();
+        return Utils.arrayListHashCode(pathElements);
     }
 
     public void add(String pathElement) {

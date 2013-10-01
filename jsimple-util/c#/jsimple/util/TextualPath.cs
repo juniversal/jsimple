@@ -58,12 +58,12 @@ namespace jsimple.util
 			if (!(o is TextualPath))
 				return false;
 			TextualPath that = (TextualPath) o;
-			return pathElements.Equals(that.pathElements);
+			return Utils.arrayListsEqual(pathElements, that.pathElements);
 		}
 
 		public override int GetHashCode()
 		{
-			return pathElements.GetHashCode();
+			return Utils.arrayListHashCode(pathElements);
 		}
 
 		public virtual void add(string pathElement)

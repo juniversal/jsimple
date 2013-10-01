@@ -1,6 +1,7 @@
+using System.Collections.Generic;
+
 namespace jsimple.util
 {
-
 
 	/// <summary>
 	/// Created with IntelliJ IDEA.
@@ -40,6 +41,65 @@ namespace jsimple.util
 				return 0;
 			else
 				return 1;
+		}
+
+		/// <summary>
+		/// See if two ArrayLists are the same.  They are considered the same if their elements are all equal, according to
+		/// the "equals" method.  This method can be used to overcome an incompatibility between Java and C# in the equals
+		/// method for lists; Java checks for "deep" equality (like this method) while C# normally just checks if the lists
+		/// reference the same object.  Using this method instead provides deep equality semantics for both.
+		/// </summary>
+		/// <param name="list1"> 1st ArrayList </param>
+		/// <param name="list2"> 2nd ArrayList </param>
+		/// <returns> true if the lists are equal, checking member by member equality, and false if not </returns>
+		public static bool arrayListsEqual<T1, T2>(List<T1> list1, List<T2> list2)
+		{
+			int size = list1.Count;
+			if (size != list2.Count)
+				return false;
+
+			for (int i = 0; i < size; i++)
+			{
+				object object1 = list1[i];
+				object object2 = list2[i];
+
+				if (object1 == null)
+				{
+					if (object2 != null)
+						return false;
+				}
+				else
+				{
+					if (!object1.Equals(object2))
+						return false;
+				}
+			}
+
+			return true;
+		}
+
+		/// <summary>
+		/// Get the "deep" hash code for an ArrayList, by combining hash codes of elements in the list.  This method can be
+		/// used to overcome an incompatibility between Java and C# in the hashCode method for lists; Java checks for "deep"
+		/// hash code (like this method) while C# normally just checks computes hash code based on object identity.  Using
+		/// this method instead provides deep hash code semantics for both.  If you use this, you'll also want to use
+		/// arrayListsEqual for equality, as the semantics of equality / hashCode have to go together (rule being if two
+		/// objects equal, they MUST have the same hash code, which is true for both Java & C#).
+		/// </summary>
+		/// <param name="list"> list to compute hashCode of </param>
+		/// <returns> list hash code, based on list elements </returns>
+		public static int arrayListHashCode<T1>(List<T1> list)
+		{
+			int result = 1;
+
+			// This source was copied from the Harmony implementation of list hash code
+			int size = list.Count;
+			for (int i = 0; i < size; i++)
+			{
+				object @object = list[i];
+				result = (31 * result) + (@object == null ? 0 : @object.GetHashCode());
+			}
+			return result;
 		}
 	}
 
