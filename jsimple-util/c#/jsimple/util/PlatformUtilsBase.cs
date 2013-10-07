@@ -44,6 +44,13 @@ namespace jsimple.util
 		/// </summary>
 		/// <returns> default line separator for the platform </returns>
 		//public static String getLineSeparator()
+
+		/// <summary>
+		/// Get the message + stack trace associated with this exception.
+		/// </summary>
+		/// <param name="e"> throwable in question </param>
+		/// <returns> string containing the message & stack trace for the exception </returns>
+		//public static String getMessageAndStackTrace(Throwable e);
 	}
 
 }

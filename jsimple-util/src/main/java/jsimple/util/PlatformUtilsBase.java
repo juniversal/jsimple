@@ -46,4 +46,12 @@ public class PlatformUtilsBase {
      * @return default line separator for the platform
      */
     //public static String getLineSeparator()
+
+    /**
+     * Get the message + stack trace associated with this exception.
+     *
+     * @param e throwable in question
+     * @return string containing the message & stack trace for the exception
+     */
+    //public static String getMessageAndStackTrace(Throwable e);
 }

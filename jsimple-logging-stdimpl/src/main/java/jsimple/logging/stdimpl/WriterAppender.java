@@ -1,6 +1,7 @@
 package jsimple.logging.stdimpl;
 
 import jsimple.io.Writer;
+import jsimple.util.PlatformUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -24,24 +25,8 @@ public class WriterAppender extends Appender {
                 loggingEvent.getFormattedMessage());
 
         @Nullable Throwable throwable = loggingEvent.getThrowable();
-        // TODO: Put this BACK (AND MAKE PLATFORM INDEPENDENT)
-        /*
-        if (throwable != null) {
-            String stackTrace = "<error generating stack trace>";
-
-            try (StringWriter stringWriter = new StringWriter()) {
-                try (PrintWriter printWriter = new PrintWriter(stringWriter)) {
-                    throwable.printStackTrace(printWriter);
-                }
-
-                stackTrace = stringWriter.getBuffer().toString();
-            }
-            catch(IOException e) {
-            }
-
-            writer.write(stackTrace);
-        }
-            */
+        if (throwable != null)
+            writer.writeln(PlatformUtils.getExceptionDescription(throwable));
 
         if (flushImmediately)
             writer.flush();

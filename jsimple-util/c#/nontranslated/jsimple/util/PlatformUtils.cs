@@ -88,5 +88,11 @@ namespace jsimple.util
         {
             get { return "\r\n"; }
         }
+
+        public static String getExceptionDescription(Exception e)
+        {
+            return e.ToString();
+        }
+
     }
 }

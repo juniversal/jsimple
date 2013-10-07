@@ -1,5 +1,8 @@
 package jsimple.util;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -39,5 +42,22 @@ public class PlatformUtils extends PlatformUtilsBase {
         return lineSeparator;
     }
 
+    /**
+     * Get the message + stack trace associated with this exception.
+     *
+     * @param e throwable in question
+     * @return string containing the message & stack trace for the exception
+     */
+    public static String getExceptionDescription(Throwable e) {
+        try (StringWriter stringWriter = new StringWriter()) {
+            try (PrintWriter printWriter = new PrintWriter(stringWriter)) {
+                e.printStackTrace(printWriter);
+            }
 
+            return stringWriter.getBuffer().toString();
+        }
+        catch(IOException e2) {
+            return e.getMessage() + "\r\n<error generating stack trace>";
+        }
+    }
 }
