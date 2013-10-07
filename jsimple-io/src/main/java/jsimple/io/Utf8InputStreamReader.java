@@ -126,8 +126,11 @@ public class Utf8InputStreamReader extends Reader {
             if (srcPosition == srcEnd) {
                 int bytesRead = inputStream.read(srcBuffer);
                 if (bytesRead < 1) {
-                    if (bytesRead < 0)                  // End of stream
-                        break;
+                    if (bytesRead < 0) {                  // End of stream
+                        if (state == UTF8_REJECT)
+                            throw new CharConversionException("Invalid UTF-8 encoding--stream contains an invalid UTF-8 byte");
+                        else break;
+                    }
 
                     // If the stream for some reason returned 0 characters (not end of stream) when we asked to read
                     // BUFFER_SIZE characters, just return & let the caller call us again.  Hopefully, the stream will

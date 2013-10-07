@@ -9,9 +9,22 @@ package jsimple.io;
  */
 public class JSimpleOutputStreamOnJavaStream extends OutputStream {
     private java.io.OutputStream javaOutputStream;
+    private boolean ignoreClose;
 
     public JSimpleOutputStreamOnJavaStream(java.io.OutputStream javaOutputStream) {
         this.javaOutputStream = javaOutputStream;
+    }
+
+    /**
+     * Create a JSimple stream that wraps the specified Java OutputStream.  If ignoreClose is true then calls to close()
+     * don't actually close the underlying stream--they don't do anything.
+     *
+     * @param javaOutputStream Java OutputStream
+     * @param ignoreClose      whether or not to close the underlying stream when this stream is closed
+     */
+    public JSimpleOutputStreamOnJavaStream(java.io.OutputStream javaOutputStream, boolean ignoreClose) {
+        this.javaOutputStream = javaOutputStream;
+        this.ignoreClose = ignoreClose;
     }
 
     @Override public void write(int oneByte) {
@@ -47,10 +60,12 @@ public class JSimpleOutputStreamOnJavaStream extends OutputStream {
     }
 
     @Override protected void doClose() {
-        try {
-            javaOutputStream.close();
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        if (!ignoreClose) {
+            try {
+                javaOutputStream.close();
+            } catch (java.io.IOException e) {
+                throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+            }
         }
     }
 }
