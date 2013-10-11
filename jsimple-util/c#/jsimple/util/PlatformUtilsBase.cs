@@ -51,6 +51,18 @@ namespace jsimple.util
 		/// <param name="e"> throwable in question </param>
 		/// <returns> string containing the message & stack trace for the exception </returns>
 		//public static String getMessageAndStackTrace(Throwable e);
+
+		/// <summary>
+		/// Make the current thread sleep for the specified number of milliseconds.
+		/// </summary>
+		/// <param name="sleepTimeInMilliseconds"> time to sleep, in milliseconds </param>
+		//public static void sleep(int sleepTimeInMilliseconds);
+
+		/// <summary>
+		/// Use the whatever proxy settings are configured in the OS.  On some platform, by default no web proxy is used.
+		/// Calling this method causes the OS proxy default to be used instead.
+		/// </summary>
+		//public static void useSystemProxy() {
 	}
 
 }
