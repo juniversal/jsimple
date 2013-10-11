@@ -55,9 +55,29 @@ public class PlatformUtils extends PlatformUtilsBase {
             }
 
             return stringWriter.getBuffer().toString();
-        }
-        catch(IOException e2) {
+        } catch (IOException e2) {
             return e.getMessage() + "\r\n<error generating stack trace>";
         }
+    }
+
+    /**
+     * Make the current thread sleep for the specified number of milliseconds.
+     *
+     * @param sleepTimeInMilliseconds time to sleep, in milliseconds
+     */
+    public static void sleep(int sleepTimeInMilliseconds) {
+        try {
+            Thread.sleep(sleepTimeInMilliseconds);
+        } catch (InterruptedException e) {
+            throw new BasicException(e);
+        }
+    }
+
+    /**
+     * Use the whatever proxy settings are configured in the OS.  On some platform, by default no web proxy is used.
+     * Calling this method causes the OS proxy default to be used instead.
+     */
+    public static void useSystemProxy() {
+        System.setProperty("java.net.useSystemProxies", "true");    // Use OS configured proxy
     }
 }

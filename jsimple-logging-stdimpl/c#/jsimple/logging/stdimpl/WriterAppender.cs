@@ -4,6 +4,7 @@ namespace jsimple.logging.stdimpl
 {
 
 	using Writer = jsimple.io.Writer;
+	using PlatformUtils = jsimple.util.PlatformUtils;
 
 
 
@@ -23,30 +24,17 @@ namespace jsimple.logging.stdimpl
 
 		public override void append(LoggingEvent loggingEvent)
 		{
-			writer.writeln(loggingEvent.Level.DefaultDisplayName + " " + loggingEvent.LoggerName + " - " + loggingEvent.FormattedMessage);
+			lock (this)
+			{
+				writer.writeln(loggingEvent.Level.DefaultDisplayName + " " + loggingEvent.LoggerName + " - " + loggingEvent.FormattedMessage);
 
-			Exception throwable = loggingEvent.Throwable;
-			// TODO: Put this BACK (AND MAKE PLATFORM INDEPENDENT)
-			/*
-			if (throwable != null) {
-			    String stackTrace = "<error generating stack trace>";
-	
-			    try (StringWriter stringWriter = new StringWriter()) {
-			        try (PrintWriter printWriter = new PrintWriter(stringWriter)) {
-			            throwable.printStackTrace(printWriter);
-			        }
-	
-			        stackTrace = stringWriter.getBuffer().toString();
-			    }
-			    catch(IOException e) {
-			    }
-	
-			    writer.write(stackTrace);
+				Exception throwable = loggingEvent.Throwable;
+				if (throwable != null)
+					writer.writeln(PlatformUtils.getExceptionDescription(throwable));
+
+				if (flushImmediately)
+					writer.flush();
 			}
-			    */
-
-			if (flushImmediately)
-				writer.flush();
 
 			/*
 			#logback.classic pattern: %d [%thread] %-5level %logger{36} - %msg%n

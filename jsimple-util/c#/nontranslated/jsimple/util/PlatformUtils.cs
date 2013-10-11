@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace jsimple.util
 {
@@ -94,5 +95,15 @@ namespace jsimple.util
             return e.ToString();
         }
 
+        public static void sleep(int sleepTimeInMilliseconds)
+        {
+            ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+            manualResetEvent.WaitOne(sleepTimeInMilliseconds);
+        }
+        
+        public static void useSystemProxy()
+        {
+            // TODO: Do we need to ever do anything here?  Maybe not since using the OS proxy seems to be the default
+        }
     }
 }

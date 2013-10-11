@@ -21,15 +21,17 @@ public class WriterAppender extends Appender {
     }
 
     @Override public void append(LoggingEvent loggingEvent) {
-        writer.writeln(loggingEvent.getLevel().getDefaultDisplayName() + " " + loggingEvent.getLoggerName() + " - " +
-                loggingEvent.getFormattedMessage());
+        synchronized (this) {
+            writer.writeln(loggingEvent.getLevel().getDefaultDisplayName() + " " + loggingEvent.getLoggerName() + " - " +
+                    loggingEvent.getFormattedMessage());
 
-        @Nullable Throwable throwable = loggingEvent.getThrowable();
-        if (throwable != null)
-            writer.writeln(PlatformUtils.getExceptionDescription(throwable));
+            @Nullable Throwable throwable = loggingEvent.getThrowable();
+            if (throwable != null)
+                writer.writeln(PlatformUtils.getExceptionDescription(throwable));
 
-        if (flushImmediately)
-            writer.flush();
+            if (flushImmediately)
+                writer.flush();
+        }
 
         /*
         #logback.classic pattern: %d [%thread] %-5level %logger{36} - %msg%n

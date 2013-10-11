@@ -2,6 +2,8 @@ package jsimple.io;
 
 import jsimple.net.HttpRequest;
 import jsimple.net.JavaHttpRequest;
+import jsimple.net.JavaTcpSocketListener;
+import jsimple.net.SocketListener;
 
 /**
  * @author Bret Johnson
@@ -17,7 +19,9 @@ public class JSimpleIO {
     public static synchronized void init() {
         if (!initialized) {
             HttpRequest.setFactory(new JavaHttpRequest.JavaHttpRequestFactory());
+            SocketListener.setFactory(new JavaTcpSocketListener.JavaSocketListenerFactory());
             Paths.setInstance(new JavaPaths());
+
             initialized = true;
         }
     }
