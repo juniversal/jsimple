@@ -12,11 +12,13 @@
         <rootdir>${project.basedir}</rootdir>
 
         <java-to-csharp-converter-dir>${rootdir}/third-party/java-to-csharp-converter</java-to-csharp-converter-dir>
+        <java-to-objectivec-dir>${rootdir}/third-party/java-to-objectivec</java-to-objectivec-dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <modules>
         <module>java-to-csharp-converter-maven-plugin</module>
+        <module>java-to-objectivec-maven-plugin</module>
         <module>msbuild-maven-plugin</module>
         <module>msbuild-maven-package-plugin</module>
         <module>jsimple-unit</module>
@@ -152,6 +154,24 @@
                             <configuration>
                                 <converterDirectory>${java-to-csharp-converter-dir}</converterDirectory>
                                 <converterSettings>${rootdir}/std-java-to-c#-converter-settings.dat</converterSettings>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Convert Java to Objective-C -->
+                <plugin>
+                    <groupId>com.nokia.jsimple</groupId>
+                    <artifactId>java-to-objectivec-maven-plugin</artifactId>
+                    <version>100.0-SNAPSHOT</version>
+                    <executions>
+                        <execution>
+                            <id>default-cli</id>   <!-- Makes "mvn java-to-objectivec:convert" work -->
+                            <goals>
+                                <goal>convert</goal>
+                            </goals>
+                            <configuration>
+                                <converterDirectory>${java-to-objectivec-dir}</converterDirectory>
                             </configuration>
                         </execution>
                     </executions>
