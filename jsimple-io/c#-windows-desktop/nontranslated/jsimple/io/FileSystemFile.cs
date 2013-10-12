@@ -69,10 +69,14 @@ namespace jsimple.io
 
         public override void delete()
         {
-			// TODO: Change to catch directory not existing exception & ignore
             try
             {
+                // Delete the file; if it doesn't exist, nothing happens
                 System.IO.File.Delete(filePath);
+            }
+            catch (System.IO.DirectoryNotFoundException e)
+            {
+                // If the directory doesn't exist, ignore the error
             }
             catch (System.IO.IOException e)
             {
