@@ -6,8 +6,9 @@ package jsimple.json;
  */
 
 import jsimple.io.Reader;
-import jsimple.io.StringReader;
 import jsimple.io.Writer;
+import jsimple.json.objectmodel.JsonArray;
+import jsimple.json.objectmodel.JsonObject;
 import jsimple.json.objectmodel.JsonObjectOrArray;
 import jsimple.json.objectmodel.ObjectModelParser;
 import jsimple.json.readerwriter.JsonArrayReader;
@@ -21,15 +22,35 @@ import jsimple.json.text.TokenType;
 public final class Json {
     /**
      * Parse the specified JSON text, returning a JsonObject or JsonArray, depending on what the outermost container
-     * type is in the JSON.
-     * <p/>
-     * Per spec, the root element in a JSON text is either an array or an object.
+     * type is in the JSON.  Per JSON spec, the root element in a JSON text is either an array or an object.
      *
      * @param reader JSON text
-     * @return JSON object tree
+     * @return JSON object tree, either a JsonObject or JsonArray object; use instanceof to distinguish
      */
     public static JsonObjectOrArray parse(Reader reader) {
         return new ObjectModelParser(reader).parseRoot();
+    }
+
+    /**
+     * Parse the specified JSON text, returning a JsonObject.  If the JSON isn't an object (e.g. is actually an array),
+     * then an exception is thrown.
+     *
+     * @param reader JSON text
+     * @return JsonObject object tree
+     */
+    public static JsonObject parseObject(Reader reader) {
+        return (JsonObject) new ObjectModelParser(reader).parseRoot();
+    }
+
+    /**
+     * Parse the specified JSON text, returning a JsonArray.  If the JSON isn't an array (e.g. is actually a JsonObject),
+     * then an exception is thrown.
+     *
+     * @param reader JSON text
+     * @return JsonArray object tree
+     */
+    public static JsonArray parseArray(Reader reader) {
+        return (JsonArray) new ObjectModelParser(reader).parseRoot();
     }
 
     /**

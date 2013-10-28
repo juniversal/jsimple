@@ -7,8 +7,9 @@ namespace jsimple.json
 	/// </summary>
 
 	using Reader = jsimple.io.Reader;
-	using StringReader = jsimple.io.StringReader;
 	using Writer = jsimple.io.Writer;
+	using JsonArray = jsimple.json.objectmodel.JsonArray;
+	using JsonObject = jsimple.json.objectmodel.JsonObject;
 	using JsonObjectOrArray = jsimple.json.objectmodel.JsonObjectOrArray;
 	using ObjectModelParser = jsimple.json.objectmodel.ObjectModelParser;
 	using JsonArrayReader = jsimple.json.readerwriter.JsonArrayReader;
@@ -23,15 +24,35 @@ namespace jsimple.json
 	{
 		/// <summary>
 		/// Parse the specified JSON text, returning a JsonObject or JsonArray, depending on what the outermost container
-		/// type is in the JSON.
-		/// <p/>
-		/// Per spec, the root element in a JSON text is either an array or an object.
+		/// type is in the JSON.  Per JSON spec, the root element in a JSON text is either an array or an object.
 		/// </summary>
 		/// <param name="reader"> JSON text </param>
-		/// <returns> JSON object tree </returns>
+		/// <returns> JSON object tree, either a JsonObject or JsonArray object; use instanceof to distinguish </returns>
 		public static JsonObjectOrArray parse(Reader reader)
 		{
 			return (new ObjectModelParser(reader)).parseRoot();
+		}
+
+		/// <summary>
+		/// Parse the specified JSON text, returning a JsonObject.  If the JSON isn't an object (e.g. is actually an array),
+		/// then an exception is thrown.
+		/// </summary>
+		/// <param name="reader"> JSON text </param>
+		/// <returns> JsonObject object tree </returns>
+		public static JsonObject parseObject(Reader reader)
+		{
+			return (JsonObject) (new ObjectModelParser(reader)).parseRoot();
+		}
+
+		/// <summary>
+		/// Parse the specified JSON text, returning a JsonArray.  If the JSON isn't an array (e.g. is actually a JsonObject),
+		/// then an exception is thrown.
+		/// </summary>
+		/// <param name="reader"> JSON text </param>
+		/// <returns> JsonArray object tree </returns>
+		public static JsonArray parseArray(Reader reader)
+		{
+			return (JsonArray) (new ObjectModelParser(reader)).parseRoot();
 		}
 
 		/// <summary>
