@@ -104,6 +104,12 @@ public class TextualPath {
         return pathElements;
     }
 
+    public String getFirstElement() {
+        if (pathElements.size() == 0)
+            throw new BasicException("Can't call getFirstElement on an empty path");
+        return pathElements.get(0);
+    }
+
     public String getLastElement() {
         int size = pathElements.size();
         if (size == 0)

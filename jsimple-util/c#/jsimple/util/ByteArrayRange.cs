@@ -1,5 +1,3 @@
-using System;
-
 namespace jsimple.util
 {
 
@@ -69,7 +67,7 @@ namespace jsimple.util
 			else
 			{
 				sbyte[] copy = new sbyte[length];
-				Array.Copy(bytes, position, copy, 0, length);
+				PlatformUtils.copyBytes(bytes, position, copy, 0, length);
 				return copy;
 			}
 		}

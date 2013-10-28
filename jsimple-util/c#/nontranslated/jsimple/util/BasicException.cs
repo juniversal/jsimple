@@ -9,7 +9,7 @@ namespace jsimple.util
         {
         }
 
-        public BasicException(String message)
+        public BasicException(String message) : base(message)
         {
         }
 

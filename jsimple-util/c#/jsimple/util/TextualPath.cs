@@ -124,6 +124,16 @@ namespace jsimple.util
 			}
 		}
 
+		public virtual string FirstElement
+		{
+			get
+			{
+				if (pathElements.Count == 0)
+					throw new BasicException("Can't call getFirstElement on an empty path");
+				return pathElements[0];
+			}
+		}
+
 		public virtual string LastElement
 		{
 			get

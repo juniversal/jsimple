@@ -213,7 +213,7 @@ public class Base64 {
             if (isChunked) {
                 // this assumes that CHUNK_SIZE % 4 == 0
                 if (encodedIndex == nextSeparatorIndex) {
-                    System.arraycopy(
+                    PlatformUtils.copyBytes(
                             CHUNK_SEPARATOR,
                             0,
                             encodedData,
@@ -262,7 +262,7 @@ public class Base64 {
         if (isChunked) {
             // we also add a separator to the end of the final chunk.
             if (chunksSoFar < nbrChunks) {
-                System.arraycopy(
+                PlatformUtils.copyBytes(
                         CHUNK_SEPARATOR,
                         0,
                         encodedData,
@@ -361,7 +361,7 @@ public class Base64 {
 
         byte packedData[] = new byte[bytesCopied];
 
-        System.arraycopy(groomedData, 0, packedData, 0, bytesCopied);
+        PlatformUtils.copyBytes(groomedData, 0, packedData, 0, bytesCopied);
 
         return packedData;
     }

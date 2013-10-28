@@ -100,7 +100,33 @@ namespace jsimple.util
             ManualResetEvent manualResetEvent = new ManualResetEvent(false);
             manualResetEvent.WaitOne(sleepTimeInMilliseconds);
         }
-        
+
+        /// <summary>
+        /// Copy data from source byte array to destination byte array.
+        /// </summary>
+        /// <param name="src"> source array </param>
+        /// <param name="srcPos"> starting position in source array </param>
+        /// <param name="dest"> destination array </param>
+        /// <param name="destPos"> position in destination array </param>
+        /// <param name="length"> number of elements to copy </param>
+        public static void copyBytes(sbyte[] src, int srcPos, sbyte[] dest, int destPos, int length)
+        {
+            Buffer.BlockCopy(src, srcPos, dest, destPos, length);
+        }
+
+        /// <summary>
+        /// Copy data from source char array to destination char array.
+        /// </summary>
+        /// <param name="src"> source array </param>
+        /// <param name="srcPos"> starting position in source array </param>
+        /// <param name="dest"> destination array </param>
+        /// <param name="destPos"> position in destination array </param>
+        /// <param name="length"> number of elements to copy </param>
+        public static void copyChars(char[] src, int srcPos, char[] dest, int destPos, int length)
+        {
+            Buffer.BlockCopy(src, srcPos, dest, destPos, length * sizeof(char));
+        }
+
         public static void useSystemProxy()
         {
             // TODO: Do we need to ever do anything here?  Maybe not since using the OS proxy seems to be the default

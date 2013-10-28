@@ -59,6 +59,26 @@ namespace jsimple.util
 		//public static void sleep(int sleepTimeInMilliseconds);
 
 		/// <summary>
+		/// Copy data from source byte array to destination byte array.
+		/// </summary>
+		/// <param name="src"> source array </param>
+		/// <param name="srcPos"> starting position in source array </param>
+		/// <param name="dest"> destination array </param>
+		/// <param name="destPos"> position in destination array </param>
+		/// <param name="length"> number of elements to copy </param>
+		//public static void copyBytes(byte[] src, int srcPos, byte[] dest, int destPos, int length);
+
+		/// <summary>
+		/// Copy data from source char array to destination char array.
+		/// </summary>
+		/// <param name="src"> source array </param>
+		/// <param name="srcPos"> starting position in source array </param>
+		/// <param name="dest"> destination array </param>
+		/// <param name="destPos"> position in destination array </param>
+		/// <param name="length"> number of elements to copy </param>
+		//public static void copyChars(char[] src, int srcPos, char[] dest, int destPos, int length);
+
+		/// <summary>
 		/// Use the whatever proxy settings are configured in the OS.  On some platform, by default no web proxy is used.
 		/// Calling this method causes the OS proxy default to be used instead.
 		/// </summary>

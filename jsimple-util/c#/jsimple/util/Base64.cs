@@ -205,7 +205,7 @@ namespace jsimple.util
 					// this assumes that CHUNK_SIZE % 4 == 0
 					if (encodedIndex == nextSeparatorIndex)
 					{
-						Array.Copy(CHUNK_SEPARATOR, 0, encodedData, encodedIndex, CHUNK_SEPARATOR.Length);
+						PlatformUtils.copyBytes(CHUNK_SEPARATOR, 0, encodedData, encodedIndex, CHUNK_SEPARATOR.Length);
 						chunksSoFar++;
 						nextSeparatorIndex = (CHUNK_SIZE * (chunksSoFar + 1)) + (chunksSoFar * CHUNK_SEPARATOR.Length);
 						encodedIndex += CHUNK_SEPARATOR.Length;
@@ -247,7 +247,7 @@ namespace jsimple.util
 			{
 				// we also add a separator to the end of the final chunk.
 				if (chunksSoFar < nbrChunks)
-					Array.Copy(CHUNK_SEPARATOR, 0, encodedData, encodedDataLength - CHUNK_SEPARATOR.Length, CHUNK_SEPARATOR.Length);
+					PlatformUtils.copyBytes(CHUNK_SEPARATOR, 0, encodedData, encodedDataLength - CHUNK_SEPARATOR.Length, CHUNK_SEPARATOR.Length);
 			}
 
 			return encodedData;
@@ -341,7 +341,7 @@ namespace jsimple.util
 
 			sbyte[] packedData = new sbyte[bytesCopied];
 
-			Array.Copy(groomedData, 0, packedData, 0, bytesCopied);
+			PlatformUtils.copyBytes(groomedData, 0, packedData, 0, bytesCopied);
 
 			return packedData;
 		}

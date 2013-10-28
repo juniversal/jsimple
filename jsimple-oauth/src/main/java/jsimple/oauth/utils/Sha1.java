@@ -1,5 +1,6 @@
 package jsimple.oauth.utils;
 
+import jsimple.util.PlatformUtils;
 import jsimple.util.StringUtils;
 
 /**
@@ -203,7 +204,7 @@ public class Sha1 {
      */
     public byte[] getDigest() {
         byte[] result = new byte[SIZE];
-        System.arraycopy(m_digestBits, 0, result, 0, SIZE);
+        PlatformUtils.copyBytes(m_digestBits, 0, result, 0, SIZE);
         return result;
     }
 
@@ -220,12 +221,12 @@ public class Sha1 {
         final byte[] buf = new byte[64];
         if (key != null && key.length > 0) {
             if (key.length <= 64) {
-                System.arraycopy(key, 0, pkey, 0, key.length);
+                PlatformUtils.copyBytes(key, 0, pkey, 0, key.length);
             } else {
                 final Sha1 shakey = new Sha1();
                 shakey.doFinal(key);
                 final byte[] keya = shakey.getDigest();
-                System.arraycopy(keya, 0, pkey, 0, keya.length);
+                PlatformUtils.copyBytes(keya, 0, pkey, 0, keya.length);
             }
         }
 

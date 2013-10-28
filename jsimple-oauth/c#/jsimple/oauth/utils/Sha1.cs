@@ -1,8 +1,7 @@
-using System;
-
 namespace jsimple.oauth.utils
 {
 
+	using PlatformUtils = jsimple.util.PlatformUtils;
 	using StringUtils = jsimple.util.StringUtils;
 
 	/// <summary>
@@ -193,7 +192,7 @@ namespace jsimple.oauth.utils
 			get
 			{
 				sbyte[] result = new sbyte[SIZE];
-				Array.Copy(m_digestBits, 0, result, 0, SIZE);
+				PlatformUtils.copyBytes(m_digestBits, 0, result, 0, SIZE);
 				return result;
 			}
 		}
@@ -214,13 +213,13 @@ namespace jsimple.oauth.utils
 			if (key != null && key.Length > 0)
 			{
 				if (key.Length <= 64)
-					Array.Copy(key, 0, pkey, 0, key.Length);
+					PlatformUtils.copyBytes(key, 0, pkey, 0, key.Length);
 				else
 				{
 					Sha1 shakey = new Sha1();
 					shakey.doFinal(key);
 					sbyte[] keya = shakey.Digest;
-					Array.Copy(keya, 0, pkey, 0, keya.Length);
+					PlatformUtils.copyBytes(keya, 0, pkey, 0, keya.Length);
 				}
 			}
 

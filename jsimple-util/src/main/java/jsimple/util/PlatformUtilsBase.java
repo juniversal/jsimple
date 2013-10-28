@@ -63,6 +63,28 @@ public class PlatformUtilsBase {
     //public static void sleep(int sleepTimeInMilliseconds);
 
     /**
+     * Copy data from source byte array to destination byte array.
+     *
+     * @param src source array
+     * @param srcPos starting position in source array
+     * @param dest destination array
+     * @param destPos position in destination array
+     * @param length number of elements to copy
+     */
+    //public static void copyBytes(byte[] src, int srcPos, byte[] dest, int destPos, int length);
+
+    /**
+     * Copy data from source char array to destination char array.
+     *
+     * @param src source array
+     * @param srcPos starting position in source array
+     * @param dest destination array
+     * @param destPos position in destination array
+     * @param length number of elements to copy
+     */
+    //public static void copyChars(char[] src, int srcPos, char[] dest, int destPos, int length);
+
+    /**
      * Use the whatever proxy settings are configured in the OS.  On some platform, by default no web proxy is used.
      * Calling this method causes the OS proxy default to be used instead.
      */

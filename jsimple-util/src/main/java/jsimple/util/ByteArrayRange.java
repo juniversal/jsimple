@@ -49,7 +49,7 @@ public class ByteArrayRange {
             return this.bytes;
         else {
             byte[] copy = new byte[length];
-            System.arraycopy(bytes, position, copy, 0, length);
+            PlatformUtils.copyBytes(bytes, position, copy, 0, length);
             return copy;
         }
     }
