@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Bret Johnson
  * @since 10/6/12 12:58 AM
  */
-public abstract class HttpResponse {
+public abstract class HttpResponse extends jsimple.lang.AutoCloseable {
     /**
      * Gets the status code from an HTTP response message (e.g. 200, 401, etc.).  Returns -1 if no code can be discerned
      * from the response (i.e., the response is not valid HTTP).

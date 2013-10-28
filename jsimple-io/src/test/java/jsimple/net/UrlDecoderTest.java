@@ -29,6 +29,6 @@ public class UrlDecoderTest extends UnitTest {
 
         assertEquals("/a!@#/def", UrlDecoder.decodePath("a!%40%23/def/").toString());
         assertEquals("/ab/c/def", UrlDecoder.decodePath("/ab%2Fc/def").toString());
-        assertEquals("ab/c", UrlDecoder.decodePath("/ab%2Fc/def").getPathElements().get(0));
+        assertEquals("ab/c", UrlDecoder.decodePath("/ab%2Fc/def").getFirstElement());
     }
 }

@@ -48,19 +48,21 @@ namespace jsimple.io
 	            return bytes;
 	        else {
 	            byte[] copy = new byte[length[0]];
-	            System.arraycopy(bytes, 0, copy, 0, length[0]);
+	            PlatformUtils.copyBytes(bytes, 0, copy, 0, length[0]);
 	            return copy;
 	        }
 	    }
 	*/
 
 		/// <summary>
-		/// Converts the stream contents, assumed to be a UTF-8 character data, to a string.  The inputStream is closed on
-		/// success.  If an exception is thrown,  the caller should close() inputStream (e.g. in a finally clause, since
-		/// calling close multiple times is benign).
+		/// Convert the byte array, assumed to be UTF-8 character data, to a string.
 		/// </summary>
-		/// <param name="inputStream"> input stream, assumed to be UTF-8 </param>
-		/// <returns> string </returns>
+		/// <param name="utf8Bytes"> UTF-8 byte array </param>
+		/// <returns> String for UTF-8 data </returns>
+		public static string toStringFromUtf8Bytes(sbyte[] utf8Bytes)
+		{
+			return toStringFromUtf8Bytes(utf8Bytes, 0, utf8Bytes.Length);
+		}
 
 		/// <summary>
 		/// Convert the subset of the byte array, from position through position + length - 1, assumed to be a UTF-8

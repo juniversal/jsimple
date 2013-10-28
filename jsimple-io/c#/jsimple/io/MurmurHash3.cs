@@ -48,7 +48,7 @@ namespace jsimple.io
 		internal int totalLengthInBytes = 0;
 		internal bool finished = false;
 
-		internal MurmurHash3(int seed)
+		public MurmurHash3(int seed)
 		{
 			h1 = seed;
 			h2 = seed;

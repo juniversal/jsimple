@@ -18,7 +18,7 @@ namespace jsimple.io
 	/// @since 10/14/12 9:52 PM </seealso>
 	public class Utf8OutputStreamWriter : Writer
 	{
-		private OutputStream @out;
+		private OutputStream outputStream;
 		private bool closeOuterStream;
 		private sbyte[] destBuffer;
 		private int destPosition = 0;
@@ -29,19 +29,19 @@ namespace jsimple.io
 		/// <summary>
 		/// Constructs a new OutputStreamWriter using {@code out} as the target stream to write converted characters to.
 		/// </summary>
-		/// <param name="out"> the non-null target stream to write converted bytes to </param>
-		public Utf8OutputStreamWriter(OutputStream @out) : this(@out, true)
+		/// <param name="outputStream"> the non-null target stream to write converted bytes to </param>
+		public Utf8OutputStreamWriter(OutputStream outputStream) : this(outputStream, true)
 		{
 		}
 
 		/// <summary>
 		/// Constructs a new OutputStreamWriter using {@code out} as the target stream to write converted characters to.
 		/// </summary>
-		/// <param name="out">              the non-null target stream to write converted bytes to </param>
+		/// <param name="outputStream">              the non-null target stream to write converted bytes to </param>
 		/// <param name="closeOuterStream"> whether or not to close the outer stream when this stream is close </param>
-		public Utf8OutputStreamWriter(OutputStream @out, bool closeOuterStream)
+		public Utf8OutputStreamWriter(OutputStream outputStream, bool closeOuterStream)
 		{
-			this.@out = @out;
+			this.outputStream = outputStream;
 			destBuffer = new sbyte[BUFFER_SIZE];
 			this.closeOuterStream = closeOuterStream;
 		}
@@ -56,15 +56,15 @@ namespace jsimple.io
 		public override void close()
 		{
 			// If already closed, do nothing
-			if (@out == null)
+			if (outputStream == null)
 				return;
 
 			flush();
 
-			Debug.Assert(@out != null, "@SuppressWarnings(nullness)");
+			Debug.Assert(outputStream != null, "@SuppressWarnings(nullness)");
 			if (closeOuterStream)
-				@out.close();
-			@out = null;
+				outputStream.close();
+			outputStream = null;
 		}
 
 		/// <summary>
@@ -74,17 +74,17 @@ namespace jsimple.io
 		/// <exception cref="IOException"> if an error occurs while flushing this writer </exception>
 		public override void flush()
 		{
-			if (@out == null)
+			if (outputStream == null)
 				throw new Exception("Can't call flush on a Utf8OutputStreamWriter that's already closed");
 
 			if (destPosition > 0)
 			{
-				@out.write(destBuffer, 0, destPosition);
+				outputStream.write(destBuffer, 0, destPosition);
 				destPosition = 0;
 			}
 
-			Debug.Assert(@out != null, "@SuppressWarnings(nullness)");
-			@out.flush();
+			Debug.Assert(outputStream != null, "@SuppressWarnings(nullness)");
+			outputStream.flush();
 		}
 
 		/// <summary>
@@ -100,7 +100,7 @@ namespace jsimple.io
 		/// <exception cref="IOException">               if this writer has already been closed or another I/O error occurs. </exception>
 		public override void write(char[] buf, int offset, int count)
 		{
-			if (@out == null)
+			if (outputStream == null)
 				throw new Exception("Can't call write on a Utf8OutputStreamWriter that's already closed");
 
 			int srcPosition = offset;
@@ -112,8 +112,8 @@ namespace jsimple.io
 				// that when large chunks are being written.
 				if (destBuffer.Length - destPosition < 256)
 				{
-					Debug.Assert(@out != null, "@SuppressWarnings(nullness)");
-					@out.write(destBuffer, 0, destPosition);
+					Debug.Assert(outputStream != null, "@SuppressWarnings(nullness)");
+					outputStream.write(destBuffer, 0, destPosition);
 					destPosition = 0;
 				}
 

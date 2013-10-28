@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * @since 10/14/12 9:52 PM
  */
 public class Utf8OutputStreamWriter extends Writer {
-    private @Nullable OutputStream out;
+    private @Nullable OutputStream outputStream;
     private boolean closeOuterStream;
     private byte[] destBuffer;
     private int destPosition = 0;
@@ -25,20 +25,20 @@ public class Utf8OutputStreamWriter extends Writer {
     /**
      * Constructs a new OutputStreamWriter using {@code out} as the target stream to write converted characters to.
      *
-     * @param out the non-null target stream to write converted bytes to
+     * @param outputStream the non-null target stream to write converted bytes to
      */
-    public Utf8OutputStreamWriter(OutputStream out) {
-        this(out, true);
+    public Utf8OutputStreamWriter(OutputStream outputStream) {
+        this(outputStream, true);
     }
 
     /**
      * Constructs a new OutputStreamWriter using {@code out} as the target stream to write converted characters to.
      *
-     * @param out              the non-null target stream to write converted bytes to
+     * @param outputStream              the non-null target stream to write converted bytes to
      * @param closeOuterStream whether or not to close the outer stream when this stream is close
      */
-    public Utf8OutputStreamWriter(OutputStream out, boolean closeOuterStream) {
-        this.out = out;
+    public Utf8OutputStreamWriter(OutputStream outputStream, boolean closeOuterStream) {
+        this.outputStream = outputStream;
         destBuffer = new byte[BUFFER_SIZE];
         this.closeOuterStream = closeOuterStream;
     }
@@ -54,15 +54,15 @@ public class Utf8OutputStreamWriter extends Writer {
      */
     @Override public void close() {
         // If already closed, do nothing
-        if (out == null)
+        if (outputStream == null)
             return;
 
         flush();
 
-        assert out != null : "@SuppressWarnings(nullness)";
+        assert outputStream != null : "@SuppressWarnings(nullness)";
         if (closeOuterStream)
-            out.close();
-        out = null;
+            outputStream.close();
+        outputStream = null;
     }
 
     /**
@@ -72,16 +72,16 @@ public class Utf8OutputStreamWriter extends Writer {
      * @throws IOException if an error occurs while flushing this writer
      */
     @Override public void flush() {
-        if (out == null)
+        if (outputStream == null)
             throw new RuntimeException("Can't call flush on a Utf8OutputStreamWriter that's already closed");
 
         if (destPosition > 0) {
-            out.write(destBuffer, 0, destPosition);
+            outputStream.write(destBuffer, 0, destPosition);
             destPosition = 0;
         }
 
-        assert out != null : "@SuppressWarnings(nullness)";
-        out.flush();
+        assert outputStream != null : "@SuppressWarnings(nullness)";
+        outputStream.flush();
     }
 
     /**
@@ -97,7 +97,7 @@ public class Utf8OutputStreamWriter extends Writer {
      * @throws IOException               if this writer has already been closed or another I/O error occurs.
      */
     @Override public void write(char[] buf, int offset, int count) {
-        if (out == null)
+        if (outputStream == null)
             throw new RuntimeException("Can't call write on a Utf8OutputStreamWriter that's already closed");
 
         int srcPosition = offset;
@@ -107,8 +107,8 @@ public class Utf8OutputStreamWriter extends Writer {
             // the inner loop runs from 256 character iterations down to 64 character iterations, but never goes below
             // that when large chunks are being written.
             if (destBuffer.length - destPosition < 256) {
-                assert out != null : "@SuppressWarnings(nullness)";
-                out.write(destBuffer, 0, destPosition);
+                assert outputStream != null : "@SuppressWarnings(nullness)";
+                outputStream.write(destBuffer, 0, destPosition);
                 destPosition = 0;
             }
 

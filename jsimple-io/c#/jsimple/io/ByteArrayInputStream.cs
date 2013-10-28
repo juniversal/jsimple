@@ -1,9 +1,8 @@
-using System;
-
 namespace jsimple.io
 {
 
 	using ByteArrayRange = jsimple.util.ByteArrayRange;
+	using PlatformUtils = jsimple.util.PlatformUtils;
 
 	/// <summary>
 	/// This class was based on, and modified from, the Apache Harmony java.io.ByteArrayInputStream class.  Unlike the Java
@@ -97,7 +96,7 @@ namespace jsimple.io
 				return 0;
 
 			int copyLength = this.count - pos < length ? this.count - pos : length;
-			Array.Copy(buf, pos, b, offset, copyLength);
+			PlatformUtils.copyBytes(buf, pos, b, offset, copyLength);
 			pos += copyLength;
 			return copyLength;
 		}

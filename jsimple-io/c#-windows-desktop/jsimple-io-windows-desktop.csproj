@@ -44,7 +44,7 @@
     <Compile Include="nontranslated\jsimple\io\FileSystemPathAttributes.cs" />
     <Compile Include="nontranslated\jsimple\io\JSimpleIO.cs" />
     <Compile Include="nontranslated\jsimple\io\WindowsDesktopPaths.cs" />
-    <Compile Include="nontranslated\jsimple\net\DotNetSocket.cs" />
+    <Compile Include="nontranslated\jsimple\net\TcpClientSocket.cs" />
     <Compile Include="nontranslated\jsimple\net\DotNetTcpIpSocketListener.cs" />
     <Compile Include="nontranslated\jsimple\net\WindowsDesktopHttpRequest.cs" />
     <Compile Include="nontranslated\jsimple\net\WindowsDesktopHttpResponse.cs" />

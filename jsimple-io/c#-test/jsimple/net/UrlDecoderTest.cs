@@ -31,7 +31,7 @@ namespace jsimple.net
 
 			assertEquals("/a!@#/def", UrlDecoder.decodePath("a!%40%23/def/").ToString());
 			assertEquals("/ab/c/def", UrlDecoder.decodePath("/ab%2Fc/def").ToString());
-			assertEquals("ab/c", UrlDecoder.decodePath("/ab%2Fc/def").PathElements.get(0));
+			assertEquals("ab/c", UrlDecoder.decodePath("/ab%2Fc/def").FirstElement);
 		}
 	}
 

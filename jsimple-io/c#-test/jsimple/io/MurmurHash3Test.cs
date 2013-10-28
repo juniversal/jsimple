@@ -12,7 +12,7 @@ namespace jsimple.io
 	/// </summary>
 	public class MurmurHash3Test : UnitTest
 	{
-		[Test] public virtual void testHssh()
+		[Test] public virtual void testHash()
 		{
 			sbyte[] key = new sbyte[500000];
 

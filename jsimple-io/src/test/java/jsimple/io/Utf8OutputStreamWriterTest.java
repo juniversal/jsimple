@@ -74,7 +74,8 @@ public class Utf8OutputStreamWriterTest extends UnitTest {
             if (message == null)
                 message = "null";
 
-            assertTrue("Different error message than expected: " + message, message.contains(expectedMessageSnippet));
+            assertTrue("Message:\n" + message + "\ndoesn't contain expected snippet:\n" + expectedMessageSnippet,
+                    message.contains(expectedMessageSnippet));
             return;
         }
 

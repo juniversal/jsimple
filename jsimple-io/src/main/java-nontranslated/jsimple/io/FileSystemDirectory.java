@@ -20,6 +20,10 @@ public class FileSystemDirectory extends Directory {
         this.javaPath = javaPath;
     }
 
+    @Override public String toString() {
+        return javaPath.toString();
+    }
+
     @Override public String getName() {
         return javaPath.getFileName().toString();
     }

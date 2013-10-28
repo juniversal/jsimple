@@ -53,6 +53,10 @@ public class FileSystemFile extends File {
         }
     }
 
+    @Override public String toString() {
+        return javaPath.toString();
+    }
+
     @Override public String getName() {
         return javaPath.getFileName().toString();
     }

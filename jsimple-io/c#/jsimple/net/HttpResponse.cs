@@ -20,7 +20,7 @@ namespace jsimple.net
 	/// @author Bret Johnson
 	/// @since 10/6/12 12:58 AM
 	/// </summary>
-	public abstract class HttpResponse
+	public abstract class HttpResponse : jsimple.lang.AutoCloseable
 	{
 		/// <summary>
 		/// Gets the status code from an HTTP response message (e.g. 200, 401, etc.).  Returns -1 if no code can be discerned

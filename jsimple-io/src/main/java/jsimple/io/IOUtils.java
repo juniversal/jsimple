@@ -44,20 +44,21 @@ public class IOUtils {
             return bytes;
         else {
             byte[] copy = new byte[length[0]];
-            System.arraycopy(bytes, 0, copy, 0, length[0]);
+            PlatformUtils.copyBytes(bytes, 0, copy, 0, length[0]);
             return copy;
         }
     }
 */
 
     /**
-     * Converts the stream contents, assumed to be a UTF-8 character data, to a string.  The inputStream is closed on
-     * success.  If an exception is thrown,  the caller should close() inputStream (e.g. in a finally clause, since
-     * calling close multiple times is benign).
+     * Convert the byte array, assumed to be UTF-8 character data, to a string.
      *
-     * @param inputStream input stream, assumed to be UTF-8
-     * @return string
+     * @param utf8Bytes UTF-8 byte array
+     * @return String for UTF-8 data
      */
+    public static String toStringFromUtf8Bytes(byte[] utf8Bytes) {
+        return toStringFromUtf8Bytes(utf8Bytes, 0, utf8Bytes.length);
+    }
 
     /**
      * Convert the subset of the byte array, from position through position + length - 1, assumed to be a UTF-8

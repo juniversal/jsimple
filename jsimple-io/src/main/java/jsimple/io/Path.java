@@ -1,7 +1,5 @@
 package jsimple.io;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * A Path is an abstraction over file system-like data structures.  A Directory path can contain other Directories and
  * Files.  The caller can get an input stream / output stream to read/write a File.
@@ -16,10 +14,6 @@ public abstract class Path {
      * @return name of this file/directory
      */
     public abstract String getName();
-
-    @Override public String toString() {
-        return getName();
-    }
 
     /**
      * Get the extension (the text after the period) from the specified file/directory name.  The period itself isn't

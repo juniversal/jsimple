@@ -86,7 +86,7 @@ namespace jsimple.io
 				if (message == null)
 					message = "null";
 
-				assertTrue("Different error message than expected: " + message, message.Contains(expectedMessageSnippet));
+				assertTrue("Message:\n" + message + "\ndoesn't contain expected snippet:\n" + expectedMessageSnippet, message.Contains(expectedMessageSnippet));
 				return;
 			}
 

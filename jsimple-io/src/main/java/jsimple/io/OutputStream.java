@@ -1,5 +1,6 @@
 package jsimple.io;
 
+import jsimple.util.BasicException;
 import jsimple.util.ByteArrayRange;
 import jsimple.util.StringUtils;
 import org.jetbrains.annotations.Nullable;

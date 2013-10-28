@@ -1,9 +1,8 @@
-using System;
-
 namespace jsimple.io
 {
 
 	using ByteArrayRange = jsimple.util.ByteArrayRange;
+	using PlatformUtils = jsimple.util.PlatformUtils;
 
 	/// <summary>
 	/// This class was based on, and modified from, the Apache Harmony java.io.ByteArrayOutputStream class.  Unlike the Java
@@ -82,7 +81,7 @@ namespace jsimple.io
 				return;
 
 			sbyte[] newBuffer = new sbyte[(count + i) * 2];
-			Array.Copy(buffer, 0, newBuffer, 0, count);
+			PlatformUtils.copyBytes(buffer, 0, newBuffer, 0, count);
 			buffer = newBuffer;
 		}
 
@@ -133,7 +132,7 @@ namespace jsimple.io
 		public virtual sbyte[] toByteArray()
 		{
 			sbyte[] copy = new sbyte[count];
-			Array.Copy(buffer, 0, copy, 0, count);
+			PlatformUtils.copyBytes(buffer, 0, copy, 0, count);
 			return copy;
 		}
 
@@ -151,7 +150,7 @@ namespace jsimple.io
 			// Expand if necessary
 			expand(length);
 
-			Array.Copy(buffer, offset, this.buffer, this.count, length);
+			PlatformUtils.copyBytes(buffer, offset, this.buffer, this.count, length);
 			this.count += length;
 		}
 

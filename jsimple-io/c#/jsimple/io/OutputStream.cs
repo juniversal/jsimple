@@ -1,6 +1,7 @@
 namespace jsimple.io
 {
 
+	using BasicException = jsimple.util.BasicException;
 	using ByteArrayRange = jsimple.util.ByteArrayRange;
 	using StringUtils = jsimple.util.StringUtils;
 

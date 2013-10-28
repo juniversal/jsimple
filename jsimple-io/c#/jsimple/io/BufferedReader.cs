@@ -1,8 +1,9 @@
-using System;
 using System.Text;
 
 namespace jsimple.io
 {
+
+	using PlatformUtils = jsimple.util.PlatformUtils;
 
 	/// <summary>
 	/// This class was based on, and modified from, the Apache Harmony java.io.BufferedReader class.  This class supports
@@ -120,13 +121,13 @@ namespace jsimple.io
 				if (newLength > markLimit)
 					newLength = markLimit;
 				char[] newbuf = new char[newLength];
-				Array.Copy(buf, 0, newbuf, 0, buf.Length);
+				PlatformUtils.copyChars(buf, 0, newbuf, 0, buf.Length);
 				buf = newbuf;
 			}
 			else if (markPos > 0)
 			{
 				/* make room by shifting the buffered data to left mark positions */
-				Array.Copy(buf, markPos, buf, 0, buf.Length - markPos);
+				PlatformUtils.copyChars(buf, markPos, buf, 0, buf.Length - markPos);
 				pos -= markPos;
 				end -= markPos;
 				markPos = 0;
@@ -217,7 +218,7 @@ namespace jsimple.io
 				if (available > 0)
 				{
 					int count = available >= outstanding ? outstanding : available;
-					Array.Copy(buf, pos, buffer, offset, count);
+					PlatformUtils.copyChars(buf, pos, buffer, offset, count);
 					pos += count;
 					offset += count;
 					outstanding -= count;

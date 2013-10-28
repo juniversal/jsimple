@@ -29,6 +29,11 @@ namespace jsimple.net
             get { return new DotNetStreamInputStream(httpWebResponse.GetResponseStream()); }
         }
 
+        public override void close()
+        {
+            httpWebResponse.Close();
+        }
+
         // TODO: Test Content-Encoding, Content-Length, Content-Type, Last-Modified, and Server
         // TODO: Test non-present header to ensure returns null
         public override string getHeader(string headerName)

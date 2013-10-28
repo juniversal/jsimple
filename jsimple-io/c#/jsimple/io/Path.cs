@@ -1,8 +1,6 @@
 namespace jsimple.io
 {
 
-
-
 	/// <summary>
 	/// A Path is an abstraction over file system-like data structures.  A Directory path can contain other Directories and
 	/// Files.  The caller can get an input stream / output stream to read/write a File.
@@ -17,11 +15,6 @@ namespace jsimple.io
 		/// </summary>
 		/// <returns> name of this file/directory </returns>
 		public abstract string Name {get;}
-
-		public override string ToString()
-		{
-			return Name;
-		}
 
 		/// <summary>
 		/// Get the extension (the text after the period) from the specified file/directory name.  The period itself isn't

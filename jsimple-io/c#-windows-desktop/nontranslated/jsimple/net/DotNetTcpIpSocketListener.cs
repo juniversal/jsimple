@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -8,6 +9,7 @@ namespace jsimple.net
     {
         private int port;
         private System.Net.Sockets.Socket serverSocket;
+        private TcpListener tcpListener;
         private bool requestedStop;
 
         public DotNetTcpIpSocketListener(SocketConnectionHandler connectionHandler, int port)
@@ -18,6 +20,7 @@ namespace jsimple.net
         
         public override void start()
         {
+/*
             // Establish the local endpoint for the socket.  
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
 
@@ -27,6 +30,13 @@ namespace jsimple.net
             // Bind the socket to the local endpoint and listen for incoming connections.
             serverSocket.Bind(localEndPoint);
             serverSocket.Listen(10);
+
+            Thread serverListenerThread = new Thread(ServerListenerThread);
+            serverListenerThread.Start();
+*/
+
+            tcpListener = new TcpListener(IPAddress.Any, port);
+            tcpListener.Start();
 
             Thread serverListenerThread = new Thread(ServerListenerThread);
             serverListenerThread.Start();
@@ -40,6 +50,16 @@ namespace jsimple.net
         private void ServerListenerThread() {
             // Start listening for connections.
             while (! requestedStop) {
+                // Perform a blocking call to accept requests. 
+                // You could also user server.AcceptSocket() here.
+                TcpClient tcpClient = tcpListener.AcceptTcpClient();
+
+                TcpClientSocket tcpClientSocket = new TcpClientSocket(tcpClient);
+
+                Thread connectionThread = new Thread(() => SocketConnectionHandler.sockedConnected(tcpClientSocket));
+                connectionThread.Start();
+
+/*
                 // Program is suspended while waiting for an incoming connection.
                 Socket connectionSocket = new DotNetSocket(serverSocket.Accept());
 
@@ -49,12 +69,8 @@ namespace jsimple.net
                 //handler.Send(msg);%
                 //handler.Shutdown(SocketShutdown.Both);
                 //handler.Close();
+*/
             }
-        }
-
-        private void SocketConnectionThread(Socket socket)
-        {
-            SocketConnectionHandler.sockedConnected(socket);
         }
 
         public class DotNetSocketListenerFactory : SocketListenerFactory

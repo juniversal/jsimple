@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import jsimple.util.PlatformUtils;
+
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.BufferedReader class.  This class supports
  * mark and reset, while the base JSimple Reader class doesn't; unlike standard Java there's no markSupported method
@@ -107,11 +109,11 @@ public class BufferedReader extends Reader {
                 newLength = markLimit;
             }
             char[] newbuf = new char[newLength];
-            System.arraycopy(buf, 0, newbuf, 0, buf.length);
+            PlatformUtils.copyChars(buf, 0, newbuf, 0, buf.length);
             buf = newbuf;
         } else if (markPos > 0) {
             /* make room by shifting the buffered data to left mark positions */
-            System.arraycopy(buf, markPos, buf, 0, buf.length - markPos);
+            PlatformUtils.copyChars(buf, markPos, buf, 0, buf.length - markPos);
             pos -= markPos;
             end -= markPos;
             markPos = 0;
@@ -195,7 +197,7 @@ public class BufferedReader extends Reader {
             int available = end - pos;
             if (available > 0) {
                 int count = available >= outstanding ? outstanding : available;
-                System.arraycopy(buf, pos, buffer, offset, count);
+                PlatformUtils.copyChars(buf, pos, buffer, offset, count);
                 pos += count;
                 offset += count;
                 outstanding -= count;

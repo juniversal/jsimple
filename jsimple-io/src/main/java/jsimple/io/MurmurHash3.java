@@ -44,7 +44,7 @@ public class MurmurHash3 {
     int totalLengthInBytes = 0;
     boolean finished = false;
 
-    MurmurHash3(int seed) {
+    public MurmurHash3(int seed) {
         h1 = seed;
         h2 = seed;
         h3 = seed;

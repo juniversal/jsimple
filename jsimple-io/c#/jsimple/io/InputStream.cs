@@ -1,6 +1,8 @@
 namespace jsimple.io
 {
 
+	using BasicException = jsimple.util.BasicException;
+
 	/// <summary>
 	/// This class was based on, and modified from, the Apache Harmony java.io.InputStream class.  Unlike the Java
 	/// InputStream class, this doesn't support mark, reset, or skip, doesn't throw any checked exceptions, and none of the

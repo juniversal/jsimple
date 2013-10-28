@@ -69,6 +69,10 @@ public class JavaHttpResponse extends HttpResponse {
         return bodyStream;
     }
 
+    @Override public void close() {
+        httpUrlConnection.disconnect();
+    }
+
     public static class EmptyInputStream extends InputStream {
         @Override public int read() {
             return -1;

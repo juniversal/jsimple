@@ -8,7 +8,7 @@ import org.junit.Test;
  * @since 5/12/13 12:07 AM
  */
 public class MurmurHash3Test extends UnitTest {
-    @Test public void testHssh() {
+    @Test public void testHash() {
         byte[] key = new byte[500000];
 
         validateHashOfKeyLength(key, 0, 0x0L);
