@@ -65,6 +65,9 @@ namespace jsimple.util
 
 		private static int[][] daysSinceJan1st = new int[][] {new int[] {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365}, new int[] {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366}};
 
+		// This, somewhat arbitrary, choice for a null date is in 1653
+		public static long NULL_DATE = -9999999999999L;
+
 		//-----------------------------------------------------------------------
 
 		/// <summary>

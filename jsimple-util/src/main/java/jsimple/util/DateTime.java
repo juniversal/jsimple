@@ -47,6 +47,11 @@ public final class DateTime {
     int monthOfYear;         // [1,12]
     int dayOfMonth;          // [1,31]
 
+    public static final int MILLISECONDS_PER_SECOND = 1000;
+    public static final int MILLISECONDS_PER_MINUTE = 60000;
+    public static final int MILLISECONDS_PER_HOUR = 3600000;
+    public static final int MILLISECONDS_PER_DAY = 86400000;
+
     // 1970 - 1601 = 369 = 3*100 + 17*4 + 1 years (incl. 89 leap days) =
     // (3*100*(365+24/100) + 17*4*(365+1/4) + 1*365)*24*3600*1000 milliseconds
     private static final long MILLIS_FROM_1601_TO_1970 = 11644473600000L;
@@ -62,6 +67,9 @@ public final class DateTime {
             {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365}, // 365 days, non-leap
             {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366}  // 366 days, leap
     };
+
+    // This, somewhat arbitrary, choice for a null date is in 1653
+    public static long NULL_DATE = -9999999999999L;
 
     //-----------------------------------------------------------------------
 
@@ -253,6 +261,23 @@ public final class DateTime {
 
         // Bias back so relative to 1970
         millis = totalSeconds * 1000L - MILLIS_FROM_1601_TO_1970 + millisOfSecond;
+    }
+
+    @Override public boolean equals(Object other) {
+        if (this == other)
+            return true;
+        if (other == null)
+            return false;
+
+        DateTime otherDateTime = (DateTime) other;
+        if (millis != otherDateTime.millis)
+            return false;
+
+        return true;
+    }
+
+    @Override public int hashCode() {
+        return (int) (millis ^ (millis >>> 32));
     }
 
     @Override public String toString() {
