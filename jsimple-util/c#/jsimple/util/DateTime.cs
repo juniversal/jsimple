@@ -52,6 +52,11 @@ namespace jsimple.util
 		internal int monthOfYear; // [1,12]
 		internal int dayOfMonth; // [1,31]
 
+		public const int MILLISECONDS_PER_SECOND = 1000;
+		public const int MILLISECONDS_PER_MINUTE = 60000;
+		public const int MILLISECONDS_PER_HOUR = 3600000;
+		public const int MILLISECONDS_PER_DAY = 86400000;
+
 		// 1970 - 1601 = 369 = 3*100 + 17*4 + 1 years (incl. 89 leap days) =
 		// (3*100*(365+24/100) + 17*4*(365+1/4) + 1*365)*24*3600*1000 milliseconds
 		private const long MILLIS_FROM_1601_TO_1970 = 11644473600000L;
@@ -256,6 +261,25 @@ namespace jsimple.util
 
 			// Bias back so relative to 1970
 			millis = totalSeconds * 1000L - MILLIS_FROM_1601_TO_1970 + millisOfSecond;
+		}
+
+		public override bool Equals(object other)
+		{
+			if (this == other)
+				return true;
+			if (other == null)
+				return false;
+
+			DateTime otherDateTime = (DateTime) other;
+			if (millis != otherDateTime.millis)
+				return false;
+
+			return true;
+		}
+
+		public override int GetHashCode()
+		{
+			return (int)(millis ^ ((long)((ulong)millis >> 32)));
 		}
 
 		public override string ToString()
