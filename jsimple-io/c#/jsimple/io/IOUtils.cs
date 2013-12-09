@@ -117,19 +117,6 @@ namespace jsimple.io
 			return @out.ToString();
 		}
 
-		/// <summary>
-		/// Read the remaining data from the input stream into a byte array, which is returned.  Only the first
-		/// ByteArrayRange.getLength() bytes of the byte array should be used.  The inputStream is closed after it's
-		/// completely read, though it won't be closed if an except occurs in the middle of reading from it.
-		/// </summary>
-		/// <param name="inputStream"> input stream </param>
-		/// <returns> ByteArrayRange containing the data in the stream </returns>
-		public virtual ByteArrayRange toBytesFromStream(InputStream inputStream)
-		{
-			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-			inputStream.copyTo(byteStream);
-			return byteStream.closeAndGetByteArray();
-		}
 	}
 
 }

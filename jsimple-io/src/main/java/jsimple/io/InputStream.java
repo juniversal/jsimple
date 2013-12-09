@@ -1,6 +1,6 @@
 package jsimple.io;
 
-import jsimple.util.BasicException;
+import jsimple.util.ByteArrayRange;
 
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.InputStream class.  Unlike the Java
@@ -28,7 +28,7 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
      */
     @Override public abstract void close();
 
-     protected void finalize() {
+    protected void finalize() {
         close();
     }
 
@@ -113,7 +113,7 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
      * @param offset the initial position in {@code buffer} to store the bytes read from this stream
      * @param length the maximum number of bytes to store in {@code b}
      * @return the number of bytes actually read (which is guaranteed to be as much as possible) or -1 if the end of the
-     *         stream has been reached
+     * stream has been reached
      */
     public int readFully(byte buffer[], int offset, int length) {
         int amountRead = read(buffer, offset, length);
@@ -132,6 +132,8 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
 
     /**
      * Write the remaining contents of this stream to the specified output stream, closing this input stream when done.
+     * The inputStream is closed after it's completely read, though it won't be closed if an exception occurs in the
+     * middle of reading from it.
      *
      * @param outputStream output stream to copy to
      */
@@ -146,5 +148,18 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
         }
 
         close();
+    }
+
+    /**
+     * Write the remaining contents of this stream to a byte array, closing this input stream when done. The inputStream
+     * is closed after it's completely read, though it won't be closed if an exception occurs in the middle of reading
+     * from it.
+     *
+     * @return ByteArrayRange containing the stream contents
+     */
+    public ByteArrayRange copyToByteArray() {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        copyTo(byteArrayOutputStream);
+        return byteArrayOutputStream.closeAndGetByteArray();
     }
 }

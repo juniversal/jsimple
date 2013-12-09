@@ -1,7 +1,7 @@
 namespace jsimple.io
 {
 
-	using BasicException = jsimple.util.BasicException;
+	using ByteArrayRange = jsimple.util.ByteArrayRange;
 
 	/// <summary>
 	/// This class was based on, and modified from, the Apache Harmony java.io.InputStream class.  Unlike the Java
@@ -28,10 +28,10 @@ namespace jsimple.io
 		/// <exception cref="IOException"> if an error occurs while closing this stream </exception>
 		public override abstract void close();
 
-		 ~InputStream()
-		 {
+		~InputStream()
+		{
 			close();
-		 }
+		}
 
 		/// <summary>
 		/// Reads a single byte from this stream and returns it as an integer in the range from 0 to 255. Returns -1 if the
@@ -112,7 +112,7 @@ namespace jsimple.io
 		/// <param name="offset"> the initial position in {@code buffer} to store the bytes read from this stream </param>
 		/// <param name="length"> the maximum number of bytes to store in {@code b} </param>
 		/// <returns> the number of bytes actually read (which is guaranteed to be as much as possible) or -1 if the end of the
-		///         stream has been reached </returns>
+		/// stream has been reached </returns>
 		public virtual int readFully(sbyte[] buffer, int offset, int length)
 		{
 			int amountRead = read(buffer, offset, length);
@@ -132,6 +132,8 @@ namespace jsimple.io
 
 		/// <summary>
 		/// Write the remaining contents of this stream to the specified output stream, closing this input stream when done.
+		/// The inputStream is closed after it's completely read, though it won't be closed if an exception occurs in the
+		/// middle of reading from it.
 		/// </summary>
 		/// <param name="outputStream"> output stream to copy to </param>
 		public virtual void copyTo(OutputStream outputStream)
@@ -147,6 +149,19 @@ namespace jsimple.io
 			}
 
 			close();
+		}
+
+		/// <summary>
+		/// Write the remaining contents of this stream to a byte array, closing this input stream when done. The inputStream
+		/// is closed after it's completely read, though it won't be closed if an exception occurs in the middle of reading
+		/// from it.
+		/// </summary>
+		/// <returns> ByteArrayRange containing the stream contents </returns>
+		public virtual ByteArrayRange copyToByteArray()
+		{
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			copyTo(byteArrayOutputStream);
+			return byteArrayOutputStream.closeAndGetByteArray();
 		}
 	}
 
