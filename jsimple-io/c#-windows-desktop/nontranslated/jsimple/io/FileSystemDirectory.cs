@@ -1,4 +1,5 @@
-﻿using System;
+﻿using jsimple.util;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -109,6 +110,41 @@ namespace jsimple.io
             catch (System.IO.IOException e)
             {
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
+
+        public override long LastModifiedTime
+        {
+            get
+            {
+                try
+                {
+                    return PlatformUtils.toMillisFromDateTime(System.IO.Directory.GetLastWriteTimeUtc(directoryPath));
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
+
+            set
+            {
+                try
+                {
+                    System.IO.Directory.SetLastWriteTimeUtc(directoryPath, PlatformUtils.toDotNetDateTimeFromMillis(value));
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
+        }
+
+        public override bool SetLastModifiedTimeSupported
+        {
+            get
+            {
+                return true;
             }
         }
     }

@@ -61,6 +61,11 @@ namespace jsimple.io
 		/// </summary>
 		public abstract void delete();
 
+		public abstract long LastModifiedTime {get;set;}
+
+
+		public abstract bool SetLastModifiedTimeSupported {get;}
+
 		/// <summary>
 		/// Delete the contents of this directory, recursively.
 		/// </summary>

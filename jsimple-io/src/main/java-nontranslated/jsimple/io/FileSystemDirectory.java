@@ -3,6 +3,7 @@ package jsimple.io;
 import java.nio.file.*;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.EnumSet;
 
 /**
@@ -95,6 +96,27 @@ public class FileSystemDirectory extends Directory {
         } catch (java.io.IOException e){
             throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }
+    }
+
+    @Override public long getLastModifiedTime() {
+        try {
+            FileTime fileTime = Files.getLastModifiedTime(javaPath);
+            return fileTime.toMillis();
+        } catch (java.io.IOException e) {
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        }
+    }
+
+    @Override public void setLastModifiedTime(long time) {
+        try {
+            Files.setLastModifiedTime(javaPath, FileTime.fromMillis(time));
+        } catch (java.io.IOException e) {
+            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        }
+    }
+
+    @Override public boolean isSetLastModifiedTimeSupported() {
+        return true;
     }
 
     public Path getJavaPath() {

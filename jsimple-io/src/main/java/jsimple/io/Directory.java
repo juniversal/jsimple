@@ -62,6 +62,12 @@ public abstract class Directory extends Path {
      */
     public abstract void delete();
 
+    public abstract long getLastModifiedTime();
+
+    public abstract void setLastModifiedTime(long time);
+
+    public abstract boolean isSetLastModifiedTimeSupported();
+
     /**
      * Delete the contents of this directory, recursively.
      */
