@@ -47,6 +47,16 @@ public abstract class File extends Path {
         return new Utf8OutputStreamWriter(openForCreate());
     }
 
+    /**
+     * This is a convenience method to open a UTF8 text file for writing.  It does the same thing as calling {@code new
+     * Utf8OutputStreamWriter(openForCreateAtomic())}.
+     *
+     * @return Utf8OutputStreamWriter for writing to this text file
+     */
+    public Utf8OutputStreamWriter openUtf8ForCreateAtomic() {
+        return new Utf8OutputStreamWriter(openForCreateAtomic());
+    }
+
     public OutputStream openForCreateAtomic() {
         return openForCreateAtomic(0);
     }

@@ -5,7 +5,9 @@ package jsimple.json;
  * @since 5/24/13 12:37 AM
  */
 
+import jsimple.io.File;
 import jsimple.io.Reader;
+import jsimple.io.Utf8InputStreamReader;
 import jsimple.io.Writer;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonObject;
@@ -43,8 +45,8 @@ public final class Json {
     }
 
     /**
-     * Parse the specified JSON text, returning a JsonArray.  If the JSON isn't an array (e.g. is actually a JsonObject),
-     * then an exception is thrown.
+     * Parse the specified JSON text, returning a JsonArray.  If the JSON isn't an array (e.g. is actually a
+     * JsonObject), then an exception is thrown.
      *
      * @param reader JSON text
      * @return JsonArray object tree

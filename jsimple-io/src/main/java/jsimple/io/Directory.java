@@ -64,6 +64,14 @@ public abstract class Directory extends Path {
 
     public abstract long getLastModifiedTime();
 
+    /**
+     * Set the last modified time for the directory, if supported by the platform (that is, if
+     * isSetLastModifiedTimeSupported() returns true).  If not supported by the platform, this method does nothing.  If
+     * supported by the platform but an error occurs when changing the last modified time (e.g. the caller doesn't have
+     * rights to change it), then this method throws an exception.
+     *
+     * @param time
+     */
     public abstract void setLastModifiedTime(long time);
 
     public abstract boolean isSetLastModifiedTimeSupported();

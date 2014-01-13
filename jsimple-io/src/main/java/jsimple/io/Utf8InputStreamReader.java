@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import jsimple.util.ByteArrayRange;
+
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.InputStreamWriter class.  Unlike the standard
  * Java Writer subclasses, this doesn't throw any checked exceptions.
@@ -27,6 +29,10 @@ public class Utf8InputStreamReader extends Reader {
      */
     public Utf8InputStreamReader(InputStream inputStream) {
         this.inputStream = inputStream;
+    }
+
+    public Utf8InputStreamReader(ByteArrayRange byteArrayRange) {
+        this.inputStream = new ByteArrayInputStream(byteArrayRange);
     }
 
     /**

@@ -281,7 +281,9 @@ public final class DateTime {
     }
 
     @Override public String toString() {
-        return toRFC3339String();
+        // To make the string a little more readable, we change the date/time delimiter to a space & get rid of the "Z"
+        // suffix for UTC
+        return toRFC3339String().replace("T", " ").replace("Z", "");
     }
 
     public static boolean isLeapYear(int year) {

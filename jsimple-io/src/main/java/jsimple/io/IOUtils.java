@@ -75,8 +75,7 @@ public class IOUtils {
     }
 
     public static String toStringFromUtf8Bytes(ByteArrayRange byteArrayRange) {
-        return toStringFromUtf8Bytes(byteArrayRange.getBytes(), byteArrayRange.getPosition(),
-                byteArrayRange.getLength());
+        return toStringFromReader(new Utf8InputStreamReader(byteArrayRange));
     }
 
     /**

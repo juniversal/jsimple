@@ -16,8 +16,8 @@ import java.util.ArrayList;
  * @since 5/6/12 12:29 AM
  */
 public final class JsonObject extends JsonObjectOrArray {
-    private ArrayList<String> names = new ArrayList<String>();
-    private ArrayList<Object> values = new ArrayList<Object>();
+    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<Object> values = new ArrayList<>();
 
     /**
      * Get number of name/value pairs in the object.
