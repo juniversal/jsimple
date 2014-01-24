@@ -16,7 +16,7 @@ public class JSimpleIO {
      * This method should be called before jsimple.net is used.  It's normally called at app startup. It initializes any
      * factory classes to use the default implementation appropriate for the current platform.
      */
-    public static synchronized void init() {
+    public static /* synchronized */ void init() {
         if (!initialized) {
             HttpRequest.setFactory(new JavaHttpRequest.JavaHttpRequestFactory());
             SocketListener.setFactory(new JavaTcpSocketListener.JavaSocketListenerFactory());
