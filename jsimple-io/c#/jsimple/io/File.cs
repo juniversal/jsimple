@@ -49,6 +49,16 @@ namespace jsimple.io
 			return new Utf8OutputStreamWriter(openForCreate());
 		}
 
+		/// <summary>
+		/// This is a convenience method to open a UTF8 text file for writing.  It does the same thing as calling {@code new
+		/// Utf8OutputStreamWriter(openForCreateAtomic())}.
+		/// </summary>
+		/// <returns> Utf8OutputStreamWriter for writing to this text file </returns>
+		public virtual Utf8OutputStreamWriter openUtf8ForCreateAtomic()
+		{
+			return new Utf8OutputStreamWriter(openForCreateAtomic());
+		}
+
 		public virtual OutputStream openForCreateAtomic()
 		{
 			return openForCreateAtomic(0);

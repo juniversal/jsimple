@@ -6,7 +6,9 @@ namespace jsimple.json
 	/// @since 5/24/13 12:37 AM
 	/// </summary>
 
+	using File = jsimple.io.File;
 	using Reader = jsimple.io.Reader;
+	using Utf8InputStreamReader = jsimple.io.Utf8InputStreamReader;
 	using Writer = jsimple.io.Writer;
 	using JsonArray = jsimple.json.objectmodel.JsonArray;
 	using JsonObject = jsimple.json.objectmodel.JsonObject;
@@ -45,8 +47,8 @@ namespace jsimple.json
 		}
 
 		/// <summary>
-		/// Parse the specified JSON text, returning a JsonArray.  If the JSON isn't an array (e.g. is actually a JsonObject),
-		/// then an exception is thrown.
+		/// Parse the specified JSON text, returning a JsonArray.  If the JSON isn't an array (e.g. is actually a
+		/// JsonObject), then an exception is thrown.
 		/// </summary>
 		/// <param name="reader"> JSON text </param>
 		/// <returns> JsonArray object tree </returns>

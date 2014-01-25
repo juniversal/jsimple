@@ -68,7 +68,7 @@ public final class DateTime {
             {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366}  // 366 days, leap
     };
 
-    // This, somewhat arbitrary, choice for a null date is in 1653
+    // This, somewhat arbitrary, choice for a null date is 1653-02-10 06:13:20.001
     public static long NULL_DATE = -9999999999999L;
 
     //-----------------------------------------------------------------------
@@ -281,6 +281,9 @@ public final class DateTime {
     }
 
     @Override public String toString() {
+        if (toMillis() == NULL_DATE)
+            return "NULL_DATE";
+
         // To make the string a little more readable, we change the date/time delimiter to a space & get rid of the "Z"
         // suffix for UTC
         return toRFC3339String().replace("T", " ").replace("Z", "");

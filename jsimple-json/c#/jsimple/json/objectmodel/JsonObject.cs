@@ -147,7 +147,7 @@ namespace jsimple.json.objectmodel
 
 		public long? getLongOrNull(string name)
 		{
-			object value = get(name);
+			object value = getOrNull(name);
 			if (value == null)
 				return null;
 			else if (value is int?)

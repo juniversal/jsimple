@@ -70,7 +70,7 @@ namespace jsimple.util
 
 		private static int[][] daysSinceJan1st = new int[][] {new int[] {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365}, new int[] {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366}};
 
-		// This, somewhat arbitrary, choice for a null date is in 1653
+		// This, somewhat arbitrary, choice for a null date is 1653-02-10 06:13:20.001
 		public static long NULL_DATE = -9999999999999L;
 
 		//-----------------------------------------------------------------------
@@ -284,7 +284,12 @@ namespace jsimple.util
 
 		public override string ToString()
 		{
-			return toRFC3339String();
+			if (toMillis() == NULL_DATE)
+				return "NULL_DATE";
+
+			// To make the string a little more readable, we change the date/time delimiter to a space & get rid of the "Z"
+			// suffix for UTC
+			return toRFC3339String().Replace("T", " ").Replace("Z", "");
 		}
 
 		public static bool isLeapYear(int year)

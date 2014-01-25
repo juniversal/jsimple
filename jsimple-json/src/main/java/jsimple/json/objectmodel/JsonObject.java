@@ -133,7 +133,7 @@ public final class JsonObject extends JsonObjectOrArray {
     }
 
     public @Nullable Long getLongOrNull(String name) {
-        @Nullable Object value = get(name);
+        @Nullable Object value = getOrNull(name);
         if (value == null)
             return null;
         else if (value instanceof Integer)

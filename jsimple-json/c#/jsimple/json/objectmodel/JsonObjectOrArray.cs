@@ -1,9 +1,12 @@
 namespace jsimple.json.objectmodel
 {
 
+	using ByteArrayOutputStream = jsimple.io.ByteArrayOutputStream;
 	using StringWriter = jsimple.io.StringWriter;
+	using Utf8OutputStreamWriter = jsimple.io.Utf8OutputStreamWriter;
 	using Writer = jsimple.io.Writer;
 	using Serializer = jsimple.json.text.Serializer;
+	using ByteArrayRange = jsimple.util.ByteArrayRange;
 
 	/// <summary>
 	/// This class is simply used to represent, in a type safe way, either a JSON object or an array.  According to the spec
@@ -27,6 +30,18 @@ namespace jsimple.json.objectmodel
 			StringWriter stringWriter = new StringWriter();
 			write(stringWriter);
 			return stringWriter.ToString();
+		}
+
+		public virtual ByteArrayRange toUtf8Bytes()
+		{
+			using (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
+			{
+				using (Utf8OutputStreamWriter writer = new Utf8OutputStreamWriter(byteArrayOutputStream))
+				{
+					write(writer);
+					return byteArrayOutputStream.closeAndGetByteArray();
+				}
+			}
 		}
 	}
 

@@ -80,7 +80,7 @@ namespace jsimple.io
 
 		public static string toStringFromUtf8Bytes(ByteArrayRange byteArrayRange)
 		{
-			return toStringFromUtf8Bytes(byteArrayRange.Bytes, byteArrayRange.Position, byteArrayRange.Length);
+			return toStringFromReader(new Utf8InputStreamReader(byteArrayRange));
 		}
 
 		/// <summary>

@@ -1,3 +1,5 @@
+using System;
+
 namespace jsimple.util
 {
 
@@ -16,12 +18,39 @@ namespace jsimple.util
 	/// </summary>
 	public class PlatformUtilsBase
 	{
+		public static long currentTimeOverride = DateTime.NULL_DATE;
+
 		/// <summary>
 		/// Get the number of milliseconds since Jan 1, 1970, UTC time.  That's also known as epoch time.  It's the time unit
 		/// we generally use in JSimple.
 		/// </summary>
 		/// <returns> number of milliseconds since 1/1/70 UTC/GMT </returns>
-		//public static long getCurrentTimeMillis()
+		public static long CurrentTimeMillis
+		{
+			get
+			{
+				if (currentTimeOverride != DateTime.NULL_DATE)
+					return currentTimeOverride;
+				else
+					return PlatformUtils.platformGetCurrentTimeMillis();
+			}
+		}
+
+		/// <summary>
+		/// Set an override for the current time, that will then be returned from getCurrentTimeMillis instead of the actual
+		/// time being returned.   This method can be used in test jigs, to simulate the time, so tests are deterministic
+		/// with respect to time or perhaps to make a certain amount of time pass for code that checks getCurrentTimeMillis.
+		/// If the specified time is DateTime.NULL_DATE, then any override is cleared and the real time will be returned
+		/// again from getCurrentTimeMillis.
+		/// </summary>
+		/// <param name="currentTimeOverrideInMillis"> override for current time, in millis, or DateTime.NULL_DATE to clear override </param>
+		public static long CurrentTimeOverride
+		{
+			set
+			{
+				PlatformUtilsBase.currentTimeOverride = value;
+			}
+		}
 
 		/// <summary>
 		/// Sort the elements of the list in their natural order (that is, as specified by the Comparable interface they

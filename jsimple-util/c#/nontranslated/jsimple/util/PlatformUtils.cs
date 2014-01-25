@@ -26,9 +26,9 @@ namespace jsimple.util
         /// <returns> number of milliseconds since 1/1/1970 UTC/GMT </returns>
         private static readonly System.DateTime Jan1st1970 = new System.DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        public static long CurrentTimeMillis
+        public static long platformGetCurrentTimeMillis()
         {
-            get { return (long) (System.DateTime.UtcNow - Jan1st1970).TotalMilliseconds; }
+            return (long) (System.DateTime.UtcNow - Jan1st1970).TotalMilliseconds;
         }
 
         /// <summary>
