@@ -64,13 +64,11 @@ public abstract class DefaultOAuthApi20 implements OAuthApi {
     }
 
     /**
-     * I (Bret Johnson) merged in refresh token support from the scribe fork here:
-     * https://github.com/fernandezpablo85/scribe-java/pull/253
+     * I (Bret Johnson) merged in refresh token support from the scribe fork here: https://github.com/fernandezpablo85/scribe-java/pull/253
      *
      * @return the parameter needed to refresh an access token
      */
-    public String getRefreshTokenParameterName()
-    {
+    public String getRefreshTokenParameterName() {
         throw new RuntimeException("Refresh token not implemented");
     }
 }

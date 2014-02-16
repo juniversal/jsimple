@@ -1,6 +1,5 @@
 package jsimple.logging.stdimpl;
 
-import jsimple.io.StdIO;
 import jsimple.logging.Level;
 import jsimple.logging.Logger;
 import jsimple.logging.LoggerFactory;

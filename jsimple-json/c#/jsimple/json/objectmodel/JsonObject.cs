@@ -6,10 +6,10 @@ namespace jsimple.json.objectmodel
 
 	/// <summary>
 	/// A JsonObject represents an ordered list of name/value pairs.  Note that unlike a HashMap, the list is ordered, so
-	/// that the order in the serialized text can be controlled.  For now, queries just do a linear search, but we might create
-	/// a HashMap later, say if there are > 5 items in the object, for performance.  There's currently no prohibition against
-	/// a name being duplicated in the object; if that happens the value of the first occurrence is returned currently but
-	/// future implementations may change that.
+	/// that the order in the serialized text can be controlled.  For now, queries just do a linear search, but we might
+	/// create a HashMap later, say if there are > 5 items in the object, for performance.  There's currently no prohibition
+	/// against a name being duplicated in the object; if that happens the value of the first occurrence is returned
+	/// currently but future implementations may change that.
 	/// 
 	/// @author Bret Johnson
 	/// @since 5/6/12 12:29 AM

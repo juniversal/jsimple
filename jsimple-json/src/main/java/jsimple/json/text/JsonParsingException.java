@@ -1,7 +1,6 @@
 package jsimple.json.text;
 
 import jsimple.json.JsonException;
-import jsimple.json.text.Token;
 
 /**
  * @author Bret Johnson

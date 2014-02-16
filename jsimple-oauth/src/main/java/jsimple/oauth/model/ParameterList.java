@@ -4,7 +4,9 @@ import jsimple.oauth.utils.OAuthEncoder;
 import jsimple.util.PlatformUtils;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Pablo Fernandez

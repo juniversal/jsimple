@@ -7,7 +7,6 @@ namespace jsimple.logging.stdimpl
 	using PlatformUtils = jsimple.util.PlatformUtils;
 
 
-
 	/// <summary>
 	/// @author Bret Johnson
 	/// @since 4/11/13 4:10 PM

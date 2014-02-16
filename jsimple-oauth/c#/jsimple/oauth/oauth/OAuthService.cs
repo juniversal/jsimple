@@ -32,20 +32,18 @@ namespace jsimple.oauth.oauth
 		/// Refresh the access token to extend its expiration date.
 		/// <p/>
 		/// For the token in parameter, Facebook needs the access_token, while Live needs the refresh_token (which can be
-		/// found only in the
-		/// <seealso cref="jsimple.oauth.model.Token#getRawResponse()"/> returned by
-		/// <seealso cref="#getAccessToken(jsimple.oauth.model.Token, jsimple.oauth.model.Verifier)"/>)
+		/// found only in the <seealso cref="jsimple.oauth.model.Token#getRawResponse()"/> returned by {@link
+		/// #getAccessToken(jsimple.oauth.model.Token, jsimple.oauth.model.Verifier)})
 		/// <p/>
-		/// As for the client secret, for some providers in some scenarios it's not required.  In particular, for Live Connect
-		/// (taken from http://msdn.microsoft.com/en-us/library/live/hh243647.aspx):
-		/// "Because apps must also refresh access tokens, the Live Connect app management site allows apps to be
-		/// marked as mobile client apps. When this marker is specified and the special redirect URL
-		/// (https://login.live.com/oauth20_desktop.srf) is used, the client secret is not required to refresh the access
-		/// token.".
+		/// As for the client secret, for some providers in some scenarios it's not required.  In particular, for Live
+		/// Connect (taken from http://msdn.microsoft.com/en-us/library/live/hh243647.aspx): "Because apps must also refresh
+		/// access tokens, the Live Connect app management site allows apps to be marked as mobile client apps. When this
+		/// marker is specified and the special redirect URL (https://login.live.com/oauth20_desktop.srf) is used, the client
+		/// secret is not required to refresh the access token.".
 		/// </summary>
 		/// <param name="refreshOrAccessToken"> access or refresh token, depending on the OAuth provider </param>
-		/// <param name="includeSecret">        whether or not to include the client secret; Windows Live, for mobile apps,
-		///                             doesn't require it </param>
+		/// <param name="includeSecret">        whether or not to include the client secret; Windows Live, for mobile apps, doesn't
+		///                             require it </param>
 		/// <returns> fresh access token </returns>
 		Token refreshAccessToken(Token refreshOrAccessToken, bool includeSecret);
 

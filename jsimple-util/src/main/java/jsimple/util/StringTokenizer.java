@@ -130,7 +130,7 @@ public class StringTokenizer {
      * Returns the number of unprocessed tokens remaining in the string.
      *
      * @return number of tokens that can be retrieved before an {@code Exception} will result from a call to {@code
-     *         nextToken()}.
+     * nextToken()}.
      */
     public int countTokens() {
         int count = 0;

@@ -299,8 +299,7 @@ namespace jsimple.oauth.model
 		/// Get a <seealso cref="jsimple.oauth.model.ParameterList"/> with the query string parameters.
 		/// </summary>
 		/// <returns> a <seealso cref="jsimple.oauth.model.ParameterList"/> containing the query string parameters. </returns>
-		/// <exception cref="jsimple.oauth.exceptions.OAuthException">
-		///          if the request URL is not valid. </exception>
+		/// <exception cref="jsimple.oauth.exceptions.OAuthException"> if the request URL is not valid. </exception>
 		public virtual ParameterList QueryStringParams
 		{
 			get

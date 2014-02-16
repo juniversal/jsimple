@@ -27,8 +27,7 @@ package jsimple.util;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Formats messages according to very simple substitution rules. Substitutions
- * can be made 1, 2 or more arguments.
+ * Formats messages according to very simple substitution rules. Substitutions can be made 1, 2 or more arguments.
  * <p/>
  * <p/>
  * For example,
@@ -39,13 +38,11 @@ import org.jetbrains.annotations.Nullable;
  * <p/>
  * will return the string "Hi there.".
  * <p/>
- * The {} pair is called the <em>formatting anchor</em>. It serves to designate
- * the location where arguments need to be substituted within the message
- * pattern.
+ * The {} pair is called the <em>formatting anchor</em>. It serves to designate the location where arguments need to be
+ * substituted within the message pattern.
  * <p/>
- * In case your message contains the '{' or the '}' character, you do not have
- * to do anything special unless the '}' character immediately follows '{'. For
- * example,
+ * In case your message contains the '{' or the '}' character, you do not have to do anything special unless the '}'
+ * character immediately follows '{'. For example,
  * <p/>
  * <pre>
  * MessageFormatter.format("Set {1,2,3} is not equal to {}.", "1,2");
@@ -54,11 +51,9 @@ import org.jetbrains.annotations.Nullable;
  * will return the string "Set {1,2,3} is not equal to 1,2.".
  * <p/>
  * <p/>
- * If for whatever reason you need to place the string "{}" in the message
- * without its <em>formatting anchor</em> meaning, then you need to escape the
- * '{' character with '\', that is the backslash character. Only the '{'
- * character should be escaped. There is no need to escape the '}' character.
- * For example,
+ * If for whatever reason you need to place the string "{}" in the message without its <em>formatting anchor</em>
+ * meaning, then you need to escape the '{' character with '\', that is the backslash character. Only the '{' character
+ * should be escaped. There is no need to escape the '}' character. For example,
  * <p/>
  * <pre>
  * MessageFormatter.format("Set \\{} is not equal to {}.", "1,2");
@@ -67,8 +62,7 @@ import org.jetbrains.annotations.Nullable;
  * will return the string "Set {} is not equal to 1,2.".
  * <p/>
  * <p/>
- * The escaping behavior just described can be overridden by escaping the escape
- * character '\'. Calling
+ * The escaping behavior just described can be overridden by escaping the escape character '\'. Calling
  * <p/>
  * <pre>
  * MessageFormatter.format("File name is C:\\\\{}.", "file.zip");
@@ -77,24 +71,22 @@ import org.jetbrains.annotations.Nullable;
  * will return the string "File name is C:\file.zip".
  * <p/>
  * <p/>
- * The formatting conventions are different than those of {@link java.text.MessageFormat}
- * which ships with the Java platform. This is justified by the fact that
- * SLF4J's implementation is 10 times faster than that of {@link java.text.MessageFormat}.
- * This local performance difference is both measurable and significant in the
- * larger context of the complete logging processing chain.
+ * The formatting conventions are different than those of {@link java.text.MessageFormat} which ships with the Java
+ * platform. This is justified by the fact that SLF4J's implementation is 10 times faster than that of {@link
+ * java.text.MessageFormat}. This local performance difference is both measurable and significant in the larger context
+ * of the complete logging processing chain.
  * <p/>
  * <p/>
- * See also {@link #format(String, Object)},
- * {@link #format(String, Object, Object)} and
- * {@link #arrayFormat(String, Object[])} methods for more details.
+ * See also {@link #format(String, Object)}, {@link #format(String, Object, Object)} and {@link #arrayFormat(String,
+ * Object[])} methods for more details.
  * <p/>
  * <p/>
  * This class was adapted for JSimple from SLF4J, version 1.7.5  The primary change was removing support for including
- * array contents in formatted messages with array args.  That was primarily made to reduce code size and make things
- * a bit simpler, keeping with the JSimple philosophy.  Callers that wish to have fancy formatting for any logged
- * messages they have with array arguments can create a wrapper class with a toString method that formats as they
- * desire.  In many cases that's more useful anyway as it gives the caller control in how the array data should be
- * formatted, so it's most user readable and not excessively big (e.g. maybe they only want to log first X elements).
+ * array contents in formatted messages with array args.  That was primarily made to reduce code size and make things a
+ * bit simpler, keeping with the JSimple philosophy.  Callers that wish to have fancy formatting for any logged messages
+ * they have with array arguments can create a wrapper class with a toString method that formats as they desire.  In
+ * many cases that's more useful anyway as it gives the caller control in how the array data should be formatted, so
+ * it's most user readable and not excessively big (e.g. maybe they only want to log first X elements).
  *
  * @author Ceki G&uuml;lc&uuml;
  * @author Joern Huxhorn
@@ -106,8 +98,7 @@ final public class MessageFormatter {
     private static final char ESCAPE_CHAR = '\\';
 
     /**
-     * Performs single argument substitution for the 'messagePattern' passed as
-     * parameter.
+     * Performs single argument substitution for the 'messagePattern' passed as parameter.
      * <p/>
      * For example,
      * <p/>
@@ -127,8 +118,7 @@ final public class MessageFormatter {
     }
 
     /**
-     * Performs a two argument substitution for the 'messagePattern' passed as
-     * parameter.
+     * Performs a two argument substitution for the 'messagePattern' passed as parameter.
      * <p/>
      * For example,
      * <p/>
@@ -139,10 +129,8 @@ final public class MessageFormatter {
      * will return the string "Hi Alice. My name is Bob.".
      *
      * @param messagePattern The message pattern which will be parsed and formatted
-     * @param arg1           The argument to be substituted in place of the first formatting
-     *                       anchor
-     * @param arg2           The argument to be substituted in place of the second formatting
-     *                       anchor
+     * @param arg1           The argument to be substituted in place of the first formatting anchor
+     * @param arg2           The argument to be substituted in place of the second formatting anchor
      * @return The formatted message
      */
     public static FormattingTuple format(final String messagePattern, Object arg1, Object arg2) {
@@ -164,8 +152,7 @@ final public class MessageFormatter {
      * that any number of arguments can be passed in an array.
      *
      * @param messagePattern The message pattern which will be parsed and formatted
-     * @param argArray       An array of arguments to be substituted in place of formatting
-     *                       anchors
+     * @param argArray       An array of arguments to be substituted in place of formatting anchors
      * @return The formatted message
      */
     public static FormattingTuple arrayFormat(final String messagePattern, final @Nullable Object[] argArray) {

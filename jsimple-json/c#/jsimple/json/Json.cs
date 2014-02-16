@@ -6,9 +6,7 @@ namespace jsimple.json
 	/// @since 5/24/13 12:37 AM
 	/// </summary>
 
-	using File = jsimple.io.File;
 	using Reader = jsimple.io.Reader;
-	using Utf8InputStreamReader = jsimple.io.Utf8InputStreamReader;
 	using Writer = jsimple.io.Writer;
 	using JsonArray = jsimple.json.objectmodel.JsonArray;
 	using JsonObject = jsimple.json.objectmodel.JsonObject;

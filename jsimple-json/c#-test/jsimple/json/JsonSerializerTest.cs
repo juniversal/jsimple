@@ -3,7 +3,10 @@ using System.Text;
 namespace jsimple.json
 {
 
-	using jsimple.json.objectmodel;
+	using JsonArray = jsimple.json.objectmodel.JsonArray;
+	using JsonNull = jsimple.json.objectmodel.JsonNull;
+	using JsonObject = jsimple.json.objectmodel.JsonObject;
+	using JsonObjectOrArray = jsimple.json.objectmodel.JsonObjectOrArray;
 	using UnitTest = jsimple.unit.UnitTest;
 	using NUnit.Framework;
 

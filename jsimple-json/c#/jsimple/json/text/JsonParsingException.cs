@@ -1,7 +1,6 @@
 namespace jsimple.json.text
 {
 
-
 	/// <summary>
 	/// @author Bret Johnson
 	/// @since 5/6/12 2:13 AM

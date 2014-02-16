@@ -3,10 +3,6 @@ package jsimple.oauth.utils;
 import jsimple.net.UrlDecoder;
 import jsimple.net.UrlEncoder;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author: Pablo Fernandez
  */

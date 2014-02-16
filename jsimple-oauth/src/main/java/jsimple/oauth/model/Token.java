@@ -2,8 +2,6 @@ package jsimple.oauth.model;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.io.Serializable;
-
 /**
  * Represents an OAuth token (either request or access token) and its secret
  *

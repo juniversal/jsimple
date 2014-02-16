@@ -134,7 +134,7 @@ namespace jsimple.util
 		/// Returns the number of unprocessed tokens remaining in the string.
 		/// </summary>
 		/// <returns> number of tokens that can be retrieved before an {@code Exception} will result from a call to {@code
-		///         nextToken()}. </returns>
+		/// nextToken()}. </returns>
 		public virtual int countTokens()
 		{
 			int count = 0;

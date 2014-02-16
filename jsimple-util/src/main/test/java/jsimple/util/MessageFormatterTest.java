@@ -24,11 +24,10 @@
  */
 package jsimple.util;
 
-import java.util.Arrays;
-
 import jsimple.unit.UnitTest;
-import jsimple.util.MessageFormatter;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 /**
  * @author Ceki Gulcu

@@ -272,8 +272,7 @@ public class OAuthRequest {
      * Get a {@link jsimple.oauth.model.ParameterList} with the query string parameters.
      *
      * @return a {@link jsimple.oauth.model.ParameterList} containing the query string parameters.
-     * @throws jsimple.oauth.exceptions.OAuthException
-     *          if the request URL is not valid.
+     * @throws jsimple.oauth.exceptions.OAuthException if the request URL is not valid.
      */
     public ParameterList getQueryStringParams() {
         ParameterList result = new ParameterList();

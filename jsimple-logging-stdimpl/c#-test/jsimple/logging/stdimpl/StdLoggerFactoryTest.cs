@@ -1,7 +1,6 @@
 namespace jsimple.logging.stdimpl
 {
 
-	using StdIO = jsimple.io.StdIO;
 	using NUnit.Framework;
 
 	/// <summary>

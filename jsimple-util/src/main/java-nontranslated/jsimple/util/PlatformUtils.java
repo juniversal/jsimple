@@ -75,11 +75,11 @@ public class PlatformUtils extends PlatformUtilsBase {
     /**
      * Copy data from source byte array to destination byte array.
      *
-     * @param src source array
-     * @param srcPos starting position in source array
-     * @param dest destination array
+     * @param src     source array
+     * @param srcPos  starting position in source array
+     * @param dest    destination array
      * @param destPos position in destination array
-     * @param length number of elements to copy
+     * @param length  number of elements to copy
      */
     public static void copyBytes(byte[] src, int srcPos, byte[] dest, int destPos, int length) {
         System.arraycopy(src, srcPos, dest, destPos, length);
@@ -88,11 +88,11 @@ public class PlatformUtils extends PlatformUtilsBase {
     /**
      * Copy data from source char array to destination char array.
      *
-     * @param src source array
-     * @param srcPos starting position in source array
-     * @param dest destination array
+     * @param src     source array
+     * @param srcPos  starting position in source array
+     * @param dest    destination array
      * @param destPos position in destination array
-     * @param length number of elements to copy
+     * @param length  number of elements to copy
      */
     public static void copyChars(char[] src, int srcPos, char[] dest, int destPos, int length) {
         System.arraycopy(src, srcPos, dest, destPos, length);

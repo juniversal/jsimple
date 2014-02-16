@@ -4,7 +4,6 @@ namespace jsimple.oauth.utils
 	using UrlDecoder = jsimple.net.UrlDecoder;
 	using UrlEncoder = jsimple.net.UrlEncoder;
 
-
 	/// <summary>
 	/// @author: Pablo Fernandez
 	/// </summary>

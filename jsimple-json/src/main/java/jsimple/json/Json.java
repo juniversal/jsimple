@@ -5,9 +5,7 @@ package jsimple.json;
  * @since 5/24/13 12:37 AM
  */
 
-import jsimple.io.File;
 import jsimple.io.Reader;
-import jsimple.io.Utf8InputStreamReader;
 import jsimple.io.Writer;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonObject;
