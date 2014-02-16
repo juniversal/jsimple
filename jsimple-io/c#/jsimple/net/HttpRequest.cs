@@ -131,9 +131,8 @@ namespace jsimple.net
 		/// is an error to try to set them.  Operations that depend on being connected, like getContentLength, will
 		/// implicitly perform the connection, if necessary.
 		/// </summary>
-		/// <exception cref="jsimple.net.SocketTimeoutException">
-		///                                if the timeout expires before the connection can be established </exception>
-		/// <exception cref="jsimple.io.IOException"> if an I/O error occurs while opening the connection. </exception>
+		/// <exception cref="jsimple.net.SocketTimeoutException"> if the timeout expires before the connection can be established </exception>
+		/// <exception cref="jsimple.io.IOException">             if an I/O error occurs while opening the connection. </exception>
 		/// <seealso cref= #setTimeout </seealso>
 		public abstract HttpResponse send();
 

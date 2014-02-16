@@ -1,9 +1,6 @@
 package jsimple.net;
 
 import jsimple.io.*;
-import jsimple.io.InputStream;
-import jsimple.io.OutputStream;
-import jsimple.net.Socket;
 
 /**
  * @author Bret Johnson

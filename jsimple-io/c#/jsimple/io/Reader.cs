@@ -43,7 +43,7 @@ namespace jsimple.io
 		/// Reads at most {@code count} characters from this reader and stores them at {@code offset} in the character array
 		/// {@code buf}. Returns the number of characters actually read or -1 if the end of the reader has been reached.
 		/// </summary>
-		/// <param name="buffer">    the character array to store the characters read </param>
+		/// <param name="buffer"> the character array to store the characters read </param>
 		/// <param name="offset"> the initial position in {@code buffer} to store the characters read from this reader </param>
 		/// <param name="count">  the maximum number of characters to read </param>
 		/// <returns> the number of characters read or -1 if the end of the reader has been reached </returns>

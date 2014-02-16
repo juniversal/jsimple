@@ -62,8 +62,8 @@ public class BufferedReader extends Reader {
      * Constructs a new BufferedReader on the Reader {@code in}. The buffer size is specified by the parameter {@code
      * size}.
      *
-     * @param reader   the Reader that is buffered.
-     * @param size the size of the buffer to allocate.
+     * @param reader the Reader that is buffered.
+     * @param size   the size of the buffer to allocate.
      * @throws IllegalArgumentException if {@code size <= 0}.
      */
     public BufferedReader(Reader reader, int size) {
@@ -258,7 +258,7 @@ public class BufferedReader extends Reader {
      * newline sequence.
      *
      * @return the contents of the line or {@code null} if no characters were read before the end of the reader has been
-     *         reached.
+     * reached.
      */
     public String readLine() {
         verifyNotClosed();

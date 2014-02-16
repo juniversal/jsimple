@@ -34,7 +34,7 @@ public class Utf8OutputStreamWriter extends Writer {
     /**
      * Constructs a new OutputStreamWriter using {@code out} as the target stream to write converted characters to.
      *
-     * @param outputStream              the non-null target stream to write converted bytes to
+     * @param outputStream     the non-null target stream to write converted bytes to
      * @param closeOuterStream whether or not to close the outer stream when this stream is close
      */
     public Utf8OutputStreamWriter(OutputStream outputStream, boolean closeOuterStream) {

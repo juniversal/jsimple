@@ -61,7 +61,7 @@ public class ByteArrayOutputStream extends OutputStream {
      * cases & if it'll stick around for a long time more memory efficient.
      *
      * @return this stream's current contents as a byte array; the array can be arbitrarily big, but only the first
-     *         ByteArrayRange.getLength() bytes contain stream data
+     * ByteArrayRange.getLength() bytes contain stream data
      */
     public ByteArrayRange closeAndGetByteArray() {
         ByteArrayRange byteArrayRange = new ByteArrayRange(buffer, 0, count);
@@ -106,7 +106,7 @@ public class ByteArrayOutputStream extends OutputStream {
      * careful not to modify the array & be aware that it can change as more data is written to the stream.
      *
      * @return this stream's current contents as a byte array; the array can be arbitrarily big, but only the first
-     *         length[0] bytes contain stream data
+     * length[0] bytes contain stream data
      */
     public ByteArrayRange getByteArray() {
         return new ByteArrayRange(buffer, 0, count);

@@ -27,7 +27,7 @@ public class JavaIOUtils {
             jSimpleIOException = new SocketTimeoutException(message, e);
         else if (e instanceof java.net.UnknownHostException)
             jSimpleIOException = new UnknownHostException(message, e);
-        else if (e instanceof java.io.FileNotFoundException || e instanceof java.nio.file.NoSuchFileException)
+        else if (e instanceof java.io.FileNotFoundException)
             jSimpleIOException = new PathNotFoundException(message, e);
         else jSimpleIOException = new IOException(message, e);
 

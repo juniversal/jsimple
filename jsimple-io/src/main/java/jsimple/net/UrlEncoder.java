@@ -18,8 +18,7 @@ public class UrlEncoder {
      *
      * @param s the string to be encoded.
      * @return the encoded string.
-     * @throws java.io.UnsupportedEncodingException
-     *          if the specified encoding scheme is invalid.
+     * @throws java.io.UnsupportedEncodingException if the specified encoding scheme is invalid.
      */
     public static String encode(String s) {
         // Guess a bit bigger for encoded form

@@ -44,8 +44,7 @@ public class SubstreamInputStreamTest extends UnitTest {
         boolean exceptionThrown = false;
         try {
             substreamInputStream.read();
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             exceptionThrown = true;
         }
         assertTrue(exceptionThrown);
@@ -104,8 +103,7 @@ public class SubstreamInputStreamTest extends UnitTest {
         boolean exceptionThrown = false;
         try {
             substreamInputStream.read(buffer);
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             exceptionThrown = true;
         }
         assertTrue(exceptionThrown);

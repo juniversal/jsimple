@@ -99,7 +99,7 @@ namespace jsimple.io
 		/// or an exception is thrown.
 		/// </summary>
 		/// <returns> the byte read or -1 if either the end of the last stream in the sequence has been reached or this input
-		///         stream sequence is closed. </returns>
+		/// stream sequence is closed. </returns>
 		public override int read()
 		{
 			while (currentInputStream != null)
@@ -129,7 +129,7 @@ namespace jsimple.io
 		/// <param name="offset"> the initial position in {@code buffer} to store the bytes read from this stream. </param>
 		/// <param name="count">  the maximum number of bytes to store in {@code buffer}. </param>
 		/// <returns> the number of bytes actually read; -1 if this sequence of streams is closed or if the end of the last
-		///         stream in the sequence has been reached. </returns>
+		/// stream in the sequence has been reached. </returns>
 		/// <exception cref="IndexOutOfBoundsException"> if {@code offset < 0} or {@code count < 0}, or if {@code offset + count} is
 		///                                   greater than the size of {@code buffer}. </exception>
 		public override int read(sbyte[] buffer, int offset, int count)

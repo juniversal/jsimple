@@ -37,7 +37,7 @@ namespace jsimple.io
 		/// <summary>
 		/// Constructs a new OutputStreamWriter using {@code out} as the target stream to write converted characters to.
 		/// </summary>
-		/// <param name="outputStream">              the non-null target stream to write converted bytes to </param>
+		/// <param name="outputStream">     the non-null target stream to write converted bytes to </param>
 		/// <param name="closeOuterStream"> whether or not to close the outer stream when this stream is close </param>
 		public Utf8OutputStreamWriter(OutputStream outputStream, bool closeOuterStream)
 		{

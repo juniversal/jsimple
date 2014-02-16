@@ -81,12 +81,12 @@ public abstract class Directory extends Path {
      */
     public void deleteContents() {
         visitChildren(new DirectoryVisitor() {
-            @Override public boolean visit(File file, PathAttributes attributes) {
+            @Override public boolean visit(File file) {
                 file.delete();
                 return true;
             }
 
-            @Override public boolean visit(Directory directory, PathAttributes attributes) {
+            @Override public boolean visit(Directory directory) {
                 directory.deleteContents();
                 directory.delete();
                 return true;
@@ -104,12 +104,12 @@ public abstract class Directory extends Path {
         foundSomething[0] = false;
 
         visitChildren(new DirectoryVisitor() {
-            @Override public boolean visit(File file, PathAttributes attributes) {
+            @Override public boolean visit(File file) {
                 foundSomething[0] = true;
                 return false;
             }
 
-            @Override public boolean visit(Directory directory, PathAttributes attributes) {
+            @Override public boolean visit(Directory directory) {
                 foundSomething[0] = true;
                 return false;
             }

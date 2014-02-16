@@ -64,7 +64,8 @@ public class JavaTcpSocketListener extends SocketListener {
     }
 
     public static class JavaSocketListenerFactory implements SocketListenerFactory {
-        @Override public SocketListener createTcpSocketListener(SocketConnectionHandler socketConnectionHandler, int port) {
+        @Override
+        public SocketListener createTcpSocketListener(SocketConnectionHandler socketConnectionHandler, int port) {
             return new JavaTcpSocketListener(socketConnectionHandler, port);
         }
     }

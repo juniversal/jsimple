@@ -63,7 +63,7 @@ namespace jsimple.io
 		/// cases & if it'll stick around for a long time more memory efficient.
 		/// </summary>
 		/// <returns> this stream's current contents as a byte array; the array can be arbitrarily big, but only the first
-		///         ByteArrayRange.getLength() bytes contain stream data </returns>
+		/// ByteArrayRange.getLength() bytes contain stream data </returns>
 		public virtual ByteArrayRange closeAndGetByteArray()
 		{
 			ByteArrayRange byteArrayRange = new ByteArrayRange(buffer, 0, count);
@@ -113,7 +113,7 @@ namespace jsimple.io
 		/// careful not to modify the array & be aware that it can change as more data is written to the stream.
 		/// </summary>
 		/// <returns> this stream's current contents as a byte array; the array can be arbitrarily big, but only the first
-		///         length[0] bytes contain stream data </returns>
+		/// length[0] bytes contain stream data </returns>
 		public virtual ByteArrayRange ByteArray
 		{
 			get

@@ -51,9 +51,8 @@ public class JavaToObjectiveCMojo extends AbstractMojo {
     private File converterDirectory;
 
     /**
-     * Path to converter settings file (which normally has a .dat extension).
-     * MIKE:  You can get rid of this.  But instead probably need to add settings for things that the caller may want to
-     * customize in the conversion.
+     * Path to converter settings file (which normally has a .dat extension). MIKE:  You can get rid of this.  But
+     * instead probably need to add settings for things that the caller may want to customize in the conversion.
      */
     @Parameter(property = "converterSettings", required = true)
     private File converterSettings;

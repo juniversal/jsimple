@@ -83,13 +83,13 @@ namespace jsimple.io
 				this.outerInstance = outerInstance;
 			}
 
-			public override bool visit(File file, PathAttributes attributes)
+			public override bool visit(File file)
 			{
 				file.delete();
 				return true;
 			}
 
-			public override bool visit(Directory directory, PathAttributes attributes)
+			public override bool visit(Directory directory)
 			{
 				directory.deleteContents();
 				directory.delete();
@@ -126,13 +126,13 @@ namespace jsimple.io
 				this.foundSomething = foundSomething;
 			}
 
-			public override bool visit(File file, PathAttributes attributes)
+			public override bool visit(File file)
 			{
 				foundSomething[0] = true;
 				return false;
 			}
 
-			public override bool visit(Directory directory, PathAttributes attributes)
+			public override bool visit(Directory directory)
 			{
 				foundSomething[0] = true;
 				return false;

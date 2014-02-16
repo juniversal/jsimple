@@ -82,8 +82,7 @@ public class SequenceInputStream extends InputStream {
             if (currentInputStream == null)
                 throw new BasicException("InputStream at index {} unexpectedly null in SequenceInputStream list",
                         currentInputStreamIndex);
-        }
-        else currentInputStream = null;
+        } else currentInputStream = null;
     }
 
     /**
@@ -93,7 +92,7 @@ public class SequenceInputStream extends InputStream {
      * or an exception is thrown.
      *
      * @return the byte read or -1 if either the end of the last stream in the sequence has been reached or this input
-     *         stream sequence is closed.
+     * stream sequence is closed.
      */
     @Override public int read() {
         while (currentInputStream != null) {
@@ -122,7 +121,7 @@ public class SequenceInputStream extends InputStream {
      * @param offset the initial position in {@code buffer} to store the bytes read from this stream.
      * @param count  the maximum number of bytes to store in {@code buffer}.
      * @return the number of bytes actually read; -1 if this sequence of streams is closed or if the end of the last
-     *         stream in the sequence has been reached.
+     * stream in the sequence has been reached.
      * @throws IndexOutOfBoundsException if {@code offset < 0} or {@code count < 0}, or if {@code offset + count} is
      *                                   greater than the size of {@code buffer}.
      */

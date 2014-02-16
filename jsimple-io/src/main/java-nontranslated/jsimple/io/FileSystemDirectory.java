@@ -1,51 +1,46 @@
 package jsimple.io;
 
-import java.nio.file.*;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
-import java.util.EnumSet;
-
 /**
  * @author Bret Johnson
  * @since 11/24/12 4:37 PM
  */
 public class FileSystemDirectory extends Directory {
-    private java.nio.file.Path javaPath;
+    private java.io.File javaFile;
 
     public FileSystemDirectory(String directoryPath) {
-        this.javaPath = java.nio.file.Paths.get(directoryPath);
+        this.javaFile = new java.io.File(directoryPath);
     }
 
-    public FileSystemDirectory(java.nio.file.Path javaPath) {
-        this.javaPath = javaPath;
+    public FileSystemDirectory(java.io.File javaFile) {
+        this.javaFile = javaFile;
     }
 
     @Override public String toString() {
-        return javaPath.toString();
+        return javaFile.toString();
     }
 
     @Override public String getName() {
-        return javaPath.getFileName().toString();
+        return javaFile.getName();
     }
 
     @Override public File getFile(String name) {
-        return new FileSystemFile(this, javaPath.resolve(name));
+        return new FileSystemFile(this, new java.io.File(javaFile, name));
     }
 
     @Override public Directory getDirectory(String name) {
-        return new FileSystemDirectory(javaPath.resolve(name));
+        return new FileSystemDirectory(new java.io.File(javaFile, name));
     }
 
     @Override public boolean exists() {
-        return javaPath.toFile().exists();
+        return javaFile.exists();
     }
 
     @Override public void create() {
-        try {
-            Files.createDirectories(javaPath);
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        if (!javaFile.mkdirs()) {
+            // mkdirs returns false if the directory already exists (which is fine) or if an error occurs (which isn't).
+            // Check if the directory exists to differentiate
+            if (! javaFile.exists())
+                throw new IOException("Creating directory(ies) failed for {}", javaFile.toString());
         }
     }
 
@@ -55,71 +50,51 @@ public class FileSystemDirectory extends Directory {
      * if they want to visit all descendants.  If the path isn't a directory, an exception is thrown.
      */
     public void visitChildren(final DirectoryVisitor visitor) {
-        try {
-            Files.walkFileTree(javaPath, EnumSet.noneOf(FileVisitOption.class), 1, new FileVisitor<java.nio.file.Path>() {
-                public FileVisitResult preVisitDirectory(java.nio.file.Path dir, BasicFileAttributes attrs) throws java.io.IOException {
-                    return FileVisitResult.CONTINUE;
-                }
+        java.io.File[] children = javaFile.listFiles();
 
-                public FileVisitResult visitFile(java.nio.file.Path file, BasicFileAttributes attrs) throws java.io.IOException {
-                    PathAttributes pathAttributes = new FileSystemPathAttributes(attrs);
+        if (children == null)
+            throw new IOException("Getting contents of directory failed for {}", javaFile.toString());
 
-                    if (attrs.isDirectory())
-                        return visitor.visit(new FileSystemDirectory(file), pathAttributes) ?
-                                FileVisitResult.CONTINUE : FileVisitResult.TERMINATE;
-                    else
-                        return visitor.visit(new FileSystemFile(FileSystemDirectory.this, file), pathAttributes) ?
-                                FileVisitResult.CONTINUE : FileVisitResult.TERMINATE;
-                }
+        int length = children.length;
+        for (int i = 0; i < length; i++) {
+            java.io.File childFile = children[i];
 
-                // TODO: Test error handling here
-                public FileVisitResult visitFileFailed(java.nio.file.Path file, java.io.IOException exc) throws java.io.IOException {
-                    return visitor.visitFailed(file.getFileName().toString(),
-                            JavaIOUtils.jSimpleExceptionFromJavaIOException(exc)) ?
-                            FileVisitResult.CONTINUE : FileVisitResult.TERMINATE;
-                }
-
-
-                // TODO: Test error handling here
-                public FileVisitResult postVisitDirectory(java.nio.file.Path dir, java.io.IOException exc) throws java.io.IOException {
-                    return FileVisitResult.CONTINUE;
-                }
-            });
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+            if (childFile.isDirectory()) {
+                if (!visitor.visit(new FileSystemDirectory(childFile)))
+                    break;
+            } else {
+                if (!visitor.visit(new FileSystemFile(this, childFile)))
+                    break;
+            }
         }
     }
 
     @Override public void delete() {
-        try{
-            Files.delete(javaPath);
-        } catch (java.io.IOException e){
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
+        if (!javaFile.delete())
+            throw new IOException("Deleting directory failed for {}", javaFile.toString());
     }
 
     @Override public long getLastModifiedTime() {
-        try {
-            FileTime fileTime = Files.getLastModifiedTime(javaPath);
-            return fileTime.toMillis();
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
+        long lastModified = javaFile.lastModified();
+        if (lastModified == 0 && !javaFile.exists())
+            throw new PathNotFoundException(javaFile.toString());
+        return lastModified;
     }
 
     @Override public void setLastModifiedTime(long time) {
-        try {
-            Files.setLastModifiedTime(javaPath, FileTime.fromMillis(time));
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
+        // TODO: Improve this, so doesn't try to change on Android but does when can
+        javaFile.setLastModified(time);
+/*
+        if (!javaFile.setLastModified(time))
+            throw new IOException("setLastModifiedTime failed on {}", javaFile.toString());
+*/
     }
 
     @Override public boolean isSetLastModifiedTimeSupported() {
         return true;
     }
 
-    public Path getJavaPath() {
-        return javaPath;
+    public java.io.File getJavaFile() {
+        return javaFile;
     }
 }

@@ -86,13 +86,9 @@ namespace jsimple.io
             {
                 foreach (FileSystemInfo fileSystemInfo in directoryInfo.EnumerateFileSystemInfos())
                 {
-                    FileSystemPathAttributes fileSystemPathAttributes = new FileSystemPathAttributes(fileSystemInfo);
-
                     if ((fileSystemInfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
-                        visitor.visit(new FileSystemDirectory(fileSystemInfo.FullName),
-                                      fileSystemPathAttributes);
-                    else visitor.visit(new FileSystemFile(this, fileSystemInfo.FullName),
-                                      fileSystemPathAttributes);
+                        visitor.visit(new FileSystemDirectory(fileSystemInfo.FullName));
+                    else visitor.visit(new FileSystemFile(this, fileSystemInfo.FullName));
                 }
             }
             catch (System.IO.IOException e)

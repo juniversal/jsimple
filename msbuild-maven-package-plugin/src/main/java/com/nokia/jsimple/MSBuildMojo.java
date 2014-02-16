@@ -52,7 +52,7 @@ public class MSBuildMojo extends AbstractMojo {
     @Parameter(property = "publishurl", defaultValue = "..\\deploy\\", required = false)
     private String publishurl;
 
-	/**
+    /**
      * Install determines whether the application is an installed application or a run-from-Web application
      */
     @Parameter(property = "install", defaultValue = "true", required = false)

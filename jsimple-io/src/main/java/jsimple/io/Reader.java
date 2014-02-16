@@ -41,7 +41,7 @@ public abstract class Reader extends jsimple.lang.AutoCloseable {
      * Reads at most {@code count} characters from this reader and stores them at {@code offset} in the character array
      * {@code buf}. Returns the number of characters actually read or -1 if the end of the reader has been reached.
      *
-     * @param buffer    the character array to store the characters read
+     * @param buffer the character array to store the characters read
      * @param offset the initial position in {@code buffer} to store the characters read from this reader
      * @param count  the maximum number of characters to read
      * @return the number of characters read or -1 if the end of the reader has been reached

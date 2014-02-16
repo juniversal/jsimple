@@ -22,8 +22,7 @@ namespace jsimple.net
 		/// </summary>
 		/// <param name="s"> the string to be encoded. </param>
 		/// <returns> the encoded string. </returns>
-		/// <exception cref="java.io.UnsupportedEncodingException">
-		///          if the specified encoding scheme is invalid. </exception>
+		/// <exception cref="java.io.UnsupportedEncodingException"> if the specified encoding scheme is invalid. </exception>
 		public static string encode(string s)
 		{
 			// Guess a bit bigger for encoded form

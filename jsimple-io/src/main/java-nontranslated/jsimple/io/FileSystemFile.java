@@ -1,9 +1,7 @@
 package jsimple.io;
 
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
-import java.nio.file.attribute.FileTime;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 /**
  * @author Bret Johnson
@@ -11,16 +9,16 @@ import java.nio.file.attribute.FileTime;
  */
 public class FileSystemFile extends File {
     private FileSystemDirectory parent;
-    private java.nio.file.Path javaPath;
+    private java.io.File javaFile;
 
     public FileSystemFile(FileSystemDirectory parent, String filePath) {
         this.parent = parent;
-        this.javaPath = java.nio.file.Paths.get(filePath);
+        this.javaFile = new java.io.File(filePath);
     }
 
-    public FileSystemFile(FileSystemDirectory parent, java.nio.file.Path javaPath) {
+    public FileSystemFile(FileSystemDirectory parent, java.io.File javaFile) {
         this.parent = parent;
-        this.javaPath = javaPath;
+        this.javaFile = javaFile;
     }
 
     @Override public Directory getParent() {
@@ -38,7 +36,7 @@ public class FileSystemFile extends File {
 
     @Override public InputStream openForRead() {
         try {
-            return new JSimpleInputStreamOnJavaStream(Files.newInputStream(javaPath));
+            return new JSimpleInputStreamOnJavaStream(new FileInputStream(javaFile));
         } catch (java.io.IOException e) {
             throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }
@@ -46,66 +44,62 @@ public class FileSystemFile extends File {
 
     @Override public OutputStream openForCreate() {
         try {
-            return new JSimpleOutputStreamOnJavaStream(Files.newOutputStream(javaPath,
-                    StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE));
+            return new JSimpleOutputStreamOnJavaStream(new FileOutputStream(javaFile));
         } catch (java.io.IOException e) {
             throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
         }
     }
 
     @Override public String toString() {
-        return javaPath.toString();
+        return javaFile.toString();
     }
 
     @Override public String getName() {
-        return javaPath.getFileName().toString();
+        return javaFile.getName();
     }
 
     @Override public boolean exists() {
-        return Files.exists(javaPath);
+        return javaFile.exists();
     }
 
     @Override public void delete() {
-        // TODO: Change to just catch FileNotFoundException, I think
-        try {
-            if (javaPath.toFile().exists())
-                Files.delete(javaPath);
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
+        javaFile.delete();
     }
 
     @Override public void rename(String newName) {
-        java.nio.file.Path newPath = parent.getJavaPath().resolve(newName);
-        try {
-            Files.move(javaPath, newPath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
+        java.io.File newFile = new java.io.File(parent.getJavaFile(), newName);
+
+        if (!javaFile.renameTo(newFile)) {
+            // If the rename fails, it may be because the target file already exists.   If so, delete it and try the
+            // rename again
+            newFile.delete();
+            if (!javaFile.renameTo(newFile))
+                throw new IOException("Rename of {} to {} failed", this, newName);
         }
     }
 
     @Override public long getLastModifiedTime() {
-        try {
-            FileTime fileTime = Files.getLastModifiedTime(javaPath);
-            return fileTime.toMillis();
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
+        long lastModified = javaFile.lastModified();
+        if (lastModified == 0 && ! javaFile.exists())
+            throw new PathNotFoundException(javaFile.toString());
+        return lastModified;
     }
 
     @Override public void setLastModifiedTime(long time) {
-        try {
-            Files.setLastModifiedTime(javaPath, FileTime.fromMillis(time));
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
+        // TODO: Improve this, so doesn't try to change on Android but does when can
+        javaFile.setLastModified(time);
+/*
+        if (! javaFile.setLastModified(time))
+            throw new IOException("setLastModifiedTime failed on {}", javaFile.toString());
+*/
     }
 
     @Override public long getSize() {
-        try {
-            return Files.size(javaPath);
-        } catch (java.io.IOException e) {
-            throw JavaIOUtils.jSimpleExceptionFromJavaIOException(e);
-        }
+        long size = javaFile.length();
+        // 0 is returned when the file doesn't exist as well as when its length is actually 0.   So check, when 0, to
+        // see if it exists and fail if not
+        if (size == 0 && !javaFile.exists())
+            throw new PathNotFoundException(javaFile.toString());
+        return size;
     }
 }

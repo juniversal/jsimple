@@ -68,8 +68,8 @@ namespace jsimple.io
 		/// Constructs a new BufferedReader on the Reader {@code in}. The buffer size is specified by the parameter {@code
 		/// size}.
 		/// </summary>
-		/// <param name="reader">   the Reader that is buffered. </param>
-		/// <param name="size"> the size of the buffer to allocate. </param>
+		/// <param name="reader"> the Reader that is buffered. </param>
+		/// <param name="size">   the size of the buffer to allocate. </param>
 		/// <exception cref="IllegalArgumentException"> if {@code size <= 0}. </exception>
 		public BufferedReader(Reader reader, int size)
 		{
@@ -280,7 +280,7 @@ namespace jsimple.io
 		/// newline sequence.
 		/// </summary>
 		/// <returns> the contents of the line or {@code null} if no characters were read before the end of the reader has been
-		///         reached. </returns>
+		/// reached. </returns>
 		public virtual string readLine()
 		{
 			verifyNotClosed();

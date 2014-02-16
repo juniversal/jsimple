@@ -250,7 +250,7 @@ public class MurmurHash3Test extends UnitTest {
             StringBuilder stringBuilder = new StringBuilder();
             int evenLength = (length / 2) * 2;
             for (int i = 0; i < evenLength; ) {
-                char c = (char) ( (keyBuffer[i + 1] << 8) | (keyBuffer[i] & 0xFF) );
+                char c = (char) ((keyBuffer[i + 1] << 8) | (keyBuffer[i] & 0xFF));
                 stringBuilder.append(c);
                 i += 2;
             }

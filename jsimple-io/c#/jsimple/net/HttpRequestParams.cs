@@ -9,8 +9,8 @@ namespace jsimple.net
 
 	/// <summary>
 	/// HttpRequestParams represents a set of string name/value pairs which can (eventually) be passed as URL or form
-	/// parameters for an HTTP request.  The entries are ordered--the order that they are added matches the order they
-	/// are returned from getNames.  The same name can't be added twice.
+	/// parameters for an HTTP request.  The entries are ordered--the order that they are added matches the order they are
+	/// returned from getNames.  The same name can't be added twice.
 	/// 
 	/// @author Bret Johnson
 	/// @since 12/23/12 1:54 AM

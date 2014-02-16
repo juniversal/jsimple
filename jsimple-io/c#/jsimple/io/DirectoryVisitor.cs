@@ -7,9 +7,9 @@ namespace jsimple.io
 	/// </summary>
 	public abstract class DirectoryVisitor
 	{
-		public abstract bool visit(File file, PathAttributes attributes);
+		public abstract bool visit(File file);
 
-		public abstract bool visit(Directory directory, PathAttributes attributes);
+		public abstract bool visit(Directory directory);
 
 		/// <summary>
 		/// Called to indicate that the visit to the file/directory fails (e.g. because don't have rights to read the
