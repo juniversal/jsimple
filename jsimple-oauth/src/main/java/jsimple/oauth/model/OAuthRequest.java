@@ -150,7 +150,7 @@ public class OAuthRequest {
         try {
             OAuthResponse response;
 
-            if (logger.isDebugEnabled()) {
+            if (logger.isTraceEnabled()) {
                 long startTime = PlatformUtils.getCurrentTimeMillis();
 
                 response = new OAuthResponse(httpReq.send());
