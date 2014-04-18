@@ -5,6 +5,7 @@ using System.Threading;
 using Windows.Foundation;
 using Windows.Storage;
 using jsimple.net;
+using jsimple.util;
 
 namespace jsimple.io
 {
@@ -32,6 +33,34 @@ namespace jsimple.io
         {
             get { return name; }
         }
+
+        public override string PathString
+        {
+            get { return storageFolder.Path; }
+        }
+
+        public override long LastModifiedTime
+        {
+            get
+            {
+                try
+                {
+                    return PlatformUtils.toMillisFromDateTimeOffset(storageFolder.GetBasicPropertiesAsync().DoSynchronously().DateModified);
+                }
+                catch (System.IO.IOException e)
+                {
+                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+                }
+            }
+
+            set { }
+        }
+
+        public override bool SetLastModifiedTimeSupported
+        {
+            get { return false; }
+        }
+
 
         public StorageFolder StorageFolder
         {
@@ -95,9 +124,9 @@ namespace jsimple.io
                     StorageItemPathAttributes pathAttributes = new StorageItemPathAttributes(storageItem);
 
                     if (storageItem is IStorageFolder)
-                        visitor.visit(new StorageFolderDirectory(this, (StorageFolder)storageItem), pathAttributes);
+                        visitor.visit(new StorageFolderDirectory(this, (StorageFolder)storageItem));
                     else if (storageItem is IStorageFile)
-                        visitor.visit(new StorageFileFile(this, (StorageFile)storageItem), pathAttributes);
+                        visitor.visit(new StorageFileFile(this, (StorageFile)storageItem));
                     else throw new Exception("Unknown type of StorageItem: " + storageItem);
                 }
             }

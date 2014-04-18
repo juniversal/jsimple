@@ -36,7 +36,7 @@ namespace jsimple.io
         /// </summary>
         /// <param name="directoryPathString">
         /// @return </param>
-        public override Directory getDirectory(string directoryPathString)
+        public override Directory getFileSystemDirectory(string directoryPathString)
         {
             return new FileSystemDirectory(directoryPathString);
         }

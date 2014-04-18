@@ -30,6 +30,15 @@ namespace jsimple.io
             get { return name; }
         }
 
+        public override string PathString
+        {
+            get
+            {
+                ensureGotStorageFile();
+                return storageFile.Path;
+            }
+        }
+
         public override Directory Parent
         {
             get { return parent; }
