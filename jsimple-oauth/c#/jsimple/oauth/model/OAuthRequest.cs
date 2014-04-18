@@ -165,7 +165,7 @@ namespace jsimple.oauth.model
 			{
 				OAuthResponse response;
 
-				if (logger.DebugEnabled)
+				if (logger.TraceEnabled)
 				{
 					long startTime = PlatformUtils.CurrentTimeMillis;
 

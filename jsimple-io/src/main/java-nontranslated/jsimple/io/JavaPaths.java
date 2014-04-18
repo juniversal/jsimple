@@ -14,7 +14,7 @@ public class JavaPaths extends Paths {
      *
      * @return the directory where the application should store its private data
      */
-    public Directory getApplicationDataDirectory() {
+    @Override public Directory getApplicationDataDirectory() {
         @Nullable String workingDirectory = System.getProperty("user.dir");
         if (workingDirectory == null)
             throw new IOException("user.dir is unset for some reason; working directory not specified by the JVM");
@@ -22,8 +22,7 @@ public class JavaPaths extends Paths {
         return new FileSystemDirectory(workingDirectory);
     }
 
-    public Directory getDirectory(String directoryPathString) {
+    @Override public Directory getFileSystemDirectory(String directoryPathString) {
         return new FileSystemDirectory(directoryPathString);
     }
-
 }

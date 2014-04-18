@@ -98,7 +98,7 @@ public abstract class File extends Path {
     }
 
     /**
-     * Delete this file.  If the file doesn't exist, no excepting is thrown.
+     * Delete this file if it exists.  If the file doesn't exist, no exception is thrown.
      */
     public abstract void delete();
 

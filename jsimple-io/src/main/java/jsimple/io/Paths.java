@@ -27,18 +27,18 @@ public abstract class Paths {
     public abstract Directory getApplicationDataDirectory();
 
     /**
-     * Return the Directory object corresponding to the string serialized representation.  If the directory doesn't
-     * exist, it's implementation dependent whether this method throws a PathNotFoundException or a
+     * Return the file system Directory object corresponding to the string serialized representation.  If the directory
+     * doesn't exist, it's implementation dependent whether this method throws a PathNotFoundException or a
      * PathNotFoundException is thrown when the returned directory is used--different implementations do different
      * things there.
      * <p/>
      * Not all implementations of Directory support serializing it as a string.  An exception is thrown if it's not
      * supported.
      *
-     * @param directoryPathString
-     * @return
+     * @param directoryPathString file system path string
+     * @return Directory for the specified path
      */
-    public abstract Directory getDirectory(String directoryPathString);
+    public abstract Directory getFileSystemDirectory(String directoryPathString);
 
     /**
      * Get the test output directory for the specified test name.  This directory is normally under

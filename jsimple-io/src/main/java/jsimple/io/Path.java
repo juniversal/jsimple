@@ -16,6 +16,17 @@ public abstract class Path {
     public abstract String getName();
 
     /**
+     * Get the string representation of the full path for this file/directory.
+     *
+     * @return string representation of path
+     */
+    public abstract String getPathString();
+
+    @Override public String toString() {
+        return getPathString();
+    }
+
+    /**
      * Get the extension (the text after the period) from the specified file/directory name.  The period itself isn't
      * returned, just the text after.  If there's no extension, the empty string is returned. s
      *

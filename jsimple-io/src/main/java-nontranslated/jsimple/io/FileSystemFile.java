@@ -50,12 +50,12 @@ public class FileSystemFile extends File {
         }
     }
 
-    @Override public String toString() {
-        return javaFile.toString();
-    }
-
     @Override public String getName() {
         return javaFile.getName();
+    }
+
+    @Override public String getPathString() {
+        return javaFile.getPath();
     }
 
     @Override public boolean exists() {

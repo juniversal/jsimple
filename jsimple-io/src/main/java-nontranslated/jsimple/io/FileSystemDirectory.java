@@ -15,12 +15,12 @@ public class FileSystemDirectory extends Directory {
         this.javaFile = javaFile;
     }
 
-    @Override public String toString() {
-        return javaFile.toString();
-    }
-
     @Override public String getName() {
         return javaFile.getName();
+    }
+
+    @Override public String getPathString() {
+        return javaFile.getPath();
     }
 
     @Override public File getFile(String name) {
@@ -49,7 +49,7 @@ public class FileSystemDirectory extends Directory {
      * visitor for each.  Just direct children are listed, not all descendants; callers can call this method recursively
      * if they want to visit all descendants.  If the path isn't a directory, an exception is thrown.
      */
-    public void visitChildren(final DirectoryVisitor visitor) {
+    @Override public void visitChildren(final DirectoryVisitor visitor) {
         java.io.File[] children = javaFile.listFiles();
 
         if (children == null)
