@@ -39,6 +39,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="java-to-csharp-converter-maven-plugin" />
+        <module name="java-to-objectivec-maven-plugin" />
         <module name="jsimple-io" />
         <module name="jsimple-json" />
         <module name="jsimple-logging" />
@@ -56,6 +57,8 @@
       <module name="jsimple" target="1.7" />
       <module name="jsimple-io" target="1.7" />
       <module name="jsimple-json" target="1.7" />
+      <module name="jsimple-logging-api" target="1.7" />
+      <module name="jsimple-logging-stdimpl" target="1.7" />
       <module name="jsimple-net" target="1.7" />
       <module name="jsimple-oauth" target="1.7" />
       <module name="jsimple-unit" target="1.7" />
