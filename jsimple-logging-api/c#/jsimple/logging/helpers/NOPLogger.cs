@@ -24,70 +24,59 @@ using System;
 /// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /// 
 /// </summary>
-namespace jsimple.logging.helpers
-{
+namespace jsimple.logging.helpers {
 
 
-	/// <summary>
-	/// A direct NOP (no operation) implementation of <seealso cref="Logger"/>.
-	/// 
-	/// @author Bret Johnson modified for JSimple
-	/// </summary>
-	public class NOPLogger : Logger
-	{
-		/// <summary>
-		/// The unique instance of NOPLogger.
-		/// </summary>
-		public static readonly NOPLogger NOP_LOGGER = new NOPLogger();
+    /// <summary>
+    /// A direct NOP (no operation) implementation of <seealso cref="Logger"/>.
+    /// 
+    /// @author Bret Johnson modified for JSimple
+    /// </summary>
+    public class NOPLogger : Logger {
+        /// <summary>
+        /// The unique instance of NOPLogger.
+        /// </summary>
+        public static readonly NOPLogger NOP_LOGGER = new NOPLogger();
 
-		/// <summary>
-		/// There is no point in creating multiple instances of NOPLOgger, except by derived classes, hence the protected
-		/// access for the constructor.
-		/// </summary>
-		protected internal NOPLogger()
-		{
-		}
+        /// <summary>
+        /// There is no point in creating multiple instances of NOPLOgger, except by derived classes, hence the protected
+        /// access for the constructor.
+        /// </summary>
+        protected internal NOPLogger() {
+        }
 
-		/// <summary>
-		/// Always returns the string value "NOP".
-		/// </summary>
-		public override string Name
-		{
-			get
-			{
-				return "NOP";
-			}
-		}
+        /// <summary>
+        /// Always returns the string value "NOP".
+        /// </summary>
+        public override string Name {
+            get {
+                return "NOP";
+            }
+        }
 
-		/// <summary>
-		/// For this logger, don't log anything.
-		/// </summary>
-		/// <param name="level"> log level </param>
-		/// <returns> whether logging should be enabled; the NOPLogger always returns false here </returns>
-		public override bool isLevelEnabled(Level level)
-		{
-			return false;
-		}
+        /// <summary>
+        /// For this logger, don't log anything.
+        /// </summary>
+        /// <param name="level"> log level </param>
+        /// <returns> whether logging should be enabled; the NOPLogger always returns false here </returns>
+        public override bool isLevelEnabled(Level level) {
+            return false;
+        }
 
-		public override Level Level
-		{
-			set
-			{
-			}
-		}
+        public override Level Level {
+            set {
+            }
+        }
 
-		public override void logWithVarargs(Level level, string format, params object[] arguments)
-		{
-		}
+        public override void logWithVarargs(Level level, string format, params object[] arguments) {
+        }
 
-		public override void log(Level level, string msg, Exception t)
-		{
-		}
+        public override void log(Level level, string msg, Exception t) {
+        }
 
-		public override LogEnterLeave logStartAndEndWithVarargs(Level level, string format, params object[] arguments)
-		{
-			return null;
-		}
-	}
+        public override LogEnterLeave logStartAndEndWithVarargs(Level level, string format, params object[] arguments) {
+            return null;
+        }
+    }
 
 }

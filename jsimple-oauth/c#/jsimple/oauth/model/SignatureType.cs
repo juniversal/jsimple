@@ -1,10 +1,8 @@
-namespace jsimple.oauth.model
-{
+namespace jsimple.oauth.model {
 
-	public enum SignatureType
-	{
-		Header,
-		QueryString
-	}
+    public enum SignatureType {
+        Header,
+        QueryString
+    }
 
 }

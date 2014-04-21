@@ -22,36 +22,34 @@
 /// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /// 
 /// </summary>
-namespace jsimple.logging
-{
+namespace jsimple.logging {
 
 
-	/// <summary>
-	/// <code>ILoggerFactory</code> instances manufacture <seealso cref="Logger"/> instances by name.
-	/// <p/>
-	/// <para>Most users retrieve <seealso cref="Logger"/> instances through the static <seealso cref="LoggerFactory#getLogger(String)"/> method. An
-	/// instance of of this interface is bound internally with <seealso cref="LoggerFactory"/> class at compile time.
-	/// 
-	/// @author Ceki G&uuml;lc&uuml;
-	/// @author Bret Johnson modified for JSimple
-	/// </para>
-	/// </summary>
-	public interface ILoggerFactory
-	{
-		/// <summary>
-		/// Return an appropriate <seealso cref="Logger"/> instance as specified by the <code>name</code> parameter.
-		/// <p/>
-		/// If the name parameter is equal to <seealso cref="Logger#ROOT_LOGGER_NAME"/>, that is the string value "ROOT" (case
-		/// insensitive), then the root logger of the underlying logging system is returned.
-		/// <p/>
-		/// Null-valued name arguments are considered invalid.
-		/// <p/>
-		/// Certain extremely simple logging systems, e.g. NOP, may always return the same logger instance regardless of the
-		/// requested name.
-		/// </summary>
-		/// <param name="name"> the name of the Logger to return </param>
-		/// <returns> a Logger instance </returns>
-		Logger getLogger(string name);
-	}
+    /// <summary>
+    /// <code>ILoggerFactory</code> instances manufacture <seealso cref="Logger"/> instances by name.
+    /// <p/>
+    /// <para>Most users retrieve <seealso cref="Logger"/> instances through the static <seealso cref="LoggerFactory#getLogger(String)"/> method. An
+    /// instance of of this interface is bound internally with <seealso cref="LoggerFactory"/> class at compile time.
+    /// 
+    /// @author Ceki G&uuml;lc&uuml;
+    /// @author Bret Johnson modified for JSimple
+    /// </para>
+    /// </summary>
+    public interface ILoggerFactory {
+        /// <summary>
+        /// Return an appropriate <seealso cref="Logger"/> instance as specified by the <code>name</code> parameter.
+        /// <p/>
+        /// If the name parameter is equal to <seealso cref="Logger#ROOT_LOGGER_NAME"/>, that is the string value "ROOT" (case
+        /// insensitive), then the root logger of the underlying logging system is returned.
+        /// <p/>
+        /// Null-valued name arguments are considered invalid.
+        /// <p/>
+        /// Certain extremely simple logging systems, e.g. NOP, may always return the same logger instance regardless of the
+        /// requested name.
+        /// </summary>
+        /// <param name="name"> the name of the Logger to return </param>
+        /// <returns> a Logger instance </returns>
+        Logger getLogger(string name);
+    }
 
 }

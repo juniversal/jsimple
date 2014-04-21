@@ -16,122 +16,102 @@ using System;
 /// as published by the Free Software Foundation.
 /// </summary>
 
-namespace jsimple.logging.stdimpl
-{
+namespace jsimple.logging.stdimpl {
 
-	using MessageFormatter = jsimple.util.MessageFormatter;
-	using PlatformUtils = jsimple.util.PlatformUtils;
+    using MessageFormatter = jsimple.util.MessageFormatter;
+    using PlatformUtils = jsimple.util.PlatformUtils;
 
-	/// <summary>
-	/// @author Bret Johnson
-	/// @author Ceki G&uuml;lc&uuml;   (original Logback source)
-	/// @author S&eacute;bastien Pennec    (original Logback source)
-	/// @since 4/8/13 12:20 AM
-	/// </summary>
-	public class LoggingEvent
-	{
-		private long timestamp; // Event time of occurrence, in millis
-		private string threadName;
-		private string loggerName;
-		private Level level;
-		private string message = null;
-		private object[] messageArgs = null;
-		private string formattedMessage = null;
-		private Exception throwable = null;
+    /// <summary>
+    /// @author Bret Johnson
+    /// @author Ceki G&uuml;lc&uuml;   (original Logback source)
+    /// @author S&eacute;bastien Pennec    (original Logback source)
+    /// @since 4/8/13 12:20 AM
+    /// </summary>
+    public class LoggingEvent {
+        private long timestamp; // Event time of occurrence, in millis
+        private string threadName;
+        private string loggerName;
+        private Level level;
+        private string message = null;
+        private object[] messageArgs = null;
+        private string formattedMessage = null;
+        private Exception throwable = null;
 
-		public LoggingEvent(string loggerName, Level level, string message, object[] argArray)
-		{
-			this.timestamp = PlatformUtils.CurrentTimeMillis;
-			this.loggerName = loggerName;
-			this.level = level;
+        public LoggingEvent(string loggerName, Level level, string message, object[] argArray) {
+            this.timestamp = PlatformUtils.CurrentTimeMillis;
+            this.loggerName = loggerName;
+            this.level = level;
 
-			this.message = message;
+            this.message = message;
 
-			MessageFormatter.FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, argArray);
-			formattedMessage = formattingTuple.FormattedMessage;
-			messageArgs = formattingTuple.ArgArray;
-			this.throwable = formattingTuple.Throwable;
+            MessageFormatter.FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, argArray);
+            formattedMessage = formattingTuple.FormattedMessage;
+            messageArgs = formattingTuple.ArgArray;
+            this.throwable = formattingTuple.Throwable;
 
-			this.threadName = "THREAD"; // TODO: Make this real thread name
-		}
+            this.threadName = "THREAD"; // TODO: Make this real thread name
+        }
 
-		public LoggingEvent(string loggerName, Level level, string message, Exception t)
-		{
-			this.timestamp = PlatformUtils.CurrentTimeMillis;
-			this.loggerName = loggerName;
-			this.level = level;
+        public LoggingEvent(string loggerName, Level level, string message, Exception t) {
+            this.timestamp = PlatformUtils.CurrentTimeMillis;
+            this.loggerName = loggerName;
+            this.level = level;
 
-			this.message = message;
-			this.formattedMessage = message;
-			this.messageArgs = null;
-			this.throwable = t;
+            this.message = message;
+            this.formattedMessage = message;
+            this.messageArgs = null;
+            this.throwable = t;
 
-			this.threadName = "THREAD"; // TODO: Make this real thread name
-		}
+            this.threadName = "THREAD"; // TODO: Make this real thread name
+        }
 
-		public virtual long Timestamp
-		{
-			get
-			{
-				return timestamp;
-			}
-		}
+        public virtual long Timestamp {
+            get {
+                return timestamp;
+            }
+        }
 
-		public virtual string ThreadName
-		{
-			get
-			{
-				return threadName;
-			}
-		}
+        public virtual string ThreadName {
+            get {
+                return threadName;
+            }
+        }
 
-		public virtual string LoggerName
-		{
-			get
-			{
-				return loggerName;
-			}
-		}
+        public virtual string LoggerName {
+            get {
+                return loggerName;
+            }
+        }
 
-		public virtual Level Level
-		{
-			get
-			{
-				return level;
-			}
-		}
+        public virtual Level Level {
+            get {
+                return level;
+            }
+        }
 
-		public virtual string Message
-		{
-			get
-			{
-				return message;
-			}
-		}
+        public virtual string Message {
+            get {
+                return message;
+            }
+        }
 
-		public virtual object[] MessageArgs
-		{
-			get
-			{
-				return messageArgs;
-			}
-		}
+        public virtual object[] MessageArgs {
+            get {
+                return messageArgs;
+            }
+        }
 
-		public virtual string FormattedMessage
-		{
-			get
-			{
-				return formattedMessage;
-			}
-		}
+        public virtual string FormattedMessage {
+            get {
+                return formattedMessage;
+            }
+        }
 
-		public virtual Exception Throwable
-		{
-			get
-			{
-				return throwable;
-			}
-		}
-	}
+        public virtual Exception Throwable {
+            get {
+                return throwable;
+            }
+        }
+    }
 
 }
