@@ -29,11 +29,25 @@ public class TextualPath {
     /**
      * Create a TextualPath containing a single path element.
      *
-     * @param singlePathElement
+     * @param pathElement1
      */
-    public TextualPath(String singlePathElement) {
+    public TextualPath(String pathElement1) {
         this.pathElements = new ArrayList<String>(1);
-        pathElements.set(0, singlePathElement);
+        pathElements.add(pathElement1);
+    }
+
+
+    public TextualPath(String pathElement1, String pathElement2) {
+        this.pathElements = new ArrayList<String>(2);
+        pathElements.add(pathElement1);
+        pathElements.add(pathElement2);
+    }
+
+    public TextualPath(String pathElement1, String pathElement2, String pathElement3) {
+        this.pathElements = new ArrayList<String>(3);
+        pathElements.add(pathElement1);
+        pathElements.add(pathElement2);
+        pathElements.add(pathElement2);
     }
 
     /**
@@ -62,6 +76,29 @@ public class TextualPath {
 
     public void add(String pathElement) {
         pathElements.add(pathElement);
+    }
+
+    /**
+     * See if this path starts with another path.
+     *
+     * @param prefixPath path that potentially is at beginning of this path
+     * @return true if this the beginning elements of this path match prefixPath or if the two paths are the same
+     */
+    public boolean startsWith(TextualPath prefixPath) {
+        int prefixLength = prefixPath.getLength();
+
+        if (prefixLength > pathElements.size())
+            return false;
+
+        for (int i = 0; i < prefixLength; i++) {
+            String pathElement = pathElements.get(i);
+            String prefixPathElement = prefixPath.pathElements.get(i);
+
+            if (!pathElement.equals(prefixPathElement))
+                return false;
+        }
+
+        return true;
     }
 
     /**
