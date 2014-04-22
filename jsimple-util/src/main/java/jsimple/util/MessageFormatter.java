@@ -256,7 +256,7 @@ final public class MessageFormatter {
             else this.argArray = trimmedCopy(argArray);
         }
 
-        static Object[] trimmedCopy(@javax.annotation.Nullable Object[] argArray) {
+        static Object[] trimmedCopy(@Nullable Object[] argArray) {
             if (argArray == null || argArray.length == 0)
                 throw new RuntimeException("non-sensical empty or null argument array");
 
