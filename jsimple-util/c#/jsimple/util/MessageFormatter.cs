@@ -261,8 +261,6 @@ namespace jsimple.util {
                     this.argArray = trimmedCopy(argArray);
             }
 
-//JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
-//ORIGINAL LINE: static Object[] trimmedCopy(@javax.annotation.Nullable Object[] argArray)
             internal static object[] trimmedCopy(object[] argArray) {
                 if (argArray == null || argArray.Length == 0)
                     throw new Exception("non-sensical empty or null argument array");
