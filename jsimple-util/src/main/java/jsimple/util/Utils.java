@@ -1,5 +1,7 @@
 package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 
 /**
@@ -37,6 +39,34 @@ public class Utils {
         else if (v1 == v2)
             return 0;
         else return 1;
+    }
+
+    public static long min(long v1, long v2) {
+        if (v1 < v2)
+            return v1;
+        else return v2;
+    }
+
+    public static long max(long v1, long v2) {
+        if (v1 > v2)
+            return v1;
+        else return v2;
+    }
+
+    /**
+     * Return true if the two objects are equal, according to their isEquals method.  This method allows the objects to
+     * be null, returning true if both are null & false if just one is null.
+     *
+     * @param o1 object 1
+     * @param o2 object 2
+     * @return true if both objects are equal or both are null, false otherwise
+     */
+    public static boolean equal(@Nullable Object o1, @Nullable Object o2) {
+        if (o1 == o2)
+            return true;
+        if (o1 == null || o2 == null)
+            return false;
+        return o1.equals(o2);
     }
 
     /**

@@ -66,7 +66,7 @@ public class FileSystemFile extends File {
         javaFile.delete();
     }
 
-    @Override public void rename(String newName) {
+    @Override public void renameTo(String newName) {
         java.io.File newFile = new java.io.File(parent.getJavaFile(), newName);
 
         if (!javaFile.renameTo(newFile)) {
@@ -78,9 +78,17 @@ public class FileSystemFile extends File {
         }
     }
 
+    @Override public void moveTo(File destination) {
+        if (!(destination instanceof FileSystemFile))
+            throw new IOException("moveTo destination File must be of same type as source, a FileSystemFile in this case");
+
+        if (!javaFile.renameTo(((FileSystemFile) destination).javaFile))
+            throw new IOException("Move of {} to {} failed", this, destination);
+    }
+
     @Override public long getLastModifiedTime() {
         long lastModified = javaFile.lastModified();
-        if (lastModified == 0 && ! javaFile.exists())
+        if (lastModified == 0 && !javaFile.exists())
             throw new PathNotFoundException(javaFile.toString());
         return lastModified;
     }

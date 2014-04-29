@@ -141,5 +141,10 @@ namespace jsimple.io
             StorageFolder.DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
             storageFolder = null;
         }
+
+        public override void rename(string newName)
+        {
+            StorageFolder.RenameAsync(newName, NameCollisionOption.FailIfExists).DoSynchronously();
+        }
     }
 }

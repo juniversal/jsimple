@@ -46,6 +46,14 @@ namespace jsimple.io {
         public abstract void create();
 
         /// <summary>
+        /// Rename this directory, giving it a new name in the same parent directory.  If a directory with the specified name
+        /// already exists, an exception is thrown.  If/when there's the need to move a Directory to a different directory,
+        /// we'll add separate support for that.
+        /// </summary>
+        /// <param name="newName"> </param>
+        public abstract void renameTo(string newName);
+
+        /// <summary>
         /// Visit the child elements of this path--basically list the files and subdirectories of a directory, calling the
         /// visitor for each.  Just direct children are listed, not all descendants; callers can call this method recursively
         /// if they want to visit all descendants.

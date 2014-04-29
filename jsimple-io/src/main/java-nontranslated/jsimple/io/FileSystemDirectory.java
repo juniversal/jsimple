@@ -44,6 +44,11 @@ public class FileSystemDirectory extends Directory {
         }
     }
 
+    @Override public void renameTo(String newName) {
+        if (! javaFile.renameTo(new java.io.File(javaFile.getParent(), newName)))
+            throw new IOException("Could not rename directory {} to {}", getPathString(), newName);
+    }
+
     /**
      * Visit the child elements of this path--basically list the files and subdirectories of a directory, calling the
      * visitor for each.  Just direct children are listed, not all descendants; callers can call this method recursively

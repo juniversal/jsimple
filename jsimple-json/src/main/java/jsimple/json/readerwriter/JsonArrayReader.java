@@ -66,6 +66,10 @@ public class JsonArrayReader {
         return (long) (Long) readPrimitive();
     }
 
+    public double readDouble() {
+        return (double) (Double) readPrimitive();
+    }
+
     public JsonObjectReader readObject() {
         readElementPrefix();
 

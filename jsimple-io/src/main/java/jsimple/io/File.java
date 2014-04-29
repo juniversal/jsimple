@@ -90,7 +90,7 @@ public abstract class File extends Path {
                 // TODO: Add openForReadAtomic for case when it's not supported, cleaning up temp file and using temp
                 // file if original deleted
 
-                tempFile.rename(fileName);
+                tempFile.renameTo(fileName);
             }
         });
 
@@ -118,7 +118,9 @@ public abstract class File extends Path {
      *
      * @param newName
      */
-    public abstract void rename(String newName);
+    public abstract void renameTo(String newName);
+
+    public abstract void moveTo(File destination);
 
     /**
      * Get the last modified / last write timestamp of this file.  Of the 3 file timestamps (created, modified, and

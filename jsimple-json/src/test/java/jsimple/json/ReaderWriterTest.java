@@ -14,14 +14,16 @@ public class ReaderWriterTest extends UnitTest {
     private static final int JSON_STRING_VAL = 1;
     private static final int JSON_INT_VAL = 2;
     private static final int JSON_LONG_VAL = 3;
-    private static final int JSON_BOOLEAN_VAL = 4;
-    private static final int JSON_ARRAY_VAL = 5;
-    private static final int JSON_OBJECT_VAL = 6;
+    private static final int JSON_DOUBLE_VAL = 4;
+    private static final int JSON_BOOLEAN_VAL = 5;
+    private static final int JSON_ARRAY_VAL = 6;
+    private static final int JSON_OBJECT_VAL = 7;
 
     private static final JsonObjectType jsonObjectType = new JsonObjectType();
     private static final JsonStringProperty jsonStringVal = jsonObjectType.createStringProperty("stringVal", JSON_STRING_VAL);
     private static final JsonIntProperty jsonIntVal = jsonObjectType.createIntProperty("intVal", JSON_INT_VAL);
     private static final JsonLongProperty jsonLongVal = jsonObjectType.createLongProperty("longVal", JSON_LONG_VAL);
+    private static final JsonDoubleProperty jsonDoubleVal = jsonObjectType.createDoubleProperty("doubleVal", JSON_DOUBLE_VAL);
     private static final JsonBooleanProperty jsonBooleanVal = jsonObjectType.createBooleanProperty("booleanVal", JSON_BOOLEAN_VAL);
     private static final JsonArrayProperty jsonArrayVal = jsonObjectType.createArrayProperty("arrayVal", JSON_ARRAY_VAL);
     private static final JsonObjectProperty jsonObjectVal = jsonObjectType.createObjectProperty("objectVal", JSON_OBJECT_VAL);
@@ -30,6 +32,11 @@ public class ReaderWriterTest extends UnitTest {
         validateParseObject(jsonStringVal, "abc");
         validateParseObject(jsonIntVal, 3);
         validateParseObject(jsonLongVal, 5000000000L);
+        validateParseObject(jsonDoubleVal, 123.34);
+        validateParseObject(jsonDoubleVal, 123.0);
+        validateParseObject(jsonDoubleVal, 0.0);
+        validateParseObject(jsonDoubleVal, -123.0);
+        validateParseObject(jsonDoubleVal, -0.0);
         validateParseObject(jsonBooleanVal, true);
         validateParseObject(jsonBooleanVal, false);
 
@@ -55,7 +62,7 @@ public class ReaderWriterTest extends UnitTest {
     }
 
     @Test public void testParseArray() {
-        String json = "[\"abc\", 1, -1, 5000000000, true, false, [], {}]";
+        String json = "[\"abc\", 1, -1, 5000000000, 123.45, true, false, [], {}]";
 
         JsonArrayReader arrayReader = Json.readArray(new StringReader(json));
 
@@ -63,6 +70,7 @@ public class ReaderWriterTest extends UnitTest {
         assertEquals(1, arrayReader.readInt());
         assertEquals(-1, arrayReader.readInt());
         assertEquals(5000000000L, arrayReader.readLong());
+        assertEquals(123.45, arrayReader.readDouble());
         assertEquals(true, arrayReader.readBoolean());
         assertEquals(false, arrayReader.readBoolean());
 

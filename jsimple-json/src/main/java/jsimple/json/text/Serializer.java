@@ -29,6 +29,8 @@ public final class Serializer {
             writeString((String) obj);
         else if (obj instanceof Integer || obj instanceof Long)
             write(obj.toString());
+        else if (obj instanceof Float || obj instanceof Double)
+            write(obj.toString());
         else if (obj instanceof Boolean) {
             boolean booleanValue = (boolean) (Boolean) obj;
             write(booleanValue ? "true" : "false");

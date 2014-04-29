@@ -61,6 +61,10 @@ public class JsonObjectType {
         return addNewProperty(new JsonLongProperty(name, id));
     }
 
+    public JsonDoubleProperty createDoubleProperty(String name, int id) {
+        return addNewProperty(new JsonDoubleProperty(name, id));
+    }
+
     public JsonBooleanProperty createBooleanProperty(String name, int id) {
         return addNewProperty(new JsonBooleanProperty(name, id));
     }

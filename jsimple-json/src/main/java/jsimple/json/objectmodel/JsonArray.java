@@ -44,6 +44,10 @@ public final class JsonArray extends JsonObjectOrArray {
         return (long) (Long) get(index);
     }
 
+    public double getDouble(int index) {
+        return (double) (Double) get(index);
+    }
+
     public JsonObject getJsonObject(int index) {
         return (JsonObject) get(index);
     }

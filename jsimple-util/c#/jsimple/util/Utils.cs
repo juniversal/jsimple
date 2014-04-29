@@ -39,6 +39,20 @@ namespace jsimple.util {
                 return 1;
         }
 
+        public static long min(long v1, long v2) {
+            if (v1 < v2)
+                return v1;
+            else
+                return v2;
+        }
+
+        public static long max(long v1, long v2) {
+            if (v1 > v2)
+                return v1;
+            else
+                return v2;
+        }
+
         /// <summary>
         /// See if two ArrayLists are the same.  They are considered the same if their elements are all equal, according to
         /// the "equals" method.  This method can be used to overcome an incompatibility between Java and C# in the equals

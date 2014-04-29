@@ -107,5 +107,25 @@ public class PlatformUtilsBase {
      * Use the whatever proxy settings are configured in the OS.  On some platform, by default no web proxy is used.
      * Calling this method causes the OS proxy default to be used instead.
      */
-    //public static void useSystemProxy() {
+    //public static void useSystemProxy();
+
+    /**
+     * Encode a double in a long.   The precise format of the bits in the long are platform dependent; for most
+     * platforms it's IEEE 754 but that's not guaranteed (e.g. a future Java -> C++ translator wouldn't guarantee that).
+     * The only guarantee made here is that rawLlongBitsToDouble(doubleToRawLongBits(x)) should produce the original x
+     * input.
+     *
+     * @param value input double value
+     * @return long representation of that double
+     */
+    //long doubleToRawLongBits(double value);
+
+    /**
+     * Encode a long in a double.  The precise format of the bits in the double are platform dependent.  The only
+     * guarantee made here is that rawLongBitsToDouble(doubleToRawLongBits(x)) should produce the original x input.
+     *
+     * @param value input long value
+     * @return double representation of that value, undoing the transformation done by doubleToRawLongBits
+     */
+    //double rawLongBitsToDouble(long value);
 }

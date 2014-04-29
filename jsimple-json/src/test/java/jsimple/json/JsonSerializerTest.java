@@ -20,6 +20,8 @@ public class JsonSerializerTest extends UnitTest {
                         add("control", "\0 \u0001 \u001F \u0020 \u007F \u009F \u00A0").
                         add("longmax", Long.MAX_VALUE).
                         add("longmin", Long.MIN_VALUE).
+                        add("doublemax", Double.MAX_VALUE).
+                        add("doublemin", Double.MIN_VALUE).
                         add("bool", true).
                         add("bool2", false).
                         add("nul", JsonNull.singleton).
@@ -31,6 +33,8 @@ public class JsonSerializerTest extends UnitTest {
                 "  \"control\": \"\\u0000 \\u0001 \\u001F \u0020 \\u007F \\u009F \u00A0\",",
                 "  \"longmax\": " + Long.MAX_VALUE + ",",
                 "  \"longmin\": " + Long.MIN_VALUE + ",",
+                "  \"doublemax\": " + Double.MAX_VALUE + ",",
+                "  \"doublemin\": " + Double.MIN_VALUE + ",",
                 "  \"bool\": true,",
                 "  \"bool2\": false,",
                 "  \"nul\": null,",

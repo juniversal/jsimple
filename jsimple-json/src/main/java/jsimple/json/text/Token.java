@@ -64,6 +64,8 @@ public final class Token {
         if (type == TokenType.PRIMITIVE) {
             if (primitiveValue instanceof Integer || primitiveValue instanceof Long)
                 return primitiveValue.toString();
+            else if (primitiveValue instanceof Double)
+                return primitiveValue.toString();
             else if (primitiveValue instanceof Boolean)
                 return ((boolean) (Boolean) primitiveValue) ? "true" : "false";
             else if (primitiveValue instanceof String)

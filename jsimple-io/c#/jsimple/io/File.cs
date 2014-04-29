@@ -102,7 +102,7 @@ namespace jsimple.io {
                 // TODO: Add openForReadAtomic for case when it's not supported, cleaning up temp file and using temp
                 // file if original deleted
 
-                tempFile.rename(fileName);
+                tempFile.renameTo(fileName);
             }
         }
 
@@ -125,7 +125,9 @@ namespace jsimple.io {
         /// that.
         /// </summary>
         /// <param name="newName"> </param>
-        public abstract void rename(string newName);
+        public abstract void renameTo(string newName);
+
+        public abstract void moveTo(File destination);
 
         /// <summary>
         /// Get the last modified / last write timestamp of this file.  Of the 3 file timestamps (created, modified, and

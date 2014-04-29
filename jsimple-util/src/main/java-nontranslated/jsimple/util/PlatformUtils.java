@@ -105,4 +105,28 @@ public class PlatformUtils extends PlatformUtilsBase {
     public static void useSystemProxy() {
         System.setProperty("java.net.useSystemProxies", "true");    // Use OS configured proxy
     }
+
+    /**
+     * Encode a double in a long.   The precise format of the bits in the long are platform dependent; for most
+     * platforms it's IEEE 754 but that's not guaranteed (e.g. a future Java -> C++ translator wouldn't guarantee that).
+     * The only guarantee made here is that rawLlongBitsToDouble(doubleToRawLongBits(x)) should produce the original x
+     * input.
+     *
+     * @param value input double value
+     * @return long representation of that double
+     */
+    public static long doubleToRawLongBits(double value) {
+        return Double.doubleToRawLongBits(value);
+    }
+
+    /**
+     * Encode a long in a double.  The precise format of the bits in the double are platform dependent.  The only
+     * guarantee made here is that rawLongBitsToDouble(doubleToRawLongBits(x)) should produce the original x input.
+     *
+     * @param value input long value
+     * @return double representation of that value, undoing the transformation done by doubleToRawLongBits
+     */
+    public static double rawLongBitsToDouble(long value) {
+        return Double.longBitsToDouble(value);
+    }
 }

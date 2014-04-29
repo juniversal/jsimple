@@ -40,6 +40,7 @@ public class JsonParserTest extends UnitTest {
         assertEquals(true, parseJsonArray("[3, true]").getBoolean(1));
         assertEquals(42, parseJsonArray("[[42]]").getJsonArray(0).getInt(0));
         assertEquals(42000000000L, parseJsonArray("[[42000000000]]").getJsonArray(0).getLong(0));
+        assertEquals(123.45, parseJsonArray("[[123.45]]").getJsonArray(0).get(0));
         assertEquals("", parseJsonArray("[[\"\"]]").getJsonArray(0).getString(0));
 
         assertEquals(JsonNull.singleton, parseJsonObject("{\"abc\": [null] }").getJsonArray("abc").get(0));
