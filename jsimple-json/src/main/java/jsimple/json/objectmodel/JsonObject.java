@@ -146,6 +146,19 @@ public final class JsonObject extends JsonObjectOrArray {
         return value == null ? defaultValue : (long) value;
     }
 
+    public double getDouble(String name) {
+        return (double) (Double) get(name);
+    }
+
+    public @Nullable Double getDoubleOrNull(String name) {
+        return (Double) getOrNull(name);
+    }
+
+    public double getDoubleOrDefault(String name, double defaultValue) {
+        @Nullable Double value = getDoubleOrNull(name);
+        return value == null ? defaultValue : (double) value;
+    }
+
     public JsonObject getJsonObject(String name) {
         return (JsonObject) get(name);
     }
