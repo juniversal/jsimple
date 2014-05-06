@@ -1,5 +1,7 @@
 package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * @author Bret Johnson
  * @since 11/25/12 4:00 PM
@@ -44,7 +46,7 @@ public class CharIterator {
      *
      * @return current character or -1 if at end of str
      */
-    public char currAndAdvance() {
+    public char read() {
         char c = curr();
         advance();
         return c;
@@ -64,20 +66,63 @@ public class CharIterator {
             index = length;
     }
 
-    public boolean matches(String substring) {
-        return getRemaining().startsWith(substring);
+    public boolean match(char value) {
+        if (value != curr())
+            return false;
+        advance();
+        return true;
+    }
+
+    public boolean match(char value, StringBuilder buffer) {
+        if (value != curr())
+            return false;
+        buffer.append(read());
+        return true;
     }
 
     public boolean match(String substring) {
-        if (matches(substring)) {
+        if (getRemaining().startsWith(substring)) {
             advance(substring.length());
             return true;
         }
         return false;
     }
 
-    public boolean matchOneOf(String substring1, String substring2) {
-        return match(substring1) || match(substring2);
+    public @Nullable Double matchDouble() {
+        StringBuilder buffer = new StringBuilder();
+
+        int savedIndex = index;
+        match('-', buffer);
+        if (!matchDigits(buffer)) {
+            index = savedIndex;
+            return null;
+        }
+
+        if (match('.', buffer))
+            matchDigits(buffer);
+
+        return Double.parseDouble(buffer.toString());
+    }
+
+    public boolean matchDigits(StringBuilder buffer) {
+        if (!matchDigit(buffer))
+            return false;
+        while (matchDigit(buffer))
+            ;
+        return true;
+    }
+
+    public boolean matchCharRange(int minChar, int maxChar, StringBuilder buffer) {
+        int lookahead = curr();
+        if (lookahead < minChar || lookahead > maxChar)
+            return false;
+
+        buffer.append(read());
+        return true;
+    }
+
+    public boolean matchDigit(StringBuilder buffer) {
+        return matchCharRange('0', '9', buffer);
     }
 
     /**
@@ -193,14 +238,14 @@ public class CharIterator {
     public String readWhitespaceDelimitedToken() {
         StringBuilder token = new StringBuilder();
         while (!isWhitespace() && !atEnd())
-            token.append(currAndAdvance());
+            token.append(read());
         return token.toString();
     }
 
     public String readWhitespaceDelimitedTokenOnSameLine() {
         StringBuilder token = new StringBuilder();
         while (!isWhitespaceOnSameLine() && !isLineBreak() && !atEnd())
-            token.append(currAndAdvance());
+            token.append(read());
         return token.toString();
     }
 }

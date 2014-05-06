@@ -20,7 +20,7 @@ public class JsonTokenExtractor implements AccessTokenExtractor {
 
             StringBuilder tokenBuffer = new StringBuilder();
             while (!tokenIterator.isWhitespace() && tokenIterator.curr() != '"' && !tokenIterator.atEnd())
-                tokenBuffer.append(tokenIterator.currAndAdvance());
+                tokenBuffer.append(tokenIterator.read());
 
             tokenIterator.checkAndAdvance('\"');
 

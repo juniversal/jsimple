@@ -447,7 +447,7 @@ public final class DateTime {
 
             double divisor = 0.1;
             while (charIterator.isDigit()) {
-                char c = charIterator.currAndAdvance();
+                char c = charIterator.read();
                 fractionalSeconds = fractionalSeconds + (c - '0') * divisor;
                 divisor /= 10.0;
             }
@@ -457,7 +457,7 @@ public final class DateTime {
         DateTime dateTime = new DateTime(year, month, day, hour, minute, second, millisecond);
 
         // If a time zone offset is specified, map the time back to UTC
-        char timeZoneOffsetChar = charIterator.currAndAdvance();
+        char timeZoneOffsetChar = charIterator.read();
         if (timeZoneOffsetChar == 'Z') {
             // Do nothing--already UTC
         } else if (timeZoneOffsetChar == '+' || timeZoneOffsetChar == '-') {
@@ -486,7 +486,7 @@ public final class DateTime {
             if (!charIterator.isDigit())
                 throw new InvalidFormatException("Expected digit; encountered '{}' at '{}' in '{}'", charIterator.curr(),
                         charIterator.getRemaining(), charIterator.getString());
-            char c = charIterator.currAndAdvance();
+            char c = charIterator.read();
             value = 10 * value + (c - '0');
         }
 

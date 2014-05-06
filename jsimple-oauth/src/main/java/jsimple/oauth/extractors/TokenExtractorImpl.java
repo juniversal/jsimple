@@ -24,7 +24,7 @@ public class TokenExtractorImpl implements RequestTokenExtractor, AccessTokenExt
         tokenIterator.skipAheadPast("oauth_token=");
         StringBuilder tokenBuffer = new StringBuilder();
         while (!tokenIterator.isWhitespace() && tokenIterator.curr() != '&' && !tokenIterator.atEnd())
-            tokenBuffer.append(tokenIterator.currAndAdvance());
+            tokenBuffer.append(tokenIterator.read());
         if (tokenBuffer.toString().isEmpty())
             throw new RuntimeException("oauth_token is empty string");
 
@@ -32,7 +32,7 @@ public class TokenExtractorImpl implements RequestTokenExtractor, AccessTokenExt
         secretIterator.skipAheadPast("oauth_token_secret=");
         StringBuilder secretBuffer = new StringBuilder();
         while (!secretIterator.isWhitespace() && secretIterator.curr() != '&' && !secretIterator.atEnd())
-            tokenBuffer.append(secretIterator.currAndAdvance());
+            tokenBuffer.append(secretIterator.read());
 
         String token = OAuthEncoder.decode(tokenBuffer.toString());
         String secret = OAuthEncoder.decode(secretBuffer.toString());

@@ -21,7 +21,7 @@ public class TokenExtractor20Impl implements AccessTokenExtractor {
         tokenIterator.skipAheadPast("access_token=");
         StringBuilder tokenBuffer = new StringBuilder();
         while (!tokenIterator.isWhitespace() && tokenIterator.curr() != '&' && !tokenIterator.atEnd())
-            tokenBuffer.append(tokenIterator.currAndAdvance());
+            tokenBuffer.append(tokenIterator.read());
         if (tokenBuffer.toString().isEmpty())
             throw new RuntimeException("oauth_token is empty string");
 
