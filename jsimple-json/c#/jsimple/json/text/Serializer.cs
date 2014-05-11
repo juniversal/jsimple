@@ -28,6 +28,8 @@ namespace jsimple.json.text {
                 writeString((string) obj);
             else if (obj is int? || obj is long?)
                 write(obj.ToString());
+            else if (obj is float? || obj is double?)
+                write(obj.ToString());
             else if (obj is bool?) {
                 bool booleanValue = (bool)(bool?) obj;
                 write(booleanValue ? "true" : "false");

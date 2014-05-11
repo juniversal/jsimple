@@ -58,6 +58,10 @@ namespace jsimple.json.readerwriter {
             return addNewProperty(new JsonLongProperty(name, id));
         }
 
+        public virtual JsonDoubleProperty createDoubleProperty(string name, int id) {
+            return addNewProperty(new JsonDoubleProperty(name, id));
+        }
+
         public virtual JsonBooleanProperty createBooleanProperty(string name, int id) {
             return addNewProperty(new JsonBooleanProperty(name, id));
         }

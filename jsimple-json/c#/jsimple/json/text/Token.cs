@@ -68,6 +68,8 @@ namespace jsimple.json.text {
                 if (type == TokenType.PRIMITIVE) {
                     if (primitiveValue is int? || primitiveValue is long?)
                         return primitiveValue.ToString();
+                    else if (primitiveValue is double?)
+                        return primitiveValue.ToString();
                     else if (primitiveValue is bool?)
                         return ((bool)(bool?) primitiveValue) ? "true" : "false";
                     else if (primitiveValue is string)

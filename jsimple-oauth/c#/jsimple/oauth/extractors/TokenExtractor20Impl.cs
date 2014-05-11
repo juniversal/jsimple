@@ -24,7 +24,7 @@ namespace jsimple.oauth.extractors {
             tokenIterator.skipAheadPast("access_token=");
             StringBuilder tokenBuffer = new StringBuilder();
             while (!tokenIterator.Whitespace && tokenIterator.curr() != '&' && !tokenIterator.atEnd())
-                tokenBuffer.Append(tokenIterator.currAndAdvance());
+                tokenBuffer.Append(tokenIterator.read());
             if (tokenBuffer.ToString().Length == 0)
                 throw new Exception("oauth_token is empty string");
 

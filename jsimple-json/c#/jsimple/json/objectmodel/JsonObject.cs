@@ -141,6 +141,19 @@ namespace jsimple.json.objectmodel {
             return value == null ? defaultValue : (long) value;
         }
 
+        public double getDouble(string name) {
+            return (double)(double?) get(name);
+        }
+
+        public double? getDoubleOrNull(string name) {
+            return (double?) getOrNull(name);
+        }
+
+        public double getDoubleOrDefault(string name, double defaultValue) {
+            double? value = getDoubleOrNull(name);
+            return value == null ? defaultValue : (double) value;
+        }
+
         public JsonObject getJsonObject(string name) {
             return (JsonObject) get(name);
         }

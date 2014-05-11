@@ -14,14 +14,16 @@ namespace jsimple.json {
         private const int JSON_STRING_VAL = 1;
         private const int JSON_INT_VAL = 2;
         private const int JSON_LONG_VAL = 3;
-        private const int JSON_BOOLEAN_VAL = 4;
-        private const int JSON_ARRAY_VAL = 5;
-        private const int JSON_OBJECT_VAL = 6;
+        private const int JSON_DOUBLE_VAL = 4;
+        private const int JSON_BOOLEAN_VAL = 5;
+        private const int JSON_ARRAY_VAL = 6;
+        private const int JSON_OBJECT_VAL = 7;
 
         private static readonly JsonObjectType jsonObjectType = new JsonObjectType();
         private static readonly JsonStringProperty jsonStringVal = jsonObjectType.createStringProperty("stringVal", JSON_STRING_VAL);
         private static readonly JsonIntProperty jsonIntVal = jsonObjectType.createIntProperty("intVal", JSON_INT_VAL);
         private static readonly JsonLongProperty jsonLongVal = jsonObjectType.createLongProperty("longVal", JSON_LONG_VAL);
+        private static readonly JsonDoubleProperty jsonDoubleVal = jsonObjectType.createDoubleProperty("doubleVal", JSON_DOUBLE_VAL);
         private static readonly JsonBooleanProperty jsonBooleanVal = jsonObjectType.createBooleanProperty("booleanVal", JSON_BOOLEAN_VAL);
         private static readonly JsonArrayProperty jsonArrayVal = jsonObjectType.createArrayProperty("arrayVal", JSON_ARRAY_VAL);
         private static readonly JsonObjectProperty jsonObjectVal = jsonObjectType.createObjectProperty("objectVal", JSON_OBJECT_VAL);
@@ -31,6 +33,11 @@ namespace jsimple.json {
             validateParseObject(jsonStringVal, "abc");
             validateParseObject(jsonIntVal, 3);
             validateParseObject(jsonLongVal, 5000000000L);
+            validateParseObject(jsonDoubleVal, 123.34);
+            validateParseObject(jsonDoubleVal, 123.0);
+            validateParseObject(jsonDoubleVal, 0.0);
+            validateParseObject(jsonDoubleVal, -123.0);
+            validateParseObject(jsonDoubleVal, -0.0);
             validateParseObject(jsonBooleanVal, true);
             validateParseObject(jsonBooleanVal, false);
 
@@ -57,7 +64,7 @@ namespace jsimple.json {
 
         [Test] public virtual void testParseArray()
         {
-            string json = "[\"abc\", 1, -1, 5000000000, true, false, [], {}]";
+            string json = "[\"abc\", 1, -1, 5000000000, 123.45, true, false, [], {}]";
 
             JsonArrayReader arrayReader = Json.readArray(new StringReader(json));
 
@@ -65,6 +72,7 @@ namespace jsimple.json {
             assertEquals(1, arrayReader.readInt());
             assertEquals(-1, arrayReader.readInt());
             assertEquals(5000000000L, arrayReader.readLong());
+            assertEquals(123.45, arrayReader.readDouble());
             assertEquals(true, arrayReader.readBoolean());
             assertEquals(false, arrayReader.readBoolean());
 

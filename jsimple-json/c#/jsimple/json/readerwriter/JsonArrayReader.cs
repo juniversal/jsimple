@@ -67,6 +67,10 @@ namespace jsimple.json.readerwriter {
             return (long)(long?) readPrimitive();
         }
 
+        public virtual double readDouble() {
+            return (double)(double?) readPrimitive();
+        }
+
         public virtual JsonObjectReader readObject() {
             readElementPrefix();
 

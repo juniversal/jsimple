@@ -447,7 +447,7 @@ namespace jsimple.util {
 
                 double divisor = 0.1;
                 while (charIterator.Digit) {
-                    char c = charIterator.currAndAdvance();
+                    char c = charIterator.read();
                     fractionalSeconds = fractionalSeconds + (c - '0') * divisor;
                     divisor /= 10.0;
                 }
@@ -457,7 +457,7 @@ namespace jsimple.util {
             DateTime dateTime = new DateTime(year, month, day, hour, minute, second, millisecond);
 
             // If a time zone offset is specified, map the time back to UTC
-            char timeZoneOffsetChar = charIterator.currAndAdvance();
+            char timeZoneOffsetChar = charIterator.read();
             if (timeZoneOffsetChar == 'Z') {
                 // Do nothing--already UTC
             }
@@ -487,7 +487,7 @@ namespace jsimple.util {
             for (int digitCount = 0; digitCount < numberOfDigits; ++digitCount) {
                 if (!charIterator.Digit)
                     throw new InvalidFormatException("Expected digit; encountered '{}' at '{}' in '{}'", charIterator.curr(), charIterator.Remaining, charIterator.String);
-                char c = charIterator.currAndAdvance();
+                char c = charIterator.read();
                 value = 10 * value + (c - '0');
             }
 

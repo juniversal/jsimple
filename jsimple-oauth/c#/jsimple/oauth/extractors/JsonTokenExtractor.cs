@@ -24,7 +24,7 @@ namespace jsimple.oauth.extractors {
 
                 StringBuilder tokenBuffer = new StringBuilder();
                 while (!tokenIterator.Whitespace && tokenIterator.curr() != '"' && !tokenIterator.atEnd())
-                    tokenBuffer.Append(tokenIterator.currAndAdvance());
+                    tokenBuffer.Append(tokenIterator.read());
 
                 tokenIterator.checkAndAdvance('\"');
 

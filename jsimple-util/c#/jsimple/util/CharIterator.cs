@@ -1,6 +1,9 @@
+using System;
 using System.Text;
 
 namespace jsimple.util {
+
+
 
     /// <summary>
     /// @author Bret Johnson
@@ -50,7 +53,7 @@ namespace jsimple.util {
         /// Return the current character (same as curr()) then advance to the next one.
         /// </summary>
         /// <returns> current character or -1 if at end of str </returns>
-        public virtual char currAndAdvance() {
+        public virtual char read() {
             char c = curr();
             advance();
             return c;
@@ -70,20 +73,63 @@ namespace jsimple.util {
                 index = length;
         }
 
-        public virtual bool matches(string substring) {
-            return Remaining.StartsWith(substring);
+        public virtual bool match(char value) {
+            if (value != curr())
+                return false;
+            advance();
+            return true;
+        }
+
+        public virtual bool match(char value, StringBuilder buffer) {
+            if (value != curr())
+                return false;
+            buffer.Append(read());
+            return true;
         }
 
         public virtual bool match(string substring) {
-            if (matches(substring)) {
+            if (Remaining.StartsWith(substring)) {
                 advance(substring.Length);
                 return true;
             }
             return false;
         }
 
-        public virtual bool matchOneOf(string substring1, string substring2) {
-            return match(substring1) || match(substring2);
+        public virtual double? matchDouble() {
+            StringBuilder buffer = new StringBuilder();
+
+            int savedIndex = index;
+            match('-', buffer);
+            if (!matchDigits(buffer)) {
+                index = savedIndex;
+                return null;
+            }
+
+            if (match('.', buffer))
+                matchDigits(buffer);
+
+            return Convert.ToDouble(buffer.ToString());
+        }
+
+        public virtual bool matchDigits(StringBuilder buffer) {
+            if (!matchDigit(buffer))
+                return false;
+            while (matchDigit(buffer))
+                ;
+            return true;
+        }
+
+        public virtual bool matchCharRange(int minChar, int maxChar, StringBuilder buffer) {
+            int lookahead = curr();
+            if (lookahead < minChar || lookahead > maxChar)
+                return false;
+
+            buffer.Append(read());
+            return true;
+        }
+
+        public virtual bool matchDigit(StringBuilder buffer) {
+            return matchCharRange('0', '9', buffer);
         }
 
         /// <summary>
@@ -205,14 +251,14 @@ namespace jsimple.util {
         public virtual string readWhitespaceDelimitedToken() {
             StringBuilder token = new StringBuilder();
             while (!Whitespace && !atEnd())
-                token.Append(currAndAdvance());
+                token.Append(read());
             return token.ToString();
         }
 
         public virtual string readWhitespaceDelimitedTokenOnSameLine() {
             StringBuilder token = new StringBuilder();
             while (!WhitespaceOnSameLine && !LineBreak && !atEnd())
-                token.Append(currAndAdvance());
+                token.Append(read());
             return token.ToString();
         }
     }

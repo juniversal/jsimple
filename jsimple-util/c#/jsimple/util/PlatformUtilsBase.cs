@@ -105,7 +105,25 @@ namespace jsimple.util {
         /// Use the whatever proxy settings are configured in the OS.  On some platform, by default no web proxy is used.
         /// Calling this method causes the OS proxy default to be used instead.
         /// </summary>
-        //public static void useSystemProxy() {
+        //public static void useSystemProxy();
+
+        /// <summary>
+        /// Encode a double in a long.   The precise format of the bits in the long are platform dependent; for most
+        /// platforms it's IEEE 754 but that's not guaranteed (e.g. a future Java -> C++ translator wouldn't guarantee that).
+        /// The only guarantee made here is that rawLlongBitsToDouble(doubleToRawLongBits(x)) should produce the original x
+        /// input.
+        /// </summary>
+        /// <param name="value"> input double value </param>
+        /// <returns> long representation of that double </returns>
+        //long doubleToRawLongBits(double value);
+
+        /// <summary>
+        /// Encode a long in a double.  The precise format of the bits in the double are platform dependent.  The only
+        /// guarantee made here is that rawLongBitsToDouble(doubleToRawLongBits(x)) should produce the original x input.
+        /// </summary>
+        /// <param name="value"> input long value </param>
+        /// <returns> double representation of that value, undoing the transformation done by doubleToRawLongBits </returns>
+        //double rawLongBitsToDouble(long value);
     }
 
 }

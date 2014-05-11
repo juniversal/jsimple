@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 namespace jsimple.util {
 
+
+
     /// <summary>
     /// Created with IntelliJ IDEA.
     /// 
@@ -51,6 +53,21 @@ namespace jsimple.util {
                 return v1;
             else
                 return v2;
+        }
+
+        /// <summary>
+        /// Return true if the two objects are equal, according to their isEquals method.  This method allows the objects to
+        /// be null, returning true if both are null & false if just one is null.
+        /// </summary>
+        /// <param name="o1"> object 1 </param>
+        /// <param name="o2"> object 2 </param>
+        /// <returns> true if both objects are equal or both are null, false otherwise </returns>
+        public static bool equal(object o1, object o2) {
+            if (o1 == o2)
+                return true;
+            if (o1 == null || o2 == null)
+                return false;
+            return o1.Equals(o2);
         }
 
         /// <summary>

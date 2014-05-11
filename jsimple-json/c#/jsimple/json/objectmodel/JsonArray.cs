@@ -42,6 +42,10 @@ namespace jsimple.json.objectmodel {
             return (long)(long?) get(index);
         }
 
+        public double getDouble(int index) {
+            return (double)(double?) get(index);
+        }
+
         public JsonObject getJsonObject(int index) {
             return (JsonObject) get(index);
         }
