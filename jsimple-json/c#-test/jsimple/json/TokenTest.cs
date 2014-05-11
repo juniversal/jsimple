@@ -1,4 +1,4 @@
-namespace jsimple.json {
+﻿namespace jsimple.json {
 
     using StringReader = jsimple.io.StringReader;
     using JsonNull = jsimple.json.objectmodel.JsonNull;

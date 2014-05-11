@@ -1,4 +1,4 @@
-namespace jsimple.io {
+﻿namespace jsimple.io {
 
     using ByteArrayRange = jsimple.util.ByteArrayRange;
 

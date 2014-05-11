@@ -1,4 +1,4 @@
-namespace jsimple.io {
+﻿namespace jsimple.io {
 
     using UnitTest = jsimple.unit.UnitTest;
     using NUnit.Framework;

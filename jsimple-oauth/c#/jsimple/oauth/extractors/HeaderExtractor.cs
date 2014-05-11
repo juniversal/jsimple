@@ -1,4 +1,4 @@
-namespace jsimple.oauth.extractors {
+﻿namespace jsimple.oauth.extractors {
 
     using OAuthRequest = jsimple.oauth.model.OAuthRequest;
 

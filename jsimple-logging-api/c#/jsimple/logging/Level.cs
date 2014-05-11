@@ -1,4 +1,4 @@
-namespace jsimple.logging {
+﻿namespace jsimple.logging {
 
     /// <summary>
     /// Logging level.  Conceptually this is an enum, but creating it as a class works better across all languages.

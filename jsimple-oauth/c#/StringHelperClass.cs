@@ -1,17 +1,26 @@
-//-------------------------------------------------------------------------------------------
-//	Copyright � 2007 - 2013 Tangible Software Solutions Inc.
+﻿//-------------------------------------------------------------------------------------------
+//	Copyright © 2007 - 2014 Tangible Software Solutions Inc.
 //	This class can be used by anyone provided that the copyright notice remains intact.
 //
 //	This class is used to convert some aspects of the Java String class.
 //-------------------------------------------------------------------------------------------
 internal static class StringHelperClass
 {
+	//----------------------------------------------------------------------------------
+	//	This method replaces the Java String.substring method when 'start' is a
+	//	method call or calculated value to ensure that 'start' is obtained just once.
+	//----------------------------------------------------------------------------------
+	internal static String SubstringSpecial(this String self, int start, int end)
+	{
+		return self.Substring(start, end - start);
+	}
+
 	//------------------------------------------------------------------------------------
 	//	This method is used to replace calls to the 2-arg Java String.startsWith method.
 	//------------------------------------------------------------------------------------
 	internal static bool StartsWith(this string self, string prefix, int toffset)
 	{
-		return self.IndexOf(prefix, toffset) == toffset;
+		return self.IndexOf(prefix, toffset, System.StringComparison.Ordinal) == toffset;
 	}
 
 	//------------------------------------------------------------------------------

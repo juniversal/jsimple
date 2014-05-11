@@ -1,4 +1,4 @@
-namespace jsimple.json.objectmodel {
+﻿namespace jsimple.json.objectmodel {
 
     /// <summary>
     /// This class is used to represent a "null" literal in JSON.  By having an explicit class, instead of just the regular

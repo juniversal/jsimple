@@ -1,4 +1,4 @@
-namespace jsimple.json.objectmodel {
+﻿namespace jsimple.json.objectmodel {
 
     using ByteArrayOutputStream = jsimple.io.ByteArrayOutputStream;
     using StringWriter = jsimple.io.StringWriter;

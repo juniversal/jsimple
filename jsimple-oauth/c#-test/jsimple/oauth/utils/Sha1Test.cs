@@ -1,3 +1,5 @@
+﻿using System;
+
 namespace jsimple.oauth.utils {
 
     using UnitTest = jsimple.unit.UnitTest;
@@ -38,7 +40,7 @@ namespace jsimple.oauth.utils {
         }
 
         private sbyte[] toBytesFromString(string @string) {
-            if (@string.StartsWith("0x"))
+            if (@string.StartsWith("0x", StringComparison.Ordinal))
                 return StringUtils.toBytesFromHexString(@string.Substring(2));
             else
                 return StringUtils.toLatin1BytesFromString(@string);

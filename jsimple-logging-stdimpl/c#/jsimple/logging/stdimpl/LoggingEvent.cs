@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 /// <summary>
 /// Parts of this functionality were adapted from Logback (v. 1.0.120:

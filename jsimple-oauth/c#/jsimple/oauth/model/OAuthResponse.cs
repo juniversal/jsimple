@@ -1,4 +1,4 @@
-namespace jsimple.oauth.model {
+﻿namespace jsimple.oauth.model {
 
     using IOUtils = jsimple.io.IOUtils;
     using InputStream = jsimple.io.InputStream;

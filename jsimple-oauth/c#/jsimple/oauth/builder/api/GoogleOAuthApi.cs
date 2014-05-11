@@ -1,4 +1,4 @@
-namespace jsimple.oauth.builder.api {
+﻿namespace jsimple.oauth.builder.api {
 
     using Token = jsimple.oauth.model.Token;
     using Verb = jsimple.oauth.model.Verb;

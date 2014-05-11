@@ -1,4 +1,4 @@
-/// <summary>
+﻿/// <summary>
 /// Copyright (c) 2004-2011 QOS.ch
 /// All rights reserved.
 /// 

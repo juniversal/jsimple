@@ -1,3 +1,4 @@
+﻿using System;
 using System.Text;
 
 namespace jsimple.io {
@@ -87,7 +88,7 @@ namespace jsimple.io {
                     if (charsRead == -1)
                         charsRead = 0;
 
-                    assertFalse(unicodeLine.ToString().StartsWith("MALFORMED"));
+                    assertFalse(unicodeLine.ToString().StartsWith("MALFORMED", StringComparison.Ordinal));
 
                     string decoded = new string(buffer, 0, charsRead);
 
@@ -98,7 +99,7 @@ namespace jsimple.io {
                     assertEquals(prefix + -1, prefix + reader.read(buffer)); // The reader should be at end of stream
                 }
                 catch (CharConversionException) {
-                    assertTrue(unicodeLine.ToString().StartsWith("MALFORMED"));
+                    assertTrue(unicodeLine.ToString().StartsWith("MALFORMED", StringComparison.Ordinal));
                 }
 
                 ++lineNumber;

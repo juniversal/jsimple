@@ -1,34 +1,22 @@
-
 Thank you for your purchase!
 
-To download your software, please go to: http://www.tangiblesoftwaresolutions.com/Purchase_Download_TE_Nov30_BFY/Request_Download.htm
+To download your software, please go to: http://www.tangiblesoftwaresolutions.com/Purchase_Download_DPR_Apr10_CV/Request_Download.htm
 
-Your registration number is:  94343QW134WUL47
+Your registration number is:  86431FG174WTC29
 
-From Dave as of 9/22/13 as got old code before which has since expired:
-Sorry for the inconvenience - you can use this code: 53253QY476ZKC19
+Order Number: 8203
 
-
-Order Number: 7317
-
-PayPal Information:
+Registration Information:
 -----------------
 Bret Johnson 
-
+Microsoft
 105 Fox Grape Lane
 Johns Creek, GA 30022
 United States
+4049341946
+bret.johnson@microsoft.com
 
-bret.johnson@nokia.com
-
-Shipping Address:
-------------------
-Bret Johnson 
-
-105 Fox Grape Lane
-Johns Creek, GA 30022
-US
-
+The shipping address is the same as the above address
 
 Comments/More Information
 
@@ -40,10 +28,16 @@ Ordering Instructions
 
 Qty  Name                                  SKU            Each Subtotal
 ------------------------------------------------------------------------
-6    Java to C# Converter (multi-user license for 6 to 10 users)             $95.00   $570.00
+6    Java to C# Converter Upgrade                       $59.00   $354.00
 ------------------------------------------------------------------------
-                                                    Subtotal     $570.00
+                                                    Subtotal     $354.00
                                                    Tax Total       $0.00
-                                                 Grand Total     $570.00
+                                                 Grand Total     $354.00
+
+                       Payment type:MasterCard
+
+Please come again!
+Store URL: http://www.tangiblesoftwaresolutions.com
 
 
+This store is powered by ShopSite web catalog software.

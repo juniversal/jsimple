@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 
@@ -79,7 +79,7 @@ namespace jsimple.oauth.model {
         }
 
         private string checkKey(string key) {
-            if (key.StartsWith(OAUTH_PREFIX) || key.Equals(OAuthConstants.SCOPE))
+            if (key.StartsWith(OAUTH_PREFIX, StringComparison.Ordinal) || key.Equals(OAuthConstants.SCOPE))
                 return key;
             else
                 throw new System.ArgumentException(string.Format("OAuth parameters must either be '{0}' or start with '{1}'", OAuthConstants.SCOPE, OAUTH_PREFIX));

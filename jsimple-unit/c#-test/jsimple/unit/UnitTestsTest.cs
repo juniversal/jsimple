@@ -1,4 +1,4 @@
-namespace jsimple.unit {
+﻿namespace jsimple.unit {
 
     /// <summary>
     /// Created with IntelliJ IDEA.

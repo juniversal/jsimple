@@ -1,4 +1,4 @@
-namespace jsimple.logging {
+﻿namespace jsimple.logging {
 
     /// <summary>
     /// @author Bret Johnson

@@ -1,4 +1,4 @@
-namespace jsimple.json.text {
+﻿namespace jsimple.json.text {
 
     using Writer = jsimple.io.Writer;
     using JsonArray = jsimple.json.objectmodel.JsonArray;

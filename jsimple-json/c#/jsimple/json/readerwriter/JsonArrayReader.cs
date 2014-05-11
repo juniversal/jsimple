@@ -1,4 +1,4 @@
-namespace jsimple.json.readerwriter {
+﻿namespace jsimple.json.readerwriter {
 
     using JsonNull = jsimple.json.objectmodel.JsonNull;
     using JsonParsingException = jsimple.json.text.JsonParsingException;

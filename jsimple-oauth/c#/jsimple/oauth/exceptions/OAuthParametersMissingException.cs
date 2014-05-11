@@ -1,4 +1,4 @@
-namespace jsimple.oauth.exceptions {
+﻿namespace jsimple.oauth.exceptions {
 
     using OAuthRequest = jsimple.oauth.model.OAuthRequest;
 

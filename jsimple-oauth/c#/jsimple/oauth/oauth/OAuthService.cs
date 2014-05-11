@@ -1,4 +1,4 @@
-namespace jsimple.oauth.oauth {
+﻿namespace jsimple.oauth.oauth {
 
     using OAuthRequest = jsimple.oauth.model.OAuthRequest;
     using Token = jsimple.oauth.model.Token;

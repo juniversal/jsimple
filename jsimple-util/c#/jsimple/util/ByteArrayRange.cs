@@ -1,4 +1,4 @@
-namespace jsimple.util {
+﻿namespace jsimple.util {
 
     /// <summary>
     /// This class represents a subset of a byte array, starting at the specified position & of the specified length.

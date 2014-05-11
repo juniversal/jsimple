@@ -1,4 +1,4 @@
-namespace jsimple.json.readerwriter {
+﻿namespace jsimple.json.readerwriter {
 
     using JsonParsingException = jsimple.json.text.JsonParsingException;
     using Token = jsimple.json.text.Token;

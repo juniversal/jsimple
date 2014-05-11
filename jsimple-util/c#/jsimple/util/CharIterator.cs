@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 namespace jsimple.util {
@@ -88,7 +88,7 @@ namespace jsimple.util {
         }
 
         public virtual bool match(string substring) {
-            if (Remaining.StartsWith(substring)) {
+            if (Remaining.StartsWith(substring, StringComparison.Ordinal)) {
                 advance(substring.Length);
                 return true;
             }
@@ -149,7 +149,7 @@ namespace jsimple.util {
         /// <param name="substr"> substring to search for </param>
         /// <returns> true if the substring is found </returns>
         public virtual bool skipAheadPastIfExists(string substr) {
-            int substringIndex = str.IndexOf(substr, index);
+            int substringIndex = str.IndexOf(substr, index, StringComparison.Ordinal);
             if (substringIndex == -1)
                 return false;
 

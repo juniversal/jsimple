@@ -1,4 +1,4 @@
-namespace jsimple.oauth.utils {
+﻿namespace jsimple.oauth.utils {
 
     using PlatformUtils = jsimple.util.PlatformUtils;
     using StringUtils = jsimple.util.StringUtils;

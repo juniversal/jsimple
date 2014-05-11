@@ -1,4 +1,4 @@
-namespace jsimple.oauth.utils {
+﻿namespace jsimple.oauth.utils {
 
     using UrlDecoder = jsimple.net.UrlDecoder;
     using UrlEncoder = jsimple.net.UrlEncoder;

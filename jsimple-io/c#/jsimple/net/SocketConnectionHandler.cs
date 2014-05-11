@@ -1,4 +1,4 @@
-namespace jsimple.net {
+﻿namespace jsimple.net {
 
     /// <summary>
     /// @author Bret Johnson

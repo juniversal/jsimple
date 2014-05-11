@@ -1,4 +1,4 @@
-namespace jsimple.json.objectmodel {
+﻿namespace jsimple.json.objectmodel {
 
     using Reader = jsimple.io.Reader;
     using JsonParsingException = jsimple.json.text.JsonParsingException;

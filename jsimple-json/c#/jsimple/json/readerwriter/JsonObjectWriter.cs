@@ -1,4 +1,4 @@
-namespace jsimple.json.readerwriter {
+﻿namespace jsimple.json.readerwriter {
 
     using Serializer = jsimple.json.text.Serializer;
 

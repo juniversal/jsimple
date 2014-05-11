@@ -1,4 +1,4 @@
-namespace jsimple.oauth.services {
+﻿namespace jsimple.oauth.services {
 
     /// <summary>
     /// Signs a base string, returning the OAuth signature

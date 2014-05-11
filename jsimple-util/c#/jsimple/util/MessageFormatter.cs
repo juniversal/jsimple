@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 /// <summary>
@@ -163,7 +163,7 @@ namespace jsimple.util {
             int i = 0;
             int L;
             for (L = 0; L < argArray.Length; L++) {
-                int j = messagePattern.IndexOf(DELIM_STR, i);
+                int j = messagePattern.IndexOf(DELIM_STR, i, StringComparison.Ordinal);
 
                 if (j == -1) {
                     // no more variables

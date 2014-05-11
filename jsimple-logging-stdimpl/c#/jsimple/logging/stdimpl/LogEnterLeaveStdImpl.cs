@@ -1,4 +1,4 @@
-namespace jsimple.logging.stdimpl {
+﻿namespace jsimple.logging.stdimpl {
 
     using PlatformUtils = jsimple.util.PlatformUtils;
 

@@ -1,4 +1,4 @@
-namespace jsimple.oauth.builder.api {
+﻿namespace jsimple.oauth.builder.api {
 
     using jsimple.oauth.extractors;
     using OAuthConfig = jsimple.oauth.model.OAuthConfig;

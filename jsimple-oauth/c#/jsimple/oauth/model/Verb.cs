@@ -1,4 +1,4 @@
-namespace jsimple.oauth.model {
+﻿namespace jsimple.oauth.model {
 
     /// <summary>
     /// An enumeration containing the most common HTTP Verbs.

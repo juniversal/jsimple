@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 /// <summary>
 /// Copyright (c) 2004-2011 QOS.ch

@@ -1,4 +1,4 @@
-namespace jsimple.oauth.extractors {
+﻿namespace jsimple.oauth.extractors {
 
     using OAuthParametersMissingException = jsimple.oauth.exceptions.OAuthParametersMissingException;
     using OAuthRequest = jsimple.oauth.model.OAuthRequest;

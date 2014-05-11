@@ -1,4 +1,4 @@
-namespace jsimple.util {
+﻿namespace jsimple.util {
 
     /// <summary>
     /// This is a generic exception class used to indicate the format of something isn't what it's excepted to be.

@@ -1,4 +1,4 @@
-namespace jsimple.io {
+﻿namespace jsimple.io {
 
     /// <summary>
     /// This class was based on, and modified from, the Apache Harmony java.io.Reader class.  Unlike the Java Reader class,

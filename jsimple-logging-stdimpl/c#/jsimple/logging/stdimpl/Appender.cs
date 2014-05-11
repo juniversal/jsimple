@@ -1,4 +1,4 @@
-namespace jsimple.logging.stdimpl {
+﻿namespace jsimple.logging.stdimpl {
 
     /// <summary>
     /// Note that Appenders MUST BE THREAD SAFE!

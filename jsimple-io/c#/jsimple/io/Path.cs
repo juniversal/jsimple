@@ -1,4 +1,4 @@
-namespace jsimple.io {
+﻿namespace jsimple.io {
 
     /// <summary>
     /// A Path is an abstraction over file system-like data structures.  A Directory path can contain other Directories and

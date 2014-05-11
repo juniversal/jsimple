@@ -1,4 +1,4 @@
-namespace jsimple.net {
+﻿namespace jsimple.net {
 
     using InputStream = jsimple.io.InputStream;
     using OutputStream = jsimple.io.OutputStream;
