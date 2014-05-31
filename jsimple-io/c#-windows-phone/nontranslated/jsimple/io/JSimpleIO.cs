@@ -12,7 +12,7 @@ namespace jsimple.io
         public static void init()
         {
             HttpRequest.Factory = new WindowsPhoneHttpRequest.WindowsPhoneHttpRequestFactory();
-            Paths.Instance = new WindowsPhonePaths();
+            Paths.Instance = new WindowsPhonePaths(); 
         }
     }
 }

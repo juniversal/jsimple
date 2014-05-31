@@ -66,11 +66,11 @@ namespace jsimple.util {
             if (!(o is TextualPath))
                 return false;
             TextualPath that = (TextualPath) o;
-            return Utils.arrayListsEqual(pathElements, that.pathElements);
+            return ListUtils.arrayListsEqual(pathElements, that.pathElements);
         }
 
         public override int GetHashCode() {
-            return Utils.arrayListHashCode(pathElements);
+            return ListUtils.arrayListHashCode(pathElements);
         }
 
         public virtual void add(string pathElement) {

@@ -49,9 +49,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\jsimple-io\c#\jsimple-io.csproj">
+      <Project>{0271a18c-eeac-4cac-bf2e-89a693b354ef}</Project>
+      <Name>jsimple-io</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\jsimple-unit\c#\jsimple-unit.csproj">
       <Project>{f19f0767-1f76-4fb7-8e72-5efcdb8106f6}</Project>
       <Name>jsimple-unit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\jsimple-util\c#\jsimple-util.csproj">
+      <Project>{7de38eb4-9d6a-4d5a-ae5f-4769befbda74}</Project>
+      <Name>jsimple-util</Name>
     </ProjectReference>
     <ProjectReference Include="..\c#\jsimple-json.csproj">
       <Project>{28ad3a60-45c2-4d7a-bd4d-83827c4dc5b5}</Project>

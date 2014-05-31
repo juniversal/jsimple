@@ -26,7 +26,7 @@ namespace jsimple.io
             }
         }
 
-        public override Directory getDirectory(string directoryPathString)
+        public override Directory getFileSystemDirectory(string directoryPathString)
         {
             throw new BasicException("Not implemented");
         }

@@ -90,6 +90,17 @@ namespace jsimple.io {
             }
         }
 
+        public override void renameTo(string newName)
+        {
+            string destinationPath = getChildPath(newName);
+            try {
+                System.IO.Directory.Move(directoryPath, destinationPath);
+            }
+            catch (System.IO.IOException e) {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
+
         public override long LastModifiedTime {
             get {
                 try {

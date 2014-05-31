@@ -10,7 +10,7 @@ internal static class StringHelperClass
 	//	This method replaces the Java String.substring method when 'start' is a
 	//	method call or calculated value to ensure that 'start' is obtained just once.
 	//----------------------------------------------------------------------------------
-	internal static String SubstringSpecial(this String self, int start, int end)
+	internal static string SubstringSpecial(this string self, int start, int end)
 	{
 		return self.Substring(start, end - start);
 	}

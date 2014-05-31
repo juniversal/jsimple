@@ -44,6 +44,11 @@ namespace jsimple.io
             get { return parent; }
         }
 
+        public StorageFolderDirectory ParentStorageFolderDirectory
+        {
+            get { return parent; }
+        }
+
         public override InputStream openForRead()
         {
             ensureGotStorageFile();
@@ -103,7 +108,7 @@ namespace jsimple.io
             return true;
         }
 
-        public override void rename(string newName)
+        public override void renameTo(string newName)
         {
             ensureGotStorageFile();
 
@@ -113,6 +118,19 @@ namespace jsimple.io
             }
             catch (System.IO.IOException e)
             {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
+
+        public override void moveTo(File destination) {
+            ensureGotStorageFile();
+
+            StorageFileFile destinationStorageFile = (StorageFileFile) destination;
+
+            try {
+                storageFile.MoveAsync(destinationStorageFile.ParentStorageFolderDirectory.StorageFolder, destinationStorageFile.Name, NameCollisionOption.ReplaceExisting);
+            }
+            catch (System.IO.IOException e) {
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
             }
         }

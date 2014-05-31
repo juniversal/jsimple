@@ -72,21 +72,37 @@ namespace jsimple.io {
             }
         }
 
-        public override void rename(string newName) {
-            string destPath = parent.getChildPath(newName);
+        public override void moveTo(File destination)
+        {
+            string destinationPath = ((FileSystemFile) destination).filePath;
 
-            try {
-                System.IO.File.Move(filePath, destPath);
+            moveToPath(destinationPath);
+        }
+
+        public override void renameTo(string newName) {
+            string destinationPath = parent.getChildPath(newName);
+            moveToPath(destinationPath);
+        }
+
+        private void moveToPath(string destinationPath)
+        {
+            try
+            {
+                System.IO.File.Move(filePath, destinationPath);
             }
-            catch (System.IO.IOException e) {
+            catch (System.IO.IOException e)
+            {
                 // If the destination file already exists (0x800700B7 is "Cannot create a file when that file already
                 // exists"), then delete it and retry the move.
-                if (e.HResult == unchecked((int) 0x800700B7)) {
-                    try {
-                        System.IO.File.Delete(destPath);
-                        System.IO.File.Move(filePath, destPath);
+                if (e.HResult == unchecked((int) 0x800700B7))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(destinationPath);
+                        System.IO.File.Move(filePath, destinationPath);
                     }
-                    catch (System.IO.IOException e2) {
+                    catch (System.IO.IOException e2)
+                    {
                         throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e2);
                     }
                 }

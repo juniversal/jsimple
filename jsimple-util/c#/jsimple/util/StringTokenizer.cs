@@ -133,7 +133,7 @@ namespace jsimple.util {
             int count = 0;
             bool inToken = false;
             for (int i = position, length = @string.Length; i < length; i++) {
-                if (delimiters.IndexOf(@string[i], 0, StringComparison.Ordinal) >= 0) {
+                if (delimiters.IndexOf(@string[i], 0) >= 0) {
                     if (returnDelimiters)
                         count++;
                     if (inToken) {
@@ -172,7 +172,7 @@ namespace jsimple.util {
 
                 // otherwise find a character which is not a delimiter
                 for (int i = position; i < length; i++) {
-                    if (delimiters.IndexOf(@string[i], 0, StringComparison.Ordinal) == -1)
+                    if (delimiters.IndexOf(@string[i], 0) == -1)
                         return true;
                 }
             }
@@ -203,21 +203,21 @@ namespace jsimple.util {
 
             if (i < length) {
                 if (returnDelimiters) {
-                    if (delimiters.IndexOf(@string[position], 0, StringComparison.Ordinal) >= 0)
+                    if (delimiters.IndexOf(@string[position], 0) >= 0)
                         return Convert.ToString(@string[position++]);
                     for (position++; position < length; position++) {
-                        if (delimiters.IndexOf(@string[position], 0, StringComparison.Ordinal) >= 0)
+                        if (delimiters.IndexOf(@string[position], 0) >= 0)
                             return @string.Substring(i, position - i);
                     }
                     return @string.Substring(i);
                 }
 
-                while (i < length && delimiters.IndexOf(@string[i], 0, StringComparison.Ordinal) >= 0)
+                while (i < length && delimiters.IndexOf(@string[i], 0) >= 0)
                     i++;
                 position = i;
                 if (i < length) {
                     for (position++; position < length; position++) {
-                        if (delimiters.IndexOf(@string[position], 0, StringComparison.Ordinal) >= 0)
+                        if (delimiters.IndexOf(@string[position], 0) >= 0)
                             return @string.Substring(i, position - i);
                     }
                     return @string.Substring(i);

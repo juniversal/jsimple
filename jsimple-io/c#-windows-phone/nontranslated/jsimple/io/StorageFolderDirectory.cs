@@ -142,7 +142,7 @@ namespace jsimple.io
             storageFolder = null;
         }
 
-        public override void rename(string newName)
+        public override void renameTo(string newName)
         {
             StorageFolder.RenameAsync(newName, NameCollisionOption.FailIfExists).DoSynchronously();
         }

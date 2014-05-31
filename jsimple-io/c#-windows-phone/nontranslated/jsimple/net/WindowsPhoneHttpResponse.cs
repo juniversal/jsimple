@@ -13,6 +13,11 @@ namespace jsimple.net
             this.httpWebResponse = httpWebResponse;
         }
 
+        public override void close()
+        {
+            httpWebResponse.Close();
+        }
+
         // TODO: Catch web exception too and either set StatusCode here or change JSimple code to throw exceptions instead
         public override int StatusCode
         {
