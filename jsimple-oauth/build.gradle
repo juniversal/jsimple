@@ -1,0 +1,9 @@
+
+description = ''
+dependencies {
+    compile group: 'com.intellij', name: 'annotations', version:'9.0.4'
+  compile project(':jsimple-util')
+  compile project(':jsimple-io')
+  compile project(':jsimple-logging-api')
+  testCompile project(':jsimple-unit')
+}

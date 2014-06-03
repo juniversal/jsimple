@@ -1,0 +1,6 @@
+description = ''
+dependencies {
+    compile group: 'com.intellij', name: 'annotations', version:'9.0.4'
+    compile group: 'types.checkers', name: 'jsr308-all', version:'1.2.6'
+    testCompile project(':jsimple-unit')
+}
