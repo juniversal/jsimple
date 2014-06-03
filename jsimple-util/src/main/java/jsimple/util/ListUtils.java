@@ -67,7 +67,7 @@ public class ListUtils {
      * order as in the original list.   Note that the input list shouldn't contain any nulls--results are undefined if
      * it does.
      *
-     * @param list list to remove dupliates from
+     * @param list list to remove duplicates from
      * @param <E> list element type
      * @return list with duplicates removed
      */
