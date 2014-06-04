@@ -10,3 +10,5 @@ build/
 *.DotSettings.user
 obj/
 [Bb]in/
+
+.gradle/
