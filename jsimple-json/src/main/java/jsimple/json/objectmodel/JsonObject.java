@@ -4,6 +4,7 @@ import jsimple.json.JsonException;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A JsonObject represents an ordered list of name/value pairs.  Note that unlike a HashMap, the list is ordered, so

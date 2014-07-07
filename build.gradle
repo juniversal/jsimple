@@ -130,6 +130,8 @@ def csConverterSettings = file('std-java-to-c#-converter-settings.dat')
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'maven'
+
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
@@ -154,8 +156,8 @@ subprojects {
     }
 
     repositories {
+        mavenLocal()
         mavenCentral()
-        // mavenLocal()
 
         maven { url "http://types.cs.washington.edu/m2-repo" }
     }

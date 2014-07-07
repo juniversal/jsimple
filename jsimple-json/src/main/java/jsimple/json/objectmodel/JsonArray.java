@@ -1,6 +1,7 @@
 package jsimple.json.objectmodel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Bret Johnson
