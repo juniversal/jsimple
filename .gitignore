@@ -4,6 +4,12 @@ build/
 .idea/workspace.xml
 .idea/tasks.xml
 
+# Generated C# files
+**/c#/jsimple
+**/c#-test/jsimple
+StringHelperClass.cs
+HashMapGetHelperClass.cs
+
 # Visual Studio related files
 *.suo
 *.csproj.user
@@ -12,3 +18,5 @@ obj/
 [Bb]in/
 
 .gradle/
+
+
