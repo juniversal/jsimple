@@ -18,7 +18,8 @@ public class Parameter implements Comparable<Parameter> {
     }
 
     public String asUrlEncodedPair() {
-        return OAuthEncoder.encode(key).concat("=").concat(OAuthEncoder.encode(value));
+        //return OAuthEncoder.encode(key).concat("=").concat(OAuthEncoder.encode(value));
+        return OAuthEncoder.encode(key) + "=" + OAuthEncoder.encode(value);
     }
 
     @Override public boolean equals(@Nullable Object other) {

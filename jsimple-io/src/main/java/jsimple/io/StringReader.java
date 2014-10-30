@@ -1,5 +1,6 @@
 package jsimple.io;
 
+import jsimple.util.PlatformUtils;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -64,7 +65,7 @@ public class StringReader extends Reader {
      *                                   than the size of {@code buf}.
      * @throws IOException               if this reader is closed
      */
-    @Override public int read(char buf[], int offset, int length) {
+    @Override public int read(char[] buf, int offset, int length) {
         if (str == null)
             throw new IOException("Reader is closed");
         if (length < 0)
@@ -72,7 +73,9 @@ public class StringReader extends Reader {
         if (pos == this.count)
             return -1;
         int end = pos + length > this.count ? this.count : pos + length;
-        str.getChars(pos, end, buf, offset);
+        //TODO: Add test for this
+        PlatformUtils.copyChars(str, pos, buf, offset, end - pos);
+        //str.getChars(pos, end, buf, offset);
         int charsRead = end - pos;
         pos = end;
         return charsRead;

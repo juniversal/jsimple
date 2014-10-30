@@ -24,10 +24,6 @@ package jsimple.util;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  *
@@ -38,7 +34,7 @@ public class Utils {
     /**
      * Return an array of bytes containing as elements this method's parameters.  Parameters are ints but they should be
      * in a legal range for a byte (technically -128 to 127, but treating the range like 0-255 also works as expected).
-     * <p/>
+     * <p>
      * This method exists mostly to avoid casting problems populating a byte[] literals inline--casting issues caused by
      * integer literals always being ints not bytes in Java (and thus requiring a byte cast--compile issue #1) and
      * translated C# always treating hex literals as unsigned and not allowing ones > 127 to be cast to (signed) bytes
@@ -100,5 +96,4 @@ public class Utils {
             return false;
         return o1.equals(o2);
     }
-
 }

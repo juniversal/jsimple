@@ -135,7 +135,7 @@ public abstract class HttpRequest {
      */
     public abstract HttpResponse send();
 
-    public interface HttpRequestFactory {
+    public static interface HttpRequestFactory {
         HttpRequest createHttpRequest(String url);
     }
 }

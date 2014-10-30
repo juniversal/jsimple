@@ -15,14 +15,14 @@ public class TimestampServiceImpl implements TimestampService {
      */
     public String getNonce() {
         Long ts = getTs();
-        return String.valueOf(ts + new Random().nextInt());
+        return Long.toString(ts + new Random().nextInt());
     }
 
     /**
      * {@inheritDoc}
      */
     public String getTimestampInSeconds() {
-        return String.valueOf(getTs());
+        return getTs().toString();
     }
 
     private Long getTs() {

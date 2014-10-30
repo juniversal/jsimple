@@ -19,7 +19,7 @@ public abstract class Reader extends jsimple.lang.AutoCloseable {
      * @throws IOException if this reader is closed or some other I/O error occurs
      */
     public int read() {
-        char charArray[] = new char[1];
+        char[] charArray = new char[1];
         if (read(charArray, 0, 1) != -1)
             return charArray[0];
         return -1;
@@ -33,7 +33,7 @@ public abstract class Reader extends jsimple.lang.AutoCloseable {
      * @return the number of characters read or -1 if the end of the reader has been reached
      * @throws IOException if this reader is closed or some other I/O error occurs
      */
-    public int read(char buffer[]) {
+    public int read(char[] buffer) {
         return read(buffer, 0, buffer.length);
     }
 
@@ -47,5 +47,5 @@ public abstract class Reader extends jsimple.lang.AutoCloseable {
      * @return the number of characters read or -1 if the end of the reader has been reached
      * @throws IOException if this reader is closed or some other I/O error occurs
      */
-    public abstract int read(char buffer[], int offset, int count);
+    public abstract int read(char[] buffer, int offset, int count);
 }

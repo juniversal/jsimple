@@ -3,8 +3,7 @@ package jsimple.oauth.oauth;
 import jsimple.oauth.model.OAuthRequest;
 import jsimple.oauth.model.Token;
 import jsimple.oauth.model.Verifier;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The main Scribe object.

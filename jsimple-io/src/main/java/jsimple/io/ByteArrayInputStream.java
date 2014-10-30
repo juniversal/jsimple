@@ -34,7 +34,7 @@ public class ByteArrayInputStream extends InputStream {
      *
      * @param buf the byte array to stream over.
      */
-    public ByteArrayInputStream(byte buf[]) {
+    public ByteArrayInputStream(byte[] buf) {
         this.buf = buf;
         pos = 0;
         this.count = buf.length;
@@ -57,7 +57,7 @@ public class ByteArrayInputStream extends InputStream {
      * @param offset the initial position in {@code buf} to start streaming from.
      * @param length the number of bytes available for streaming.
      */
-    public ByteArrayInputStream(byte buf[], int offset, int length) {
+    public ByteArrayInputStream(byte[] buf, int offset, int length) {
         this.buf = buf;
         pos = offset;
         count = offset + length > buf.length ? buf.length : offset + length;
@@ -85,7 +85,7 @@ public class ByteArrayInputStream extends InputStream {
      * @param length the maximum number of bytes to store in {@code b}
      * @return the number of bytes actually read or -1 if no bytes were read and the end of the stream was encountered
      */
-    @Override public int read(byte b[], int offset, int length) {
+    @Override public int read(byte[] b, int offset, int length) {
         // Are there any bytes available?
         if (this.pos >= this.count)
             return -1;

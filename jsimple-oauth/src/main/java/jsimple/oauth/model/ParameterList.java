@@ -76,7 +76,7 @@ public class ParameterList {
     public void addQueryString(@Nullable String queryString) {
         if (queryString != null && queryString.length() > 0) {
             for (String param : queryString.split(PARAM_SEPARATOR)) {
-                String pair[] = param.split(PAIR_SEPARATOR);
+                String[] pair = param.split(PAIR_SEPARATOR);
                 String key = OAuthEncoder.decode(pair[0]);
                 String value = pair.length > 1 ? OAuthEncoder.decode(pair[1]) : EMPTY_STRING;
                 parameters.add(new Parameter(key, value));

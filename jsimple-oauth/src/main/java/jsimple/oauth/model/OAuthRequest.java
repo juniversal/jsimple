@@ -11,6 +11,7 @@ import jsimple.oauth.exceptions.OAuthConnectionException;
 import jsimple.oauth.exceptions.OAuthException;
 import jsimple.util.ByteArrayRange;
 import jsimple.util.PlatformUtils;
+import jsimple.util.ProgrammerError;
 import jsimple.util.TextualPath;
 import org.jetbrains.annotations.Nullable;
 
@@ -84,8 +85,8 @@ public class OAuthRequest {
         if (key.startsWith(OAUTH_PREFIX) || key.equals(OAuthConstants.SCOPE)) {
             return key;
         } else {
-            throw new IllegalArgumentException(String.format("OAuth parameters must either be '%s' or start with '%s'",
-                    OAuthConstants.SCOPE, OAUTH_PREFIX));
+            throw new ProgrammerError("OAuth parameters must either be '{}' or start with '{}'", OAuthConstants.SCOPE,
+                    OAUTH_PREFIX);
         }
     }
 
@@ -99,7 +100,7 @@ public class OAuthRequest {
     }
 
     @Override public String toString() {
-        return String.format("@OAuthRequest(%s, %s)", getVerb(), getUrl());
+        return "@OAuthRequest(" + getVerb() + ", " + getUrl() + ")";
     }
 
     /**
@@ -171,7 +172,8 @@ public class OAuthRequest {
             httpReq.setHeader(HttpRequest.HEADER_CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
 
         if (filePayload != null) {
-            httpReq.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, String.valueOf(filePayload.getSize()));
+            Long filePayloadSize = filePayload.getSize();
+            httpReq.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, filePayloadSize.toString());
 
             try (InputStream fileStream = filePayload.openForRead()) {
                 try (OutputStream bodyStream = httpReq.createRequestBodyStream()) {
@@ -180,7 +182,8 @@ public class OAuthRequest {
             }
         } else {
             ByteArrayRange byteArrayRange = getByteBodyContents();
-            httpReq.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, String.valueOf(byteArrayRange.getLength()));
+            Integer byteArrayRangeLength = byteArrayRange.getLength();
+            httpReq.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, byteArrayRangeLength.toString());
             try (OutputStream bodyStream = httpReq.createRequestBodyStream()) {
                 bodyStream.write(byteArrayRange);
             }

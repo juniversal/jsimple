@@ -149,7 +149,7 @@ public class TextualPath {
      */
     public TextualPath getParent() {
         if (isEmpty())
-            throw new BasicException("Can't call getParent on an empty path");
+            throw new ProgrammerError("Can't call getParent on an empty path");
 
         TextualPath newPath = new TextualPath();
         int newSize = pathElements.size() - 1;
@@ -165,14 +165,14 @@ public class TextualPath {
 
     public String getFirstElement() {
         if (pathElements.size() == 0)
-            throw new BasicException("Can't call getFirstElement on an empty path");
+            throw new ProgrammerError("Can't call getFirstElement on an empty path");
         return pathElements.get(0);
     }
 
     public String getLastElement() {
         int size = pathElements.size();
         if (size == 0)
-            throw new BasicException("Can't call getLastElement on an empty path");
+            throw new ProgrammerError("Can't call getLastElement on an empty path");
         else return pathElements.get(size - 1);
     }
 

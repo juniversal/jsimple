@@ -88,7 +88,7 @@ public class BufferedReader extends Reader {
      *
      * @return the number of bytes read into the buffer, or -1 if the end of the source stream has been reached.
      */
-    private int fillBuf() throws IOException {
+    private int fillBuf() {
         // assert(pos == end);
 
         if (markPos == -1 || (pos - markPos >= markLimit)) {
@@ -158,7 +158,7 @@ public class BufferedReader extends Reader {
      * @return the character read or -1 if the end of the source reader has been reached.
      * @throws IOException if this reader is closed or some other I/O error occurs.
      */
-    @Override public int read() throws IOException {
+    @Override public int read() {
         verifyNotClosed();
 
         /* Are there buffered characters available? */
@@ -341,7 +341,7 @@ public class BufferedReader extends Reader {
      * @throws IOException if this reader is closed or no mark has been set.
      * @see #mark(int)
      */
-    public void reset() throws IOException {
+    public void reset() {
         verifyNotClosed();
 
         if (markPos == -1)

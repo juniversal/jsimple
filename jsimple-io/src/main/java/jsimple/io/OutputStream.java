@@ -29,7 +29,7 @@ public abstract class OutputStream extends jsimple.lang.AutoCloseable {
      * @param buffer the buffer to be written
      * @throws IOException if an error occurs while writing to this stream
      */
-    public void write(byte buffer[]) {
+    public void write(byte[] buffer) {
         write(buffer, 0, buffer.length);
     }
 
@@ -42,7 +42,7 @@ public abstract class OutputStream extends jsimple.lang.AutoCloseable {
      * @param length the number of bytes from {@code buffer} to write to this stream
      * @throws IOException if an error occurs while writing to this stream
      */
-    public void write(byte buffer[], int offset, int length) {
+    public void write(byte[] buffer, int offset, int length) {
         for (int i = offset; i < offset + length; i++)
             write(buffer[i]);
     }

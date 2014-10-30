@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * @author Bret Johnson
  * @since 11/22/12 12:14 AM
@@ -63,7 +65,17 @@ public abstract class Directory extends Path {
      * visitor for each.  Just direct children are listed, not all descendants; callers can call this method recursively
      * if they want to visit all descendants.
      */
-    public abstract void visitChildren(DirectoryVisitor visitor);
+    public abstract void visitChildren(@Nullable FileVisitor fileVisitor, @Nullable DirectoryVisitor directoryVisitor,
+                                       @Nullable VisitFailed visitFailed);
+
+    /**
+     * Visit the child elements of this path--basically list the files and subdirectories of a directory, calling the
+     * visitor for each.  Just direct children are listed, not all descendants; callers can call this method recursively
+     * if they want to visit all descendants.
+     */
+    public void visitChildren(@Nullable FileVisitor fileVisitor, @Nullable DirectoryVisitor directoryVisitor) {
+        visitChildren(fileVisitor, directoryVisitor, null);
+    }
 
     /**
      * Delete this directory.  The directory must be empty; if it isn't the results are undefined--for some
@@ -86,21 +98,23 @@ public abstract class Directory extends Path {
     public abstract boolean isSetLastModifiedTimeSupported();
 
     /**
-     * Delete the contents of this directory, recursively.
+     * Delete the contents of this directory, recursi vely.
      */
     public void deleteContents() {
-        visitChildren(new DirectoryVisitor() {
-            @Override public boolean visit(File file) {
-                file.delete();
-                return true;
-            }
-
-            @Override public boolean visit(Directory directory) {
-                directory.deleteContents();
-                directory.delete();
-                return true;
-            }
-        });
+        visitChildren(
+                new FileVisitor() {
+                    @Override public boolean visit(File file) {
+                        file.delete();
+                        return true;
+                    }
+                },
+                new DirectoryVisitor() {
+                    public boolean visit(Directory directory) {
+                        directory.deleteContents();
+                        directory.delete();
+                        return true;
+                    }
+                });
     }
 
     /**
@@ -112,17 +126,19 @@ public abstract class Directory extends Path {
         final boolean[] foundSomething = new boolean[1];
         foundSomething[0] = false;
 
-        visitChildren(new DirectoryVisitor() {
-            @Override public boolean visit(File file) {
-                foundSomething[0] = true;
-                return false;
-            }
-
-            @Override public boolean visit(Directory directory) {
-                foundSomething[0] = true;
-                return false;
-            }
-        });
+        visitChildren(
+                new FileVisitor() {
+                    @Override public boolean visit(File file) {
+                        foundSomething[0] = true;
+                        return false;
+                    }
+                },
+                new DirectoryVisitor() {
+                    @Override public boolean visit(Directory directory) {
+                        foundSomething[0] = true;
+                        return false;
+                    }
+                });
 
         return !foundSomething[0];
     }

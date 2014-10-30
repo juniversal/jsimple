@@ -54,7 +54,7 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
      * @return the number of bytes actually read or -1 if the end of the stream has been reached
      * @throws IOException if an error occurs while reading
      */
-    public int read(byte buffer[]) {
+    public int read(byte[] buffer) {
         return read(buffer, 0, buffer.length);
     }
 
@@ -69,7 +69,7 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
      * @return the number of bytes actually read or -1 if the end of the stream has been reached
      * @throws IOException if an error occurs while reading
      */
-    public int readFully(byte buffer[]) {
+    public int readFully(byte[] buffer) {
         return readFully(buffer, 0, buffer.length);
     }
 
@@ -83,7 +83,7 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
      * @return the number of bytes actually read or -1 if the end of the stream has been reached
      * @throws IOException if an error occurs while reading
      */
-    public abstract int read(byte buffer[], int offset, int length);
+    public abstract int read(byte[] buffer, int offset, int length);
     /*
     {
         for (int i = 0; i < length; i++) {
@@ -115,7 +115,7 @@ public abstract class InputStream extends jsimple.lang.AutoCloseable {
      * @return the number of bytes actually read (which is guaranteed to be as much as possible) or -1 if the end of the
      * stream has been reached
      */
-    public int readFully(byte buffer[], int offset, int length) {
+    public int readFully(byte[] buffer, int offset, int length) {
         int amountRead = read(buffer, offset, length);
         if (amountRead <= 0)
             return amountRead;

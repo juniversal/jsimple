@@ -40,7 +40,7 @@ public abstract class Writer extends jsimple.lang.AutoCloseable {
      * @param buf the non-null array containing characters to write
      * @throws IOException if this writer is closed or another I/O error occurs.
      */
-    public void write(char buf[]) {
+    public void write(char[] buf) {
         write(buf, 0, buf.length);
     }
 
@@ -52,7 +52,7 @@ public abstract class Writer extends jsimple.lang.AutoCloseable {
      * @param count  the maximum number of characters to write.
      * @throws IOException if this writer is closed or another I/O error occurs.
      */
-    public abstract void write(char buf[], int offset, int count);
+    public abstract void write(char[] buf, int offset, int count);
 
     /**
      * Writes one character to the target. Only the two least significant bytes of the integer {@code oneChar} are
@@ -62,7 +62,7 @@ public abstract class Writer extends jsimple.lang.AutoCloseable {
      * @throws IOException if this writer is closed or another I/O error occurs.
      */
     public void write(int oneChar) {
-        char oneCharArray[] = new char[1];
+        char[] oneCharArray = new char[1];
         oneCharArray[0] = (char) oneChar;
         write(oneCharArray);
     }
@@ -86,7 +86,7 @@ public abstract class Writer extends jsimple.lang.AutoCloseable {
      * @throws IOException if this writer is closed or another I/O error occurs
      */
     public void write(String str, int offset, int count) {
-        char charBuffer[] = new char[count];
+        char[] charBuffer = new char[count];
         str.getChars(offset, offset + count, charBuffer, 0);
 
         write(charBuffer, 0, charBuffer.length);

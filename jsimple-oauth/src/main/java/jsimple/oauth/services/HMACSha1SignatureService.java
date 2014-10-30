@@ -31,9 +31,9 @@ public class HMACSha1SignatureService implements SignatureService {
     private String doSign(String toSign, String keyString) {
         //byte[] toUtf8BytesFromString(String s, int[] length) {
 
-        byte[] signature = Sha1.mac(IOUtils.toUtf8BytesFromString(keyString).toByteArray(),
+        byte[] signature = Sha1.hmac(IOUtils.toUtf8BytesFromString(keyString).toByteArray(),
                 IOUtils.toUtf8BytesFromString(toSign).toByteArray());
-        return Base64.encodeBase64AsString(signature);
+        return Base64.encodeBase64String(signature);
 
         /*
         SecretKeySpec key = new SecretKeySpec(keyString.getBytes(UTF8), HMAC_SHA1);

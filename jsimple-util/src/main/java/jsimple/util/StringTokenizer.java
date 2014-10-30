@@ -208,8 +208,11 @@ public class StringTokenizer {
 
         if (i < length) {
             if (returnDelimiters) {
-                if (delimiters.indexOf(string.charAt(position), 0) >= 0)
-                    return String.valueOf(string.charAt(position++));
+                // TODO: Test this if-statement, as it was a change to the original code
+                if (delimiters.indexOf(string.charAt(position), 0) >= 0) {
+                    ++position;
+                    return string.substring(position - 1, position);
+                }
                 for (position++; position < length; position++)
                     if (delimiters.indexOf(string.charAt(position), 0) >= 0)
                         return string.substring(i, position);

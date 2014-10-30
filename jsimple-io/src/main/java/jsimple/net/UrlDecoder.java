@@ -29,7 +29,7 @@ public class UrlDecoder {
             if (s.indexOf('+') == -1)
                 return s;
 
-            char str[] = s.toCharArray();
+            char[] str = s.toCharArray();
             for (int i = 0; i < str.length; i++) {
                 if (str[i] == '+')
                     str[i] = ' ';
@@ -42,7 +42,7 @@ public class UrlDecoder {
     private static String decodeEncodedString(String s) {
         StringBuilder str_buf = new StringBuilder();
         //char str_buf[] = new char[s.length()];
-        byte buf[] = new byte[s.length() / 3];
+        byte[] buf = new byte[s.length() / 3];
 
         for (int i = 0; i < s.length(); ) {
             char c = s.charAt(i);

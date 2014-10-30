@@ -1,5 +1,7 @@
 package jsimple.io;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * @author Bret Johnson
  * @since 11/24/12 4:37 PM
@@ -54,8 +56,10 @@ public class FileSystemDirectory extends Directory {
      * visitor for each.  Just direct children are listed, not all descendants; callers can call this method recursively
      * if they want to visit all descendants.  If the path isn't a directory, an exception is thrown.
      */
-    @Override public void visitChildren(final DirectoryVisitor visitor) {
+    @Override public void visitChildren(@Nullable FileVisitor fileVisitor, @Nullable DirectoryVisitor directoryVisitor, @Nullable VisitFailed visitFailed) {
         java.io.File[] children = javaFile.listFiles();
+
+        // TODO: Add error handling, calling visitFailed
 
         if (children == null)
             throw new IOException("Getting contents of directory failed for {}", javaFile.toString());
@@ -65,11 +69,15 @@ public class FileSystemDirectory extends Directory {
             java.io.File childFile = children[i];
 
             if (childFile.isDirectory()) {
-                if (!visitor.visit(new FileSystemDirectory(childFile)))
-                    break;
+                if (directoryVisitor != null) {
+                    if (!directoryVisitor.visit(new FileSystemDirectory(childFile)))
+                        break;
+                }
             } else {
-                if (!visitor.visit(new FileSystemFile(this, childFile)))
-                    break;
+                if (fileVisitor != null) {
+                    if (!fileVisitor.visit(new FileSystemFile(this, childFile)))
+                        break;
+                }
             }
         }
     }

@@ -44,7 +44,7 @@ public class Sha1Test extends UnitTest {
     }
 
     private void testMac(String key, String data, String expectedDigest) {
-        byte[] digest = Sha1.mac(toBytesFromString(key), toBytesFromString(data));
+        byte[] digest = Sha1.hmac(toBytesFromString(key), toBytesFromString(data));
         assertArrayEquals(toBytesFromString(expectedDigest), digest);
     }
 

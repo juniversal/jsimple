@@ -126,6 +126,17 @@ public class PlatformUtilsBase {
     //public static void copyChars(char[] src, int srcPos, char[] dest, int destPos, int length);
 
     /**
+     * Copy characters from source string to destination char array.
+     *
+     * @param src     source string
+     * @param srcPos  starting position in source string
+     * @param dest    destination array
+     * @param destPos position in destination array
+     * @param length  number of elements to copy
+     */
+    //public static void copyChars(String src, int srcPos, char[] dest, int destPos, int length);
+
+    /**
      * Use the whatever proxy settings are configured in the OS.  On some platform, by default no web proxy is used.
      * Calling this method causes the OS proxy default to be used instead.
      */

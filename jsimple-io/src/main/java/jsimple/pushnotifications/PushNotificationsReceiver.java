@@ -25,7 +25,7 @@ public class PushNotificationsReceiver {
         factory = pushNotificationsReceiverFactory;
     }
 
-    public interface PushNotificationsReceiverFactory {
+    public static interface PushNotificationsReceiverFactory {
         PushNotificationsReceiver register();
     }
 }

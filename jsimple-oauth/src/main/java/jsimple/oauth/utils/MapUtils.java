@@ -23,7 +23,11 @@ public class MapUtils {
             result.append(" -> ");
             result.append(entry.getValue().toString());
 
-            result.append(String.format(", %s -> %s ", entry.getKey().toString(), entry.getValue().toString()));
+            result.append(", ");
+            result.append(entry.getKey().toString());
+            result.append(" -> ");
+            result.append(entry.getValue().toString());
+            result.append(" ");
         }
 
         result.append("}");

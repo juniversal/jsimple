@@ -69,7 +69,7 @@ public abstract class SocketListener {
 
     public abstract void stop();
 
-    public interface SocketListenerFactory {
+    public static interface SocketListenerFactory {
         SocketListener createTcpSocketListener(SocketConnectionHandler socketConnectionHandler1, int port);
     }
 }
