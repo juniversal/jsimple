@@ -19,7 +19,7 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'org.juniversal', name: 'gradle-juniversal-plugins', version: '0.8-SNAPSHOT'
+        classpath group: 'org.juniversal', name: 'juniversal-gradle-plugin', version: '0.8-SNAPSHOT'
     }
 }
 
@@ -27,6 +27,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'maven'
     apply plugin: 'javaToCSharp'
+    apply plugin: 'javaToObjectiveC'
     apply plugin: 'msbuild'
 
     sourceCompatibility = 1.7
@@ -40,11 +41,14 @@ subprojects {
         converterSettings file('std-java-to-c#-converter-settings.dat')
     }
 
+    javaToObjectiveC {
+    }
+
     msbuild {
     }
 
     task all {
-        dependsOn build, javaToCSharp, msbuild
+        dependsOn build, javaToCSharp, javaToObjectiveC, msbuild
     }
 
     sourceSets {
