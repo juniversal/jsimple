@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Logback originated source" pattern="file[jsimple-logging-stdimpl]:src/main/java/jsimple/logging/stdimpl//*&amp;&amp;!file[jsimple-logging-stdimpl]:src/main/java/jsimple/logging/stdimpl/LogEnterLeaveStdImpl.java" />
+</component>

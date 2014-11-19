@@ -1,5 +1,16 @@
 <component name="CopyrightManager">
-  <settings default="JUniversal">
+  <settings default="">
+    <module2copyright>
+      <element module="Scribe originated source" copyright="Scribe originated source copyright" />
+      <element module="Joda Time originated source" copyright="Joda Time originated source copyright" />
+      <element module="Apache Harmony originated source" copyright="Apache Harmony originated source copyright" />
+      <element module="SLFJ originated source" copyright="SLF4J originated source copyright" />
+      <element module="Logback originated source" copyright="Logback originated source copyright" />
+      <element module="Apache Commons Net originated source" copyright="Apache Commons Net originated source copyright" />
+      <element module="BlowfishJ originated source" copyright="BlowfishJ originated source copyright" />
+      <element module="JUnit originated source" copyright="JUnit originated source copyright" />
+      <element module="All" copyright="Default copyright" />
+    </module2copyright>
     <LanguageOptions name="JAVA" />
     <LanguageOptions name="__TEMPLATE__" />
   </settings>

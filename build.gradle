@@ -1,7 +1,5 @@
-import sun.java2d.loops.GraphicsPrimitiveMgr
-
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
+    gradleVersion = '2.1'
 }
 
 buildscript {
@@ -19,15 +17,17 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'org.juniversal', name: 'juniversal-gradle-plugin', version: '0.8-SNAPSHOT'
+        classpath group: 'org.juniversal', name: 'juniversal-gradle-plugins', version: '0.8-SNAPSHOT'
     }
 }
 
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven'
-    apply plugin: 'javaToCSharp'
     apply plugin: 'javaToObjectiveC'
+    apply plugin: 'javaToCSharpTangible'
+    apply plugin: 'javaToCSharp'
+    apply plugin: 'javaToCPlusPlus'
     apply plugin: 'msbuild'
 
     sourceCompatibility = 1.7
@@ -36,19 +36,28 @@ subprojects {
     group = 'com.nokia.jsimple'
     version = '100.0-SNAPSHOT'
 
-    javaToCSharp {
-        converterDirectory file('third-party/java-to-csharp-converter')
-        converterSettings file('std-java-to-c#-converter-settings.dat')
+    javaToObjectiveC {
+        docComments = false
+        useArc = true
     }
 
-    javaToObjectiveC {
+    javaToCSharpTangible {
+        converterDirectory = file('third-party/java-to-csharp-converter')
+        converterSettings = file('std-java-to-c#-converter-settings.dat')
+    }
+
+    javaToCSharp {
+    }
+
+    javaToCPlusPlus {
     }
 
     msbuild {
+        //configuration = false
     }
 
     task all {
-        dependsOn build, javaToCSharp, javaToObjectiveC, msbuild
+        dependsOn build, javaToCSharpTangible, javaToObjectiveC, msbuild
     }
 
     sourceSets {

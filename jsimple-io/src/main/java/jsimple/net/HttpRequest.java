@@ -1,6 +1,7 @@
 package jsimple.net;
 
 import jsimple.io.OutputStream;
+import jsimple.util.ProgrammerError;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -47,8 +48,8 @@ public abstract class HttpRequest {
      */
     public static HttpRequest create(String url) {
         if (factory == null)
-            throw new RuntimeException("HttpRequest factory isn't set; did you forget to call JSimpleIO.init()?");
-        return factory.createHttpRequest(url);
+            throw new ProgrammerError("HttpRequest factory isn't set; did you forget to call JSimpleIO.init()?");
+        else return factory.createHttpRequest(url);
     }
 
     /**

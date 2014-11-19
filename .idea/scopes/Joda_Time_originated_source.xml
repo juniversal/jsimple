@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Joda Time originated source" pattern="file[jsimple-util]:src/main/java/jsimple/util/DateTime.java" />
+</component>

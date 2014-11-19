@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="JUnit originated source" pattern="file[jsimple-unit]:src/main/java/jsimple/unit/UnitTestBase.java||file[jsimple-unit]:src/main/java-nontranslated/jsimple/unit/UnitTest.java" />
+</component>

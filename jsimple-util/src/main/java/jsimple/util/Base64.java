@@ -17,6 +17,7 @@
  * limitations under the License.
  */
 
+
 package jsimple.util;
 
 /**
@@ -40,7 +41,7 @@ public class Base64 {
     private static final int DEFAULT_BUFFER_RESIZE_FACTOR = 2;
 
     private static final int DEFAULT_BUFFER_SIZE = 8192;
-
+ 
     /**
      * This array is a lookup table that translates 6-bit positive integer index values into their "Base64 Alphabet"
      * equivalents as specified in Table 1 of RFC 2045.
