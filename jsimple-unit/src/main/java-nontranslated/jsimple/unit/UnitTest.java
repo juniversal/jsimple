@@ -72,6 +72,10 @@ public class UnitTest extends UnitTestBase {
         Assert.assertArrayEquals(message, expecteds, actuals);
     }
 
+    @Override public void assertSame(@Nullable String message, @Nullable Object expected, @Nullable Object actual) {
+        Assert.assertSame(message, expected, actual);
+    }
+
     @Override public void fail(@Nullable String message) {
         Assert.fail(message);
     }

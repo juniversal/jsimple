@@ -239,16 +239,20 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
 
         @Override public boolean remove(Map.Entry<KT, VT> object) {
-            Entry<KT, VT> entry = associatedMap.getEntry(object.getKey());
-            if (valuesEq(entry, object)) {
-                associatedMap.removeEntry(entry);
-                return true;
+            if (object != null) {
+                Entry<KT, VT> entry = associatedMap.getEntry(object.getKey());
+                if (valuesEq(entry, object)) {
+                    associatedMap.removeEntry(entry);
+                    return true;
+                }
             }
             return false;
         }
 
         @Override
         public boolean contains(Map.Entry<KT, VT> object) {
+            if (object == null)
+                return false;
             Entry<KT, VT> entry = associatedMap.getEntry(object.getKey());
             return valuesEq(entry, object);
         }
@@ -596,13 +600,6 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         V result = entry.value;
         entry.value = value;
         return result;
-    }
-
-    Entry<K, V> createEntry(K key, int index, V value) {
-        Entry<K, V> entry = new Entry<K, V>(key, value);
-        entry.next = elementData[index];
-        elementData[index] = entry;
-        return entry;
     }
 
     Entry<K, V> createHashedEntry(K key, int index, int hash) {

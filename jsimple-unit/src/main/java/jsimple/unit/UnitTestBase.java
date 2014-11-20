@@ -288,6 +288,16 @@ public abstract class UnitTestBase {
     public abstract void fail(@Nullable String message);
 
     /**
+     * Asserts that two objects refer to the same object. If they are not, a test frame assertion error is thrown with
+     * the given message
+     *
+     * @param message the identifying message for the test framework assertion error (<code>null</code> okay)
+     * @param expected the expected object
+     * @param actual the object to compare to expected
+     */
+    public abstract void assertSame(String message, @Nullable Object expected, @Nullable Object actual);
+
+    /**
      * Fails a test with no message.
      */
     public void fail() {
