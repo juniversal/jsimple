@@ -20,8 +20,6 @@
  * THE SOFTWARE.
  */
 
-
-
 description = 'JSimple stream, file, and network I/O utilities'
 
 dependencies {

@@ -20,8 +20,6 @@
  * THE SOFTWARE.
  */
 
-
-
 description = ''
 dependencies {
     compile project(':jsimple-util')
