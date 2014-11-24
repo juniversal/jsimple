@@ -257,7 +257,7 @@ public final class HashMapTest extends UnitTest {
         Iterator i = s.iterator();
         assertTrue("Returned set of incorrect size", hm.size() == s.size());
         while (i.hasNext()) {
-            Map.Entry m = (Map.Entry) i.next();
+            MapEntry m = (MapEntry) i.next();
             assertTrue("Returned incorrect entry set", hm.containsKey(m
                     .getKey())
                     && hm.containsValue(m.getValue()));
@@ -635,7 +635,7 @@ public final class HashMapTest extends UnitTest {
         Set entrySet = map.entrySet();
         Iterator e = entrySet.iterator();
         Object real = e.next();
-        Map.Entry copyEntry = new MockEntry();
+        MapEntry copyEntry = new MockEntry();
         assertEquals(real, copyEntry);
         assertTrue(entrySet.contains(copyEntry));
 
@@ -643,7 +643,7 @@ public final class HashMapTest extends UnitTest {
         assertFalse(entrySet.contains(copyEntry));
     }
 
-    private static class MockEntry implements Map.Entry {
+    private static class MockEntry implements MapEntry {
 
         public Object getKey() {
             return new Integer(1);

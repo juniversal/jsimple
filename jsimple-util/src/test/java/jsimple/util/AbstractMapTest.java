@@ -171,7 +171,7 @@ public class AbstractMapTest extends UnitTest {
 
         MyMap map = new MyMap();
         map.put("one", "1");
-        Map.Entry entry = (Map.Entry) map.entrySet().iterator().next();
+        MapEntry entry = (MapEntry) map.entrySet().iterator().next();
         assertTrue("entry not added", entry.getKey() == "one"
                 && entry.getValue() == "1");
         MyMap mapClone = (MyMap) map.clone();

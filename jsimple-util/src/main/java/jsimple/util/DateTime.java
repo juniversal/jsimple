@@ -93,7 +93,7 @@ public final class DateTime {
     };
 
     // This, somewhat arbitrary, choice for a null date is 1653-02-10 06:13:20.001
-    public static long NULL_DATE = -9999999999999L;
+    public static final long NULL_DATE = -9999999999999L;
 
     //-----------------------------------------------------------------------
 

@@ -22,6 +22,8 @@
 
 package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;

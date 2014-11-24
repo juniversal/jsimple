@@ -22,8 +22,6 @@
 
 package jsimple.util;
 
-import java.util.ArrayList;
-
 /**
  * A TextualPath abstracts any path-like structure that can be represented as a list of strings.  It can be used for
  * paths in a file system, a URL path, an XPath path, etc.  Implementation wise, it's simply a list of 0 or move
@@ -89,11 +87,11 @@ public class TextualPath {
         if (!(o instanceof TextualPath))
             return false;
         TextualPath that = (TextualPath) o;
-        return ListUtils.arrayListsEqual(pathElements, that.pathElements);
+        return pathElements.equals(that.pathElements);
     }
-
+    
     @Override public int hashCode() {
-        return ListUtils.arrayListHashCode(pathElements);
+        return pathElements.hashCode();
     }
 
     public void add(String pathElement) {

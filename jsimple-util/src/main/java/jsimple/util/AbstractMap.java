@@ -68,12 +68,12 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
     /**
      * Returns a set containing all of the mappings in this map. Each mapping is
-     * an instance of {@link Map.Entry}. As the set is backed by this map,
+     * an instance of {@link MapEntry}. As the set is backed by this map,
      * changes in one will be reflected in the other.
      *
      * @return a set of the mappings.
      */
-    public abstract Set<Map.Entry<K, V>> entrySet();
+    public abstract Set<MapEntry<K, V>> entrySet();
 
     /**
      * By default, equals isn't supported for maps or other collections, though subclasses can choose to override this
@@ -147,7 +147,7 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
     @Override
     public int hashCode() {
         int result = 0;
-        Iterator<Map.Entry<K, V>> it = entrySet().iterator();
+        Iterator<MapEntry<K, V>> it = entrySet().iterator();
         while (it.hasNext()) {
             result += it.next().hashCode();
         }
@@ -167,9 +167,9 @@ public abstract class AbstractMap<K, V> implements Map<K, V> {
 
         StringBuilder buffer = new StringBuilder(size() * 28);
         buffer.append('{');
-        Iterator<Map.Entry<K, V>> it = entrySet().iterator();
+        Iterator<MapEntry<K, V>> it = entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry<K, V> entry = it.next();
+            MapEntry<K, V> entry = it.next();
             Object key = entry.getKey();
             if (key != this) {
                 buffer.append(key);

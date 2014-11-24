@@ -82,7 +82,7 @@ public class Utils {
     }
 
     /**
-     * Return true if the two objects are equal, according to their isEquals method.  This method allows the objects to
+     * Return true if the two objects are equal, according to their equals method.  This method allows the objects to
      * be null, returning true if both are null & false if just one is null.
      *
      * @param o1 object 1

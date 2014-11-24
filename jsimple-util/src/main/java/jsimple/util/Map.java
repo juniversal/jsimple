@@ -53,58 +53,6 @@ package jsimple.util;
  * the key/value pairs.  
  */
 public interface Map<K,V> {
-
-    /**
-     * {@code Map.Entry} is a key/value mapping contained in a {@code Map}.
-     */
-    public static interface Entry<K,V> {
-        /**
-         * Compares the specified object to this {@code Map.Entry} and returns if they
-         * are equal. To be equal, the object must be an instance of {@code Map.Entry} and have the
-         * same key and value.
-         * 
-         * @param object
-         *            the {@code Object} to compare with this {@code Object}.
-         * @return {@code true} if the specified {@code Object} is equal to this
-         *         {@code Map.Entry}, {@code false} otherwise.
-         * @see #hashCode()
-         */
-        public boolean equals(Object object);
-
-        /**
-         * Returns the key.
-         * 
-         * @return the key
-         */
-        public K getKey();
-
-        /**
-         * Returns the value.
-         * 
-         * @return the value
-         */
-        public V getValue();
-
-        /**
-         * Returns an integer hash code for the receiver. {@code Object} which are
-         * equal return the same value for this method.
-         * 
-         * @return the receiver's hash code.
-         * @see #equals(Object)
-         */
-        public int hashCode();
-
-        /**
-         * Sets the value of this entry to the specified value, replacing any
-         * existing value.
-         * 
-         * @param object
-         *            the new value to set.
-         * @return object the replaced value of this entry.
-         */
-        public V setValue(V object);
-    }
-
     /**
      * Removes all elements from this {@code Map}, leaving it empty.
      * 
@@ -137,12 +85,12 @@ public interface Map<K,V> {
 
     /**
      * Returns a {@code Set} containing all of the mappings in this {@code Map}. Each mapping is
-     * an instance of {@link Map.Entry}. As the {@code Set} is backed by this {@code Map},
+     * an instance of {@link MapEntry}. As the {@code Set} is backed by this {@code Map},
      * changes in one will be reflected in the other.
      * 
      * @return a set of the mappings
      */
-    public Set<Map.Entry<K,V>> entrySet();
+    public Set<MapEntry<K,V>> entrySet();
 
     /**
      * Compares the argument to the receiver, and returns {@code true} if the

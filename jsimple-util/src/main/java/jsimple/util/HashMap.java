@@ -82,7 +82,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
      */
     int threshold;
 
-    static class Entry<K, V> extends MapEntry<K, V> {
+    static class Entry<K, V> extends MapEntryImpl<K, V> {
         final int origKeyHash;
 
         Entry<K, V> next;
@@ -181,12 +181,12 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
     }
 
-    private static class EntryIterator<K, V> extends AbstractMapIterator<K, V> implements Iterator<Map.Entry<K, V>> {
+    private static class EntryIterator<K, V> extends AbstractMapIterator<K, V> implements Iterator<MapEntry<K, V>> {
         EntryIterator(HashMap<K, V> map) {
             super(map);
         }
 
-        public Map.Entry<K, V> next() {
+        public MapEntry<K, V> next() {
             makeNext();
             return currentEntry;
         }
@@ -215,7 +215,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
     }
 
-    private static class HashMapEntrySet<KT, VT> extends AbstractSet<Map.Entry<KT, VT>> {
+    private static class HashMapEntrySet<KT, VT> extends AbstractSet<MapEntry<KT, VT>> {
         private final HashMap<KT, VT> associatedMap;
 
         public HashMapEntrySet(HashMap<KT, VT> hm) {
@@ -234,11 +234,11 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
             associatedMap.clear();
         }
 
-        @Override public boolean add(Map.Entry<KT, VT> object) {
+        @Override public boolean add(MapEntry<KT, VT> object) {
             throw new ProgrammerError("add method not supported for HashMap entrySet");
         }
 
-        @Override public boolean remove(Map.Entry<KT, VT> object) {
+        @Override public boolean remove(MapEntry<KT, VT> object) {
             if (object != null) {
                 Entry<KT, VT> entry = associatedMap.getEntry(object.getKey());
                 if (valuesEq(entry, object)) {
@@ -250,14 +250,14 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
 
         @Override
-        public boolean contains(Map.Entry<KT, VT> object) {
+        public boolean contains(MapEntry<KT, VT> object) {
             if (object == null)
                 return false;
             Entry<KT, VT> entry = associatedMap.getEntry(object.getKey());
             return valuesEq(entry, object);
         }
 
-        private static boolean valuesEq(Entry entry, Map.Entry<?, ?> oEntry) {
+        private static boolean valuesEq(Entry entry, MapEntry<?, ?> oEntry) {
             return (entry != null) &&
                     ((entry.value == null) ?
                             (oEntry.getValue() == null) :
@@ -265,7 +265,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
 
         @Override
-        public Iterator<Map.Entry<KT, VT>> iterator() {
+        public Iterator<MapEntry<KT, VT>> iterator() {
             return new EntryIterator<KT, VT>(associatedMap);
         }
     }
@@ -447,13 +447,13 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
 
     /**
      * Returns a set containing all of the mappings in this map. Each mapping is
-     * an instance of {@link Map.Entry}. As the set is backed by this map,
+     * an instance of {@link MapEntry}. As the set is backed by this map,
      * changes in one will be reflected in the other.
      *
      * @return a set of the mappings.
      */
     @Override
-    public Set<Map.Entry<K, V>> entrySet() {
+    public Set<MapEntry<K, V>> entrySet() {
         return new HashMapEntrySet<K, V>(this);
     }
 
@@ -630,7 +630,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
             rehash(capacity);
         }
 
-        for (Map.Entry<TOtherK, TOtherV> entry : map.entrySet()) {
+        for (MapEntry<TOtherK, TOtherV> entry : map.entrySet()) {
             putImpl(entry.getKey(), entry.getValue());
         }
     }

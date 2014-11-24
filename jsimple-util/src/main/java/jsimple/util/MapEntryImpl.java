@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  *
  *
- * This code was adapted from Apache Harmony (http://harmony.apache.org).
+ * This code was adapted from Apache Harmony (http://http://harmony.apache.org).
  * The original Apache Harmony copyright is below.
  *
  *   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -42,52 +42,62 @@
 package jsimple.util;
 
 /**
- * {@code Map.Entry} is a key/value mapping contained in a {@code Map}.
+ * MapEntry is an internal class which provides an implementation of Map.Entry.
  */
-public interface MapEntry<K,V> {
-    /**
-     * Compares the specified object to this {@code Map.Entry} and returns if they
-     * are equal. To be equal, the object must be an instance of {@code Map.Entry} and have the
-     * same key and value.
-     *
-     * @param object
-     *            the {@code Object} to compare with this {@code Object}.
-     * @return {@code true} if the specified {@code Object} is equal to this
-     *         {@code Map.Entry}, {@code false} otherwise.
-     * @see #hashCode()
-     */
-    public boolean equals(Object object);
+class MapEntryImpl<K, V> implements MapEntry<K, V>, Cloneable {
+    K key;
+    V value;
 
-    /**
-     * Returns the key.
-     *
-     * @return the key
-     */
-    public K getKey();
+    /*
+    interface Type<RT, KT, VT> {
+        RT get(MapEntry<KT, VT> entry);
+    }
+    */
 
-    /**
-     * Returns the value.
-     *
-     * @return the value
-     */
-    public V getValue();
+    MapEntryImpl(K theKey) {
+        key = theKey;
+    }
 
-    /**
-     * Returns an integer hash code for the receiver. {@code Object} which are
-     * equal return the same value for this method.
-     *
-     * @return the receiver's hash code.
-     * @see #equals(Object)
-     */
-    public int hashCode();
+    MapEntryImpl(K theKey, V theValue) {
+        key = theKey;
+        value = theValue;
+    }
 
-    /**
-     * Sets the value of this entry to the specified value, replacing any
-     * existing value.
-     *
-     * @param object
-     *            the new value to set.
-     * @return object the replaced value of this entry.
-     */
-    public V setValue(V object);
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
+
+    @Override public boolean equals(Object object) {
+        throw new ProgrammerError("equals method not supported for HashMap MapEntry");
+    }
+
+    public K getKey() {
+        return key;
+    }
+
+    public V getValue() {
+        return value;
+    }
+
+    @Override
+    public int hashCode() {
+        return (key == null ? 0 : key.hashCode())
+                ^ (value == null ? 0 : value.hashCode());
+    }
+
+    public V setValue(V object) {
+        V result = value;
+        value = object;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return key + "=" + value;
+    }
 }
