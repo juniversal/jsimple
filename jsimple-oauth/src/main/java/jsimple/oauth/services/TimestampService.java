@@ -20,8 +20,8 @@
  * THE SOFTWARE.
  *
  *
- * This code was adapted from the Scribe Java OAuth library,
- * https://github.com/fernandezpablo85/scribe-java, with modest changes made
+ * This code was adapted from the Scribe Java OAuth library
+ * (https://github.com/fernandezpablo85/scribe-java), with modest changes made
  * for JUniversal.  Scribe itself is distributed under the MIT license.
  */
 

@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  *
  *
- * This code was adapted from Joda-Time (http://www.joda.org/joda-time/).
+ * This code was adapted from Joda-Time (http://www.joda.org/joda-time).
  * The original Joda-Time copyright is below.
  *
  *   Copyright 2001-2013 Stephen Colebourne
@@ -37,6 +37,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
+
 package jsimple.util;
 
 /**

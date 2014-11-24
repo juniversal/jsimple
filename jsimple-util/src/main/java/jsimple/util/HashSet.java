@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  *
  *
- * This code was adapted from Apache Harmony (http://http://harmony.apache.org).
+ * This code was adapted from Apache Harmony (http://harmony.apache.org).
  * The original Apache Harmony copyright is below.
  *
  *   Licensed to the Apache Software Foundation (ASF) under one or more
