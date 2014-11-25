@@ -1,0 +1,73 @@
+package jsimple.io;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class ByteArrayInputStreamTest {
+	@Test
+	public void testRead() {
+		byte[] data = new byte[3];
+		data[0] = 1;
+		data[1] = 2;
+		data[2] = 3;
+
+		ByteArrayInputStream bais = new ByteArrayInputStream(data);
+		byte[] readData = new byte[3];
+		bais.read(readData);
+		bais.close();
+
+		assertArrayEquals(data, readData);
+	}
+
+	@Test
+	public void testReadFully() {
+		byte[] data = new byte[3];
+		data[0] = 1;
+		data[1] = 2;
+		data[2] = 3;
+
+		ByteArrayInputStream bais = new ByteArrayInputStream(data);
+		byte[] readData = new byte[3];
+		bais.readFully(readData);
+		bais.close();
+		
+		assertArrayEquals(data, readData);
+	}
+
+	@Test
+	public void testCoppy() {
+		byte[] data = new byte[3];
+		data[0] = 1;
+		data[1] = 2;
+		data[2] = 3;
+
+		ByteArrayInputStream sut = new ByteArrayInputStream(data);
+		ByteArrayOutputStream coppy = new ByteArrayOutputStream();
+
+		sut.copyTo(coppy);
+		byte[] coppiedData = coppy.getByteArray().toByteArray();
+		sut.close();
+
+		assertEquals(data.length, coppiedData.length);
+		assertArrayEquals(data, coppiedData);
+	}
+
+	@Test
+	public void testOffsetRead() {
+		byte[] data = new byte[3];
+		data[0] = 1;
+		data[1] = 2;
+		data[2] = 3;
+
+		ByteArrayInputStream bais = new ByteArrayInputStream(data);
+		byte[] readData = new byte[4];
+		bais.readFully(readData, 1, 4);
+		bais.close();
+	
+		assertEquals(0, readData[0]);
+		assertEquals(data[0], readData[1]);
+
+	}
+}
