@@ -41,321 +41,301 @@
 
 package jsimple.util;
 
-import jsimple.unit.UnitTest;
-import org.junit.Test;
-
 import java.util.Iterator;
+
+import jsimple.unit.UnitTest;
+
+import org.junit.Test;
 
 public class AbstractCollectionTest extends UnitTest {
 
-    /**
-     * @tests java.util.AbstractCollection#add(java.lang.Object)
-     */
-    @Test public void test_addLjava_lang_Object() {
-        AbstractCollection<Object> ac = new AbstractCollection<Object>() {
+	@Test
+	public void testAddObject() {
+		AbstractCollection<Object> ac = new AbstractCollection<Object>() {
+			@Override
+			public Iterator<Object> iterator() {
+				fail("iterator should not get called");
+				return null;
+			}
 
-            @Override
-            public Iterator<Object> iterator() {
-                fail("iterator should not get called");
-                return null;
-            }
+			@Override
+			public int size() {
+				fail("size should not get called");
+				return 0;
+			}
+		};
 
-            @Override
-            public int size() {
-                fail("size should not get called");
-                return 0;
-            }
+		try {
+			ac.add(null);
+		} catch (ProgrammerError e) {
+		}
+	}
 
-        };
+	@Test
+	public void testAddAll() {
+		final Collection<String> fixtures = ArrayList.create("0", "1", "2");
+		AbstractCollection<String> ac = new AbstractCollection<String>() {
 
-        try {
-            ac.add(null);
-        } catch (ProgrammerError e) {
-        }
-    }
+			@Override
+			public boolean add(String object) {
+				assertTrue(fixtures.contains(object));
+				return true;
+			}
 
-    /**
-     * @tests java.util.AbstractCollection#addAll(java.util.Collection)
-     */
-    @Test public void test_addAllLjava_util_Collection() {
-        final Collection<String> fixtures = ArrayList.create("0", "1", "2");
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
+			@Override
+			public Iterator<String> iterator() {
+				fail("iterator should not get called");
+				return null;
+			}
 
-            @Override
-            public boolean add(String object) {
-                assertTrue(fixtures.contains(object));
-                return true;
-            }
+			@Override
+			public int size() {
+				fail("size should not get called");
+				return 0;
+			}
 
-            @Override
-            public Iterator<String> iterator() {
-                fail("iterator should not get called");
-                return null;
-            }
+		};
+		assertTrue(ac.addAll(fixtures));
+	}
 
-            @Override
-            public int size() {
-                fail("size should not get called");
-                return 0;
-            }
+	@Test
+	public void testContainsAll() {
+		final Collection<String> fixtures = ArrayList.create("0", "1", "2");
+		AbstractCollection<String> ac = new AbstractCollection<String>() {
 
-        };
-        assertTrue(ac.addAll(fixtures));
-    }
+			@Override
+			public boolean contains(String object) {
+				assertTrue(fixtures.contains(object));
+				return true;
+			}
 
-    /**
-     * @tests java.util.AbstractCollection#containsAll(java.util.Collection)
-     */
-    @Test public void test_containsAllLjava_util_Collection() {
-        final Collection<String> fixtures = ArrayList.create("0", "1", "2");
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
+			@Override
+			public Iterator<String> iterator() {
+				fail("iterator should not get called");
+				return null;
+			}
 
-            @Override
-            public boolean contains(String object) {
-                assertTrue(fixtures.contains(object));
-                return true;
-            }
+			@Override
+			public int size() {
+				fail("size should not get called");
+				return 0;
+			}
 
-            @Override
-            public Iterator<String> iterator() {
-                fail("iterator should not get called");
-                return null;
-            }
+		};
+		assertTrue(ac.containsAll(fixtures));
+	}
 
-            @Override
-            public int size() {
-                fail("size should not get called");
-                return 0;
-            }
+	@Test
+	public void testIsEmpty() {
+		final boolean[] sizeCalled = new boolean[1];
+		AbstractCollection<Object> ac = new AbstractCollection<Object>() {
+			@Override
+			public Iterator<Object> iterator() {
+				fail("iterator should not get called");
+				return null;
+			}
 
-        };
-        assertTrue(ac.containsAll(fixtures));
-    }
+			@Override
+			public int size() {
+				sizeCalled[0] = true;
+				return 0;
+			}
+		};
+		assertTrue(ac.isEmpty());
+		assertTrue(sizeCalled[0]);
+	}
 
-    /**
-     * @tests java.util.AbstractCollection#isEmpty()
-     */
-    @Test public void test_isEmpty() {
-        final boolean[] sizeCalled = new boolean[1];
-        AbstractCollection<Object> ac = new AbstractCollection<Object>() {
-            @Override
-            public Iterator<Object> iterator() {
-                fail("iterator should not get called");
-                return null;
-            }
+	@Test
+	public void testRemoveAll() {
+		final String[] removed = new String[3];
+		AbstractCollection<String> ac = new AbstractCollection<String>() {
 
-            @Override
-            public int size() {
-                sizeCalled[0] = true;
-                return 0;
-            }
-        };
-        assertTrue(ac.isEmpty());
-        assertTrue(sizeCalled[0]);
-    }
+			@Override
+			public Iterator<String> iterator() {
+				return new Iterator<String>() {
+					String[] values = new String[] { "0", "1", "2" };
+					int index;
 
-    /**
-     * @tests java.util.AbstractCollection#removeAll(java.util.Collection)
-     */
-    @Test public void test_removeAllLjava_util_Collection() {
-        final String[] removed = new String[3];
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
+					public boolean hasNext() {
+						return index < values.length;
+					}
 
-            @Override
-            public Iterator<String> iterator() {
-                return new Iterator<String>() {
-                    String[] values = new String[]{"0", "1", "2"};
-                    int index;
+					public String next() {
+						return values[index++];
+					}
 
-                    public boolean hasNext() {
-                        return index < values.length;
-                    }
+					public void remove() {
+						removed[index - 1] = values[index - 1];
+					}
+				};
+			}
 
-                    public String next() {
-                        return values[index++];
-                    }
+			@Override
+			public int size() {
+				fail("size should not get called");
+				return 0;
+			}
 
-                    public void remove() {
-                        removed[index - 1] = values[index - 1];
-                    }
+		};
 
-                };
-            }
+		assertTrue(ac.removeAll(ArrayList.create("0", "1", "2")));
+		for (String r : removed) {
+			if (!"0".equals(r) && !"1".equals(r) && !"2".equals(r)) {
+				fail("an unexpected element was removed");
+			}
+		}
+	}
 
-            @Override
-            public int size() {
-                fail("size should not get called");
-                return 0;
-            }
+	@Test
+	public void testRetainAll() {
+		final String[] removed = new String[1];
+		AbstractCollection<String> ac = new AbstractCollection<String>() {
 
-        };
-        assertTrue(ac.removeAll(ArrayList.create("0", "1", "2")));
-        for (String r : removed) {
-            if (!"0".equals(r) && !"1".equals(r) && !"2".equals(r)) {
-                fail("an unexpected element was removed");
-            }
-        }
-    }
+			@Override
+			public Iterator<String> iterator() {
+				return new Iterator<String>() {
+					String[] values = new String[] { "0", "1", "2" };
+					int index;
 
-    /**
-     * @tests java.util.AbstractCollection#retainAll(java.util.Collection)
-     */
-    @Test public void test_retainAllLjava_util_Collection() {
-        final String[] removed = new String[1];
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
+					public boolean hasNext() {
+						return index < values.length;
+					}
 
-            @Override
-            public Iterator<String> iterator() {
-                return new Iterator<String>() {
-                    String[] values = new String[]{"0", "1", "2"};
-                    int index;
+					public String next() {
+						return values[index++];
+					}
 
-                    public boolean hasNext() {
-                        return index < values.length;
-                    }
+					public void remove() {
+						removed[index - 1] = values[index - 1];
+					}
 
-                    public String next() {
-                        return values[index++];
-                    }
+				};
+			}
 
-                    public void remove() {
-                        removed[index - 1] = values[index - 1];
-                    }
+			@Override
+			public int size() {
+				fail("size should not get called");
+				return 0;
+			}
 
-                };
-            }
+		};
+		assertTrue(ac.retainAll(ArrayList.create("1", "2")));
+		assertEquals("0", removed[0]);
+	}
 
-            @Override
-            public int size() {
-                fail("size should not get called");
-                return 0;
-            }
+	@Test
+	public void testToArrayTypeless() {
+		AbstractCollection<String> ac = new AbstractCollection<String>() {
+			@Override
+			public Iterator<String> iterator() {
+				return new Iterator<String>() {
+					String[] values = new String[] { "0", "1", "2" };
+					int index;
 
-        };
-        assertTrue(ac.retainAll(ArrayList.create("1", "2")));
-        assertEquals("0", removed[0]);
-    }
+					public boolean hasNext() {
+						return index < values.length;
+					}
 
-    /**
-     * @tests java.util.AbstractCollection#toArray()
-     */
-    @Test public void test_toArray() {
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
-            @Override
-            public Iterator<String> iterator() {
-                return new Iterator<String>() {
-                    String[] values = new String[]{"0", "1", "2"};
-                    int index;
+					public String next() {
+						return values[index++];
+					}
 
-                    public boolean hasNext() {
-                        return index < values.length;
-                    }
+					public void remove() {
+						fail("remove should not get called");
+					}
+				};
+			}
 
-                    public String next() {
-                        return values[index++];
-                    }
+			@Override
+			public int size() {
+				return 3;
+			}
+		};
 
-                    public void remove() {
-                        fail("remove should not get called");
-                    }
+		Object[] array = ac.toArray();
+		assertEquals(3, array.length);
+		for (Object o : array) {
+			if (!"0".equals(o) && !"1".equals(o) && !"2".equals(o)) {
+				fail("an unexpected element was removed");
+			}
+		}
+	}
 
-                };
-            }
+	@Test
+	public void testToArrayTyped() {
+		AbstractCollection<String> ac = new AbstractCollection<String>() {
+			@Override
+			public Iterator<String> iterator() {
+				return new Iterator<String>() {
+					String[] values = new String[] { "0", "1", "2" };
+					int index;
 
-            @Override
-            public int size() {
-                return 3;
-            }
-        };
+					public boolean hasNext() {
+						return index < values.length;
+					}
 
-        Object[] array = ac.toArray();
-        assertEquals(3, array.length);
-        for (Object o : array) {
-            if (!"0".equals(o) && !"1".equals(o) && !"2".equals(o)) {
-                fail("an unexpected element was removed");
-            }
-        }
-    }
+					public String next() {
+						return values[index++];
+					}
 
-    /**
-     * @tests java.util.AbstractCollection#toArray(java.lang.Object[])
-     */
-    @Test public void test_toArray$Ljava_lang_Object() {
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
-            @Override
-            public Iterator<String> iterator() {
-                return new Iterator<String>() {
-                    String[] values = new String[]{"0", "1", "2"};
-                    int index;
+					public void remove() {
+						fail("remove should not get called");
+					}
+				};
+			}
 
-                    public boolean hasNext() {
-                        return index < values.length;
-                    }
+			@Override
+			public int size() {
+				return 3;
+			}
+		};
 
-                    public String next() {
-                        return values[index++];
-                    }
+		try {
+			ac.toArray(null);
+			fail("No expected NullPointerException");
+		} catch (NullPointerException e) {
+			// expected
+		}
 
-                    public void remove() {
-                        fail("remove should not get called");
-                    }
-                };
-            }
+		try {
+			ac.toArray(new StringBuffer[ac.size()]);
+			fail("No expected ArrayStoreException");
+		} catch (ArrayStoreException e) {
+			// expected
+		}
 
-            @Override
-            public int size() {
-                return 3;
-            }
-        };
+		CharSequence[] csa = new CharSequence[3];
+		ac.toArray(csa);
+		assertEquals(3, csa.length);
+		assertEquals("0", csa[0]);
+		assertEquals("1", csa[1]);
+		assertEquals("2", csa[2]);
+	}
 
-        try {
-            ac.toArray(null);
-            fail("No expected NullPointerException");
-        } catch (NullPointerException e) {
-            // expected
-        }
+	@Test
+	public void testToString() {
+		// see HARMONY-1522
+		// collection that returns null iterator(this is against the spec.)
+		AbstractCollection<?> c = new AbstractCollection<Object>() {
+			@Override
+			public int size() {
+				// return non-zero value to pass 'isEmpty' check
+				return 1;
+			}
 
-        try {
-            ac.toArray(new StringBuffer[ac.size()]);
-            fail("No expected ArrayStoreException");
-        } catch (ArrayStoreException e) {
-            // expected
-        }
+			@Override
+			public Iterator<Object> iterator() {
+				// this violates the spec.
+				return null;
+			}
+		};
 
-        CharSequence[] csa = new CharSequence[3];
-        ac.toArray(csa);
-        assertEquals(3, csa.length);
-        assertEquals("0", csa[0]);
-        assertEquals("1", csa[1]);
-        assertEquals("2", csa[2]);
-    }
-
-    /**
-     * @tests java.util.AbstractCollection#toString()
-     */
-    @Test public void test_toString() {
-        // see HARMONY-1522
-        // collection that returns null iterator(this is against the spec.)
-        AbstractCollection<?> c = new AbstractCollection<Object>() {
-            @Override
-            public int size() {
-                // return non-zero value to pass 'isEmpty' check
-                return 1;
-            }
-
-            @Override
-            public Iterator<Object> iterator() {
-                // this violates the spec.
-                return null;
-            }
-        };
-
-        try {
-            // AbstractCollection.toString() doesn't verify
-            // whether iterator() returns null value or not
-            c.toString();
-            fail("No expected NullPointerException");
-        } catch (NullPointerException e) {
-        }
-    }
+		try {
+			// AbstractCollection.toString() doesn't verify
+			// whether iterator() returns null value or not
+			c.toString();
+			fail("No expected NullPointerException");
+		} catch (NullPointerException e) {
+		}
+	}
 }
