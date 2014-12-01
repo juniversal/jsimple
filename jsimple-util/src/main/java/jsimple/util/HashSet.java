@@ -41,13 +41,11 @@
 
 package jsimple.util;
 
-import java.util.Iterator;
-
 /**
  * HashSet is an implementation of a Set. All optional operations (adding and
  * removing) are supported. The elements can be any objects.
  */
-public class HashSet<E> extends AbstractSet<E> implements Set<E>, Cloneable {
+public class HashSet<E> extends Set<E> implements Cloneable {
     transient HashMap<E, HashSet<E>> backingMap;
 
     public static <T> HashSet<T> create(T... args) {

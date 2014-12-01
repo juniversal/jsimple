@@ -209,9 +209,9 @@ public interface Map<K,V> {
      * and it does not support {@link Collection#add} or {@link Collection#addAll} operations.
      * <p>
      * This method returns a {@code Collection} which is the subclass of
-     * {@link AbstractCollection}. The {@link AbstractCollection#iterator} method of this subclass returns a
-     * "wrapper object" over the iterator of this {@code Map}'s {@link #entrySet()}. The {@link AbstractCollection#size} method
-     * wraps this {@code Map}'s {@link #size} method and the {@link AbstractCollection#contains} method wraps this {@code Map}'s
+     * {@link Collection}. The {@link Collection#iterator} method of this subclass returns a
+     * "wrapper object" over the iterator of this {@code Map}'s {@link #entrySet()}. The {@link Collection#size} method
+     * wraps this {@code Map}'s {@link #size} method and the {@link Collection#contains} method wraps this {@code Map}'s
      * {@link #containsValue} method.
      * <p>
      * The collection is created when this method is called at first time and

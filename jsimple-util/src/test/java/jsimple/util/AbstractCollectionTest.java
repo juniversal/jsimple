@@ -44,16 +44,13 @@ package jsimple.util;
 import jsimple.unit.UnitTest;
 import org.junit.Test;
 
-import java.util.Iterator;
-
 public class AbstractCollectionTest extends UnitTest {
 
     /**
      * @tests java.util.AbstractCollection#add(java.lang.Object)
      */
     @Test public void test_addLjava_lang_Object() {
-        AbstractCollection<Object> ac = new AbstractCollection<Object>() {
-
+        Collection<Object> ac = new Collection<Object>() {
             @Override
             public Iterator<Object> iterator() {
                 fail("iterator should not get called");
@@ -79,7 +76,7 @@ public class AbstractCollectionTest extends UnitTest {
      */
     @Test public void test_addAllLjava_util_Collection() {
         final Collection<String> fixtures = ArrayList.create("0", "1", "2");
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
+        Collection<String> ac = new Collection<String>() {
 
             @Override
             public boolean add(String object) {
@@ -108,7 +105,7 @@ public class AbstractCollectionTest extends UnitTest {
      */
     @Test public void test_containsAllLjava_util_Collection() {
         final Collection<String> fixtures = ArrayList.create("0", "1", "2");
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
+        Collection<String> ac = new Collection<String>() {
 
             @Override
             public boolean contains(String object) {
@@ -137,7 +134,7 @@ public class AbstractCollectionTest extends UnitTest {
      */
     @Test public void test_isEmpty() {
         final boolean[] sizeCalled = new boolean[1];
-        AbstractCollection<Object> ac = new AbstractCollection<Object>() {
+        Collection<Object> ac = new Collection<Object>() {
             @Override
             public Iterator<Object> iterator() {
                 fail("iterator should not get called");
@@ -159,7 +156,7 @@ public class AbstractCollectionTest extends UnitTest {
      */
     @Test public void test_removeAllLjava_util_Collection() {
         final String[] removed = new String[3];
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
+        Collection<String> ac = new Collection<String>() {
 
             @Override
             public Iterator<String> iterator() {
@@ -167,15 +164,15 @@ public class AbstractCollectionTest extends UnitTest {
                     String[] values = new String[]{"0", "1", "2"};
                     int index;
 
-                    public boolean hasNext() {
+                    @Override public boolean hasNext() {
                         return index < values.length;
                     }
 
-                    public String next() {
+                    @Override public String next() {
                         return values[index++];
                     }
 
-                    public void remove() {
+                    @Override public void remove() {
                         removed[index - 1] = values[index - 1];
                     }
 
@@ -202,7 +199,7 @@ public class AbstractCollectionTest extends UnitTest {
      */
     @Test public void test_retainAllLjava_util_Collection() {
         final String[] removed = new String[1];
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
+        Collection<String> ac = new Collection<String>() {
 
             @Override
             public Iterator<String> iterator() {
@@ -240,7 +237,7 @@ public class AbstractCollectionTest extends UnitTest {
      * @tests java.util.AbstractCollection#toArray()
      */
     @Test public void test_toArray() {
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
+        Collection<String> ac = new Collection<String>() {
             @Override
             public Iterator<String> iterator() {
                 return new Iterator<String>() {
@@ -281,7 +278,7 @@ public class AbstractCollectionTest extends UnitTest {
      * @tests java.util.AbstractCollection#toArray(java.lang.Object[])
      */
     @Test public void test_toArray$Ljava_lang_Object() {
-        AbstractCollection<String> ac = new AbstractCollection<String>() {
+        Collection<String> ac = new Collection<String>() {
             @Override
             public Iterator<String> iterator() {
                 return new Iterator<String>() {
@@ -336,7 +333,7 @@ public class AbstractCollectionTest extends UnitTest {
     @Test public void test_toString() {
         // see HARMONY-1522
         // collection that returns null iterator(this is against the spec.)
-        AbstractCollection<?> c = new AbstractCollection<Object>() {
+        Collection<?> c = new Collection<Object>() {
             @Override
             public int size() {
                 // return non-zero value to pass 'isEmpty' check

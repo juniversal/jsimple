@@ -41,8 +41,6 @@
 
 package jsimple.util;
 
-import java.util.Iterator;
-
 /**
  * ArrayList is an implementation of {@link List}, backed by an array. All
  * optional operations adding, removing, and replacing are supported. The
@@ -50,7 +48,12 @@ import java.util.Iterator;
  *
  * @since 1.2
  */
-public final class ArrayList<E> extends AbstractList<E> implements List<E>, Cloneable {
+public final class ArrayList<E> extends List<E> implements Cloneable {
+    /**
+     * A counter for changes to the list.
+     */
+    protected transient int modCount;
+
     private transient int firstIndex;
     private transient int itemCount;   // This member was named "size" in original Harmony source; renamed to not conflict with size() method
     private transient E[] array;
@@ -64,7 +67,7 @@ public final class ArrayList<E> extends AbstractList<E> implements List<E>, Clon
         return newList;
     }
 
-    private static class ArrayListIterator<E> implements Iterator<E> {
+    private static class ArrayListIterator<E> extends Iterator<E> {
         private ArrayList<E> arrayList;
         int numLeft;
         int expectedModCount;
@@ -76,11 +79,11 @@ public final class ArrayList<E> extends AbstractList<E> implements List<E>, Clon
             this.expectedModCount = arrayList.modCount;
         }
 
-        public boolean hasNext() {
+        @Override public boolean hasNext() {
             return numLeft > 0;
         }
 
-        public E next() {
+        @Override public E next() {
             if (expectedModCount != arrayList.modCount) {
                 throw createConcurrentModificationException();
             }
@@ -98,7 +101,7 @@ public final class ArrayList<E> extends AbstractList<E> implements List<E>, Clon
             return result;
         }
 
-        public void remove() {
+        @Override public void remove() {
             if (lastPosition == -1) {
                 throw new ProgrammerError("No current element to remove");
             }

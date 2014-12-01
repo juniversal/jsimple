@@ -41,8 +41,6 @@
 
 package jsimple.util;
 
-import java.util.Iterator;
-
 /**
  * Changes from the java.lang version:
  * Does not implement Serializable

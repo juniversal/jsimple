@@ -41,178 +41,120 @@
 
 package jsimple.util;
 
-
-import java.util.Iterator;
-
 /**
- * A {@code Set} is a data structure which does not allow duplicate elements.
+ * An AbstractSet is an abstract implementation of the Set interface. This implementation does not support adding. A
+ * subclass must implement the abstract methods iterator() and size().
  *
  * @since 1.2
  */
-public interface Set<E> extends Collection<E> {
-    
+public abstract class Set<E> extends Collection<E> {
     /**
-     * Adds the specified object to this set. The set is not modified if it
-     * already contains the object.
-     * 
-     * @param object
-     *            the object to add.
-     * @return {@code true} if this set is modified, {@code false} otherwise.
-     * @throws UnsupportedOperationException
-     *             when adding to this set is not supported.
-     * @throws ClassCastException
-     *             when the class of the object is inappropriate for this set.
-     * @throws IllegalArgumentException
-     *             when the object cannot be added to this set.
+     * Constructs a new instance of this AbstractSet.
      */
-    public boolean add(E object);
+    protected Set() {
+        super();
+    }
 
-    /**
-     * Adds the objects in the specified collection which do not exist yet in
-     * this set.
-     * 
-     * @param collection
-     *            the collection of objects.
-     * @return {@code true} if this set is modified, {@code false} otherwise.
-     * @throws UnsupportedOperationException
-     *             when adding to this set is not supported.
-     * @throws ClassCastException
-     *             when the class of an object is inappropriate for this set.
-     * @throws IllegalArgumentException
-     *             when an object cannot be added to this set.
-     */
-    public boolean addAll(Collection<? extends E> collection);
 
-    /**
-     * Removes all elements from this set, leaving it empty.
-     * 
-     * @throws UnsupportedOperationException
-     *             when removing from this set is not supported.
-     * @see #isEmpty
-     * @see #size
-     */
-    public void clear();
+/*
+    */
+/**
+ * Compares the specified object to this set, and returns true if they
+ * represent the <em>same</em> object using a class specific comparison.
+ * Equality for a set means that both sets have the same size and the same
+ * elements.
+ *
+ * @param object
+ *            the object to compare with this object.
+ * @return boolean {@code true} if the object is the same as this object,
+ *         and {@code false} if it is different from this object.
+ * @see #hashCode
+ *//*
 
-    /**
-     * Searches this set for the specified object.
-     * 
-     * @param object
-     *            the object to search for.
-     * @return {@code true} if object is an element of this set, {@code false}
-     *         otherwise.
-     */
-    public boolean contains(E object);
-
-    /**
-     * Searches this set for all objects in the specified collection.
-     * 
-     * @param collection
-     *            the collection of objects.
-     * @return {@code true} if all objects in the specified collection are
-     *         elements of this set, {@code false} otherwise.
-     */
-    public boolean containsAll(Collection<E> collection);
-
-    /**
-     * Compares the specified object to this set, and returns true if they
-     * represent the <em>same</em> object using a class specific comparison.
-     * Equality for a set means that both sets have the same size and the same
-     * elements.
-     * 
-     * @param object
-     *            the object to compare with this object.
-     * @return boolean {@code true} if the object is the same as this object,
-     *         and {@code false} if it is different from this object.
-     * @see #hashCode
-     */
     public boolean equals(Object object);
+*/
 
     /**
-     * Returns the hash code for this set. Two set which are equal must return
-     * the same value.
-     * 
+     * By default, equals isn't supported for sets or other collections, though subclasses can choose to override this
+     * behavior if they want.   Instead developers should call some other, more specific, method, checking for the exact
+     * kind of equality they want.
+     * <p/>
+     * As background:  This behavior differs from the standard java.util.AbstractSet.equals method, where two sets are
+     * considered equal if the have the same number of elements and those elements are equals, according to equals.
+     * That's so-called deep equality.   Whereas C#, on the other hand, just does reference equality by default for
+     * sets, saying two are equal if their references are equals.
+     * <p/>
+     * There are two main reasons we differ from standard Java and don't support equals here for collection classes:
+     * <p/>
+     * (a) The desired semantics are ambiguous (deep, shallow, or reference equality?  set type matter?). Different
+     * semantics are appropriate in different cases. (b) It's hard to implement the Java semantics and support generics,
+     * with covariance, properly and have it work with Java to C#/Swift translation.  Limited C# and Swift support for
+     * covariance, especially when casting from an Object, makes it all the harder. So best to just avoid all those
+     * issues & make the developer do explicitly what they want, calling some other method.
+     *
+     * @param object the object to compare to this object.
+     * @return {@code true} if the specified object is equal to this set, {@code false} otherwise; though by default
+     * this method throws an exception and developers generally shouldn't use equals on collections
+     */
+    @Override public boolean equals(Object object) {
+        throw new ProgrammerError("equals isn't supported by default for collections;  use == for reference equality or implement your own method for other types of equality");
+        /*
+        if (this == object) {
+            return true;
+        }
+        if (object instanceof Set) {
+            Set<?> s = (Set<?>) object;
+
+            try {
+                return size() == s.size() && containsAll(s);
+            } catch (NullPointerException ignored) {
+                return false;
+            } catch (ClassCastException ignored) {
+                return false;
+            }
+        }
+        return false;
+        */
+    }
+
+    /**
+     * Returns the hash code for this set. Two set which are equal must return the same value.
+     * <p/>
+     * The default implementation calculates the hash code by adding each element's hash code.
+     *
      * @return the hash code of this set.
-     * 
      * @see #equals
      */
-    public int hashCode();
+    @Override
+    public int hashCode() {
+        int result = 0;
+        for (E next : this) {
+            result += next == null ? 0 : next.hashCode();
+        }
+        return result;
+    }
 
     /**
-     * Returns true if this set has no elements.
-     * 
-     * @return {@code true} if this set has no elements, {@code false}
-     *         otherwise.
-     * @see #size
-     */
-    public boolean isEmpty();
-
-    /**
-     * Returns an iterator on the elements of this set. The elements are
-     * unordered.
-     * 
-     * @return an iterator on the elements of this set.
-     * @see Iterator
-     */
-    public Iterator<E> iterator();
-
-    /**
-     * Removes the specified object from this set.
-     * 
-     * @param object
-     *            the object to remove.
-     * @return {@code true} if this set was modified, {@code false} otherwise.
-     * @throws UnsupportedOperationException
-     *             when removing from this set is not supported.
-     */
-    public boolean remove(E object);
-
-    /**
-     * Removes all objects in the specified collection from this set.
-     * 
-     * @param collection
-     *            the collection of objects to remove.
-     * @return {@code true} if this set was modified, {@code false} otherwise.
-     * @throws UnsupportedOperationException
-     *             when removing from this set is not supported.
-     */
-    public boolean removeAll(Collection<E> collection);
-
-    /**
-     * Removes all objects from this set that are not contained in the specified
-     * collection.
-     * 
-     * @param collection
-     *            the collection of objects to retain.
-     * @return {@code true} if this set was modified, {@code false} otherwise.
-     * @throws UnsupportedOperationException
-     *             when removing from this set is not supported.
-     */
-    public boolean retainAll(Collection<E> collection);
-
-    /**
-     * Returns the number of elements in this set.
-     * 
-     * @return the number of elements in this set.
-     */
-    public int size();
-
-    /**
-     * Returns an array containing all elements contained in this set.
-     * 
-     * @return an array of the elements from this set.
-     */
-    public Object[] toArray();
-
-    /**
-     * Copies all elements contained in this {@code Collection} to the specified array.   Unlike the regular java.lang
-     * version of this method, here the array is never allocated & returned but instead a big enough array must be passed
-     * in.   If the specified array isn't big enough to hold all elements, an exception is thrown.   If it's bigger than
-     * needed, the array element following the {@code Collection} elements is set to null.
-     * <p>
-     * Changes to the standard java.lang version of this method avoid the need for reflection and make it a little
-     * simpler.   Typical usage would be to just allocate an array of exactly the right length, with size() elements.
+     * Removes all occurrences in this collection which are contained in the specified collection.
      *
-     * @param array the array.
+     * @param collection the collection of objects to remove.
+     * @return {@code true} if this collection was modified, {@code false} otherwise.
      */
-    public <T> void toArray(T[] array);
+    @Override public boolean removeAll(Collection<E> collection) {
+        boolean result = false;
+        if (size() <= collection.size()) {
+            Iterator<E> it = iterator();
+            while (it.hasNext()) {
+                if (collection.contains(it.next())) {
+                    it.remove();
+                    result = true;
+                }
+            }
+        } else {
+            for (E otherElmt : collection) {
+                result = remove(otherElmt) || result;
+            }
+        }
+        return result;
+    }
 }

@@ -44,11 +44,9 @@ package jsimple.util;
 import jsimple.unit.UnitTest;
 import org.junit.Test;
 
-import java.util.Iterator;
-
 public class AbstractListTest extends UnitTest {
 
-    static class SimpleList extends AbstractList {
+    static  class SimpleList extends List {
         ArrayList arrayList;
 
         SimpleList() {
@@ -121,7 +119,12 @@ public class AbstractListTest extends UnitTest {
         it.next();
     }
 
-    class MockArrayList<E> extends AbstractList<E> {
+    class MockArrayList<E> extends List<E> {
+        /**
+         * A counter for changes to the list.
+         */
+        protected transient int modCount;
+
         /**
          *
          */
@@ -168,7 +171,7 @@ public class AbstractListTest extends UnitTest {
      * @tests {@link java.util.AbstractList#indexOf(Object)}
      */
     @Test public void test_indexOf_Ljava_lang_Object() {
-        AbstractList<Integer> list = new MockArrayList<Integer>();
+        List<Integer> list = new MockArrayList<Integer>();
         list.addAll(ArrayList.create(1, 2, 3, 4, 5));
 
         assertEquals("find 0 in the list do not contain 0", -1, list.indexOf(new Integer(0)));
@@ -182,7 +185,7 @@ public class AbstractListTest extends UnitTest {
      * @add tests {@link java.util.AbstractList#lastIndexOf(Object)}
      */
     @Test public void test_lastIndexOf_Ljava_lang_Object() {
-        AbstractList<Integer> list = new MockArrayList<Integer>();
+        List<Integer> list = new MockArrayList<Integer>();
         list.addAll(ArrayList.create(1, 2, 3, 4, 5, 5, 4, 3, 2, 1));
 
         assertEquals("find 6 in the list do not contain 6", -1, list.lastIndexOf(new Integer(6)));

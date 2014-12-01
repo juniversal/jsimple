@@ -27,8 +27,6 @@
 
 package jsimple.util;
 
-import java.util.Iterator;
-
 /**
  * HashMap is an implementation of Map. All optional operations (adding and
  * removing) are supported. Keys and values can be any objects.
@@ -94,7 +92,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
     }
 
-    private static class AbstractMapIterator<K, V> {
+    private static abstract class AbstractMapIterator<K, V, E> extends Iterator<E> {
         private int position = 0;
         int expectedModCount;
         Entry<K, V> futureEntry;
@@ -109,7 +107,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
             futureEntry = null;
         }
 
-        public boolean hasNext() {
+        @Override public boolean hasNext() {
             if (futureEntry != null) {
                 return true;
             }
@@ -149,7 +147,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
             }
         }
 
-        public final void remove() {
+        @Override public final void remove() {
             checkConcurrentMod();
             if (currentEntry == null) {
                 throw new ProgrammerError("No current element to remove");
@@ -167,41 +165,40 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
     }
 
-    private static class EntryIterator<K, V> extends AbstractMapIterator<K, V> implements Iterator<MapEntry<K, V>> {
+    private static class EntryIterator<K, V> extends AbstractMapIterator<K, V, MapEntry<K, V>>  {
         EntryIterator(HashMap<K, V> map) {
             super(map);
         }
 
-        public MapEntry<K, V> next() {
+        @Override public MapEntry<K, V> next() {
             makeNext();
             return currentEntry;
         }
     }
 
-    private static class KeyIterator<K, V> extends AbstractMapIterator<K, V> implements Iterator<K> {
+    private static class KeyIterator<K, V> extends AbstractMapIterator<K, V, K> {
         KeyIterator(HashMap<K, V> map) {
             super(map);
         }
 
-        public K next() {
+        @Override public K next() {
             makeNext();
             return currentEntry.key;
         }
     }
 
-    private static class ValueIterator<K, V> extends AbstractMapIterator<K, V> implements Iterator<V> {
-
+    private static class ValueIterator<K, V> extends AbstractMapIterator<K, V, V> {
         ValueIterator(HashMap<K, V> map) {
             super(map);
         }
 
-        public V next() {
+        @Override public V next() {
             makeNext();
             return currentEntry.value;
         }
     }
 
-    private static class HashMapEntrySet<KT, VT> extends AbstractSet<MapEntry<KT, VT>> {
+    private static class HashMapEntrySet<KT, VT> extends Set<MapEntry<KT, VT>> {
         private final HashMap<KT, VT> associatedMap;
 
         public HashMapEntrySet(HashMap<KT, VT> hm) {
@@ -513,7 +510,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         return keySet;
     }
 
-    private static class KeySet<K, V> extends AbstractSet<K> {
+    private static class KeySet<K, V> extends Set<K> {
         private HashMap<K, V> hashMap;
 
         public KeySet(HashMap<K, V> hashMap) {
@@ -748,7 +745,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         return valuesCollection;
     }
 
-    private static class ValuesCollection<K, V> extends AbstractCollection<V> {
+    private static class ValuesCollection<K, V> extends Collection<V> {
         private HashMap<K, V> hashMap;
 
         private ValuesCollection(HashMap<K, V> hashMap) {
