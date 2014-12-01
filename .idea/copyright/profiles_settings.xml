@@ -1,5 +1,5 @@
 <component name="CopyrightManager">
-  <settings default="">
+  <settings default="Default copyright">
     <module2copyright>
       <element module="Scribe originated source" copyright="Scribe originated source copyright" />
       <element module="Joda Time originated source" copyright="Joda Time originated source copyright" />
