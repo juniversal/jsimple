@@ -1,5 +1,11 @@
 /*
- * Copyright (c) 2012-2014, Microsoft Mobile
+ * Portions copyright (c) 2012-2014 Microsoft Mobile.  All Rights Reserved.
+ *
+ * This file is based on or incorporates material from the Scribe Java OAuth
+ * library https://github.com/fernandezpablo85/scribe-java (collectively, “Third
+ * Party Code”). Microsoft Mobile is not the original author of the Third Party
+ * Code.
+ *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,11 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
- *
- * This code was adapted from the Scribe Java OAuth library
- * (https://github.com/fernandezpablo85/scribe-java), with modest changes made
- * for JUniversal.  Scribe itself is distributed under the MIT license.
  */
 
 package jsimple.oauth.extractors;

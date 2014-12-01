@@ -5,8 +5,7 @@
  * (collectively, “Third Party Code”). Microsoft Mobile is not the original
  * author of the Third Party Code.  The original copyright notice and the
  * license, under which Microsoft Mobile received such Third Party Code, are set
- * forth below. Such licenses and notices are provided for informational purposes
- * only.
+ * forth below.
  *
  *
  * Copyright (c) 2004-2011 QOS.ch
