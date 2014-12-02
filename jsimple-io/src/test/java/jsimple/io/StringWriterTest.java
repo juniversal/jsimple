@@ -1,6 +1,7 @@
 package jsimple.io;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -14,7 +15,6 @@ public class StringWriterTest {
 
 		StringWriter sut = new StringWriter();
 		sut.write(data);
-
 		assertEquals(sut.getBuffer().charAt(0), data[0]);
 		assertEquals(sut.getBuffer().charAt(1), data[1]);
 		assertEquals(sut.getBuffer().charAt(2), data[2]);
@@ -44,7 +44,7 @@ public class StringWriterTest {
 	@Test
 	public void testLineSeparator() {
 		char lineSeparatorChr = '[';
-		String lineSeparator = new String(new char[]{lineSeparatorChr});
+		String lineSeparator = new String(new char[] { lineSeparatorChr });
 
 		StringWriter sut = new StringWriter();
 		sut.setLineSeparator(lineSeparator);
@@ -55,4 +55,24 @@ public class StringWriterTest {
 		sut.close();
 	}
 
+	@Test
+	public void testWriteString() {
+		StringWriter sut = new StringWriter();
+		sut.write("Test");
+
+		assertEquals('T', sut.getBuffer().charAt(0));
+		assertEquals('t', sut.getBuffer().charAt(3));
+		sut.close();
+	}
+
+	@Test
+	public void testClose() {
+		StringWriter sut = new StringWriter();
+		sut.close();
+		try {
+			sut.write(4);
+		} catch (Exception e) {
+			fail("No exceptions should be thrown");
+		}
+	}
 }

@@ -68,6 +68,21 @@ public class ByteArrayInputStreamTest {
 	
 		assertEquals(0, readData[0]);
 		assertEquals(data[0], readData[1]);
+	}
+	
+	@Test
+	public void testCoppyToByteArray(){
+		byte[] data = new byte[3];
+		data[0] = 1;
+		data[1] = 2;
+		data[2] = 3;
 
+		ByteArrayInputStream bais = new ByteArrayInputStream(data);
+		byte[] readData = bais.copyToByteArray().toByteArray();
+		bais.close();
+	
+		assertEquals(data[0], readData[0]);
+		assertEquals(data[1], readData[1]);
+	
 	}
 }
