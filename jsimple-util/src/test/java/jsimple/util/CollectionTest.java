@@ -41,17 +41,15 @@
 
 package jsimple.util;
 
-import java.util.Iterator;
-
 import jsimple.unit.UnitTest;
 
 import org.junit.Test;
 
-public class AbstractCollectionTest extends UnitTest {
+public class CollectionTest extends UnitTest {
 
 	@Test
 	public void testAddObject() {
-		AbstractCollection<Object> ac = new AbstractCollection<Object>() {
+		Collection<Object> ac = new Collection<Object>() {
 			@Override
 			public Iterator<Object> iterator() {
 				fail("iterator should not get called");
@@ -74,7 +72,7 @@ public class AbstractCollectionTest extends UnitTest {
 	@Test
 	public void testAddAll() {
 		final Collection<String> fixtures = ArrayList.create("0", "1", "2");
-		AbstractCollection<String> ac = new AbstractCollection<String>() {
+		Collection<String> ac = new Collection<String>() {
 
 			@Override
 			public boolean add(String object) {
@@ -101,7 +99,7 @@ public class AbstractCollectionTest extends UnitTest {
 	@Test
 	public void testContainsAll() {
 		final Collection<String> fixtures = ArrayList.create("0", "1", "2");
-		AbstractCollection<String> ac = new AbstractCollection<String>() {
+		Collection<String> ac = new Collection<String>() {
 
 			@Override
 			public boolean contains(String object) {
@@ -128,7 +126,7 @@ public class AbstractCollectionTest extends UnitTest {
 	@Test
 	public void testIsEmpty() {
 		final boolean[] sizeCalled = new boolean[1];
-		AbstractCollection<Object> ac = new AbstractCollection<Object>() {
+		Collection<Object> ac = new Collection<Object>() {
 			@Override
 			public Iterator<Object> iterator() {
 				fail("iterator should not get called");
@@ -148,7 +146,7 @@ public class AbstractCollectionTest extends UnitTest {
 	@Test
 	public void testRemoveAll() {
 		final String[] removed = new String[3];
-		AbstractCollection<String> ac = new AbstractCollection<String>() {
+		Collection<String> ac = new Collection<String>() {
 
 			@Override
 			public Iterator<String> iterator() {
@@ -189,7 +187,7 @@ public class AbstractCollectionTest extends UnitTest {
 	@Test
 	public void testRetainAll() {
 		final String[] removed = new String[1];
-		AbstractCollection<String> ac = new AbstractCollection<String>() {
+		Collection<String> ac = new Collection<String>() {
 
 			@Override
 			public Iterator<String> iterator() {
@@ -225,7 +223,7 @@ public class AbstractCollectionTest extends UnitTest {
 
 	@Test
 	public void testToArrayTypeless() {
-		AbstractCollection<String> ac = new AbstractCollection<String>() {
+		Collection<String> ac = new Collection<String>() {
 			@Override
 			public Iterator<String> iterator() {
 				return new Iterator<String>() {
@@ -263,7 +261,7 @@ public class AbstractCollectionTest extends UnitTest {
 
 	@Test
 	public void testToArrayTyped() {
-		AbstractCollection<String> ac = new AbstractCollection<String>() {
+		Collection<String> ac = new Collection<String>() {
 			@Override
 			public Iterator<String> iterator() {
 				return new Iterator<String>() {
@@ -316,7 +314,7 @@ public class AbstractCollectionTest extends UnitTest {
 	public void testToString() {
 		// see HARMONY-1522
 		// collection that returns null iterator(this is against the spec.)
-		AbstractCollection<?> c = new AbstractCollection<Object>() {
+		Collection<?> c = new Collection<Object>() {
 			@Override
 			public int size() {
 				// return non-zero value to pass 'isEmpty' check
@@ -331,7 +329,7 @@ public class AbstractCollectionTest extends UnitTest {
 		};
 
 		try {
-			// AbstractCollection.toString() doesn't verify
+			// Collection.toString() doesn't verify
 			// whether iterator() returns null value or not
 			c.toString();
 			fail("No expected NullPointerException");
