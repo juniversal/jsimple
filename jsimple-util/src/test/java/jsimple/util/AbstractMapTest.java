@@ -26,198 +26,172 @@
 
 package jsimple.util;
 
-/*
-import java.util.AbstractMap;
-import java.util.AbstractSet;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.IdentityHashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.Vector;
-import java.util.WeakHashMap;
-*/
-
 import jsimple.unit.UnitTest;
+
 import org.junit.Test;
 
 public class AbstractMapTest extends UnitTest {
-    static final String specialKey = "specialKey".intern();
 
-    static final String specialValue = "specialValue".intern();
+	@Test
+	public void testKeySet() {
+		AbstractMap<Object, Object> map1 = new HashMap<Object, Object>(0);
+		assertSame("HashMap(0)", map1.keySet(), map1.keySet());
 
-    /**
-     * @tests java.util.AbstractMap#keySet()
-     */
-    @Test public void test_keySet() {
-        AbstractMap map1 = new HashMap(0);
-        assertSame("HashMap(0)", map1.keySet(), map1.keySet());
+		AbstractMap<Object, Object> map2 = new HashMap<Object, Object>(10);
+		assertSame("HashMap(10)", map2.keySet(), map2.keySet());
+	}
 
-        AbstractMap map2 = new HashMap(10);
-        assertSame("HashMap(10)", map2.keySet(), map2.keySet());
-    }
+	@Test
+	public void testClear() {
+		AbstractMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		map.put(1, 1);
+		map.clear();
+		assertTrue(map.isEmpty());
+	}
 
-    /**
-     * @tests java.util.AbstractMap#clear()
-     */
-    @Test public void test_clear() {
-        // normal clear()
-        AbstractMap map = new HashMap();
-        map.put(1, 1);
-        map.clear();
-        assertTrue(map.isEmpty());
-    }
+	@Test
+	public void testValues() {
+		AbstractMap<Object, Object> map1 = new HashMap<Object, Object>(0);
+		assertSame("HashMap(0)", map1.values(), map1.values());
 
-    /**
-     * @tests java.util.AbstractMap#values()
-     */
-    @Test public void test_values() {
-        AbstractMap map1 = new HashMap(0);
-        assertSame("HashMap(0)", map1.values(), map1.values());
+		AbstractMap<Object, Object> map2 = new HashMap<Object, Object>(10);
+		assertSame("HashMap(10)", map2.values(), map2.values());
+	}
 
-        AbstractMap map2 = new HashMap(10);
-        assertSame("HashMap(10)", map2.values(), map2.values());
-    }
+	@Test
+	public void testClone() {
+		class MyMap<T, Y> extends AbstractMap<T, Y> implements Cloneable {
+			private Map<T, Y> map = new HashMap<T, Y>();
 
-    /**
-     * @tests java.util.AbstractMap#clone()
-     */
-    @Test public void test_clone() {
-        class MyMap extends AbstractMap implements Cloneable {
-            private Map map = new HashMap();
+			public Set<MapEntry<T, Y>> entrySet() {
+				return map.entrySet();
+			}
 
-            public Set entrySet() {
-                return map.entrySet();
-            }
+			public Y put(T key, Y value) {
+				return map.put(key, value);
+			}
 
-            public Object put(Object key, Object value) {
-                return map.put(key, value);
-            }
+			public Map<T, Y> getMap() {
+				return map;
+			}
 
-            public Map getMap() {
-                return map;
-            }
+			public Object clone() {
+				try {
+					return super.clone();
+				} catch (CloneNotSupportedException e) {
+					return null;
+				}
+			}
 
-            public Object clone() {
-                try {
-                    return super.clone();
-                } catch (CloneNotSupportedException e) {
-                    return null;
-                }
-            }
+			@Override
+			public void clear() {
+				map.clear();
+			}
 
-            @Override public void clear() {
-                map.clear();
-            }
+			@Override
+			public boolean containsKey(Object key) {
+				return map.containsKey(key);
+			}
 
-            @Override public boolean containsKey(Object key) {
-                return map.containsKey(key);
-            }
+			@Override
+			public boolean containsValue(Object value) {
+				return map.containsValue(value);
+			}
 
-            @Override public boolean containsValue(Object value) {
-                return map.containsValue(value);
-            }
+			@Override
+			public Y get(Object key) {
+				return map.get(key);
+			}
 
-            @Override public Object get(Object key) {
-                return map.get(key);
-            }
+			@Override
+			public boolean isEmpty() {
+				return map.isEmpty();
+			}
 
-            @Override public boolean isEmpty() {
-                return map.isEmpty();
-            }
+			@Override
+			public Set<T> keySet() {
+				return map.keySet();
+			}
 
-            @Override public Set keySet() {
-                return map.keySet();
-            }
+			@Override
+			public void putAll(Map<? extends T, ? extends Y> map) {
+				this.map.putAll(map);
+			}
 
-            @Override public void putAll(Map map) {
-                this.map.putAll(map);
-            }
+			@Override
+			public Y remove(Object key) {
+				return map.remove(key);
+			}
 
-            @Override public Object remove(Object key) {
-                return map.remove(key);
-            }
+			@Override
+			public int size() {
+				return map.size();
+			}
 
-            @Override public int size() {
-                return map.size();
-            }
+			@Override
+			public Collection<Y> values() {
+				return map.values();
+			}
+		}
 
-            @Override public Collection values() {
-                return map.values();
-            }
-        }
+		MyMap<String, String> map = new MyMap<String, String>();
+		map.put("one", "1");
+		MapEntry<String, String> entry = map.entrySet().iterator().next();
+		assertTrue("entry not added", entry.getKey() == "one" && entry.getValue() == "1");
 
-        MyMap map = new MyMap();
-        map.put("one", "1");
-        MapEntry entry = (MapEntry) map.entrySet().iterator().next();
-        assertTrue("entry not added", entry.getKey() == "one"
-                && entry.getValue() == "1");
-        MyMap mapClone = (MyMap) map.clone();
-        assertTrue("clone not shallow", map.getMap() == mapClone.getMap());
-    }
+		@SuppressWarnings("unchecked")
+		MyMap<String, String> mapClone = (MyMap<String, String>) map.clone();
+		assertTrue("clone not shallow", map.getMap() == mapClone.getMap());
+	}
 
-    /**
-     * @tests {@link jsimple.util.AbstractMap#putAll(Map)} and equals
-     */
-    @Test public void test_putAllLMap() {
-        HashMap hm1 = new HashMap();
-        HashMap hm2 = new HashMap();
+	@Test
+	public void testPutAll() {
+		HashMap<String, String> hm1 = new HashMap<String, String>();
+		HashMap<String, String> hm2 = new HashMap<String, String>();
 
-        hm2.put("this", "that");
-        hm1.putAll(hm2);
-        assertEquals("Should be equal", hm1, hm2);
-    }
+		hm2.put("this", "that");
+		hm1.putAll(hm2);
+		assertEquals("Should be equal", hm1, hm2);
+	}
 
-    @Test public void testEqualsWithNullValues() {
-        Map<String, String> a = new HashMap<String, String>();
-        a.put("a", null);
-        a.put("b", null);
+	@Test
+	public void testEqualsWithNullValues() {
+		Map<String, String> a = new HashMap<String, String>();
+		a.put("a", null);
+		a.put("b", null);
 
-        Map<String, String> b = new HashMap<String, String>();
-        a.put("c", "cat");
-        a.put("d", "dog");
+		Map<String, String> b = new HashMap<String, String>();
+		a.put("c", "cat");
+		a.put("d", "dog");
 
-        assertFalse(a.equals(b));
-        assertFalse(b.equals(a));
-    }
+		assertFalse(a.equals(b));
+		assertFalse(b.equals(a));
+	}
 
-    @Test public void testNullsOnViews() {
-        Map<String, String> nullHostile = new HashMap<String, String>();
+	@Test
+	public void testNullsOnViews() {
+		Map<String, String> nullHostile = new HashMap<String, String>();
 
-        nullHostile.put("a", "apple");
-        testNullsOnView(nullHostile.entrySet());
+		nullHostile.put("a", "apple");
+		testNullsOnView(nullHostile.entrySet());
 
-        nullHostile.put("a", "apple");
-        testNullsOnView(nullHostile.keySet());
+		nullHostile.put("a", "apple");
+		testNullsOnView(nullHostile.keySet());
 
-        nullHostile.put("a", "apple");
-        testNullsOnView(nullHostile.values());
-    }
+		nullHostile.put("a", "apple");
+		testNullsOnView(nullHostile.values());
+	}
 
-    private void testNullsOnView(Collection<?> view) {
-        assertFalse(view.contains(null));
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void testNullsOnView(Collection<?> view) {
+		assertFalse(view.contains(null));
 
-        assertFalse(view.remove(null));
+		assertFalse(view.remove(null));
 
-        HashSet setOfNull = new HashSet();
-        setOfNull.add(null);
-        assertFalse(view.equals(setOfNull));
-
-        assertFalse(view.removeAll(setOfNull));
-
-        assertTrue(view.retainAll(setOfNull)); // destructive
-    }
-
-    protected void setUp() {
-    }
-
-    protected void tearDown() {
-    }
+		HashSet setOfNull = new HashSet();
+		setOfNull.add(null);
+		assertFalse(view.equals(setOfNull));
+		assertFalse(view.removeAll(setOfNull));
+		assertTrue(view.retainAll(setOfNull)); // destructive
+	}
 }
