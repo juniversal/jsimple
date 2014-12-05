@@ -6,6 +6,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+/**
+ * @author Dorin Suletea
+ * @since 12/1/2014
+ */
 public class CharIteratorTest {
 	
 	@Test

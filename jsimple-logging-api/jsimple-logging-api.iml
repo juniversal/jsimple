@@ -17,6 +17,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="jsimple-util" exported="" />
     <orderEntry type="module" module-name="jsimple-unit" scope="TEST" />
-    <orderEntry type="library" exported="" name="Gradle: com.intellij:annotations:9.0.4" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: annotations-9.0.4" level="project" />
   </component>
 </module>

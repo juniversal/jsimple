@@ -4,6 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * @author Dorin Suletea
+ * @since 12/1/2014
+ */
 public class ListUtilTest {
 	@Test
 	public void testListEquals(){
