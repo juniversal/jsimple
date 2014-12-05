@@ -5,6 +5,10 @@ import jsimple.util.ByteArrayRange;
 
 import org.junit.Test;
 
+/**
+ * @author Dorin Suletea
+ * @since 12/1/2014
+ */
 public class SequenceInputStreamTest {
 
 	@Test

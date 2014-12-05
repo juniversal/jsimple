@@ -4,6 +4,10 @@ import jsimple.unit.UnitTest;
 
 import org.junit.Test;
 
+/**
+ * @author Dorin Suletea
+ * @since 12/1/2014
+ */
 public class BufferedReaderTest extends UnitTest {
 	private String resourcesDirectoryPath = getJavaProjectDirectory()
 			+ "/src/test/resources";
