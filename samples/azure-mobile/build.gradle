@@ -20,21 +20,9 @@
  * THE SOFTWARE.
  */
 
-rootProject.name = 'jsimple'
-include ':jsimple-unit'
-include ':jsimple-util'
-include ':jsimple-io'
-include ':jsimple-json'
-include ':jsimple-oauth'
-include ':jsimple-logging-api'
-include ':jsimple-logging-stdimpl'
-include ':azure-mobile'
+description = 'Sample using Azure Mobile serivces'
 
-project(':jsimple-unit').projectDir = "$rootDir/jsimple-unit" as File
-project(':jsimple-util').projectDir = "$rootDir/jsimple-util" as File
-project(':jsimple-io').projectDir = "$rootDir/jsimple-io" as File
-project(':jsimple-json').projectDir = "$rootDir/jsimple-json" as File
-project(':jsimple-oauth').projectDir = "$rootDir/jsimple-oauth" as File
-project(':jsimple-logging-api').projectDir = "$rootDir/jsimple-logging-api" as File
-project(':jsimple-logging-stdimpl').projectDir = "$rootDir/jsimple-logging-stdimpl" as File
-project(':azure-mobile').projectDir = "$rootDir/samples/azure-mobile" as File
+dependencies {
+    compile group: 'com.intellij', name: 'annotations', version: '9.0.4'
+    compile project(':jsimple-io')
+}
