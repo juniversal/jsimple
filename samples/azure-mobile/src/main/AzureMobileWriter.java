@@ -1,3 +1,4 @@
+import jsimple.io.IOUtils;
 import jsimple.net.HttpRequest;
 import jsimple.net.HttpResponse;
 import jsimple.util.HashMap;
@@ -60,6 +61,54 @@ public class AzureMobileWriter {
 		System.out.println("Insert resp code " + resp.getStatusCode());
 		boolean sucess = false;
 		if (resp.getStatusCode() == 201) {
+			sucess = true;
+		}
+		return sucess;
+	}
+	
+	/**
+	 * Updates the row with the id specified,
+	 * rows named with values from dataToInsert.keySet , will have their values set to dataToInsert.values
+	 * 
+	 * @param itemID the id of the item to update
+	 * @param tableName 
+	 * @param appId application id
+	 * @param dataToInsert the column->value mappings for the values that should be updated
+	 * @return
+	 */
+	public static boolean updateFieldFilteredWithAppID(Integer itemID , String tableName, String appId, HashMap<String, String> dataToInsert) {
+		String requestString = Constants.DB_PATH + tableName + "/" + itemID ;
+		HttpRequest req = HttpRequest.create(requestString);
+		req.setMethod(HttpRequest.METHOD_POST);
+		req.setContentTypeAndAcceptHeaders("application/json", "application/json");
+		req.setHeader("X-ZUMO-APPLICATION", Constants.AZURE_APP_ID);
+		//since java does not support PATCH, this will override the method verb 
+		req.setHeader("x-http-method-override", "PATCH"); 
+
+		jsimple.io.Utf8OutputStreamWriter out = new jsimple.io.Utf8OutputStreamWriter(req.createRequestBodyStream());
+		StringBuffer reqStr = new StringBuffer();
+
+		reqStr.append("{");
+		for (String key : dataToInsert.keySet()) {
+			reqStr.append("\"" + key + "\"");
+			reqStr.append(":");
+			reqStr.append("\"" + dataToInsert.get(key) + "\"");
+			reqStr.append(",");
+		}
+		// remove the last comma
+		reqStr.deleteCharAt(reqStr.length() - 1);
+		reqStr.append("}");
+
+		System.out.println("Insert request " + reqStr.toString());
+		out.write(reqStr.toString());
+		out.flush();
+		out.close();
+
+		HttpResponse resp = req.send();
+
+		System.out.println("Update resp code " + resp.getStatusCode());
+		boolean sucess = false;
+		if (resp.getStatusCode() == 200) {
 			sucess = true;
 		}
 		return sucess;
