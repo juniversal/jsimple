@@ -127,7 +127,8 @@ public abstract class HttpRequest {
     public abstract void setTimeout(int timeoutInMillis);
 
     /**
-     * Sets the header. If a header with the key already exists, overwrite its value with the new value.
+     * Sets the specified HTTP request header to the specified value. If a header with the key already exists, overwrite
+     * its value with the new value.
      * <p/>
      * NOTE: HTTP requires all request headers which can legally have multiple instances with the same key to use a
      * comma-separated list syntax which enables multiple values to be appended into a single header.  This method
