@@ -2,6 +2,10 @@ import jsimple.io.IOUtils;
 import jsimple.net.HttpRequest;
 import jsimple.net.HttpResponse;
 
+/**
+ * @author Dorin Suletea
+ * @since 12/5/2014
+ */
 public class AzureMobileReader {
 
 	/* select * from Table1 ; authenticates with the azure-application id (X-ZUMO-APPLICATION)*/

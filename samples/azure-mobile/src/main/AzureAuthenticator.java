@@ -1,6 +1,10 @@
 import jsimple.io.IOUtils;
 import jsimple.net.HttpRequest;
 
+/**
+ * @author Dorin Suletea
+ * @since 12/5/2014
+ */
 public class AzureAuthenticator {
     //receives an facebook acesstoken (obtained with fb oauth) , and generates a azure-mobile token that can be
     //used in order to query the azure-mobile db

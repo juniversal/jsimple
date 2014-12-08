@@ -1,3 +1,7 @@
+/**
+ * @author Dorin Suletea
+ * @since 12/5/2014
+ */
 public class Constants {
 	public static String AZURE_MOBILE_APP_NAME = "jsimple2";
 	public static String AZURE_QUERY_TABLE = "Table1";

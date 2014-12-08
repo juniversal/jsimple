@@ -1,6 +1,10 @@
 import jsimple.net.HttpRequest;
 import jsimple.net.HttpResponse;
 
+/**
+ * @author Dorin Suletea
+ * @since 12/5/2014
+ */
 public class AzureMobileWriter {
 
 	/*uses the app id to instert data into Table1*/

@@ -1,5 +1,9 @@
 import jsimple.io.JSimpleIO;
 
+/**
+ * @author Dorin Suletea
+ * @since 12/5/2014
+ */
 public class Main {
 	public static void main(String[] args) throws Exception {
 		JSimpleIO.init();
