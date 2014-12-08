@@ -101,6 +101,19 @@ public abstract class HttpRequest {
     public abstract void setMethod(String method);
 
     /**
+     * This is a convenience method to set both the Content-Type and Accept headers, at the same time.   For example, it
+     * can be used to set them both to "application/json", for a typical REST API JSON request that expects a JSON
+     * response.
+     *
+     * @param contentType Content-Type header value
+     * @param accept      Accept header value
+     */
+    public void setContentTypeAndAcceptHeaders(String contentType, String accept) {
+        setHeader(HttpRequest.HEADER_CONTENT_TYPE, contentType);
+        setHeader(HttpRequest.HEADER_ACCEPT, accept);
+    }
+
+    /**
      * Sets a specified timeout value, in milliseconds, to be used when doing connecting/reading/writing to the server.
      * A timeout of zero is interpreted as an infinite timeout.  If the timeout expires before the operation is
      * complete, an exception is raised (e.g. java.net.SocketTimeoutException for the Java version for connect
