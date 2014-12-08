@@ -8,7 +8,7 @@ import jsimple.util.HashMap;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		JSimpleIO.init();
-		String myFacebookToken = "CAAIlGNmRpDEBAKCiJ473Ree2yDLHkbBbfwgrWU5duq6lRDO7hSh5ySF2mFqTpG79Oun2kFWeVnprULva4hRvUaRlH1UXIm8llAZA8Ir6JZBLHEseWiUv9rvvyEEQrTj5YtUqAkfgzqbLN5ztBf6Ur9ZANtMGxe2kh53pNZCXk3t0vUbu1BDB5by8TO33zVelhKbEqYbPGx0r7TZBle9w5";
+		String myFacebookToken = "<facebook token>";
 
 		// get azure token
 		String myAzureToken = AzureAuthenticator.obtainAzureToken(myFacebookToken);
