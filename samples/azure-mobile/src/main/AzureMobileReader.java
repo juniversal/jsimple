@@ -8,37 +8,73 @@ import jsimple.net.HttpResponse;
  */
 public class AzureMobileReader {
 
-	/* select * from Table1 ; authenticates with the azure-application id (X-ZUMO-APPLICATION)*/
-	public static String queryAzureWithAppID() {
-		HttpRequest req = HttpRequest.create(Constants.DB_PATH);
-		
-		//assemble request 
+	/**
+	 * select * from tableName authenticate using appID
+	 * 
+	 * @param tableName
+	 *            what table to read
+	 * @param appId
+	 *            usses application id to authenticate
+	 * @return json response data
+	 */
+	public static String selectAllAuthWithAppID(String tableName, String appId) {
+		String requestString = Constants.DB_PATH + tableName;
+		HttpRequest req = HttpRequest.create(requestString);
 		req.setMethod(HttpRequest.METHOD_GET);
 		req.setContentTypeAndAcceptHeaders("application/json", "application/json");
-		req.setHeader("X-ZUMO-APPLICATION", Constants.AZURE_APP_ID);//<--- the azure-mobile app id
+		req.setHeader("X-ZUMO-APPLICATION", appId);
 
 		HttpResponse response = req.send();
 		String tableData = IOUtils.toStringFromUtf8Stream(response.getBodyStream());
-
-		System.out.println("Table1 data using azure-app-id " + tableData);
 		return tableData;
 	}
 
-	/* select * from Table1 authenticates with microsoft-azure token, this token is obtained from
-	 * facebook oauth token (see AzureAuthenticator)*/
-	public static String queryAzureWithFbToken(String azureOauthToken) {
-		jsimple.net.HttpRequest req = jsimple.net.HttpRequest.create(Constants.DB_PATH);
-		
-		//assemble request 
+	/**
+	 * select * from tableName authenticate using acesstoken
+	 * 
+	 * @param tableName
+	 *            what table to read
+	 * @param appId
+	 *            usses application id to authenticate
+	 * @return json response data
+	 */
+	public static String selectAllAuthWithToken(String tableName, String azureAcessToken) {
+		jsimple.net.HttpRequest req = jsimple.net.HttpRequest.create(Constants.DB_PATH + tableName);
+
 		req.setMethod(HttpRequest.METHOD_GET);
 		req.setContentTypeAndAcceptHeaders("application/json", "application/json");
-		req.setHeader("X-ZUMO-AUTH", azureOauthToken);//<--- the azure-mobile oauth TOKEN
+		req.setHeader("X-ZUMO-AUTH", azureAcessToken);
 
 		jsimple.net.HttpResponse response = req.send();
-
 		String tableData = IOUtils.toStringFromUtf8Stream(response.getBodyStream());
-		System.out.println("Table1 data using azure-token "+tableData);
 		return tableData;
 	}
+
+	/**
+	 * select * from tableName where column = value
+	 * authenticate using acesstoken
+	 * 
+	 * @param tableName
+	 *            what table to read
+	 * @param appId
+	 *            usses application id to authenticate
+	 * @return json response data
+	 */
+	public static String selectFilteredAuthWithAppID(String tableName, String appId, String column, String value) {
+		String requestString = Constants.DB_PATH + tableName;
+		String filterString = "?$filter=("   + column  + "%20eq%20" + "'" + value + "')";
+		requestString += filterString;
+
+		HttpRequest req = HttpRequest.create(requestString);
+		req.setMethod(HttpRequest.METHOD_GET);
+		req.setContentTypeAndAcceptHeaders("application/json", "application/json");
+		req.setHeader("X-ZUMO-APPLICATION", appId);
+
+		HttpResponse response = req.send();
+		String tableData = IOUtils.toStringFromUtf8Stream(response.getBodyStream());
+		return tableData;
+	}
+
+	// ?$filter=LastName%20eq%20'Smith'%20and%20FirstName%20eq%20'John'
 
 }

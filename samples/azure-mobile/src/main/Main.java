@@ -1,4 +1,5 @@
 import jsimple.io.JSimpleIO;
+import jsimple.util.HashMap;
 
 /**
  * @author Dorin Suletea
@@ -7,14 +8,29 @@ import jsimple.io.JSimpleIO;
 public class Main {
 	public static void main(String[] args) throws Exception {
 		JSimpleIO.init();
+		String myFacebookToken = "<your facebook acess token goes here>";
 
-		String myFacebookToken = "CAAIlGNmRpDEBAKCiJ473Ree2yDLHkbBbfwgrWU5duq6lRDO7hSh5ySF2mFqTpG79Oun2kFWeVnprULva4hRvUaRlH1UXIm8llAZA8Ir6JZBLHEseWiUv9rvvyEEQrTj5YtUqAkfgzqbLN5ztBf6Ur9ZANtMGxe2kh53pNZCXk3t0vUbu1BDB5by8TO33zVelhKbEqYbPGx0r7TZBle9w5";
-		String myAzureToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjAifQ.eyJleHAiOjE0MjAzODUzMDEsImlzcyI6InVybjptaWNyb3NvZnQ6d2luZG93cy1henVyZTp6dW1vIiwidmVyIjoyLCJhdWQiOiJGYWNlYm9vayIsInVpZCI6IkZhY2Vib29rOjgwODM2MzQ4MjUzOTYxMiIsInVybjptaWNyb3NvZnQ6Y3JlZGVudGlhbHMiOiJUTHNqRG5QeTlXUkdlemdRVHphcWhGbTBuZ0lDY2IzRW0yYWZNbnM3UzlmRVdzdGdOeFl3Zk11NUFxVkMyNCtZMk9mT3NYVnVtS3R3TjlYWHlxWWhVeThBbmdJQ1NSN0RIYVhDeUFvM01jdWxjNnh5S0ZLT0I2WjFzSEFPaDFUZnNETE1mVEZ4UE9tRm5RaHVKSkNHS0hDYTZwWWFydDYvaW8zUWZmQUNHNjkxb0tJSG8yb3RoeWFHUDU0SmdoUU41dERlMDhzQkJKWUZpdWxJVHphTENzb2I2VEVRTDZZMGpZeUd6L01LckJRd3dtNlkrZVk5YUd4dUtFUnFkYUZhaE04OXhETlFmd2U2Tkg0VkdNTkVhUT09In0.tzzJOH8-DOoVZrcNFKMzICjmUe_n2-2pe5xhJzQWcGo";
-		//myAzureToken is obtained by calling 
-		//AzureAuthenticator.obtainAzureToken(myFacebookToken);
-		
-		AzureMobileWriter.insertDataWithAppID();
-		AzureMobileReader.queryAzureWithFbToken(myAzureToken);
-		AzureMobileReader.queryAzureWithAppID();
+		// get azure token
+		String myAzureToken = AzureAuthenticator.obtainAzureToken(myFacebookToken);
+		System.out.println("Azure mobile token obtained: " + myAzureToken + "\n");
+
+		// insert data
+		HashMap<String, String> dataToInsert = new HashMap<String, String>();
+		dataToInsert.put("A", "myNewRowA");
+		dataToInsert.put("B", "myNewRowB");
+		boolean insertDoneOk = AzureMobileWriter.insertDataWithAppID(Constants.TABLE_1_NAME, dataToInsert);
+		System.out.println("Data inserted " + insertDoneOk + "\n");
+
+		// read the data using appID
+		String table1Data = AzureMobileReader.selectAllAuthWithAppID(Constants.TABLE_1_NAME, Constants.AZURE_APP_ID);
+		System.out.println("Extracted data form Table1 using AppID" + table1Data + "\n");
+
+		// read the data using myAzureToken (obtained step1)
+		String table2Data = AzureMobileReader.selectAllAuthWithToken(Constants.TABLE_1_NAME, myAzureToken);
+		System.out.println("Extracted data form Table1 using authToken" + table2Data +"\n");
+
+		// read the data using appID where column A value is "myNewRowA"
+		String table3Data = AzureMobileReader.selectFilteredAuthWithAppID(Constants.TABLE_1_NAME, Constants.AZURE_APP_ID, "A", "myNewRowA");
+		System.out.println("Extracted filtered data form Table1 using authToken" + table3Data);
 	}
 }
