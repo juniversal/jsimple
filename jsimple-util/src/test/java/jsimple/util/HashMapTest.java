@@ -148,7 +148,7 @@ public final class HashMapTest extends UnitTest {
 	@Test
 	public void testClone() {
 		// Test for method java.lang.Object java.util.HashMap.clone()
-		HashMap<Object, Object> hm2 = (HashMap<Object, Object>) hm.clone();
+		HashMap<Object, Object> hm2 = new HashMap<Object, Object>(hm);
 		assertTrue("Clone answered equivalent HashMap", hm2 != hm);
 
 		for (int counter = 0; counter < hmSize; counter++) {
@@ -163,7 +163,7 @@ public final class HashMapTest extends UnitTest {
 		assertEquals("values() does not work", "value", values.iterator().next());
 		assertEquals("keySet() does not work", "key", keys.iterator().next());
 
-		AbstractMap<String, String> map2 = (AbstractMap<String, String>) map.clone();
+		Map<String, String> map2 = new HashMap<String, String>(map);
 		map2.put("key", "value2");
 		Collection<String> values2 = map2.values();
 		assertTrue("values() is identical", values2 != values);
@@ -182,7 +182,7 @@ public final class HashMapTest extends UnitTest {
 		MockClonable mock = new MockClonable(1);
 		hashmap.put(1, mock);
 		assertEquals(1, ((MockClonable) hashmap.get(1)).i);
-		HashMap<Integer, MockClonable> hm3 = (HashMap<Integer, MockClonable>) hashmap.clone();
+		HashMap<Integer, MockClonable> hm3 = new HashMap<Integer, MockClonable>(hashmap);
 		assertEquals(1, ((MockClonable) hm3.get(1)).i);
 		mock.i = 0;
 		assertEquals(0, ((MockClonable) hashmap.get(1)).i);
@@ -257,7 +257,7 @@ public final class HashMapTest extends UnitTest {
 	@Test
 	public void testIsEmpty() {
 		// Test for method boolean java.util.HashMap.isEmpty()
-		assertTrue("Returned false for new map", new HashMap<>().isEmpty());
+		assertTrue("Returned false for new map", new HashMap<Object, Object>().isEmpty());
 		assertTrue("Returned true for non-empty", !hm.isEmpty());
 	}
 
@@ -614,7 +614,7 @@ public final class HashMapTest extends UnitTest {
 	}
 
 	class SubMap<K, V> extends HashMap<K, V> {
-		public SubMap(Map<? extends K, ? extends V> m) {
+		public SubMap(Map<K, V> m) {
 			super(m);
 		}
 
@@ -636,7 +636,7 @@ public final class HashMapTest extends UnitTest {
 	
 	@Test
 	public void testGetValues() {
-		HashMap<Integer, String> sut = new HashMap<>();
+		HashMap<Integer, String> sut = new HashMap<Integer, String>();
 		sut.put(1, "a");
 		sut.put(2, "b");
 		sut.put(3, "c");

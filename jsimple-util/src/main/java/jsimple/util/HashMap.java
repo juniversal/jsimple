@@ -15,7 +15,7 @@
  *
  *
  * This file is based on or incorporates material from Apache Harmony
- * http://harmony.apache.org (collectively, “Third Party Code”). Microsoft Mobile
+ * http://harmony.apache.org (collectively, "Third Party Code"). Microsoft Mobile
  * is not the original author of the Third Party Code. The original copyright
  * notice and the license, under which Microsoft Mobile received such Third Party
  * Code, are set forth below.
@@ -41,11 +41,24 @@
 
 package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
- * HashMap is an implementation of Map. All optional operations (adding and
- * removing) are supported. Keys and values can be any objects.
+ * HashMap is an implementation of Map. All optional operations (adding and removing) are supported. Keys and values can
+ * be any objects.
+ * <p/>
+ * Changes from the java.util version:
+ * <p/>
+ * Does not implement Serializable
+ * <p/>
+ * Does not support clone; use HashMap constructor taking a Map argument instead (which is more flexible and type safe)
  */
-public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Cloneable {
+public class HashMap<K, V> extends Map<K, V> {
+    // Lazily initialized key set.
+    Set<K> keysSet;
+
+    Collection<V> valuesCollection;
+
     /*
      * Actual count of entries
      */
@@ -54,7 +67,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     /*
      * The internal data structure to hold Entries
      */
-    transient Entry<K, V>[] elementData;
+    transient HashMapEntry<K, V>[] elementData;
 
     /*
      * modification count, to keep track of structural modifications between the
@@ -80,38 +93,12 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
      */
     int threshold;
 
-    static class Entry<K, V> extends MapEntryImpl<K, V> {
-        final int origKeyHash;
-
-        Entry<K, V> next;
-
-        Entry(K theKey, int hash) {
-            super(theKey, null);
-            this.origKeyHash = hash;
-        }
-
-        Entry(K theKey, V theValue) {
-            super(theKey, theValue);
-            origKeyHash = (theKey == null ? 0 : computeHashCode(theKey));
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public Object clone() {
-            Entry<K, V> entry = (Entry<K, V>) super.clone();
-            if (next != null) {
-                entry.next = (Entry<K, V>) next.clone();
-            }
-            return entry;
-        }
-    }
-
     private static abstract class AbstractMapIterator<K, V, E> extends Iterator<E> {
         private int position = 0;
         int expectedModCount;
-        Entry<K, V> futureEntry;
-        Entry<K, V> currentEntry;
-        Entry<K, V> prevEntry;
+        HashMapEntry<K, V> futureEntry;
+        HashMapEntry<K, V> currentEntry;
+        HashMapEntry<K, V> prevEntry;
 
         final HashMap<K, V> associatedMap;
 
@@ -179,7 +166,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
     }
 
-    private static class EntryIterator<K, V> extends AbstractMapIterator<K, V, MapEntry<K, V>>  {
+    private static class EntryIterator<K, V> extends AbstractMapIterator<K, V, MapEntry<K, V>> {
         EntryIterator(HashMap<K, V> map) {
             super(map);
         }
@@ -212,15 +199,11 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
     }
 
-    private static class HashMapEntrySet<KT, VT> extends Set<MapEntry<KT, VT>> {
+    private static final class HashMapEntrySet<KT, VT> extends Set<MapEntry<KT, VT>> {
         private final HashMap<KT, VT> associatedMap;
 
         public HashMapEntrySet(HashMap<KT, VT> hm) {
             associatedMap = hm;
-        }
-
-        HashMap<KT, VT> hashMap() {
-            return associatedMap;
         }
 
         @Override public int size() {
@@ -237,7 +220,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
 
         @Override public boolean remove(MapEntry<KT, VT> object) {
             if (object != null) {
-                Entry<KT, VT> entry = associatedMap.getEntry(object.getKey());
+                HashMapEntry<KT, VT> entry = associatedMap.getEntry(object.getKey());
                 if (valuesEq(entry, object)) {
                     associatedMap.removeEntry(entry);
                     return true;
@@ -250,15 +233,13 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         public boolean contains(MapEntry<KT, VT> object) {
             if (object == null)
                 return false;
-            Entry<KT, VT> entry = associatedMap.getEntry(object.getKey());
+            HashMapEntry<KT, VT> entry = associatedMap.getEntry(object.getKey());
             return valuesEq(entry, object);
         }
 
-        private static boolean valuesEq(Entry entry, MapEntry<?, ?> oEntry) {
+        private static boolean valuesEq(HashMapEntry<KT, VT> entry, MapEntry<?, ?> oEntry) {
             return (entry != null) &&
-                    ((entry.value == null) ?
-                            (oEntry.getValue() == null) :
-                            (areEqualValues(entry.value, oEntry.getValue())));
+                    ( (entry.value == null) ? (oEntry.getValue() == null) : (areEqualValues(entry.value, oEntry.getValue())) );
         }
 
         @Override
@@ -273,8 +254,8 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
      * @param s
      * @return Reference to the element array
      */
-    @SuppressWarnings("unchecked") Entry<K, V>[] newElementArray(int s) {
-        return new Entry[s];
+    @SuppressWarnings("unchecked") HashMapEntry<K, V>[] newElementArray(int s) {
+        return (HashMapEntry<K, V>[]) new Object[s];
     }
 
     /**
@@ -295,8 +276,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     }
 
     /**
-     * Calculates the capacity of storage required for storing given number of
-     * elements
+     * Calculates the capacity of storage required for storing given number of elements
      *
      * @param x number of elements
      * @return storage size
@@ -318,13 +298,12 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     }
 
     /**
-     * Constructs a new {@code HashMap} instance with the specified capacity and
-     * load factor.
+     * Constructs a new {@code HashMap} instance with the specified capacity and load factor.
      *
      * @param capacity   the initial capacity of this hash map.
      * @param loadFactor the initial load factor.
-     * @throws IllegalArgumentException when the capacity is less than zero or the load factor is
-     *                                  less or equal to zero.
+     * @throws IllegalArgumentException when the capacity is less than zero or the load factor is less or equal to
+     *                                  zero.
      */
     public HashMap(int capacity, float loadFactor) {
         if (capacity >= 0 && loadFactor > 0) {
@@ -339,12 +318,15 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     }
 
     /**
-     * Constructs a new {@code HashMap} instance containing the mappings from
-     * the specified map.
+     * Constructs a new {@code HashMap} instance containing the mappings from the specified map.
+     * <p/>
+     * Changes from the java.util version:  The constructor there supported covariance, taking a Map&lt;? extends K, ?
+     * extends V&gt; argument where the keys & values can be subclasses of E and V.   This constructor only allows maps
+     * of exact type K and V, but you can call the putAll method instead if really need to copy a map with subtypes.
      *
      * @param map the mappings to add.
      */
-    public HashMap(Map<? extends K, ? extends V> map) {
+    public HashMap(Map<K, V> map) {
         this(calculateCapacity(map.size()));
         putAllImpl(map);
     }
@@ -370,26 +352,6 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     }
 
     /**
-     * Returns a shallow copy of this map.
-     *
-     * @return a shallow copy of this map.
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public Object clone() {
-        try {
-            HashMap<K, V> map = (HashMap<K, V>) super.clone();
-            map.elementCount = 0;
-            map.elementData = newElementArray(elementData.length);
-            map.putAll(this);
-
-            return map;
-        } catch (CloneNotSupportedException e) {
-            return null;
-        }
-    }
-
-    /**
      * Computes the threshold for rehashing
      */
     private void computeThreshold() {
@@ -400,12 +362,11 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
      * Returns whether this map contains the specified key.
      *
      * @param key the key to search for.
-     * @return {@code true} if this map contains the specified key,
-     * {@code false} otherwise.
+     * @return {@code true} if this map contains the specified key, {@code false} otherwise.
      */
     @Override
     public boolean containsKey(Object key) {
-        Entry<K, V> m = getEntry(key);
+        HashMapEntry<K, V> m = getEntry(key);
         return m != null;
     }
 
@@ -413,14 +374,13 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
      * Returns whether this map contains the specified value.
      *
      * @param value the value to search for.
-     * @return {@code true} if this map contains the specified value,
-     * {@code false} otherwise.
+     * @return {@code true} if this map contains the specified value, {@code false} otherwise.
      */
     @Override
     public boolean containsValue(Object value) {
         if (value != null) {
             for (int i = 0; i < elementData.length; i++) {
-                Entry<K, V> entry = elementData[i];
+                HashMapEntry<K, V> entry = elementData[i];
                 while (entry != null) {
                     if (areEqualValues(value, entry.value)) {
                         return true;
@@ -430,7 +390,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
             }
         } else {
             for (int i = 0; i < elementData.length; i++) {
-                Entry<K, V> entry = elementData[i];
+                HashMapEntry<K, V> entry = elementData[i];
                 while (entry != null) {
                     if (entry.value == null) {
                         return true;
@@ -443,9 +403,8 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     }
 
     /**
-     * Returns a set containing all of the mappings in this map. Each mapping is
-     * an instance of {@link MapEntry}. As the set is backed by this map,
-     * changes in one will be reflected in the other.
+     * Returns a set containing all of the mappings in this map. Each mapping is an instance of {@link MapEntry}. As the
+     * set is backed by this map, changes in one will be reflected in the other.
      *
      * @return a set of the mappings.
      */
@@ -458,20 +417,20 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
      * Returns the value of the mapping with the specified key.
      *
      * @param key the key.
-     * @return the value of the mapping with the specified key, or {@code null}
-     * if no mapping for the specified key is found.
+     * @return the value of the mapping with the specified key, or {@code null} if no mapping for the specified key is
+     * found.
      */
     @Override
     public V get(Object key) {
-        Entry<K, V> m = getEntry(key);
+        HashMapEntry<K, V> m = getEntry(key);
         if (m != null) {
             return m.value;
         }
         return null;
     }
 
-    final Entry<K, V> getEntry(Object key) {
-        Entry<K, V> m;
+    final @Nullable HashMapEntry<K, V> getEntry(Object key) {
+        HashMapEntry<K, V> m;
         if (key == null) {
             m = findNullKeyEntry();
         } else {
@@ -482,8 +441,8 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         return m;
     }
 
-    final Entry<K, V> findNonNullKeyEntry(Object key, int index, int keyHash) {
-        Entry<K, V> m = elementData[index];
+    final @Nullable HashMapEntry<K, V> findNonNullKeyEntry(Object key, int index, int keyHash) {
+        HashMapEntry<K, V> m = elementData[index];
         while (m != null
                 && (m.origKeyHash != keyHash || !areEqualKeys(key, m.key))) {
             m = m.next;
@@ -491,8 +450,8 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         return m;
     }
 
-    final Entry<K, V> findNullKeyEntry() {
-        Entry<K, V> m = elementData[0];
+    final @Nullable HashMapEntry<K, V> findNullKeyEntry() {
+        HashMapEntry<K, V> m = elementData[0];
         while (m != null && m.key != null)
             m = m.next;
         return m;
@@ -501,8 +460,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     /**
      * Returns whether this map is empty.
      *
-     * @return {@code true} if this map has no elements, {@code false}
-     * otherwise.
+     * @return {@code true} if this map has no elements, {@code false} otherwise.
      * @see #size()
      */
     @Override
@@ -511,17 +469,16 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     }
 
     /**
-     * Returns a set of the keys contained in this map. The set is backed by
-     * this map so changes to one are reflected by the other. The set does not
-     * support adding.
+     * Returns a set of the keys contained in this map. The set is backed by this map so changes to one are reflected by
+     * the other. The set does not support adding.
      *
      * @return a set of the keys.
      */
     @Override
     public Set<K> keySet() {
-        if (keySet == null)
-            keySet = new KeySet<>(this);
-        return keySet;
+        if (keysSet == null)
+            keysSet = new KeySet<K, V>(this);
+        return keysSet;
     }
 
     private static class KeySet<K, V> extends Set<K> {
@@ -548,7 +505,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         }
 
         @Override public boolean remove(K key) {
-            Entry<K, V> entry = hashMap.removeEntry(key);
+            HashMapEntry<K, V> entry = hashMap.removeEntry(key);
             return entry != null;
         }
 
@@ -562,8 +519,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
      *
      * @param key   the key.
      * @param value the value.
-     * @return the value of any previous mapping with the specified key or
-     * {@code null} if there was no such mapping.
+     * @return the value of any previous mapping with the specified key or {@code null} if there was no such mapping.
      */
     @Override
     public V put(K key, V value) {
@@ -571,7 +527,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     }
 
     V putImpl(K key, V value) {
-        Entry<K, V> entry;
+        HashMapEntry<K, V> entry;
         if (key == null) {
             entry = findNullKeyEntry();
             if (entry == null) {
@@ -599,17 +555,16 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         return result;
     }
 
-    Entry<K, V> createHashedEntry(K key, int index, int hash) {
-        Entry<K, V> entry = new Entry<K, V>(key, hash);
+    HashMapEntry<K, V> createHashedEntry(K key, int index, int hash) {
+        HashMapEntry<K, V> entry = new HashMapEntry<K, V>(key, hash);
         entry.next = elementData[index];
         elementData[index] = entry;
         return entry;
     }
 
     /**
-     * Copies all the mappings in the specified map to this map. These mappings
-     * will replace all mappings that this map had for any of the keys currently
-     * in the given map.
+     * Copies all the mappings in the specified map to this map. These mappings will replace all mappings that this map
+     * had for any of the keys currently in the given map.}
      *
      * @param map the map to copy mappings from.
      * @throws NullPointerException if {@code map} is {@code null}.
@@ -635,13 +590,13 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     void rehash(int capacity) {
         int length = calculateCapacity((capacity == 0 ? 1 : capacity << 1));
 
-        Entry<K, V>[] newData = newElementArray(length);
+        HashMapEntry<K, V>[] newData = newElementArray(length);
         for (int i = 0; i < elementData.length; i++) {
-            Entry<K, V> entry = elementData[i];
+            HashMapEntry<K, V> entry = elementData[i];
             elementData[i] = null;
             while (entry != null) {
                 int index = entry.origKeyHash & (length - 1);
-                Entry<K, V> next = entry.next;
+                HashMapEntry<K, V> next = entry.next;
                 entry.next = newData[index];
                 newData[index] = entry;
                 entry = next;
@@ -659,12 +614,11 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
      * Removes the mapping with the specified key from this map.
      *
      * @param key the key of the mapping to remove.
-     * @return the value of the removed mapping or {@code null} if no mapping
-     * for the specified key was found.
+     * @return the value of the removed mapping or {@code null} if no mapping for the specified key was found.
      */
     @Override
     public V remove(Object key) {
-        Entry<K, V> entry = removeEntry(key);
+        HashMapEntry<K, V> entry = removeEntry(key);
         if (entry != null) {
             return entry.value;
         }
@@ -675,9 +629,9 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
      * Remove the given entry from the hashmap.
      * Assumes that the entry is in the map.
      */
-    final void removeEntry(Entry<K, V> entry) {
+    final void removeEntry(HashMapEntry<K, V> entry) {
         int index = entry.origKeyHash & (elementData.length - 1);
-        Entry<K, V> m = elementData[index];
+        HashMapEntry<K, V> m = elementData[index];
         if (m == entry) {
             elementData[index] = entry.next;
         } else {
@@ -691,10 +645,10 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         elementCount--;
     }
 
-    final Entry<K, V> removeEntry(Object key) {
+    final HashMapEntry<K, V> removeEntry(Object key) {
         int index = 0;
-        Entry<K, V> entry;
-        Entry<K, V> last = null;
+        HashMapEntry<K, V> entry;
+        HashMapEntry<K, V> last = null;
         if (key != null) {
             int hash = computeHashCode(key);
             index = hash & (elementData.length - 1);
@@ -734,20 +688,16 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     }
 
     /**
-     * Returns a collection of the values contained in this map. The collection
-     * is backed by this map so changes to one are reflected by the other. The
-     * collection supports remove, removeAll, retainAll and clear operations,
-     * and it does not support add or addAll operations.
+     * Returns a collection of the values contained in this map. The collection is backed by this map so changes to one
+     * are reflected by the other. The collection supports remove, removeAll, retainAll and clear operations, and it
+     * does not support add or addAll operations.
      * <p/>
-     * This method returns a collection which is the subclass of
-     * AbstractCollection. The iterator method of this subclass returns a
-     * "wrapper object" over the iterator of map's entrySet(). The {@code size}
-     * method wraps the map's size method and the {@code contains} method wraps
-     * the map's containsValue method.
+     * This method returns a collection which is the subclass of AbstractCollection. The iterator method of this
+     * subclass returns a "wrapper object" over the iterator of map's entrySet(). The {@code size} method wraps the
+     * map's size method and the {@code contains} method wraps the map's containsValue method.
      * <p/>
-     * The collection is created when this method is called for the first time
-     * and returned in response to all subsequent calls. This method may return
-     * different collections when multiple concurrent calls occur, since no
+     * The collection is created when this method is called for the first time and returned in response to all
+     * subsequent calls. This method may return different collections when multiple concurrent calls occur, since no
      * synchronization is performed.
      *
      * @return a collection of the values contained in this map.
@@ -755,7 +705,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     @Override
     public Collection<V> values() {
         if (valuesCollection == null)
-            valuesCollection = new ValuesCollection<>(this);
+            valuesCollection = new ValuesCollection<K, V>(this);
         return valuesCollection;
     }
 
@@ -800,5 +750,13 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
 
     static boolean areEqualValues(Object value1, Object value2) {
         return (value1 == value2) || value1.equals(value2);
+    }
+
+    static private boolean areEqual(Object object1, Object object2) {
+        return (object1 == object2) || object1.equals(object2);
+    }
+
+    static private boolean areEqualNullsOK(@Nullable Object object1, @Nullable Object object2) {
+        return (object1 == object2) || object1.equals(object2);
     }
 }

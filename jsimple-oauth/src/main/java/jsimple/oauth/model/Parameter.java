@@ -2,8 +2,8 @@
  * Portions copyright (c) 2012-2014 Microsoft Mobile.  All Rights Reserved.
  *
  * This file is based on or incorporates material from the Scribe Java OAuth
- * library https://github.com/fernandezpablo85/scribe-java (collectively, “Third
- * Party Code”). Microsoft Mobile is not the original author of the Third Party
+ * library https://github.com/fernandezpablo85/scribe-java (collectively, "Third
+ * Party Code"). Microsoft Mobile is not the original author of the Third Party
  * Code.
  *
  *

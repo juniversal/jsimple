@@ -26,7 +26,7 @@ package jsimple.util;
  * A TextualPath abstracts any path-like structure that can be represented as a list of strings.  It can be used for
  * paths in a file system, a URL path, an XPath path, etc.  Implementation wise, it's simply a list of 0 or move
  * strings.
- * <p/>
+ * <p>
  * Unlike the standard Java Path class: This isn't just for file system paths and "." and ".." have no special meaning.
  * A TextualPath has no concept of being absolute or relative; it's simplest to think about it as always being absolute
  * and toString represents it that way (with a leading "/"), but if the caller wants to treat it as a relative path it
@@ -89,7 +89,7 @@ public class TextualPath {
         TextualPath that = (TextualPath) o;
         return pathElements.equals(that.pathElements);
     }
-    
+
     @Override public int hashCode() {
         return pathElements.hashCode();
     }

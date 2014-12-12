@@ -1,12 +1,27 @@
 /*
  * Copyright (c) 2012-2014 Microsoft Mobile.  All Rights Reserved.
  *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
  * This file is based on or incorporates material from Apache Harmony
- * http://harmony.apache.org (collectively, “Third Party Code”). Microsoft Mobile
+ * http://harmony.apache.org (collectively, "Third Party Code"). Microsoft Mobile
  * is not the original author of the Third Party Code. The original copyright
  * notice and the license, under which Microsoft Mobile received such Third Party
  * Code, are set forth below.
  *
+ *
+ * Copyright 2006, 2010 The Apache Software Foundation.
  *
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -27,13 +42,14 @@
 package jsimple.util;
 
 /**
- * ArrayList is an implementation of {@link List}, backed by an array. All
- * optional operations adding, removing, and replacing are supported. The
- * elements can be any objects.
- *
- * @since 1.2
+ * ArrayList is an implementation of {@link List}, backed by an array. All optional operations adding, removing, and
+ * replacing are supported. The elements can be any objects.
+ * <p/>
+ * Changes from the java.util version:
+ * <p/>
+ * Does not support clone; use constructor taking a Collection argument instead (which is more flexible and type safe)
  */
-public final class ArrayList<E> extends List<E> implements Cloneable {
+public final class ArrayList<E> extends List<E> {
     /**
      * A counter for changes to the list.
      */
@@ -54,9 +70,9 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
 
     private static class ArrayListIterator<E> extends Iterator<E> {
         private ArrayList<E> arrayList;
-        int numLeft;
-        int expectedModCount;
-        int lastPosition = -1;
+        private int numLeft;
+        private int expectedModCount;
+        private int lastPosition = -1;
 
         public ArrayListIterator(ArrayList<E> arrayList) {
             this.arrayList = arrayList;
@@ -123,8 +139,7 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
     }
 
     /**
-     * Constructs a new instance of {@code ArrayList} with the specified
-     * capacity.
+     * Constructs a new instance of {@code ArrayList} with the specified capacity.
      *
      * @param capacity the initial capacity of this {@code ArrayList}.
      */
@@ -134,13 +149,16 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
     }
 
     /**
-     * Constructs a new instance of {@code ArrayList} containing the elements of
-     * the specified collection. The initial size of the {@code ArrayList} will
-     * be 10% larger than the size of the specified collection.
+     * Constructs a new instance of {@code ArrayList} containing the elements of the specified collection. The initial
+     * size of the {@code ArrayList} will be 10% larger than the size of the specified collection.
+     * <p/>
+     * Changes from the java.util version:  The constructor there supported covariance, taking a Collection&lt;? extends
+     * E&gt; argument where the collection can be of a subclass of E.   This constructor only allows collections of
+     * exact type E, but you can use the addAll method instead if you really need to copy a collection of a subclass.
      *
-     * @param collection the collection of elements to add.
+     * @param collection the collection of elements to add
      */
-    public ArrayList(Collection<? extends E> collection) {
+    public ArrayList(Collection<E> collection) {
         firstIndex = 0;
         Object[] objects = collection.toArray();
         itemCount = objects.length;
@@ -149,7 +167,7 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
         //         Could be better to use the collection iterator and
         //         copy once?
         array = newElementArray(itemCount + (itemCount / 10));
-        System.arraycopy(objects, 0, array, 0, itemCount);
+        jsimple.lang.System.arraycopy(objects, 0, array, 0, itemCount);
         modCount = 1;
     }
 
@@ -159,10 +177,9 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
     }
 
     /**
-     * Inserts the specified object into this {@code ArrayList} at the specified
-     * location. The object is inserted before any previous element at the
-     * specified location. If the location is equal to the size of this
-     * {@code ArrayList}, the object is added at the end.
+     * Inserts the specified object into this {@code ArrayList} at the specified location. The object is inserted before
+     * any previous element at the specified location. If the location is equal to the size of this {@code ArrayList},
+     * the object is added at the end.
      *
      * @param location the index at which to insert the object.
      * @param object   the object to add.
@@ -188,11 +205,11 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
                 growForInsert(location, 1);
             } else if (firstIndex + itemCount == array.length
                     || (firstIndex > 0 && location < itemCount / 2)) {
-                System.arraycopy(array, firstIndex, array, --firstIndex,
+                jsimple.lang.System.arraycopy(array, firstIndex, array, --firstIndex,
                         location);
             } else {
                 int index = location + firstIndex;
-                System.arraycopy(array, index, array, index + 1, itemCount
+                jsimple.lang.System.arraycopy(array, index, array, index + 1, itemCount
                         - location);
             }
             array[location + firstIndex] = object;
@@ -220,14 +237,12 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
     }
 
     /**
-     * Inserts the objects in the specified collection at the specified location
-     * in this List. The objects are added in the order they are returned from
-     * the collection's iterator.
+     * Inserts the objects in the specified collection at the specified location in this List. The objects are added in
+     * the order they are returned from the collection's iterator.
      *
      * @param location   the index at which to insert.
      * @param collection the collection of objects.
-     * @return {@code true} if this {@code ArrayList} is modified, {@code false}
-     * otherwise.
+     * @return {@code true} if this {@code ArrayList} is modified, {@code false} otherwise.
      * @throws IndexOutOfBoundsException when {@code location < 0 || > size()}
      */
     @Override
@@ -259,20 +274,20 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
                 int newFirst = firstIndex - growSize;
                 if (newFirst < 0) {
                     int index = location + firstIndex;
-                    System.arraycopy(array, index, array, index - newFirst,
+                    jsimple.lang.System.arraycopy(array, index, array, index - newFirst,
                             itemCount - location);
                     newFirst = 0;
                 }
-                System.arraycopy(array, firstIndex, array, newFirst, location);
+                jsimple.lang.System.arraycopy(array, firstIndex, array, newFirst, location);
                 firstIndex = newFirst;
             } else {
                 int index = location + firstIndex;
-                System.arraycopy(array, index, array, index + growSize, itemCount
+                jsimple.lang.System.arraycopy(array, index, array, index + growSize, itemCount
                         - location);
             }
         }
 
-        System.arraycopy(dumparray, 0, this.array, location + firstIndex, growSize);
+        jsimple.lang.System.arraycopy(dumparray, 0, this.array, location + firstIndex, growSize);
         itemCount += growSize;
         modCount++;
         return true;
@@ -282,8 +297,7 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
      * Adds the objects in the specified collection to this {@code ArrayList}.
      *
      * @param collection the collection of objects.
-     * @return {@code true} if this {@code ArrayList} is modified, {@code false}
-     * otherwise.
+     * @return {@code true} if this {@code ArrayList} is modified, {@code false} otherwise.
      */
     @Override
     public boolean addAll(Collection<? extends E> collection) {
@@ -294,7 +308,7 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
         if (dumpArray.length > array.length - (firstIndex + itemCount)) {
             growAtEnd(dumpArray.length);
         }
-        System.arraycopy(dumpArray, 0, this.array, firstIndex + itemCount,
+        jsimple.lang.System.arraycopy(dumpArray, 0, this.array, firstIndex + itemCount,
                 dumpArray.length);
         itemCount += dumpArray.length;
         modCount++;
@@ -322,30 +336,10 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
     }
 
     /**
-     * Returns a new {@code ArrayList} with the same elements, the same size and
-     * the same capacity as this {@code ArrayList}.
-     *
-     * @return a shallow copy of this {@code ArrayList}
-     * @see java.lang.Cloneable
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public Object clone() {
-        try {
-            ArrayList<E> newList = (ArrayList<E>) super.clone();
-            newList.array = array.clone();
-            return newList;
-        } catch (CloneNotSupportedException e) {
-            return null;
-        }
-    }
-
-    /**
      * Searches this {@code ArrayList} for the specified object.
      *
      * @param object the object to search for.
-     * @return {@code true} if {@code object} is an element of this
-     * {@code ArrayList}, {@code false} otherwise
+     * @return {@code true} if {@code object} is an element of this {@code ArrayList}, {@code false} otherwise
      */
     @Override
     public boolean contains(E object) {
@@ -367,8 +361,8 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
     }
 
     /**
-     * Ensures that after this operation the {@code ArrayList} can hold the
-     * specified number of elements without further growing.
+     * Ensures that after this operation the {@code ArrayList} can hold the specified number of elements without further
+     * growing.
      *
      * @param minimumCapacity the minimum capacity asked for.
      */
@@ -398,7 +392,7 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
             // REVIEW: as growAtEnd, why not move size == 0 out as
             //         special case
             if (itemCount != 0) {
-                System.arraycopy(array, firstIndex, array, 0, itemCount);
+                jsimple.lang.System.arraycopy(array, firstIndex, array, 0, itemCount);
                 int start = itemCount < firstIndex ? firstIndex : itemCount;
                 // REVIEW: I think we null too much
                 //         array.length should be lastIndex ?
@@ -417,7 +411,7 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
             }
             E[] newArray = newElementArray(itemCount + increment);
             if (itemCount != 0) {
-                System.arraycopy(array, firstIndex, newArray, 0, itemCount);
+                jsimple.lang.System.arraycopy(array, firstIndex, newArray, 0, itemCount);
                 firstIndex = 0;
             }
             array = newArray;
@@ -430,7 +424,7 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
             // REVIEW: as growAtEnd, why not move size == 0 out as
             //         special case
             if (itemCount != 0) {
-                System.arraycopy(array, firstIndex, array, newFirst, itemCount);
+                jsimple.lang.System.arraycopy(array, firstIndex, array, newFirst, itemCount);
                 int lastIndex = firstIndex + itemCount;
                 int length = lastIndex > newFirst ? newFirst : lastIndex;
                 fillWithNull(firstIndex, length);
@@ -446,7 +440,7 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
             }
             E[] newArray = newElementArray(itemCount + increment);
             if (itemCount != 0) {
-                System.arraycopy(array, firstIndex, newArray, increment, itemCount);
+                jsimple.lang.System.arraycopy(array, firstIndex, newArray, increment, itemCount);
             }
             firstIndex = newArray.length - itemCount;
             array = newArray;
@@ -470,10 +464,10 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
         int newFirst = increment - required;
         // Copy elements after location to the new array skipping inserted
         // elements
-        System.arraycopy(array, location + firstIndex, newArray, newFirst
+        jsimple.lang.System.arraycopy(array, location + firstIndex, newArray, newFirst
                 + location + required, itemCount - location);
         // Copy elements before location to the new array from firstIndex
-        System.arraycopy(array, firstIndex, newArray, newFirst, location);
+        jsimple.lang.System.arraycopy(array, firstIndex, newArray, newFirst, location);
         firstIndex = newFirst;
         array = newArray;
     }
@@ -522,15 +516,15 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
     }
 
     /**
-     * Returns an iterator on the elements of this list. The elements are
-     * iterated in the same order as they occur in the list.
+     * Returns an iterator on the elements of this list. The elements are iterated in the same order as they occur in
+     * the list.
      *
      * @return an iterator on the elements of this list.
      * @see Iterator
      */
     @Override
     public Iterator<E> iterator() {
-        return new ArrayListIterator(this);
+        return new ArrayListIterator<E>(this);
     }
 
     /**
@@ -557,10 +551,10 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
             int elementIndex = firstIndex + location;
             result = array[elementIndex];
             if (location < itemCount / 2) {
-                System.arraycopy(array, firstIndex, array, firstIndex + 1, location);
+                jsimple.lang.System.arraycopy(array, firstIndex, array, firstIndex + 1, location);
                 array[firstIndex++] = null;
             } else {
-                System.arraycopy(array, elementIndex + 1, array, elementIndex, itemCount - location - 1);
+                jsimple.lang.System.arraycopy(array, elementIndex + 1, array, elementIndex, itemCount - location - 1);
                 array[firstIndex + itemCount - 1] = null;
             }
         }
@@ -585,8 +579,7 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
     }
 
     /**
-     * Replaces the element at the specified location in this {@code ArrayList}
-     * with the specified object.
+     * Replaces the element at the specified location in this {@code ArrayList} with the specified object.
      *
      * @param location the index at which to put the specified object.
      * @param object   the object to add.
@@ -614,40 +607,34 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
     }
 
     /**
-     * Returns a new array containing all elements contained in this
-     * {@code ArrayList}.
+     * Returns a new array containing all elements contained in this {@code ArrayList}.
      *
      * @return an array of the elements from this {@code ArrayList}
      */
     @Override
     public Object[] toArray() {
         Object[] result = new Object[itemCount];
-        System.arraycopy(array, firstIndex, result, 0, itemCount);
+        jsimple.lang.System.arraycopy(array, firstIndex, result, 0, itemCount);
         return result;
     }
 
     /**
-     * Returns an array containing all elements contained in this
-     * {@code ArrayList}. If the specified array is large enough to hold the
-     * elements, the specified array is used, otherwise an array of the same
-     * type is created. If the specified array is used and is larger than this
-     * {@code ArrayList}, the array element following the collection elements
-     * is set to null.
+     * Returns an array containing all elements contained in this {@code ArrayList}. If the specified array is large
+     * enough to hold the elements, the specified array is used, otherwise an array of the same type is created. If the
+     * specified array is used and is larger than this {@code ArrayList}, the array element following the collection
+     * elements is set to null.
      *
      * @param contents the array.
-     * @return an array of the elements from this {@code ArrayList}.
-     * @throws ArrayStoreException when the type of an element in this {@code ArrayList} cannot
-     *                             be stored in the type of the specified array.
+     * @throws ArrayStoreException when the type of an element in this {@code ArrayList} cannot be stored in the type of
+     *                             the specified array.
      */
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T> void toArray(T[] contents) {
+    @Override public void toArray(E[] contents) {
         if (itemCount > contents.length)
             throw new ProgrammerError(
                     "Array only has length {}, which isn't big enough to hold the {} elements in the collection",
                     contents.length, size());
 
-        System.arraycopy(array, firstIndex, contents, 0, itemCount);
+        jsimple.lang.System.arraycopy(array, firstIndex, contents, 0, itemCount);
         if (itemCount < contents.length) {
             // REVIEW: do we use this incorrectly - i.e. do we null
             //         the rest out?
@@ -656,14 +643,13 @@ public final class ArrayList<E> extends List<E> implements Cloneable {
     }
 
     /**
-     * Sets the capacity of this {@code ArrayList} to be the same as the current
-     * size.
+     * Sets the capacity of this {@code ArrayList} to be the same as the current size.
      *
      * @see #size
      */
     public void trimToSize() {
         E[] newArray = newElementArray(itemCount);
-        System.arraycopy(array, firstIndex, newArray, 0, itemCount);
+        jsimple.lang.System.arraycopy(array, firstIndex, newArray, 0, itemCount);
         array = newArray;
         firstIndex = 0;
         modCount = 0;

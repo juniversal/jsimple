@@ -1,12 +1,27 @@
 /*
  * Copyright (c) 2012-2014 Microsoft Mobile.  All Rights Reserved.
  *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
  * This file is based on or incorporates material from Apache Harmony
- * http://harmony.apache.org (collectively, “Third Party Code”). Microsoft Mobile
+ * http://harmony.apache.org (collectively, "Third Party Code"). Microsoft Mobile
  * is not the original author of the Third Party Code. The original copyright
  * notice and the license, under which Microsoft Mobile received such Third Party
  * Code, are set forth below.
  *
+ *
+ * Copyright 2006, 2010 The Apache Software Foundation.
  *
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -34,7 +49,7 @@ import java.util.ArrayList;
  * This class was based on, and modified from, the Apache Harmony java.io.SequenceInputStream class.  Unlike the
  * standard Java SequenceInputStream class, uses as Iterator instead of the legacy JDK 1.0 Enumeration class to hold the
  * list of InputStreams.  That, plus of course using JSimple InputStreams, were the only changes.
- * <p/>
+ *
  * Concatenates two or more existing {@link InputStream}s. Reads are taken from the first stream until it ends, then the
  * next stream is used, until the last stream returns end of file.
  */
@@ -133,15 +148,12 @@ public class SequenceInputStream extends InputStream {
     /**
      * Reads at most {@code count} bytes from this sequence of input streams and stores them in the byte array {@code
      * buffer} starting at {@code offset}. Blocks only until at least 1 byte has been read, the end of the stream has
-     * been reached, or an exception is thrown.
-     * <p/>
-     * This SequenceInputStream shows the same behavior as other InputStreams. To do this it will read only as many
-     * bytes as a call to read on the current substream returns. If that call does not return as many bytes as requested
-     * by {@code count}, it will not retry to read more on its own because subsequent reads might block. This would
-     * violate the rule that it will only block until at least one byte has been read.
-     * <p/>
-     * If a substream has already reached the end when this call is made, it will close that substream and start with
-     * the next one. If there are no more substreams it will return -1.
+     * been reached, or an exception is thrown. <p> This SequenceInputStream shows the same behavior as other
+     * InputStreams. To do this it will read only as many bytes as a call to read on the current substream returns. If
+     * that call does not return as many bytes as requested by {@code count}, it will not retry to read more on its own
+     * because subsequent reads might block. This would violate the rule that it will only block until at least one byte
+     * has been read. <p> If a substream has already reached the end when this call is made, it will close that
+     * substream and start with the next one. If there are no more substreams it will return -1.
      *
      * @param buffer the array in which to store the bytes read.
      * @param offset the initial position in {@code buffer} to store the bytes read from this stream.

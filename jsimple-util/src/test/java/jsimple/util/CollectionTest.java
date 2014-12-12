@@ -295,14 +295,7 @@ public class CollectionTest extends UnitTest {
 			// expected
 		}
 
-		try {
-			ac.toArray(new StringBuffer[ac.size()]);
-			fail("No expected ArrayStoreException");
-		} catch (ArrayStoreException e) {
-			// expected
-		}
-
-		CharSequence[] csa = new CharSequence[3];
+		String[] csa = new String[3];
 		ac.toArray(csa);
 		assertEquals(3, csa.length);
 		assertEquals("0", csa[0]);

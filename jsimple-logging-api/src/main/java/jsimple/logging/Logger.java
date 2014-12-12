@@ -23,7 +23,7 @@
  *
  *
  * This file is based on or incorporates material from SLF4J http://www.slf4j.org
- * (collectively, “Third Party Code”). Microsoft Mobile is not the original
+ * (collectively, "Third Party Code"). Microsoft Mobile is not the original
  * author of the Third Party Code.  The original copyright notice and the
  * license, under which Microsoft Mobile received such Third Party Code, are set
  * forth below.

@@ -2,7 +2,7 @@
  * Copyright (c) 2012-2014 Microsoft Mobile.  All Rights Reserved.
  *
  * This file is based on or incorporates material from JUnit http://junit.org.
- * (collectively, “Third Party Code”). Microsoft Mobile is not the original
+ * (collectively, "Third Party Code"). Microsoft Mobile is not the original
  * author of the Third Party Code.
  *
  * This program and the accompanying materials are made available under the terms
@@ -19,7 +19,7 @@ public abstract class UnitTestBase {
      * Get the Java project directory, with the Java source etc. underneath it.  This directory can then be used to
      * locate test data files, etc.
      *
-     * @return
+     * @return project directory
      */
     public abstract String getJavaProjectDirectory();
 

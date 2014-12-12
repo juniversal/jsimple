@@ -1,12 +1,27 @@
 /*
  * Copyright (c) 2012-2014 Microsoft Mobile.  All Rights Reserved.
  *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ *
  * This file is based on or incorporates material from Apache Harmony
- * http://harmony.apache.org (collectively, “Third Party Code”). Microsoft Mobile
+ * http://harmony.apache.org (collectively, "Third Party Code"). Microsoft Mobile
  * is not the original author of the Third Party Code. The original copyright
  * notice and the license, under which Microsoft Mobile received such Third Party
  * Code, are set forth below.
  *
+ *
+ * Copyright 2006, 2010 The Apache Software Foundation.
  *
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -27,10 +42,14 @@
 package jsimple.util;
 
 /**
- * HashSet is an implementation of a Set. All optional operations (adding and
- * removing) are supported. The elements can be any objects.
+ * HashSet is an implementation of a Set. All optional operations (adding and removing) are supported. The elements can
+ * be any objects.
+ * <p/>
+ * Changes from the java.util version:
+ * <p/>
+ * Does not support clone; use HashMap constructor taking a Collection argument instead (which is more flexible and type safe)
  */
-public class HashSet<E> extends Set<E> implements Cloneable {
+public class HashSet<E> extends Set<E> {
     transient HashMap<E, HashSet<E>> backingMap;
 
     public static <T> HashSet<T> create(T... args) {
@@ -59,8 +78,7 @@ public class HashSet<E> extends Set<E> implements Cloneable {
     }
 
     /**
-     * Constructs a new instance of {@code HashSet} with the specified capacity
-     * and load factor.
+     * Constructs a new instance of {@code HashSet} with the specified capacity and load factor.
      *
      * @param capacity   the initial capacity.
      * @param loadFactor the initial load factor.
@@ -70,14 +88,16 @@ public class HashSet<E> extends Set<E> implements Cloneable {
     }
 
     /**
-     * Constructs a new instance of {@code HashSet} containing the unique
-     * elements in the specified collection.
+     * Constructs a new instance of {@code HashSet} containing the unique elements in the specified collection.
      *
-     * @param collection the collection of elements to add.
+     * Changes from the java.util version:  The constructor there supported covariance, taking a Collection&lt;? extends
+     * E&gt; argument where the collection can be of a subclass of E.   This constructor only allows collections of
+     * exact type E, but you can use the addAll method instead if you really need to copy a collection of a subclass.
+     *
+     * @param collection the collection of elements to add
      */
-    public HashSet(Collection<? extends E> collection) {
-        this(new HashMap<E, HashSet<E>>(collection.size() < 6 ? 11 : collection
-                .size() * 2));
+    public HashSet(Collection<E> collection) {
+        this(new HashMap<E, HashSet<E>>(collection.size() < 6 ? 11 : collection.size() * 2));
         for (E e : collection) {
             add(e);
         }
@@ -91,8 +111,7 @@ public class HashSet<E> extends Set<E> implements Cloneable {
      * Adds the specified object to this {@code HashSet} if not already present.
      *
      * @param object the object to add.
-     * @return {@code true} when this {@code HashSet} did not already contain
-     * the object, {@code false} otherwise
+     * @return {@code true} when this {@code HashSet} did not already contain the object, {@code false} otherwise
      */
     @Override
     public boolean add(E object) {
@@ -111,41 +130,20 @@ public class HashSet<E> extends Set<E> implements Cloneable {
     }
 
     /**
-     * Returns a new {@code HashSet} with the same elements and size as this
-     * {@code HashSet}.
-     *
-     * @return a shallow copy of this {@code HashSet}.
-     * @see java.lang.Cloneable
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public Object clone() {
-        try {
-            HashSet<E> clone = (HashSet<E>) super.clone();
-            clone.backingMap = (HashMap<E, HashSet<E>>) backingMap.clone();
-            return clone;
-        } catch (CloneNotSupportedException e) {
-            return null;
-        }
-    }
-
-    /**
      * Searches this {@code HashSet} for the specified object.
      *
      * @param object the object to search for.
-     * @return {@code true} if {@code object} is an element of this
-     * {@code HashSet}, {@code false} otherwise.
+     * @return {@code true} if {@code object} is an element of this {@code HashSet}, {@code false} otherwise.
      */
     @Override
-    public boolean contains(Object object) {
+    public boolean contains(E object) {
         return backingMap.containsKey(object);
     }
 
     /**
      * Returns true if this {@code HashSet} has no elements, false otherwise.
      *
-     * @return {@code true} if this {@code HashSet} has no elements,
-     * {@code false} otherwise.
+     * @return {@code true} if this {@code HashSet} has no elements, {@code false} otherwise.
      * @see #size
      */
     @Override
@@ -171,7 +169,7 @@ public class HashSet<E> extends Set<E> implements Cloneable {
      * @return {@code true} if the object was removed, {@code false} otherwise.
      */
     @Override
-    public boolean remove(Object object) {
+    public boolean remove(E object) {
         return backingMap.remove(object) != null;
     }
 

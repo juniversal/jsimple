@@ -2,7 +2,7 @@
  * Copyright (c) 2012-2014 Microsoft Mobile.  All Rights Reserved.
  *
  * This file is based on or incorporates material from BlowfishJ
- * http://blowfishj.sourceforge.net (collectively, “Third Party Code”). Microsoft
+ * http://blowfishj.sourceforge.net (collectively, "Third Party Code"). Microsoft
  * Mobile is not the original author of the Third Party Code. The original
  * copyright notice and the license, under which Microsoft Mobile received such
  * Third Party Code, are set forth below.

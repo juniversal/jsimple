@@ -469,7 +469,7 @@ public class ArrayListTest extends UnitTest {
 	@Test
 	public void testClone() {
 		// Test for method java.lang.Object java.util.ArrayList.clone()
-		ArrayList<Object> x = (ArrayList<Object>) ((ArrayList<Object>) alist).clone();
+		ArrayList<Object> x = new ArrayList<>(alist);
 		assertTrue("Cloned list was inequal to original", x.equals(alist));
 		for (int i = 0; i < alist.size(); i++) {
 			assertTrue("Cloned list contains incorrect elements", alist.get(i) == x.get(i));
@@ -478,7 +478,7 @@ public class ArrayListTest extends UnitTest {
 		alist.add(null);
 		alist.add(25, null);
 
-		x = (ArrayList<Object>) (((ArrayList<Object>) (alist)).clone());
+		x = new ArrayList<>(alist);
 		assertTrue("nulls test - Cloned list was inequal to original", x.equals(alist));
 
 		for (int i = 0; i < alist.size(); i++) {
@@ -580,7 +580,7 @@ public class ArrayListTest extends UnitTest {
 			assertTrue(e.getMessage().startsWith("Index out of bounds"));
 		}
 
-		ArrayList<Object> myList = (ArrayList<Object>) (((ArrayList<Object>) (alist)).clone());
+		ArrayList<Object> myList = new ArrayList<>(alist);
 		alist.add(25, null);
 		alist.add(50, null);
 		alist.remove(50);

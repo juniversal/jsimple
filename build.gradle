@@ -106,4 +106,31 @@ subprojects {
     jar {
         manifest.attributes provider: 'gradle'
     }
+
+    // In Java8, the Javadoc command was changed to be very strict, error'ing out on anything that's not completely
+    // valid HTML, an issue described here http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html.
+    // Loosen up the strictness with Xdoclint:none so it behaves more like previous JDK releases
+    if (JavaVersion.current().isJava8Compatible()) {
+        allprojects {
+            tasks.withType(Javadoc) {
+                options.addStringOption('Xdoclint:none', '-quiet')
+            }
+        }
+    }
+}
+
+def exportedProjects= [
+        ":jsimple-unit",
+        ":jsimple-util",
+        ":jsimple-io",
+        ":jsimple-json",
+        ":jsimple-oauth",
+        ":jsimple-logging-api",
+        ":jsimple-logging-stdimpl"
+]
+
+task alljavadoc(type: Javadoc) {
+    source exportedProjects.collect { project(it).sourceSets.main.allJava }
+    classpath = files(exportedProjects.collect { project(it).sourceSets.main.compileClasspath })
+    destinationDir = file("${buildDir}/docs/javadoc")
 }

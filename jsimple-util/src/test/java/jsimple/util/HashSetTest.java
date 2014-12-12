@@ -105,7 +105,7 @@ public class HashSetTest extends UnitTest {
 	@Test
 	public void testClear() {
 		// Test for method void java.util.HashSet.clear()
-		Set<Object> orgSet = (Set<Object>) hs.clone();
+		Set<Object> orgSet = new HashSet<Object>(hs);
 		hs.clear();
 		Iterator<Object> i = orgSet.iterator();
 		assertEquals("Returned non-zero size after clear", 0, hs.size());
@@ -113,16 +113,6 @@ public class HashSetTest extends UnitTest {
 		while (i.hasNext()) {
 			assertTrue("Failed to clear set", !hs.contains(i.next()));
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void testClone() {
-		// Test for method java.lang.Object java.util.HashSet.clone()
-		HashSet<Object> hs2 = (HashSet<Object>) hs.clone();
-		
-		assertTrue("clone returned an equivalent HashSet", hs != hs2);
-		assertTrue("clone did not return an equal HashSet", hs.equals(hs2));
 	}
 
 	@Test
@@ -139,7 +129,7 @@ public class HashSetTest extends UnitTest {
 	@Test
 	public void testIsEmpty() {
 		// Test for method boolean java.util.HashSet.isEmpty()
-		assertTrue("Empty set returned false", new HashSet<>().isEmpty());
+		assertTrue("Empty set returned false", new HashSet<Object>().isEmpty());
 		assertTrue("Non-empty set returned true", !hs.isEmpty());
 	}
 
@@ -148,7 +138,7 @@ public class HashSetTest extends UnitTest {
 		// Test for method java.util.Iterator java.util.HashSet.iterator()
 		Iterator<Object> i = hs.iterator();
 		int x = 0;
-		
+
 		while (i.hasNext()) {
 			assertTrue("Failed to iterate over all elements", hs.contains(i.next()));
 			++x;
@@ -214,17 +204,17 @@ public class HashSetTest extends UnitTest {
 	@After
 	public void tearDown() {
 	}
-	
+
 	@Test
 	public void testContainDistictType() {
 		HashSet<Object> s = new HashSet<Object>();
 		String data = "teststr";
 		s.add(data);
-		
+
 		Object q = data;
 		assertTrue("Cannot handle null", s.contains(q));
 	}
-	
+
 	@Test
 	public void testAddAll() {
 		HashSet<String> sut = new HashSet<String>();
@@ -240,7 +230,7 @@ public class HashSetTest extends UnitTest {
 		assertTrue(sut.contains("1"));
 		assertTrue(sut.contains("2"));
 	}
-	
+
 	@Test
 	public void testContainsAll() {
 		HashSet<String> sut = new HashSet<String>();
@@ -254,7 +244,7 @@ public class HashSetTest extends UnitTest {
 
 		assertTrue(sut.containsAll(testData));
 	}
-	
+
 	@Test
 	public void testRemoveNegative() {
 		HashSet<String> sut = new HashSet<String>();
@@ -265,16 +255,16 @@ public class HashSetTest extends UnitTest {
 
 		assertEquals(2, sut.size());
 	}
-	
+
 	@Test
 	public void testDuplication() {
 		HashSet<String> sut = new HashSet<String>();
 		sut.add("1");
 		sut.add("1");
-		
+
 		assertEquals(1, sut.size());
 	}
-	
+
 	@Test
 	public void testRetainAll() {
 		HashSet<String> sut = new HashSet<String>();

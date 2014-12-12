@@ -94,8 +94,8 @@ public class ListUtils {
      * @return list with duplicates removed
      */
     public static <E> ArrayList<E> distinctElements(List<E> list) {
-        ArrayList<E> newList = new ArrayList<>();
-        HashSet<E> hashSet = new HashSet<>();
+        ArrayList<E> newList = new ArrayList<E>();
+        HashSet<E> hashSet = new HashSet<E>();
 
         for (E e : list) {
             if (!hashSet.contains(e)) {

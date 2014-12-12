@@ -2,7 +2,7 @@
  * Copyright (c) 2012-2014 Microsoft Mobile.  All Rights Reserved.
  *
  * This file is based on or incorporates material from Apache Commons Net
- * http://commons.apache.org/proper/commons-net (collectively, “Third Party Code”).
+ * http://commons.apache.org/proper/commons-net (collectively, "Third Party Code").
  * Microsoft Mobile is not the original author of the Third Party Code. The
  * original copyright notice and the license, under which Microsoft Mobile received
  * such Third Party Code, are set forth below.
@@ -25,18 +25,14 @@
  */
 
 package jsimple.util;
+import jsimple.lang.Math;
 
 /**
- * Provides Base64 encoding and decoding as defined by RFC 2045.
- * <p>
- * <p>
- * This class implements section <cite>6.8. Base64 Content-Transfer-Encoding</cite> from RFC 2045 <cite>Multipurpose
- * Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies</cite> by Freed and Borenstein.
- * </p>
- * <p>
- * Since this class operates directly on byte streams, and not character streams, it is hard-coded to only encode/decode
- * character encodings which are compatible with the lower 127 ASCII chart (ISO-8859-1, Windows-1252, UTF-8, etc).
- * </p>
+ * Provides Base64 encoding and decoding as defined by RFC 2045. <p> <p> This class implements section <cite>6.8. Base64
+ * Content-Transfer-Encoding</cite> from RFC 2045 <cite>Multipurpose Internet Mail Extensions (MIME) Part One: Format of
+ * Internet Message Bodies</cite> by Freed and Borenstein. </p> <p> Since this class operates directly on byte streams,
+ * and not character streams, it is hard-coded to only encode/decode character encodings which are compatible with the
+ * lower 127 ASCII chart (ISO-8859-1, Windows-1252, UTF-8, etc). </p>
  *
  * @author Apache Software Foundation
  * @version $Id: Base64.java 1489533 2013-06-04 17:49:00Z sebb $
@@ -47,37 +43,35 @@ public class Base64 {
     private static final int DEFAULT_BUFFER_RESIZE_FACTOR = 2;
 
     private static final int DEFAULT_BUFFER_SIZE = 8192;
- 
+
     /**
      * This array is a lookup table that translates 6-bit positive integer index values into their "Base64 Alphabet"
      * equivalents as specified in Table 1 of RFC 2045.
-     * <p>
-     * Thanks to "commons" project in ws.apache.org for this code.
-     * http://svn.apache.org/repos/asf/webservices/commons/trunk/modules/util/
+     * <p/>
+     * Thanks to "commons" project in ws.apache.org for this code. http://svn.apache.org/repos/asf/webservices/commons/trunk/modules/util/
      */
     private static final byte[] STANDARD_ENCODE_TABLE = {
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
+            (byte) 'A', (byte) 'B', (byte) 'C', (byte) 'D', (byte) 'E', (byte) 'F', (byte) 'G', (byte) 'H', (byte) 'I', (byte) 'J', (byte) 'K', (byte) 'L', (byte) 'M',
+            (byte) 'N', (byte) 'O', (byte) 'P', (byte) 'Q', (byte) 'R', (byte) 'S', (byte) 'T', (byte) 'U', (byte) 'V', (byte) 'W', (byte) 'X', (byte) 'Y', (byte) 'Z',
+            (byte) 'a', (byte) 'b', (byte) 'c', (byte) 'd', (byte) 'e', (byte) 'f', (byte) 'g', (byte) 'h', (byte) 'i', (byte) 'j', (byte) 'k', (byte) 'l', (byte) 'm',
+            (byte) 'n', (byte) 'o', (byte) 'p', (byte) 'q', (byte) 'r', (byte) 's', (byte) 't', (byte) 'u', (byte) 'v', (byte) 'w', (byte) 'x', (byte) 'y', (byte) 'z',
+            (byte) '0', (byte) '1', (byte) '2', (byte) '3', (byte) '4', (byte) '5', (byte) '6', (byte) '7', (byte) '8', (byte) '9', (byte) '+', (byte) '/'
     };
 
     /**
      * Byte used to pad output.
      */
-    private static final byte PAD = '=';
+    private static final byte PAD = (byte) '=';
 
     /**
      * This array is a lookup table that translates Unicode characters drawn from the "Base64 Alphabet" (as specified in
      * Table 1 of RFC 2045) into their 6-bit positive integer equivalents. Characters that are not in the Base64
      * alphabet but fall within the bounds of the array are translated to -1.
-     * <p>
+     * <p/>
      * Note: '+' and '-' both decode to 62. '/' and '_' both decode to 63. This means decoder seamlessly handles both
      * URL_SAFE and STANDARD base64. (The encoder, on the other hand, needs to know ahead of time what to emit).
-     * <p>
-     * Thanks to "commons" project in ws.apache.org for this code.
-     * http://svn.apache.org/repos/asf/webservices/commons/trunk/modules/util/
+     * <p/>
+     * Thanks to "commons" project in ws.apache.org for this code. http://svn.apache.org/repos/asf/webservices/commons/trunk/modules/util/
      */
     private static final byte[] DECODE_TABLE = {
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -282,14 +276,10 @@ public class Base64 {
     }
 
     /**
-     * <p>
-     * Encodes all of the provided data, starting at inPos, for inAvail bytes. Must be called at least twice: once with
-     * the data to encode, and once with inAvail set to "-1" to alert encoder that EOF has been reached, so flush last
-     * remaining bytes (if not multiple of 3).
-     * </p>
-     * <p>
-     * Thanks to "commons" project in ws.apache.org for the bitwise operations, and general approach.
-     * http://svn.apache.org/repos/asf/webservices/commons/trunk/modules/util/
+     * <p> Encodes all of the provided data, starting at inPos, for inAvail bytes. Must be called at least twice: once
+     * with the data to encode, and once with inAvail set to "-1" to alert encoder that EOF has been reached, so flush
+     * last remaining bytes (if not multiple of 3). </p> <p> Thanks to "commons" project in ws.apache.org for the
+     * bitwise operations, and general approach. http://svn.apache.org/repos/asf/webservices/commons/trunk/modules/util/
      * </p>
      *
      * @param in      byte[] array of binary data to base64 encode.
@@ -347,20 +337,13 @@ public class Base64 {
     }
 
     /**
-     * <p>
-     * Decodes all of the provided data, starting at inPos, for inAvail bytes. Should be called at least twice: once
+     * <p> Decodes all of the provided data, starting at inPos, for inAvail bytes. Should be called at least twice: once
      * with the data to decode, and once with inAvail set to "-1" to alert decoder that EOF has been reached. The "-1"
-     * call is not necessary when decoding, but it doesn't hurt, either.
-     * </p>
-     * <p>
-     * Ignores all non-base64 characters. This is how chunked (e.g. 76 character) data is handled, since CR and LF are
-     * silently ignored, but has implications for other bytes, too. This method subscribes to the garbage-in,
-     * garbage-out philosophy: it will not check the provided data for validity.
-     * </p>
-     * <p>
-     * Thanks to "commons" project in ws.apache.org for the bitwise operations, and general approach.
-     * http://svn.apache.org/repos/asf/webservices/commons/trunk/modules/util/
-     * </p>
+     * call is not necessary when decoding, but it doesn't hurt, either. </p> <p> Ignores all non-base64 characters.
+     * This is how chunked (e.g. 76 character) data is handled, since CR and LF are silently ignored, but has
+     * implications for other bytes, too. This method subscribes to the garbage-in, garbage-out philosophy: it will not
+     * check the provided data for validity. </p> <p> Thanks to "commons" project in ws.apache.org for the bitwise
+     * operations, and general approach. http://svn.apache.org/repos/asf/webservices/commons/trunk/modules/util/ </p>
      *
      * @param in      byte[] array of ascii data to base64 decode.
      * @param inPos   Position to start reading data from.
@@ -485,8 +468,8 @@ public class Base64 {
      * Pre-calculates the amount of space needed to base64-encode the supplied array.
      *
      * @param pArray byte[] array which will later be encoded
-     * @return amount of space needed to encoded the supplied array.  Returns
-     * a long since a max-len array will require Integer.MAX_VALUE + 33%.
+     * @return amount of space needed to encoded the supplied array.  Returns a long since a max-len array will require
+     * Integer.MAX_VALUE + 33%.
      */
     private static long getEncodeLength(byte[] pArray) {
         long len = (pArray.length * 4) / 3;

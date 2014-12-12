@@ -34,16 +34,16 @@ public class AbstractMapTest extends UnitTest {
 
 	@Test
 	public void testKeySet() {
-		AbstractMap<Object, Object> map1 = new HashMap<Object, Object>(0);
+		Map<Object, Object> map1 = new HashMap<Object, Object>(0);
 		assertSame("HashMap(0)", map1.keySet(), map1.keySet());
 
-		AbstractMap<Object, Object> map2 = new HashMap<Object, Object>(10);
+		Map<Object, Object> map2 = new HashMap<Object, Object>(10);
 		assertSame("HashMap(10)", map2.keySet(), map2.keySet());
 	}
 
 	@Test
 	public void testClear() {
-		AbstractMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 		map.put(1, 1);
 		map.clear();
 		assertTrue(map.isEmpty());
@@ -51,97 +51,11 @@ public class AbstractMapTest extends UnitTest {
 
 	@Test
 	public void testValues() {
-		AbstractMap<Object, Object> map1 = new HashMap<Object, Object>(0);
+		Map<Object, Object> map1 = new HashMap<Object, Object>(0);
 		assertSame("HashMap(0)", map1.values(), map1.values());
 
-		AbstractMap<Object, Object> map2 = new HashMap<Object, Object>(10);
+		Map<Object, Object> map2 = new HashMap<Object, Object>(10);
 		assertSame("HashMap(10)", map2.values(), map2.values());
-	}
-
-	@Test
-	public void testClone() {
-		class MyMap<T, Y> extends AbstractMap<T, Y> implements Cloneable {
-			private Map<T, Y> map = new HashMap<T, Y>();
-
-			public Set<MapEntry<T, Y>> entrySet() {
-				return map.entrySet();
-			}
-
-			public Y put(T key, Y value) {
-				return map.put(key, value);
-			}
-
-			public Map<T, Y> getMap() {
-				return map;
-			}
-
-			public Object clone() {
-				try {
-					return super.clone();
-				} catch (CloneNotSupportedException e) {
-					return null;
-				}
-			}
-
-			@Override
-			public void clear() {
-				map.clear();
-			}
-
-			@Override
-			public boolean containsKey(Object key) {
-				return map.containsKey(key);
-			}
-
-			@Override
-			public boolean containsValue(Object value) {
-				return map.containsValue(value);
-			}
-
-			@Override
-			public Y get(Object key) {
-				return map.get(key);
-			}
-
-			@Override
-			public boolean isEmpty() {
-				return map.isEmpty();
-			}
-
-			@Override
-			public Set<T> keySet() {
-				return map.keySet();
-			}
-
-			@Override
-			public void putAll(Map<? extends T, ? extends Y> map) {
-				this.map.putAll(map);
-			}
-
-			@Override
-			public Y remove(Object key) {
-				return map.remove(key);
-			}
-
-			@Override
-			public int size() {
-				return map.size();
-			}
-
-			@Override
-			public Collection<Y> values() {
-				return map.values();
-			}
-		}
-
-		MyMap<String, String> map = new MyMap<String, String>();
-		map.put("one", "1");
-		MapEntry<String, String> entry = map.entrySet().iterator().next();
-		assertTrue("entry not added", entry.getKey() == "one" && entry.getValue() == "1");
-
-		@SuppressWarnings("unchecked")
-		MyMap<String, String> mapClone = (MyMap<String, String>) map.clone();
-		assertTrue("clone not shallow", map.getMap() == mapClone.getMap());
 	}
 
 	@Test
