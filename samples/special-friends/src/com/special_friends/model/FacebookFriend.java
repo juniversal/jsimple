@@ -30,7 +30,6 @@ public class FacebookFriend {
 		return ((FacebookFriend) arg0).getName().equals(this.name);
 	}
 
-	// example reqStr = "{\"A\":\"5555\",\"B\":\"22222\"}";
 	public String toJson() {
 		return "{\"name\":\"" + name + "\",\"picURL\":\"" + pictureUrl + "\",\"myid\":" + ApplicationModelEndpoint.getInstance().getMyID() + "}";
 	}

@@ -9,7 +9,9 @@ import jsimple.util.ArrayList;
 import jsimple.util.List;
 
 import com.special_friends.model.FacebookFriend;
-
+/**
+ * Parses jsons received from azure mobile server and constructs model objects
+ */
 public class AzureMobileParser {
 	
 	public List<FacebookFriend> parserFriendList(String json) {

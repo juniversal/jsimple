@@ -1,10 +1,7 @@
 package main;
 
 import java.io.UnsupportedEncodingException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import javax.swing.DebugGraphics;
 
 import jsimple.io.JSimpleIO;
 import jsimple.util.BasicException;
@@ -18,30 +15,30 @@ import com.special_friends.model.FacebookFriend;
 import com.special_friends.model.FacebookPost;
 
 public class Main {
-
 	static Scanner keyboard = new Scanner(System.in);
 
-	// local json
-	//iteration on posts 
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		// bootstrap :
+		//========================bootstrap
+		/*start jsimple*/
 		JSimpleIO.init();
 		boolean invalidCode = true;
 		String facebookToken = "";
-		/****/
+		/*app permission that we need in order to extract the facebook data*/
 		String authPermissions = "user_friends,read_stream,read_friendlists";
 		FacebookAuthenticator authenticator = new FacebookAuthenticator(authPermissions);
 		String redirectUrl = authenticator.getAuthorizationUrl();
-	
+		//========================
 		
+		//========================facebook authentication
 		System.out.println("Paste this in your browser , authenticate and coppy the <code> from the request");
 		System.out.println("--> " + redirectUrl + "\n");
-
+		/*get the facebook ouath code and validate it*/
 		do {
 			invalidCode = false;
 			System.out.print("Insert facebook code : ");
 			String authCode = keyboard.nextLine();
 			try {
+				/*get acesstoken from the facebook code , or print what was the error and try again*/
 				facebookToken = authenticator.getAcessToken(authCode);
 			} catch (BasicException e) {
 				System.out.println("Error " + e.getMessage() + "\n");
@@ -49,6 +46,7 @@ public class Main {
 			}
 		} while (invalidCode);
 		
+		/*get the facebook data about the current user and save it in app endpoint*/
 		FacebookConnector connector = new FacebookConnector(facebookToken);
 		FacebookParser fbParser = new FacebookParser();
 		String myInfo = connector.getMyInfo();
@@ -57,8 +55,9 @@ public class Main {
 		System.out.println("Authentication Successful");
 		System.out.println("You are " + myName + "[" + myFbID + "]\n");
 		ApplicationModelEndpoint.getInstance().setMyID(myFbID);
+		//========================
 		
-		
+		//========================load the friendlist
 		System.out.println("Where to load your saved friends?");
 		System.out.print("1=cloud ; 2=localFile ; 3=don't load :");
 		String input = null;
@@ -69,21 +68,25 @@ public class Main {
 		int in = new Integer(input);
 		switch (in) {
 		case 1:
+			/*azure mobile*/
 			ApplicationModelEndpoint.getInstance().loadFromCloud();
 			break;
 		case 2:
+			/*local storage*/
 			ApplicationModelEndpoint.getInstance().loadFromFile();
 			break;
 		default:
 			break;
 		}
+		//========================
 		
-		
+		//========================Print user's good friends and the full friend list extracted from facebook
 		System.out.println("\nYour good friends are : ");
 		List<FacebookFriend> goodFriends = ApplicationModelEndpoint.getInstance().getSpecialFriends();
 		for (int i = 0; i < goodFriends.size(); i++) {
 			System.out.println(i + ")" + goodFriends.get(i).getName());
 		}
+		
 		System.out.println("-----------");
 		System.out.println("Loading ....");
 
@@ -92,7 +95,9 @@ public class Main {
 		for (int i = 0; i < fbFriends.size(); i++) {
 			System.out.println(i + ")" + fbFriends.get(i).getName());
 		}
+		//========================
 		
+		//======================== add friends from the facebook list to the special friend list
 		Integer bigLoop = -1;
 		while (true){
 			System.out.print("\nAdd more (1=yes,2=no): ");
@@ -114,24 +119,32 @@ public class Main {
 			ApplicationModelEndpoint.getInstance().addSpecialFriend(fbFriends.get(in));
 		}
 		System.out.println("Done !\n");
+		//========================
 		
+		//======================== reprint the special freinds (for validation)
 		System.out.println("Your good friends are");
 		goodFriends = ApplicationModelEndpoint.getInstance().getSpecialFriends();
 		for (int i = 0; i < goodFriends.size(); i++) {
 			System.out.println(i + ")" + goodFriends.get(i).getName());
 		}
+		//======================== 
 		
+		//======================== Extract your user's timeline from facebook and print only the posts from special friends
 		System.out.println("Loading ....");
-		String timeline = connector.getMyTimeline();
-		System.out.println("Full timeline is" + timeline);
+		/*how far into timeline history to go*/
+		int postLimit = 100;
+		/*full timeline as a json */
+		String timeline = connector.getMyTimeline(postLimit);
 		System.out.println("\nYour friends posts are : ");
+		/*Parse and filter the timeline*/
 		List<FacebookPost> fbPosts = ApplicationModelEndpoint.getInstance().getSpecialFriendPosts(timeline);
 		for (FacebookPost facebookPost : fbPosts) {
 			System.out.println(facebookPost);
 		}
-
-		System.out.print("Do you want to save the fiend list (1=cloud,2=localFile,3=don't save) : ");
+		//========================
 		
+		//======================== Save your newly added friends
+		System.out.print("Do you want to save the fiend list (1=cloud,2=localFile,3=don't save) : ");
 		do {
 			input = keyboard.next();
 		}
@@ -144,12 +157,14 @@ public class Main {
 		}else if (in==2){
 			ApplicationModelEndpoint.getInstance().saveToFile();
 		}
-		
+		//========================
 		System.out.println("All done BB now");
 	}
 
 	
-	
+	/** Console input validator ,
+	 * return true if input is a number and is in the range specified
+	 */
 	private static boolean isValidInput(String input ,int lowRange, int topRange){
 		int item;
 		try {

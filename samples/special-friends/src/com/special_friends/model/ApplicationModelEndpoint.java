@@ -8,12 +8,18 @@ import com.special_friend.parsers.AzureMobileParser;
 import com.special_friend.parsers.FacebookParser;
 import com.special_friend.persistance.AzureMobileConnector;
 import com.special_friend.persistance.LocalFileConnector;
-
+/**
+ * Application facade.
+ * Most of the app's functionality is exposed here
+ */
 public class ApplicationModelEndpoint {
 	private final static ApplicationModelEndpoint instance = new ApplicationModelEndpoint();
+	//current user id , so we can poll the data relevant only for this user
 	private String myID;
+	//current user's good friends
 	private List<FacebookFriend> specialFriends;
 
+	//delegates 
 	private AzureMobileConnector azureConnector;
 	private AzureMobileParser azureParser;
 	private FacebookParser fbParser;

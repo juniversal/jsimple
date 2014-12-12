@@ -9,9 +9,14 @@ import jsimple.util.ArrayList;
 import jsimple.util.List;
 
 import com.special_friends.model.*;
-
+/**
+ * Parses jsons received from facebook and constructs model objects
+ */
 public class FacebookParser {
 
+	/**
+	 * Create friends data object from the friend json received from facebook
+	 */
 	public List<FacebookFriend> parserFriendList(String json) {
 		List<FacebookFriend> ret = new ArrayList<FacebookFriend>();
 		ObjectModelParser parser = new ObjectModelParser(new StringReader(json));
@@ -31,6 +36,9 @@ public class FacebookParser {
 		return ret;
 	}
 
+	/**
+	 * From the raw json wall, extract the posts that are posted by the friends from the list given as parameter
+	 */
 	public String filterWall(String wallJson, List<String> acceptPostsFrom) {
 		ObjectModelParser parser = new ObjectModelParser(new StringReader(wallJson));
 		JsonObjectOrArray root = parser.parseRoot();
@@ -51,6 +59,10 @@ public class FacebookParser {
 		return ret.toString();
 	}
 
+	/**
+	 * Creates a list of facebook posts from the json of the user's wall
+	 * Post's attributes are nullable , except for the poster's name
+	 */
 	public List<FacebookPost> parseWall(String wallJson) {
 		List<FacebookPost> ret = new ArrayList<FacebookPost>();
 		ObjectModelParser parser = new ObjectModelParser(new StringReader(wallJson));
@@ -96,6 +108,9 @@ public class FacebookParser {
 		return ret;
 	}
 
+	/**
+	 * Parses current user  information(json) and extracts the user's unique facebook ID
+	 */
 	public String extractMyId(String myDataJson) {
 		ObjectModelParser parser = new ObjectModelParser(new StringReader(myDataJson));
 		JsonObjectOrArray root = parser.parseRoot();
@@ -104,6 +119,9 @@ public class FacebookParser {
 		return myID;
 	}
 
+	/**
+	 * Parses current user  information(json) and extracts the user's name
+	 */
 	public String extractMyName(String myDataJson) {
 		ObjectModelParser parser = new ObjectModelParser(new StringReader(myDataJson));
 		JsonObjectOrArray root = parser.parseRoot();
@@ -113,6 +131,9 @@ public class FacebookParser {
 		return myFirstName + " " + myLastName;
 	}
 
+	/**
+	 * Replace character that can not be read (special characters , etc with _)
+	 */
 	public String replaceNonUTF(String original) {
 		return original.replaceAll("[^A-Za-z0-9()\\[\\]]", "_");
 	}
