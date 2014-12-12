@@ -237,7 +237,7 @@ public class HashMap<K, V> extends Map<K, V> {
             return valuesEq(entry, object);
         }
 
-        private static boolean valuesEq(HashMapEntry<KT, VT> entry, MapEntry<?, ?> oEntry) {
+        private static boolean valuesEq(HashMapEntry entry, MapEntry<?, ?> oEntry) {
             return (entry != null) &&
                     ( (entry.value == null) ? (oEntry.getValue() == null) : (areEqualValues(entry.value, oEntry.getValue())) );
         }
