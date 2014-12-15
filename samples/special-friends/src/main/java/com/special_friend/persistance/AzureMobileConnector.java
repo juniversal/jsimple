@@ -2,123 +2,124 @@ package com.special_friend.persistance;
 
 import com.special_friend.facebook.Constants;
 import com.special_friends.model.ApplicationModelEndpoint;
-
 import jsimple.io.IOUtils;
 import jsimple.net.HttpRequest;
 import jsimple.net.HttpResponse;
 import jsimple.util.BasicException;
 import jsimple.util.HashMap;
+
 /**
- * Azure mobile connector class ,
- * Dispatches request to the azure mobile server
+ * Azure mobile connector class , Dispatches request to the azure mobile server
  */
 public class AzureMobileConnector {
 
-	/**
-	 * Formats the data and persists it to azure-mobile db
-	 * @param table the table-name you want to insert to
-	 * @param dataToInsert key = column ; value = the value you want to insert
-	 */
-	public void saveData(String table, HashMap<String, String> dataToInsert) {
-		HttpRequest req = HttpRequest.create(Constants.AZURE_DB_PATH + table);
-		req.setMethod(HttpRequest.METHOD_POST);
-		req.setContentTypeAndAcceptHeaders("application/json", "application/json");
-		req.setHeader("X-ZUMO-APPLICATION", Constants.AZURE_APP_ID);
+    /**
+     * Formats the data and persists it to azure-mobile db
+     *
+     * @param table        the table-name you want to insert to
+     * @param dataToInsert key = column ; value = the value you want to insert
+     */
+    public void saveData(String table, HashMap<String, String> dataToInsert) {
+        HttpRequest req = HttpRequest.create(Constants.AZURE_DB_PATH + table);
+        req.setMethod(HttpRequest.METHOD_POST);
+        req.setContentTypeAndAcceptHeaders("application/json", "application/json");
+        req.setHeader("X-ZUMO-APPLICATION", Constants.AZURE_APP_ID);
 
-		jsimple.io.Utf8OutputStreamWriter out = new jsimple.io.Utf8OutputStreamWriter(req.createRequestBodyStream());
+        jsimple.io.Utf8OutputStreamWriter out = new jsimple.io.Utf8OutputStreamWriter(req.createRequestBodyStream());
 
-		StringBuffer reqStr = new StringBuffer();
+        StringBuffer reqStr = new StringBuffer();
 
-		//translate the input data into a json that is readable by azure-mobile
-		reqStr.append("{");
-		for (String key : dataToInsert.keySet()) {
-			reqStr.append("\"" + key + "\"");
-			reqStr.append(":");
-			reqStr.append("\"" + dataToInsert.get(key) + "\"");
-			reqStr.append(",");
-		}
-		// remove the last comma
-		reqStr.deleteCharAt(reqStr.length() - 1);
-		reqStr.append("}");
-		//write it in the request output stream
-		out.write(reqStr.toString());
-		out.flush();
-		out.close();
+        //translate the input data into a json that is readable by azure-mobile
+        reqStr.append("{");
+        for (String key : dataToInsert.keySet()) {
+            reqStr.append("\"" + key + "\"");
+            reqStr.append(":");
+            reqStr.append("\"" + dataToInsert.get(key) + "\"");
+            reqStr.append(",");
+        }
+        // remove the last comma
+        reqStr.deleteCharAt(reqStr.length() - 1);
+        reqStr.append("}");
+        //write it in the request output stream
+        out.write(reqStr.toString());
+        out.flush();
+        out.close();
 
-		HttpResponse resp = req.send();
+        HttpResponse resp = req.send();
 
-		//check if opperation sucessful
-		if (resp.getStatusCode() != 201) {
-			throw new BasicException(resp.getStatusMessage());
-		}
-	}
+        //check if opperation sucessful
+        if (resp.getStatusCode() != 201) {
+            throw new BasicException(resp.getStatusMessage());
+        }
+    }
 
-	/**
-	 * Persists a pre-formated json in the azure-mobile database
-	 * @param table table you want to write to
-	 * @param json preformated insert data
-	 */
-	public void saveData(String table, String json) {
-		HttpRequest req = HttpRequest.create(Constants.AZURE_DB_PATH + table);
-		req.setMethod(HttpRequest.METHOD_POST);
-		req.setContentTypeAndAcceptHeaders("application/json", "application/json");
-		req.setHeader("X-ZUMO-APPLICATION", Constants.AZURE_APP_ID);
+    /**
+     * Persists a pre-formated json in the azure-mobile database
+     *
+     * @param table table you want to write to
+     * @param json  preformated insert data
+     */
+    public void saveData(String table, String json) {
+        HttpRequest req = HttpRequest.create(Constants.AZURE_DB_PATH + table);
+        req.setMethod(HttpRequest.METHOD_POST);
+        req.setContentTypeAndAcceptHeaders("application/json", "application/json");
+        req.setHeader("X-ZUMO-APPLICATION", Constants.AZURE_APP_ID);
 
-		jsimple.io.Utf8OutputStreamWriter out = new jsimple.io.Utf8OutputStreamWriter(req.createRequestBodyStream());
+        jsimple.io.Utf8OutputStreamWriter out = new jsimple.io.Utf8OutputStreamWriter(req.createRequestBodyStream());
 
-		out.write(json);
-		out.flush();
-		out.close();
+        out.write(json);
+        out.flush();
+        out.close();
 
-		HttpResponse resp = req.send();
-		if (resp.getStatusCode() != 201) {
-			throw new BasicException(resp.getStatusMessage());
-		}
-	}
-	
-	/**
-	 * Deletes data from azure-mobile db , with a specified id (primary key)
-	 * @param table the table you want to perform the operation on
-	 * @param id the unique identifier , auto-generated by azure-mobile service at insert stage
-	 */
-	public void deleteData(String table, String id) {
-		HttpRequest req = HttpRequest.create(Constants.AZURE_DB_PATH + table+"/"+id);
-		req.setMethod(HttpRequest.METHOD_DELETE);
-		
-		req.setContentTypeAndAcceptHeaders("application/json", "application/json");
-		req.setHeader("X-ZUMO-APPLICATION", Constants.AZURE_APP_ID);
+        HttpResponse resp = req.send();
+        if (resp.getStatusCode() != 201) {
+            throw new BasicException(resp.getStatusMessage());
+        }
+    }
 
-		jsimple.io.Utf8OutputStreamWriter out = new jsimple.io.Utf8OutputStreamWriter(req.createRequestBodyStream());
+    /**
+     * Deletes data from azure-mobile db , with a specified id (primary key)
+     *
+     * @param table the table you want to perform the operation on
+     * @param id    the unique identifier , auto-generated by azure-mobile service at insert stage
+     */
+    public void deleteData(String table, String id) {
+        HttpRequest req = HttpRequest.create(Constants.AZURE_DB_PATH + table + "/" + id);
+        req.setMethod(HttpRequest.METHOD_DELETE);
+
+        req.setContentTypeAndAcceptHeaders("application/json", "application/json");
+        req.setHeader("X-ZUMO-APPLICATION", Constants.AZURE_APP_ID);
+
+        jsimple.io.Utf8OutputStreamWriter out = new jsimple.io.Utf8OutputStreamWriter(req.createRequestBodyStream());
 
 
-		out.flush();
-		out.close();
-		HttpResponse resp = req.send();
-		if (resp.getStatusCode() != 204) {
-			throw new BasicException(resp.getStatusMessage());
-		}
-	}
-	
-	/**
-	 * Select * from Friend where myid= app.myid
-	 * Query the friend table name specified as a parameter and extract all the friends
-	 * that this user has added.
-	 */
-	public  String selectFriends(String tableName) {
-		String requestString = Constants.AZURE_DB_PATH + tableName;
-		//this application shares same schema and table for all users
-		//extract only the friends the current app user has added
-		String filterString = "?$filter=("   + Constants.MY_ID_COLUMN  + "%20eq%20" + "'" + ApplicationModelEndpoint.getInstance().getMyID() + "')";
-		requestString += filterString;
-		
-		HttpRequest req = HttpRequest.create(requestString);
-		req.setMethod(HttpRequest.METHOD_GET);
-		req.setContentTypeAndAcceptHeaders("application/json", "application/json");
-		req.setHeader("X-ZUMO-APPLICATION", Constants.AZURE_APP_ID);
+        out.flush();
+        out.close();
+        HttpResponse resp = req.send();
+        if (resp.getStatusCode() != 204) {
+            throw new BasicException(resp.getStatusMessage());
+        }
+    }
 
-		HttpResponse response = req.send();
-		String tableData = IOUtils.toStringFromUtf8Stream(response.getBodyStream());
-		return tableData;
-	}
-	
+    /**
+     * Select * from Friend where myid= app.myid Query the friend table name specified as a parameter and extract all
+     * the friends that this user has added.
+     */
+    public String selectFriends(String tableName) {
+        String requestString = Constants.AZURE_DB_PATH + tableName;
+        //this application shares same schema and table for all users
+        //extract only the friends the current app user has added
+        String filterString = "?$filter=(" + Constants.MY_ID_COLUMN + "%20eq%20" + "'" + ApplicationModelEndpoint.getInstance().getMyID() + "')";
+        requestString += filterString;
+
+        HttpRequest req = HttpRequest.create(requestString);
+        req.setMethod(HttpRequest.METHOD_GET);
+        req.setContentTypeAndAcceptHeaders("application/json", "application/json");
+        req.setHeader("X-ZUMO-APPLICATION", Constants.AZURE_APP_ID);
+
+        HttpResponse response = req.send();
+        String tableData = IOUtils.toStringFromUtf8Stream(response.getBodyStream());
+        return tableData;
+    }
+
 }

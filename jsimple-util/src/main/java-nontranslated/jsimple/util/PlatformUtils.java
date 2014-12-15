@@ -46,7 +46,6 @@ public class PlatformUtils extends PlatformUtilsBase {
         return System.currentTimeMillis();
     }
 
-/*
     public static <T extends Comparable<? super T>> void sortList(List<T> list) {
         Collections.sort(list);
     }
@@ -54,7 +53,6 @@ public class PlatformUtils extends PlatformUtilsBase {
     public static <T> void sortList(List<T> list, Comparator<? super T> comparator) {
         Collections.sort(list, comparator);
     }
-*/
 
     private static String lineSeparator = System.getProperty("line.separator");
 

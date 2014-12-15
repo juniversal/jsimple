@@ -39,7 +39,7 @@ public class Main {
 			String authCode = keyboard.nextLine();
 			try {
 				/*get acesstoken from the facebook code , or print what was the error and try again*/
-				facebookToken = authenticator.getAcessToken(authCode);
+				facebookToken = authenticator.getAccessToken(authCode);
 			} catch (BasicException e) {
 				System.out.println("Error " + e.getMessage() + "\n");
 				invalidCode = true;

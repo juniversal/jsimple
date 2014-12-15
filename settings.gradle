@@ -29,6 +29,7 @@ include ':jsimple-oauth'
 include ':jsimple-logging-api'
 include ':jsimple-logging-stdimpl'
 include ':azure-mobile'
+include ':special-friends'
 
 project(':jsimple-unit').projectDir = "$rootDir/jsimple-unit" as File
 project(':jsimple-util').projectDir = "$rootDir/jsimple-util" as File
@@ -38,3 +39,4 @@ project(':jsimple-oauth').projectDir = "$rootDir/jsimple-oauth" as File
 project(':jsimple-logging-api').projectDir = "$rootDir/jsimple-logging-api" as File
 project(':jsimple-logging-stdimpl').projectDir = "$rootDir/jsimple-logging-stdimpl" as File
 project(':azure-mobile').projectDir = "$rootDir/samples/azure-mobile" as File
+project(':special-friends').projectDir = "$rootDir/samples/special-friends" as File

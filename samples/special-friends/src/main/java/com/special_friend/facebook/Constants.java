@@ -10,6 +10,4 @@ public class Constants {
 	public static final String FACEBOOK_APP_ID = "310019222529140";
 	public static final String FACEBOOK_APP_SECRET = "86b41a3678ef76807c8e799c0b31e129";
 	public static final String FACEBOOK_CALLBACK = "http://localhost:8080/";
-	
-
 }

@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/jsimple-unit" />
             <option value="$PROJECT_DIR$/jsimple-util" />
             <option value="$PROJECT_DIR$/samples/azure-mobile" />
+            <option value="$PROJECT_DIR$/samples/special-friends" />
           </set>
         </option>
       </GradleProjectSettings>
