@@ -26,6 +26,11 @@ namespace jsimple.util
 {
     public class BasicException : Exception
     {
+        public BasicException()
+        {
+        }
+
+
         public BasicException(Exception cause)
             : base(null, cause)
         {
@@ -51,7 +56,7 @@ namespace jsimple.util
         }
 
         public BasicException(MessageFormatter.FormattingTuple formattingTuple)
-            : base(formattingTuple.FormattedMessage, formattingTuple.Throwable)
+            : base(formattingTuple.getFormattedMessage(), formattingTuple.getThrowable())
         {
         }
     }

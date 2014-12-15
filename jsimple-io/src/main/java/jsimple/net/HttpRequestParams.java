@@ -22,12 +22,11 @@
 
 package jsimple.net;
 
+import jsimple.util.ArrayList;
 import jsimple.util.BasicException;
+import jsimple.util.HashMap;
+import jsimple.util.List;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * HttpRequestParams represents a set of string name/value pairs which can (eventually) be passed as URL or form

@@ -22,6 +22,8 @@
 
 package jsimple.io;
 
+import jsimple.lang.Math;
+
 /**
  * MurmurHash3 is a modern, fast, well regarded non-cryptographic hashing algorithm.  Non-cryptographic means that while
  * hashes are very well distributed for arbitrary data, if an attacker tries to attack the algorithm they might be able

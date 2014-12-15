@@ -22,6 +22,7 @@
 
 package jsimple.pushnotifications;
 
+import jsimple.util.ProgrammerError;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -32,7 +33,7 @@ public class PushNotificationsReceiver {
 
     public static PushNotificationsReceiver register() {
         if (factory == null)
-            throw new RuntimeException("HttpRequest factory isn't set; did you forget to call JSimpleIO.init()?");
+            throw new ProgrammerError("HttpRequest factory isn't set; did you forget to call JSimpleIO.init()?");
         return factory.register();
     }
 

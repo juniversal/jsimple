@@ -288,11 +288,11 @@ final public class MessageFormatter {
 
         static Object[] trimmedCopy(@Nullable Object[] argArray) {
             if (argArray == null || argArray.length == 0)
-                throw new RuntimeException("non-sensical empty or null argument array");
+                throw new BasicException("non-sensical empty or null argument array");
 
             final int trimemdLen = argArray.length - 1;
             Object[] trimmed = new Object[trimemdLen];
-            System.arraycopy(argArray, 0, trimmed, 0, trimemdLen);
+            jsimple.lang.System.arraycopy(argArray, 0, trimmed, 0, trimemdLen);
             return trimmed;
         }
 

@@ -42,6 +42,7 @@
 package jsimple.io;
 
 import jsimple.util.PlatformUtils;
+import jsimple.util.ProgrammerError;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -110,7 +111,7 @@ public class StringReader extends Reader {
         if (str == null)
             throw new IOException("Reader is closed");
         if (length < 0)
-            throw new RuntimeException("read length parameter can't be negative");
+            throw new ProgrammerError("read length parameter can't be negative");
         if (pos == this.count)
             return -1;
         int end = pos + length > this.count ? this.count : pos + length;

@@ -95,7 +95,7 @@ public class Utf8OutputStreamWriter extends Writer {
      */
     @Override public void flush() {
         if (outputStream == null)
-            throw new RuntimeException("Can't call flush on a Utf8OutputStreamWriter that's already closed");
+            throw new IOException("Can't call flush on a Utf8OutputStreamWriter that's already closed");
 
         if (destPosition > 0) {
             outputStream.write(destBuffer, 0, destPosition);
@@ -120,7 +120,7 @@ public class Utf8OutputStreamWriter extends Writer {
      */
     @Override public void write(char[] buf, int offset, int count) {
         if (outputStream == null)
-            throw new RuntimeException("Can't call write on a Utf8OutputStreamWriter that's already closed");
+            throw new IOException("Can't call write on a Utf8OutputStreamWriter that's already closed");
 
         int srcPosition = offset;
         int srcEnd = offset + count;

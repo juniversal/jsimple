@@ -82,6 +82,7 @@ namespace jsimple.util
             return Jan1st1970.AddMilliseconds(millis);
         }
 
+/*
         /// <summary>
         ///     Sort the elements of the list in their natural order (that is, as specified by the Comparable interface they
         ///     implement).  The sortList isn't guaranteed to be stable (it actually is in the Java version but not in the C# version).
@@ -102,14 +103,15 @@ namespace jsimple.util
         {
             list.Sort(comparer);
         }
+*/
 
         /// <summary>
         ///     Get the default line separator (typically newline or carriage return/newline) for the platform.
         /// </summary>
         /// <returns> default line separator for the platform </returns>
-        public static String LineSeparator
+        public static String getLineSeparator()
         {
-            get { return "\r\n"; }
+            return "\r\n";
         }
 
         public static String getExceptionDescription(Exception e)
@@ -147,6 +149,19 @@ namespace jsimple.util
         public static void copyChars(char[] src, int srcPos, char[] dest, int destPos, int length)
         {
             Buffer.BlockCopy(src, srcPos, dest, destPos, length * sizeof(char));
+        }
+
+        /// <summary>
+        /// Copy data from source char string to destination char array.
+        /// </summary>
+        /// <param name="src"> source array </param>
+        /// <param name="srcPos"> starting position in source array </param>
+        /// <param name="dest"> destination array </param>
+        /// <param name="destPos"> position in destination array </param>
+        /// <param name="length"> number of elements to copy </param>
+        public static void copyChars(string src, int srcPos, char[] dest, int destPos, int length)
+        {
+            src.CopyTo(srcPos, dest, destPos, length);
         }
 
         public static void useSystemProxy()

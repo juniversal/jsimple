@@ -89,7 +89,7 @@ public class Utils {
      * @param o2 object 2
      * @return true if both objects are equal or both are null, false otherwise
      */
-    public static boolean equal(@Nullable Object o1, @Nullable Object o2) {
+    public static boolean equalsNullable(@Nullable Object o1, @Nullable Object o2) {
         if (o1 == o2)
             return true;
         if (o1 == null || o2 == null)

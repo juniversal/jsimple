@@ -221,7 +221,7 @@ public class HashMap<K, V> extends Map<K, V> {
         @Override public boolean remove(MapEntry<KT, VT> object) {
             if (object != null) {
                 HashMapEntry<KT, VT> entry = associatedMap.getEntry(object.getKey());
-                if (valuesEq(entry, object)) {
+                if (entry != null && Utils.equalsNullable(entry.value, object.getValue())) {
                     associatedMap.removeEntry(entry);
                     return true;
                 }
@@ -234,12 +234,7 @@ public class HashMap<K, V> extends Map<K, V> {
             if (object == null)
                 return false;
             HashMapEntry<KT, VT> entry = associatedMap.getEntry(object.getKey());
-            return valuesEq(entry, object);
-        }
-
-        private static boolean valuesEq(HashMapEntry entry, MapEntry<?, ?> oEntry) {
-            return (entry != null) &&
-                    ( (entry.value == null) ? (oEntry.getValue() == null) : (areEqualValues(entry.value, oEntry.getValue())) );
+            return entry != null && Utils.equalsNullable(entry.value, object.getValue());
         }
 
         @Override
@@ -269,7 +264,7 @@ public class HashMap<K, V> extends Map<K, V> {
      * Constructs a new {@code HashMap} instance with the specified capacity.
      *
      * @param capacity the initial capacity of this hash map.
-     * @throws IllegalArgumentException when the capacity is less than zero.
+     * @throws ProgrammerError when the capacity is less than zero.
      */
     public HashMap(int capacity) {
         this(capacity, 0.75f);  // default load factor of 0.75
@@ -302,8 +297,7 @@ public class HashMap<K, V> extends Map<K, V> {
      *
      * @param capacity   the initial capacity of this hash map.
      * @param loadFactor the initial load factor.
-     * @throws IllegalArgumentException when the capacity is less than zero or the load factor is less or equal to
-     *                                  zero.
+     * @throws ProgrammerError when the capacity is less than zero or the load factor is less or equal to zero
      */
     public HashMap(int capacity, float loadFactor) {
         if (capacity >= 0 && loadFactor > 0) {
@@ -313,7 +307,7 @@ public class HashMap<K, V> extends Map<K, V> {
             this.loadFactor = loadFactor;
             computeThreshold();
         } else {
-            throw new IllegalArgumentException();
+            throw new ProgrammerError("HashMap capacity and/or loadFactor is invalid");
         }
     }
 
@@ -488,8 +482,8 @@ public class HashMap<K, V> extends Map<K, V> {
             this.hashMap = hashMap;
         }
 
-        @Override public boolean contains(Object object) {
-            return hashMap.containsKey(object);
+        @Override public boolean contains(K key) {
+            return hashMap.containsKey(key);
         }
 
         @Override public int size() {
@@ -712,7 +706,7 @@ public class HashMap<K, V> extends Map<K, V> {
     private static class ValuesCollection<K, V> extends Collection<V> {
         private HashMap<K, V> hashMap;
 
-        private ValuesCollection(HashMap<K, V> hashMap) {
+        ValuesCollection(HashMap<K, V> hashMap) {
             this.hashMap = hashMap;
         }
 
@@ -750,13 +744,5 @@ public class HashMap<K, V> extends Map<K, V> {
 
     static boolean areEqualValues(Object value1, Object value2) {
         return (value1 == value2) || value1.equals(value2);
-    }
-
-    static private boolean areEqual(Object object1, Object object2) {
-        return (object1 == object2) || object1.equals(object2);
-    }
-
-    static private boolean areEqualNullsOK(@Nullable Object object1, @Nullable Object object2) {
-        return (object1 == object2) || object1.equals(object2);
     }
 }

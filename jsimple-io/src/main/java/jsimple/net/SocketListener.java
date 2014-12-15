@@ -22,6 +22,7 @@
 
 package jsimple.net;
 
+import jsimple.util.ProgrammerError;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -43,7 +44,7 @@ public abstract class SocketListener {
      */
     public static SocketListener createTcpSocketListener(SocketConnectionHandler socketConnectionHandler, int port) {
         if (factory == null)
-            throw new RuntimeException("SocketListener factory isn't set; did you forget to call JSimpleIO.init()?");
+            throw new ProgrammerError("SocketListener factory isn't set; did you forget to call JSimpleIO.init()?");
         return factory.createTcpSocketListener(socketConnectionHandler, port);
     }
 

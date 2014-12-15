@@ -42,6 +42,7 @@
 package jsimple.io;
 
 import jsimple.util.PlatformUtils;
+import jsimple.util.ProgrammerError;
 
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.BufferedReader class.  This class supports
@@ -220,14 +221,14 @@ public class BufferedReader extends Reader {
      * @param offset the initial position in {@code buffer} to store the bytes read from this reader.
      * @param length the maximum number of characters to read, must be non-negative.
      * @return number of characters read or -1 if the end of the source reader has been reached.
-     * @throws IndexOutOfBoundsException if {@code offset < 0} or {@code length < 0}, or if {@code offset + length} is
+     * @throws ProgrammerError if {@code offset < 0} or {@code length < 0}, or if {@code offset + length} is
      *                                   greater than the size of {@code buffer}.
      */
     @Override public int read(char[] buffer, int offset, int length) {
         verifyNotClosed();
 
         if (offset < 0 || offset > buffer.length - length || length < 0)
-            throw new IndexOutOfBoundsException();
+            throw new ProgrammerError("offset or length is out of bounds");
 
         int outstanding = length;
         while (outstanding > 0) {
@@ -404,14 +405,14 @@ public class BufferedReader extends Reader {
      */
     public long skip(long amount) {
         if (amount < 0)
-            throw new IllegalArgumentException();
+            throw new ProgrammerError("amount to skip can't be negative");
 
         verifyNotClosed();
         if (amount < 1)
             return 0;
 
         if (end - pos >= amount) {
-            pos += amount;
+            pos += (int) amount;
             return amount;
         }
 
@@ -422,7 +423,7 @@ public class BufferedReader extends Reader {
                 return read;
             }
             if (end - pos >= amount - read) {
-                pos += amount - read;
+                pos += (int) (amount - read);
                 return amount;
             }
             // Couldn't get all the characters, skip what we read

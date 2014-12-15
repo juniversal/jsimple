@@ -23,6 +23,7 @@
 package jsimple.io;
 
 import jsimple.util.ByteArrayRange;
+import jsimple.util.ProgrammerError;
 
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.InputStreamWriter class.  Unlike the standard
@@ -116,7 +117,7 @@ public class Utf8InputStreamReader extends Reader {
      */
     @Override public int read(char[] buffer, int offset, int length) {
         if (length < 0)
-            throw new RuntimeException("read length parameter can't be negative");
+            throw new ProgrammerError("read length parameter can't be negative");
 
         /*
         The implementation of this method is adapted from the code here: http://bjoern.hoehrmann.de/utf-8/decoder/dfa/

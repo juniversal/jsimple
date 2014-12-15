@@ -41,9 +41,8 @@
 
 package jsimple.io;
 
-import jsimple.util.BasicException;
-
-import java.util.ArrayList;
+import jsimple.util.ArrayList;
+import jsimple.util.ProgrammerError;
 
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.SequenceInputStream class.  Unlike the
@@ -71,12 +70,8 @@ public class SequenceInputStream extends InputStream {
      *
      * @param s1 the first stream to get bytes from.
      * @param s2 the second stream to get bytes from.
-     * @throws NullPointerException if {@code s1} is {@code null}.
      */
     public SequenceInputStream(InputStream s1, InputStream s2) {
-        if (s1 == null)
-            throw new NullPointerException();
-
         inputStreams = new ArrayList<InputStream>(2);
         inputStreams.add(s1);
         inputStreams.add(s2);
@@ -121,7 +116,7 @@ public class SequenceInputStream extends InputStream {
             currentInputStream = inputStreams.get(currentInputStreamIndex);
 
             if (currentInputStream == null)
-                throw new BasicException("InputStream at index {} unexpectedly null in SequenceInputStream list",
+                throw new ProgrammerError("InputStream at index {} unexpectedly null in SequenceInputStream list",
                         currentInputStreamIndex);
         } else currentInputStream = null;
     }

@@ -110,6 +110,8 @@ public class CharIterator {
         return false;
     }
 
+    // TODO: Add this back
+/*
     public @Nullable Double matchDouble() {
         StringBuilder buffer = new StringBuilder();
 
@@ -125,6 +127,7 @@ public class CharIterator {
 
         return Double.parseDouble(buffer.toString());
     }
+*/
 
     public boolean matchDigits(StringBuilder buffer) {
         if (!matchDigit(buffer))

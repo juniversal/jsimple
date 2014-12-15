@@ -75,6 +75,7 @@
     <Compile Include="jsimple\**\*.cs" />
     <Compile Include="nontranslated\jsimple\lang\AutoCloseable.cs" />
     <Compile Include="nontranslated\jsimple\lang\Iterable.cs" />
+    <Compile Include="nontranslated\jsimple\lang\System.cs" />
     <Compile Include="nontranslated\jsimple\util\BasicException.cs" />
     <Compile Include="nontranslated\jsimple\util\Iterator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

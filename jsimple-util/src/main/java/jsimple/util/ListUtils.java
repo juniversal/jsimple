@@ -22,10 +22,6 @@
 
 package jsimple.util;
 
-import jsimple.util.ArrayList;
-import jsimple.util.HashSet;
-import jsimple.util.List;
-
 /**
  * Created by Bret on 5/19/2014.
  */
