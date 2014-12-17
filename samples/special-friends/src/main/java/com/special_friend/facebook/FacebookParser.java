@@ -1,7 +1,5 @@
-package com.special_friend.parsers;
+package main.java.com.special_friend.facebook;
 
-import com.special_friends.model.FacebookFriend;
-import com.special_friends.model.FacebookPost;
 import jsimple.io.StringReader;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonObject;
@@ -9,6 +7,8 @@ import jsimple.json.objectmodel.JsonObjectOrArray;
 import jsimple.json.objectmodel.ObjectModelParser;
 import jsimple.util.ArrayList;
 import jsimple.util.List;
+import main.java.com.special_friend.model.FacebookFriend;
+import main.java.com.special_friend.model.FacebookPost;
 
 /**
  * Parses jsons received from facebook and constructs model objects
@@ -22,42 +22,22 @@ public class FacebookParser {
         List<FacebookFriend> ret = new ArrayList<FacebookFriend>();
         ObjectModelParser parser = new ObjectModelParser(new StringReader(json));
         JsonObjectOrArray root = parser.parseRoot();
+        //when receiving data from facebook the all the information is in a json 
+        //list called data 
         JsonObject rootObj = (JsonObject) root;
         JsonArray friendList = rootObj.getJsonArray("data");
-
+        //itterate over the data list and extract relevant values for each item
         for (int i = 0; i < friendList.size(); i++) {
             JsonObject strFriend = (JsonObject) friendList.get(i);
+            // the picture is a json object that contains a list of properties, the property that interests us is the picture url
             String profilePic = strFriend.getJsonObject("picture").getJsonObject("data").getString("url");
+            //extract friend's name , this will be used as a primary key
             String name = strFriend.getString("name");
             String newName = replaceNonUTF(name);
             FacebookFriend f = new FacebookFriend(newName, profilePic);
             ret.add(f);
         }
-
         return ret;
-    }
-
-    /**
-     * From the raw json wall, extract the posts that are posted by the friends from the list given as parameter
-     */
-    public String filterWall(String wallJson, List<String> acceptPostsFrom) {
-        ObjectModelParser parser = new ObjectModelParser(new StringReader(wallJson));
-        JsonObjectOrArray root = parser.parseRoot();
-        JsonObject rootObj = (JsonObject) root;
-        JsonArray feeds = rootObj.getJsonArray("data");
-
-        StringBuilder ret = new StringBuilder();
-        for (int i = 0; i < feeds.size(); i++) {
-            JsonObject post = (JsonObject) feeds.get(i);
-
-            String posterName = post.getJsonObject("from").getString("name");
-            String newPosterName = replaceNonUTF(posterName);
-            if (acceptPostsFrom.contains(newPosterName)) {
-                ret.append(post.toString());
-                continue;
-            }
-        }
-        return ret.toString();
     }
 
     /**

@@ -1,6 +1,6 @@
-package com.special_friends.model;
+package main.java.com.special_friend.model;
 
-public class FacebookFriend {
+public class FacebookFriend implements Comparable<FacebookFriend>{
 	private String name;
 	private String pictureUrl;
 
@@ -30,7 +30,12 @@ public class FacebookFriend {
 		return ((FacebookFriend) arg0).getName().equals(this.name);
 	}
 
-	public String toJson() {
-		return "{\"name\":\"" + name + "\",\"picURL\":\"" + pictureUrl + "\",\"myid\":" + ApplicationModelEndpoint.getInstance().getMyID() + "}";
+	public String toJson(String applicationUserId) {
+		return "{\"name\":\"" + name + "\",\"picURL\":\"" + pictureUrl + "\",\"myid\":" + applicationUserId + "}";
 	}
+
+	public int compareTo(FacebookFriend arg0) {
+		return name.compareTo(arg0.name);
+	}
+
 }

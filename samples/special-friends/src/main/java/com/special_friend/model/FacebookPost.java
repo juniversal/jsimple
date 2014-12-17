@@ -1,4 +1,4 @@
-package com.special_friends.model;
+package main.java.com.special_friend.model;
 
 public class FacebookPost {
 	private String from;

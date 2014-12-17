@@ -1,4 +1,4 @@
-package com.special_friend.facebook;
+package main.java.com.special_friend.util;
 
 import jsimple.io.BufferedReader;
 import jsimple.io.Utf8InputStreamReader;
@@ -7,6 +7,7 @@ import jsimple.util.BasicException;
 
 /**
  * Base class for Connectors
+ * Implements methods for sending read REST requests for third party services
  */
 public abstract class Connector {
 
@@ -19,8 +20,11 @@ public abstract class Connector {
      * @param req
      */
     protected String sendRequest(HttpRequest req) {
-        jsimple.net.HttpResponse response = req.send();
-
+        //send the request
+    	jsimple.net.HttpResponse response = req.send();
+        //read the return data
+    	//please note that jsimple reads the input stream of the response object , instead of using the outputstream
+    	//of the connection
         BufferedReader in = new BufferedReader(new Utf8InputStreamReader(response.getBodyStream()));
         String inputLine;
         String ret = "";
@@ -30,10 +34,11 @@ public abstract class Connector {
         }
         in.close();
 
+        //if the response code is not sucess , throw an exeption with the text == error message
         if (response.getStatusCode() == 400) {
             throw new BasicException(ret);
         }
 
-        return ret;
-    }
+		return ret;
+	}
 }
