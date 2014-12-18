@@ -23,6 +23,13 @@ public class FacebookConnector extends Connector {
         String response = sendRequest(req);
         return response;
     }
+    
+    public String getMyTimeline(String request){
+    	 HttpRequest req = HttpRequest.create(request);
+         String response = sendRequest(req);
+         return response;
+    }
+    
 
     /**Extracts the user's taggable friends friends
      * @return raw friends as json */

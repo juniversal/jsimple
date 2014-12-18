@@ -148,9 +148,13 @@ public class Main {
 		// and print only the posts from special friends
 		System.out.println("Loading ....");
 		/* how far into timeline history to go */
-		int postLimit = 100;
+		// facebook uses algorithms with inconsistent behavior to post the feeds,
+		// so to exactly the same request given at the exact moment can return distinct posts.
+		// by passing a low post limit and a high page iteration count , we get more of the feeds than
+		// if we would be passing a high limit and a low page iteration count. 
+		int postLimit = 20;
 		/* filtered timeline*/
-		List<FacebookPost> fbPosts = fbFacade.getMyFilteredWall(postLimit, ApplicationModelRoot.getInstance().getSpecialFriends());
+		List<FacebookPost> fbPosts = fbFacade.getMyFilteredWall(postLimit,100, ApplicationModelRoot.getInstance().getSpecialFriends());
 		if (fbPosts.size() != 0) {
 			System.out.println("\nYour friends posts are : ");
 			for (FacebookPost facebookPost : fbPosts) {

@@ -118,4 +118,18 @@ public class FacebookParser {
     public String replaceNonUTF(String original) {
         return original.replaceAll("[^A-Za-z0-9()\\[\\]]", "_");
     }
+    
+    public String getNextPostPage(String wallJSon){
+        ObjectModelParser parser = new ObjectModelParser(new StringReader(wallJSon));
+        JsonObjectOrArray root = parser.parseRoot();
+        JsonObject rootObj = (JsonObject) root;
+        String nextPage = "";
+        if (rootObj.containsKey("paging")){
+	        JsonObject paging = rootObj.getJsonObject("paging");
+	        nextPage = paging.getString("next");
+        }else{
+        	return "";
+        }
+        return nextPage;
+    }
 }
