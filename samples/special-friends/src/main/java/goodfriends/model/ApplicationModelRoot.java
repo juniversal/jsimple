@@ -1,8 +1,7 @@
-package main.java.com.special_friend.model;
+package goodfriends.model;
 
 import jsimple.util.ArrayList;
 import jsimple.util.List;
-import jsimple.util.PlatformUtils;
 
 /**
  * Application facade. Most of the app's functionality is exposed here

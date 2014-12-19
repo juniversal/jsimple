@@ -1,5 +1,6 @@
-package main.java.com.special_friend.azure;
+package goodfriends.azure;
 
+import goodfriends.model.FacebookFriend;
 import jsimple.io.StringReader;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonObject;
@@ -7,16 +8,15 @@ import jsimple.json.objectmodel.JsonObjectOrArray;
 import jsimple.json.objectmodel.ObjectModelParser;
 import jsimple.util.ArrayList;
 import jsimple.util.List;
-import main.java.com.special_friend.model.FacebookFriend;
 
 /**
  * Parses jsons received from azure mobile server and constructs model objects
  */
 public class AzureMobileParser {
 
-	/**
-	 * Json to Model object parser
-	 */
+    /**
+     * Json to Model object parser
+     */
     public List<FacebookFriend> parserFriendList(String json) {
         List<FacebookFriend> ret = new ArrayList<FacebookFriend>();
         //create a new json parser and extract the root object
@@ -34,10 +34,9 @@ public class AzureMobileParser {
     }
 
     /**
-     * Json to azure-mobile id parser
-     * Azure mobile handles delete operations by record id
-     * In order to delete users friend list a string with all the ids of user's friends records must be provided.
-     * This extracts only the id's from the input json
+     * Json to azure-mobile id parser Azure mobile handles delete operations by record id In order to delete users
+     * friend list a string with all the ids of user's friends records must be provided. This extracts only the id's
+     * from the input json
      */
     public List<String> parserFriendListIDs(String json) {
         List<String> ret = new ArrayList<String>();

@@ -1,5 +1,7 @@
-package main.java.com.special_friend.facebook;
+package goodfriends.facebook;
 
+import goodfriends.model.FacebookFriend;
+import goodfriends.model.FacebookPost;
 import jsimple.io.StringReader;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonObject;
@@ -7,8 +9,6 @@ import jsimple.json.objectmodel.JsonObjectOrArray;
 import jsimple.json.objectmodel.ObjectModelParser;
 import jsimple.util.ArrayList;
 import jsimple.util.List;
-import main.java.com.special_friend.model.FacebookFriend;
-import main.java.com.special_friend.model.FacebookPost;
 
 /**
  * Parses jsons received from facebook and constructs model objects
@@ -55,6 +55,8 @@ public class FacebookParser {
             JsonObject post = (JsonObject) feeds.get(i);
             String from = post.getJsonObject("from").getString("name");
             String fromUTF = replaceNonUTF(from);
+
+            System.out.println(from);
 
             String story = null;
             String picture = null;

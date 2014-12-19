@@ -1,6 +1,5 @@
-package main.java.main;
+package goodfriends.main;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 import jsimple.io.JSimpleIO;
@@ -9,18 +8,18 @@ import jsimple.util.ArrayList;
 import jsimple.util.BasicException;
 import jsimple.util.List;
 import jsimple.util.PlatformUtils;
-import main.java.com.special_friend.azure.AzureMobileFacade;
-import main.java.com.special_friend.facebook.FacebookFacade;
-import main.java.com.special_friend.local.LocalFileFacade;
-import main.java.com.special_friend.model.ApplicationModelRoot;
-import main.java.com.special_friend.model.FacebookFriend;
-import main.java.com.special_friend.model.FacebookPost;
+import goodfriends.azure.AzureMobileFacade;
+import goodfriends.facebook.FacebookFacade;
+import goodfriends.local.LocalFileFacade;
+import goodfriends.model.ApplicationModelRoot;
+import goodfriends.model.FacebookFriend;
+import goodfriends.model.FacebookPost;
 
 
 public class Main {
 	static Scanner keyboard = new Scanner(System.in);
 
-	public static void main(String[] args) throws UnsupportedEncodingException {
+	public static void main(String[] args) {
 		// ========================bootstrap
 		/* start jsimple */
 		JSimpleIO.init();
@@ -59,6 +58,7 @@ public class Main {
 			} while (invalidCode);
 			localFacade.saveToken(fbToken);
 		}
+
 		// ========================facebook authentication
 		// get the facebook data about the current user and save it in app
 		// endpoint
@@ -75,7 +75,7 @@ public class Main {
 		System.out.println("Where to load your saved friends?");
 		List<FacebookFriend> friends = null;
 		in = getInput(1, 3,"1=cloud ; 2=localFile ; 3=don't load :");
-		
+		 
 		switch (in) {
 			case 1:
 				/* azure mobile */
@@ -102,7 +102,7 @@ public class Main {
 				System.out.println(i + ")" + goodFriends.get(i).getName());
 			}
 		} else {
-			System.out.println("You don't have any special friends");
+			System.out.println("You don't have any good friends");
 		}
 
 		System.out.println("-----------");

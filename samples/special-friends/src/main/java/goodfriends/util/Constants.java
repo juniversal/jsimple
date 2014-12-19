@@ -1,4 +1,4 @@
-package main.java.com.special_friend.util;
+package goodfriends.util;
 
 public class Constants {
 	//what is you application called in windows-mobile

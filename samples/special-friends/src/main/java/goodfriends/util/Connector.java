@@ -1,4 +1,4 @@
-package main.java.com.special_friend.util;
+package goodfriends.util;
 
 import jsimple.io.BufferedReader;
 import jsimple.io.Utf8InputStreamReader;
@@ -34,7 +34,7 @@ public abstract class Connector {
         }
         in.close();
 
-        //if the response code is not sucess , throw an exeption with the text == error message
+        //if the response code is not success , throw an exception with the text == error message
         if (response.getStatusCode() == 400) {
             throw new BasicException(ret);
         }

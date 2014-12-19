@@ -1,10 +1,10 @@
-package main.java.com.special_friend.azure;
+package goodfriends.azure;
 
+import goodfriends.util.Constants;
 import jsimple.io.IOUtils;
 import jsimple.net.HttpRequest;
 import jsimple.net.HttpResponse;
 import jsimple.util.BasicException;
-import main.java.com.special_friend.util.Constants;
 
 /**
  * Azure mobile connector class , Dispatches request to the azure mobile server

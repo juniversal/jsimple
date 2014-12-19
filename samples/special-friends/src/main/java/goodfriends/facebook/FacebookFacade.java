@@ -1,11 +1,11 @@
-package main.java.com.special_friend.facebook;
+package goodfriends.facebook;
 
+import goodfriends.model.FacebookFriend;
+import goodfriends.model.FacebookPost;
+import goodfriends.util.Constants;
 import jsimple.oauth.model.Token;
 import jsimple.util.List;
 import jsimple.util.ArrayList;
-import main.java.com.special_friend.model.FacebookFriend;
-import main.java.com.special_friend.model.FacebookPost;
-import main.java.com.special_friend.util.Constants;
 
 public class FacebookFacade {
 	private FacebookAuthenticator authenticator;

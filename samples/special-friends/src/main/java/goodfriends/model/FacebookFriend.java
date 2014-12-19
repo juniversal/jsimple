@@ -1,4 +1,4 @@
-package main.java.com.special_friend.model;
+package goodfriends.model;
 
 public class FacebookFriend implements Comparable<FacebookFriend>{
 	private String name;

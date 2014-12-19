@@ -1,9 +1,9 @@
-package main.java.com.special_friend.local;
+package goodfriends.local;
 
+import goodfriends.model.FacebookFriend;
 import jsimple.oauth.model.Token;
 import jsimple.util.List;
-import main.java.com.special_friend.azure.AzureMobileParser;
-import main.java.com.special_friend.model.FacebookFriend;
+import goodfriends.azure.AzureMobileParser;
 
 public class LocalFileFacade {
     private LocalFileConnector connector;

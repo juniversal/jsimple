@@ -1,6 +1,6 @@
-package main.java.com.special_friend.facebook;
+package goodfriends.facebook;
 
-import main.java.com.special_friend.util.Connector;
+import goodfriends.util.Connector;
 import jsimple.net.HttpRequest;
 
 /**

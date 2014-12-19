@@ -1,8 +1,6 @@
-package main.java.com.special_friend.local;
+package goodfriends.local;
 
-import main.java.com.special_friend.model.ApplicationModelRoot;
-import main.java.com.special_friend.model.FacebookFriend;
-import main.java.com.special_friend.util.Constants;
+import goodfriends.util.Constants;
 import jsimple.io.BufferedReader;
 import jsimple.io.Directory;
 import jsimple.io.File;

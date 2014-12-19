@@ -1,8 +1,8 @@
-package main.java.com.special_friend.azure;
+package goodfriends.azure;
 
+import goodfriends.model.FacebookFriend;
 import jsimple.util.List;
-import main.java.com.special_friend.model.FacebookFriend;
-import main.java.com.special_friend.util.Constants;
+import goodfriends.util.Constants;
 
 public class AzureMobileFacade {
 	private AzureMobileConnector connector;
