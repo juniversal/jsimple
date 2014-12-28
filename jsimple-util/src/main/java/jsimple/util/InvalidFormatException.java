@@ -23,7 +23,7 @@
 package jsimple.util;
 
 /**
- * This is a generic exception class used to indicate the format of something isn't what it's excepted to be.
+ * This is a generic exception class used to indicate the format of something isn't what it's expected to be.
  *
  * @author Bret Johnson
  * @since 5/5/13 4:48 AM

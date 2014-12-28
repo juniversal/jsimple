@@ -22,8 +22,7 @@
 
 package jsimple.json.objectmodel;
 
-import java.util.ArrayList;
-import java.util.List;
+import jsimple.util.ArrayList;
 
 /**
  * @author Bret Johnson
@@ -52,7 +51,7 @@ public final class JsonArray extends JsonObjectOrArray {
     }
 
     public boolean getBoolean(int index) {
-        return (boolean) (Boolean) get(index);
+        return (boolean) get(index);
     }
 
     public String getString(int index) {
@@ -60,15 +59,15 @@ public final class JsonArray extends JsonObjectOrArray {
     }
 
     public int getInt(int index) {
-        return (int) (Integer) get(index);
+        return (int) get(index);
     }
 
     public long getLong(int index) {
-        return (long) (Long) get(index);
+        return (long) get(index);
     }
 
     public double getDouble(int index) {
-        return (double) (Double) get(index);
+        return (double) get(index);
     }
 
     public JsonObject getJsonObject(int index) {

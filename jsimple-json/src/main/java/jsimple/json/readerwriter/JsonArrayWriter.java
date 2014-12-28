@@ -90,7 +90,7 @@ public class JsonArrayWriter extends jsimple.lang.AutoCloseable {
         } else {
             if (!outputSomething) {
                 serializer.write("[\n");
-                serializer.indent(2);
+                serializer.addToIndent(2);
                 outputSomething = true;
             } else serializer.write(",\n");
 
@@ -111,7 +111,7 @@ public class JsonArrayWriter extends jsimple.lang.AutoCloseable {
                 serializer.write("]");
             } else {
                 serializer.write("\n");
-                serializer.indent(-2);
+                serializer.addToIndent(-2);
                 serializer.writeIndent();
                 serializer.write("]");
             }

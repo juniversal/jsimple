@@ -23,10 +23,8 @@
 package jsimple.json.objectmodel;
 
 import jsimple.json.JsonException;
+import jsimple.util.ArrayList;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A JsonObject represents an ordered list of name/value pairs.  Note that unlike a HashMap, the list is ordered, so
@@ -39,8 +37,8 @@ import java.util.List;
  * @since 5/6/12 12:29 AM
  */
 public final class JsonObject extends JsonObjectOrArray {
-    private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<Object> values = new ArrayList<>();
+    private ArrayList<String> names = new ArrayList<String>();
+    private ArrayList<Object> values = new ArrayList<Object>();
 
     /**
      * Get number of name/value pairs in the object.

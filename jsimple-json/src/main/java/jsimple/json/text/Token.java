@@ -25,6 +25,9 @@ package jsimple.json.text;
 import jsimple.io.Reader;
 import jsimple.json.JsonException;
 import jsimple.json.objectmodel.JsonNull;
+import jsimple.util.CharacterUtil;
+import jsimple.util.IntegerUtil;
+import jsimple.util.LongUtil;
 
 
 /**
@@ -149,13 +152,13 @@ public final class Token {
                 case 't':
                     checkAndAdvancePast("true");
                     type = TokenType.PRIMITIVE;
-                    primitiveValue = Boolean.TRUE;
+                    primitiveValue = true;
                     return;
 
                 case 'f':
                     checkAndAdvancePast("false");
                     type = TokenType.PRIMITIVE;
-                    primitiveValue = Boolean.FALSE;
+                    primitiveValue = false;
                     return;
 
                 case 'n':
@@ -378,7 +381,7 @@ public final class Token {
             lookahead = lookaheadChar();
 
             if (!(lookahead >= '0' && lookahead <= '9'))
-                throw new JsonParsingException("a digit to follow a minus sign", quote(Character.toString(lookahead)));
+                throw new JsonParsingException("a digit to follow a minus sign", quote(CharacterUtil.toString(lookahead)));
         }
 
         long value = 0;
@@ -389,9 +392,9 @@ public final class Token {
                 int digit = lookahead - '0';
 
                 if (negative) {
-                    if (-1 * value < (Long.MIN_VALUE + digit) / 10)
+                    if (-1 * value < (LongUtil.MIN_VALUE + digit) / 10)
                         throw new JsonParsingException("Negative number is too big, overflowing the size of a long");
-                } else if (value > (Long.MAX_VALUE - digit) / 10)
+                } else if (value > (LongUtil.MAX_VALUE - digit) / 10)
                     throw new JsonParsingException("Number is too big, overflowing the size of a long");
 
                 value = 10 * value + digit;
@@ -409,7 +412,7 @@ public final class Token {
         if (negative)
             value = -1 * value;
 
-        if (value <= Integer.MAX_VALUE && value >= Integer.MIN_VALUE)
+        if (value <= IntegerUtil.MAX_VALUE && value >= IntegerUtil.MIN_VALUE)
             return (Integer) ((int) value);
         else return (Long) value;
     }
@@ -424,7 +427,7 @@ public final class Token {
      */
     private double readFractionalPartOfDouble() {
         if (lookaheadChar() != '.')
-            throw new JsonParsingException("fraction to start with a '.'", Character.toString(lookaheadChar()));
+            throw new JsonParsingException("fraction to start with a '.'", CharacterUtil.toString(lookaheadChar()));
         ++currIndex;
 
         double value = 0;

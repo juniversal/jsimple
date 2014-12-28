@@ -4,7 +4,7 @@ package jsimple.lang;
  * Created by Bret Johnson on 12/11/2014.
  */
 public class SystemBase {
-    /**
+    /*
      * Copies the number of {@code length} elements of the Array {@code src}
      * starting at the offset {@code srcPos} into the Array {@code dest} at
      * the position {@code destPos}.
@@ -23,7 +23,7 @@ public class SystemBase {
      */
     //public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length);
 
-    /**
+    /*
      * Causes the virtual machine to stop running and the program to exit. If
      * {@link #runFinalizersOnExit(boolean)} has been previously invoked with a
      * {@code true} argument, then all objects will be properly

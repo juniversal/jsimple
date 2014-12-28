@@ -54,8 +54,7 @@ public final class Serializer {
         else if (obj instanceof Float || obj instanceof Double)
             write(obj.toString());
         else if (obj instanceof Boolean) {
-            boolean booleanValue = (boolean) (Boolean) obj;
-            write(booleanValue ? "true" : "false");
+            write((boolean) (Boolean) obj ? "true" : "false");
         } else if (obj instanceof JsonObject)
             writeJsonObject((JsonObject) obj);
         else if (obj instanceof JsonArray)
@@ -250,7 +249,7 @@ public final class Serializer {
      *
      * @param amount amount to change indent
      */
-    public void indent(int amount) {
+    public void addToIndent(int amount) {
         indent += amount;
     }
 }

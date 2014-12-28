@@ -416,18 +416,18 @@ public class BufferedReader extends Reader {
             return amount;
         }
 
-        long read = end - pos;
+        long amountSkipped = end - pos;
         pos = end;
-        while (read < amount) {
+        while (amountSkipped < amount) {
             if (fillBuf() == -1) {
-                return read;
+                return amountSkipped;
             }
-            if (end - pos >= amount - read) {
-                pos += (int) (amount - read);
+            if (end - pos >= amount - amountSkipped) {
+                pos += (int) (amount - amountSkipped);
                 return amount;
             }
             // Couldn't get all the characters, skip what we read
-            read += (end - pos);
+            amountSkipped += (end - pos);
             pos = end;
         }
 

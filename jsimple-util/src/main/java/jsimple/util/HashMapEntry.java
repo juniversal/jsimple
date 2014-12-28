@@ -1,7 +1,8 @@
 package jsimple.util;
 
 /**
- * Created by Bret on 12/12/2014.
+ * @author Bret Johnson
+ * @since 12/12/2014
  */
 class HashMapEntry<K, V> extends MapEntryImpl<K, V> {
     final int origKeyHash;

@@ -23,6 +23,6 @@
 package jsimple.io;
 
 
-public interface FileVisitor {
+public @FunctionalInterface interface FileVisitor {
     public abstract boolean visit(File file);
 }

@@ -23,9 +23,8 @@
 package jsimple.json.readerwriter;
 
 import jsimple.json.JsonException;
+import jsimple.util.HashMap;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
 
 /**
  * @author Bret Johnson

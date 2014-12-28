@@ -24,11 +24,11 @@ package jsimple.util;
 
 
 /**
- * A {@code ProgrammerErrorException} is thrown when some check fails indicating that programmer did something they
- * shouldn't have done, perhaps passing in an illegal argument or calling a method at an invalid time.   It's something
- * that should never happen, unless the program has a bug.  Generally, for such errors it's OK to exit the program
- * rather than try to recover gracefully.   For Swift, we may differentiate between programmer errors and runtime errors,
- * only turning the latter into error returns.
+ * A {@code ProgrammerError} is thrown when some check fails indicating that programmer did something they shouldn't
+ * have done, perhaps passing in an illegal argument or calling a method at an invalid time.   It's something that
+ * should never happen, unless the program has a bug.  Generally, for such errors it's OK to exit the program rather
+ * than try to recover gracefully.   For Swift (which doesn't support exceptions at all--at least not yet), we may
+ * differentiate between programmer errors and runtime errors, only turning the latter into error returns.
  */
 public class ProgrammerError extends BasicException {
     public ProgrammerError() {

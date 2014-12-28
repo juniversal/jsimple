@@ -77,7 +77,6 @@ public class ArrayListTest extends UnitTest {
 		for (int counter = 0; counter < objArray.length; counter++) {
 			assertTrue("arrayList created from collection has incorrect elements", al.get(counter) == objArray[counter]);
 		}
-
 	}
 
 	@Test

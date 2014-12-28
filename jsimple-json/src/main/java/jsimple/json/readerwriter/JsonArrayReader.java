@@ -37,8 +37,8 @@ import jsimple.json.text.TokenType;
  */
 public class JsonArrayReader {
     protected Token token;
-    private boolean atBeginning = true;
-    private boolean atEnd = false;
+    private boolean beginningPosition = true;
+    private boolean endPosition = false;
 
     public JsonArrayReader(Token token) {
         this.token = token;
@@ -46,18 +46,18 @@ public class JsonArrayReader {
     }
 
     protected void readElementPrefix() {
-        if (atBeginning)
-            atBeginning = false;
+        if (beginningPosition)
+            beginningPosition = false;
         else token.checkAndAdvance(TokenType.COMMA);
     }
 
     public boolean atEnd() {
-        if (!atEnd && token.getType() == TokenType.RIGHT_BRACKET) {
+        if (!endPosition && token.getType() == TokenType.RIGHT_BRACKET) {
             token.advance();
-            atEnd = true;
+            endPosition = true;
         }
 
-        return atEnd;
+        return endPosition;
     }
 
     public Object readPrimitive() {
@@ -72,7 +72,7 @@ public class JsonArrayReader {
     }
 
     public boolean readBoolean() {
-        return (boolean) (Boolean) readPrimitive();
+        return (boolean) readPrimitive();
     }
 
     public String readString() {
@@ -80,16 +80,16 @@ public class JsonArrayReader {
     }
 
     public int readInt() {
-        return (int) (Integer) readPrimitive();
+        return (int) readPrimitive();
     }
 
     // TODO: Automatically convert int to long
     public long readLong() {
-        return (long) (Long) readPrimitive();
+        return (long) readPrimitive();
     }
 
     public double readDouble() {
-        return (double) (Double) readPrimitive();
+        return (double) readPrimitive();
     }
 
     public JsonObjectReader readObject() {

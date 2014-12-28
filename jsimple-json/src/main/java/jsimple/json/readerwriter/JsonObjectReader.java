@@ -38,8 +38,8 @@ import jsimple.json.text.TokenType;
 public class JsonObjectReader {
     protected Token token;
     private JsonObjectType objectType = emptyObjectType;   // This is the default, if no explicit ObjectType is set
-    private boolean atBeginning = true;
-    private boolean atEnd = false;
+    private boolean beginningPosition = true;
+    private boolean endPosition = false;
 
     private static final JsonObjectType emptyObjectType = new JsonObjectType();
 
@@ -49,11 +49,11 @@ public class JsonObjectReader {
     }
 
     public String readPropertyName() {
-        if (atEnd)
+        if (endPosition)
             throw new JsonException("JSON Object has no more name/value pairs");
 
-        if (atBeginning)
-            atBeginning = false;
+        if (beginningPosition)
+            beginningPosition = false;
         else token.checkAndAdvance(TokenType.COMMA);
 
         token.check(TokenType.PRIMITIVE);
@@ -94,12 +94,12 @@ public class JsonObjectReader {
     }
 
     public boolean atEnd() {
-        if (!atEnd && token.getType() == TokenType.RIGHT_BRACE) {
+        if (!endPosition && token.getType() == TokenType.RIGHT_BRACE) {
             token.advance();
-            atEnd = true;
+            endPosition = true;
         }
 
-        return atEnd;
+        return endPosition;
     }
 
     public void setObjectType(JsonObjectType objectType) {
