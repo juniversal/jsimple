@@ -35,9 +35,9 @@ namespace jsimple.io
         /// </summary>
         public static void init()
         {
-            HttpRequest.Factory = new WindowsDesktopHttpRequest.WindowsDesktopHttpRequestFactory();
-            SocketListener.Factory = new DotNetTcpIpSocketListener.DotNetSocketListenerFactory();
-            Paths.Instance = new WindowsDesktopPaths();
+            HttpRequest.setFactory(new WindowsDesktopHttpRequest.WindowsDesktopHttpRequestFactory());
+            SocketListener.setFactory(new DotNetTcpIpSocketListener.DotNetSocketListenerFactory());
+            Paths.setInstance(new WindowsDesktopPaths());
 
             initialized = true;
         }

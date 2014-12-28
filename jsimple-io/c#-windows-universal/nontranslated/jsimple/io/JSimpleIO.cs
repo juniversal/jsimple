@@ -33,8 +33,8 @@ namespace jsimple.io
         /// </summary>
         public static void init()
         {
-            HttpRequest.Factory = new WindowUniversalHttpRequest.WindowsPhoneHttpRequestFactory();
-            Paths.Instance = new WindowsPhonePaths(); 
+            HttpRequest.setFactory(new WindowUniversalHttpRequest.WindowsPhoneHttpRequestFactory());
+            Paths.setInstance(new WindowsPhonePaths());
         }
     }
 }

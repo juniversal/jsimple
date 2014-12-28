@@ -44,16 +44,16 @@ namespace jsimple.io {
         }
          */
 
-        public override string PathString {
-            get { return filePath; }
+        public override string getPathString() {
+            return filePath;
         }
 
-        public override string Name {
-            get { return System.IO.Path.GetFileName(filePath); }
+        public override string getName() {
+            return System.IO.Path.GetFileName(filePath);
         }
 
-        public override Directory Parent {
-            get { return parent; }
+        public override Directory getParent() {
+            return parent;
         }
 
         public override InputStream openForRead() {
@@ -133,34 +133,30 @@ namespace jsimple.io {
             }
         }
 
-        public override long LastModifiedTime {
-            get {
-                try {
-                    return PlatformUtils.toMillisFromDateTime(System.IO.File.GetLastWriteTimeUtc(filePath));
-                }
-                catch (System.IO.IOException e) {
-                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                }
+        public override long getLastModifiedTime() {
+            try {
+                return PlatformUtils.toMillisFromDateTime(System.IO.File.GetLastWriteTimeUtc(filePath));
             }
-
-            set {
-                try {
-                    System.IO.File.SetLastWriteTimeUtc(filePath, PlatformUtils.toDotNetDateTimeFromMillis(value));
-                }
-                catch (System.IO.IOException e) {
-                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                }
+            catch (System.IO.IOException e) {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
             }
         }
 
-        public override long Size {
-            get {
-                try {
-                    return new FileInfo(filePath).Length;
-                }
-                catch (System.IO.IOException e) {
-                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                }
+        public override void setLastModifiedTime(long value)  {
+            try {
+                System.IO.File.SetLastWriteTimeUtc(filePath, PlatformUtils.toDotNetDateTimeFromMillis(value));
+            }
+            catch (System.IO.IOException e) {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
+
+        public override long getSize() {
+            try {
+                return new FileInfo(filePath).Length;
+            }
+            catch (System.IO.IOException e) {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
             }
         }
     }

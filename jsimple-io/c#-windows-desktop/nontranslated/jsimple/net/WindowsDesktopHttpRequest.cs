@@ -38,14 +38,13 @@ namespace jsimple.net
             httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
         }
 
-        public override string Method
-        {
-            set { httpWebRequest.Method = value; }
+        public override void setMethod(string value) {
+            httpWebRequest.Method = value;
         }
 
-        public override int Timeout
+        public override void setTimeout(int value)
         {
-            set { timeout = value; }
+            timeout = value;
         }
 
         public override void setHeader(string name, string value)

@@ -47,23 +47,20 @@ namespace jsimple.io
             this.storageFile = storageFile;
         }
 
-        public override string Name
+        public override string getName()
         {
-            get { return name; }
+            return name;
         }
 
-        public override string PathString
+        public override string getPathString()
         {
-            get
-            {
-                ensureGotStorageFile();
-                return storageFile.Path;
-            }
+            ensureGotStorageFile();
+            return storageFile.Path;
         }
 
-        public override Directory Parent
+        public override Directory getParent()
         {
-            get { return parent; }
+            return parent;
         }
 
         public StorageFolderDirectory ParentStorageFolderDirectory
@@ -150,46 +147,43 @@ namespace jsimple.io
             StorageFileFile destinationStorageFile = (StorageFileFile) destination;
 
             try {
-                storageFile.MoveAsync(destinationStorageFile.ParentStorageFolderDirectory.StorageFolder, destinationStorageFile.Name, NameCollisionOption.ReplaceExisting);
+                storageFile.MoveAsync(destinationStorageFile.ParentStorageFolderDirectory.StorageFolder, destinationStorageFile.getName(), NameCollisionOption.ReplaceExisting);
             }
             catch (System.IO.IOException e) {
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
             }
         }
 
-        public override long LastModifiedTime
+        public override long getLastModifiedTime()
         {
-            get
+            ensureGotStorageFile();
+
+            try
             {
-                ensureGotStorageFile();
-
-                try
-                {
-                    return PlatformUtils.toMillisFromDateTimeOffset(storageFile.GetBasicPropertiesAsync().DoSynchronously().DateModified);
-                }
-                catch (System.IO.IOException e)
-                {
-                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                }
+                return PlatformUtils.toMillisFromDateTimeOffset(storageFile.GetBasicPropertiesAsync().DoSynchronously().DateModified);
             }
-
-            set { }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
         }
 
-        public override long Size
+        public override void setLastModifiedTime(long time)
         {
-            get
-            {
-                ensureGotStorageFile();
+        }
 
-                try
-                {
-                    return (long) storageFile.GetBasicPropertiesAsync().DoSynchronously().Size;
-                }
-                catch (System.IO.IOException e)
-                {
-                    throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                }
+
+        public override long getSize()
+        {
+            ensureGotStorageFile();
+
+            try
+            {
+                return (long) storageFile.GetBasicPropertiesAsync().DoSynchronously().Size;
+            }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
             }
         }
 

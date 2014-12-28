@@ -43,14 +43,14 @@ namespace jsimple.io
             return basicProperties;
         }
 
-        public override long LastModifiedTime
+        public override long getLastModifiedTime()
         {
-            get { return PlatformUtils.toMillisFromDateTimeOffset(getBasicProperties().DateModified); }
+            return PlatformUtils.toMillisFromDateTimeOffset(getBasicProperties().DateModified);
         }
 
-        public override long Size
+        public override long getSize()
         {
-            get { return (long)getBasicProperties().Size; }
+            return (long)getBasicProperties().Size;
         }
     }
 }

@@ -51,23 +51,44 @@ namespace jsimple.io
             this.storageFolder = storageFolder;
         }
 
-        public override string Name
+        public override string getName()
         {
-            get { return name; }
+            return name;
         }
 
-        public override string PathString
+        public override string getPathString()
         {
-            get { return storageFolder.Path; }
+            return storageFolder.Path;
         }
 
-        public override long LastModifiedTime
+        public override long getLastModifiedTime()
         {
-            get
+            try
+            {
+                return PlatformUtils.toMillisFromDateTimeOffset(storageFolder.GetBasicPropertiesAsync().DoSynchronously().DateModified);
+            }
+            catch (System.IO.IOException e)
+            {
+                throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
+            }
+        }
+
+        public override void setLastModifiedTime(long time)
+        {
+        }
+
+        public override bool isSetLastModifiedTimeSupported()
+        {
+            return false;
+        }
+
+        public StorageFolder getStorageFolder()
+        {
+            if (storageFolder == null)
             {
                 try
                 {
-                    return PlatformUtils.toMillisFromDateTimeOffset(storageFolder.GetBasicPropertiesAsync().DoSynchronously().DateModified);
+                    storageFolder = parent.getStorageFolder().GetFolderAsync(name).DoSynchronously();
                 }
                 catch (System.IO.IOException e)
                 {
@@ -75,33 +96,7 @@ namespace jsimple.io
                 }
             }
 
-            set { }
-        }
-
-        public override bool SetLastModifiedTimeSupported
-        {
-            get { return false; }
-        }
-
-
-        public StorageFolder StorageFolder
-        {
-            get
-            {
-                if (storageFolder == null)
-                {
-                    try
-                    {
-                        storageFolder = parent.StorageFolder.GetFolderAsync(name).DoSynchronously();
-                    }
-                    catch (System.IO.IOException e)
-                    {
-                        throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
-                    }
-                }
-
-                return storageFolder;
-            }
+            return storageFolder;
         }
 
         public override File getFile(string name)
@@ -118,7 +113,7 @@ namespace jsimple.io
         {
             try
             {
-                StorageFolder temp = StorageFolder;
+                StorageFolder temp = getStorageFolder();
             }
             catch (PathNotFoundException)
             {
@@ -132,23 +127,29 @@ namespace jsimple.io
         {
             if (storageFolder == null)
                 storageFolder =
-                    parent.StorageFolder.CreateFolderAsync(name, CreationCollisionOption.OpenIfExists).DoSynchronously();
+                    parent.getStorageFolder().CreateFolderAsync(name, CreationCollisionOption.OpenIfExists).DoSynchronously();
         }
 
-        public override void visitChildren(DirectoryVisitor visitor)
+        public override void visitChildren(FileVisitor fileVisitor, DirectoryVisitor directoryVisitor, VisitFailed visitFailed)
         {
             try
             {
-                IReadOnlyList<IStorageItem> storageItems = StorageFolder.GetItemsAsync().DoSynchronously();
+                IReadOnlyList<IStorageItem> storageItems = getStorageFolder().GetItemsAsync().DoSynchronously();
 
                 foreach (IStorageItem storageItem in storageItems)
                 {
                     StorageItemPathAttributes pathAttributes = new StorageItemPathAttributes(storageItem);
 
                     if (storageItem is IStorageFolder)
-                        visitor.visit(new StorageFolderDirectory(this, (StorageFolder)storageItem));
+                    {
+                        if (directoryVisitor != null)
+                            directoryVisitor(new StorageFolderDirectory(this, (StorageFolder) storageItem));
+                    }
                     else if (storageItem is IStorageFile)
-                        visitor.visit(new StorageFileFile(this, (StorageFile)storageItem));
+                    {
+                        if (fileVisitor != null)
+                            fileVisitor(new StorageFileFile(this, (StorageFile) storageItem));
+                    }
                     else throw new Exception("Unknown type of StorageItem: " + storageItem);
                 }
             }
@@ -160,13 +161,13 @@ namespace jsimple.io
 
         public override void delete()
         {
-            StorageFolder.DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
+            getStorageFolder().DeleteAsync(StorageDeleteOption.PermanentDelete).DoSynchronously();
             storageFolder = null;
         }
 
         public override void renameTo(string newName)
         {
-            StorageFolder.RenameAsync(newName, NameCollisionOption.FailIfExists).DoSynchronously();
+            getStorageFolder().RenameAsync(newName, NameCollisionOption.FailIfExists).DoSynchronously();
         }
     }
 }

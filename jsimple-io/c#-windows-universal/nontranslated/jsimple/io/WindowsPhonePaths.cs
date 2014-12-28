@@ -31,20 +31,17 @@ namespace jsimple.io
         StorageFolderDirectory applicationDataDirectory = null;
 
         /// <returns> the directory where the application should store its private data. </returns>
-        public override Directory ApplicationDataDirectory
+        public override Directory getApplicationDataDirectory()
         {
-            get
+            lock (this)
             {
-                lock (this)
+                if (applicationDataDirectory == null)
                 {
                     if (applicationDataDirectory == null)
-                    {
-                        if (applicationDataDirectory == null)
-                            applicationDataDirectory = new StorageFolderDirectory(null, ApplicationData.Current.LocalFolder);
-                    }
+                        applicationDataDirectory = new StorageFolderDirectory(null, ApplicationData.Current.LocalFolder);
                 }
-                return applicationDataDirectory;
             }
+            return applicationDataDirectory;
         }
 
         public override Directory getFileSystemDirectory(string directoryPathString)
