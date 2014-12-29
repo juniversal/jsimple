@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/samples/azure-mobile/azure-mobile.iml" filepath="$PROJECT_DIR$/samples/azure-mobile/azure-mobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/samples/good-friends/good-friends.iml" filepath="$PROJECT_DIR$/samples/good-friends/good-friends.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsimple.iml" filepath="$PROJECT_DIR$/jsimple.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsimple-io/jsimple-io.iml" filepath="$PROJECT_DIR$/jsimple-io/jsimple-io.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsimple-json/jsimple-json.iml" filepath="$PROJECT_DIR$/jsimple-json/jsimple-json.iml" />
@@ -11,7 +11,6 @@
       <module fileurl="file://$PROJECT_DIR$/jsimple-oauth/jsimple-oauth.iml" filepath="$PROJECT_DIR$/jsimple-oauth/jsimple-oauth.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsimple-unit/jsimple-unit.iml" filepath="$PROJECT_DIR$/jsimple-unit/jsimple-unit.iml" />
       <module fileurl="file://$PROJECT_DIR$/jsimple-util/jsimple-util.iml" filepath="$PROJECT_DIR$/jsimple-util/jsimple-util.iml" />
-      <module fileurl="file://$PROJECT_DIR$/samples/special-friends/special-friends.iml" filepath="$PROJECT_DIR$/samples/special-friends/special-friends.iml" />
     </modules>
   </component>
 </project>
