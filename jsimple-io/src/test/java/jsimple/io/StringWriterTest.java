@@ -1,15 +1,13 @@
 package jsimple.io;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
+import jsimple.unit.UnitTest;
 import org.junit.Test;
 
 /**
  * @author Dorin Suletea
  * @since 12/1/2014
  */
-public class StringWriterTest {
+public class StringWriterTest extends UnitTest {
 	@Test
 	public void testWriteArray() {
 		char[] data = new char[3];
@@ -73,10 +71,8 @@ public class StringWriterTest {
 	public void testClose() {
 		StringWriter sut = new StringWriter();
 		sut.close();
-		try {
-			sut.write(4);
-		} catch (Exception e) {
-			fail("No exceptions should be thrown");
-		}
+		sut.write('4');
+
+		// No exception should get thrown here (at least in the current implementation)
 	}
 }

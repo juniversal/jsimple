@@ -22,6 +22,7 @@
 
 package jsimple.io;
 
+import jsimple.util.BasicException;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -35,7 +36,7 @@ public abstract class Paths {
 
     public static Paths getInstance() {
         if (instance == null)
-            throw new RuntimeException("Paths instance isn't set; did you forget to call JSimpleIO.init()?");
+            throw new BasicException("Paths instance isn't set; did you forget to call JSimpleIO.init()?");
         return instance;
     }
 

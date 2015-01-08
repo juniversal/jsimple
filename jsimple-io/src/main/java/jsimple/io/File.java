@@ -36,8 +36,11 @@ public abstract class File extends Path {
      * @param outputStream output stream to write to
      */
     public void copyTo(OutputStream outputStream) {
-        try (InputStream inputStream = openForRead()) {
+        InputStream inputStream = openForRead();
+        try {
             inputStream.copyTo(outputStream);
+        } finally {
+            inputStream.close();
         }
     }
 

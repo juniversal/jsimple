@@ -1,7 +1,6 @@
 package jsimple.io;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import jsimple.unit.UnitTest;
 import jsimple.util.ByteArrayRange;
 import jsimple.util.StringUtils;
 
@@ -11,7 +10,7 @@ import org.junit.Test;
  * @author Dorin Suletea
  * @since 12/1/2014
  */
-public class ByteArrayOutputStreamTest {
+public class ByteArrayOutputStreamTest extends UnitTest {
 
 	@Test
 	public void testWriteReadBytes() {
@@ -90,10 +89,13 @@ public class ByteArrayOutputStreamTest {
 		ByteArrayOutputStream sut = new ByteArrayOutputStream();
 		sut.writeUtf8EncodedString(text);
 
-		String output = new String(sut.getByteArray().toByteArray());
+		byte[] expected = new byte[text.length()];
+		for (int i = 0; i < text.length(); ++i)
+			expected[i] = (byte) text.charAt(i);
+
 		sut.close();
 
-		assertEquals(text, output);
+		assertEquals(expected, sut.getByteArray());
 	}
 	
 	@Test

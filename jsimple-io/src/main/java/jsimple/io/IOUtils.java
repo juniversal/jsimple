@@ -39,11 +39,14 @@ public class IOUtils {
     public static ByteArrayRange toUtf8BytesFromString(String s) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(s.length());
 
-        try (Utf8OutputStreamWriter utf8OutputStreamWriter = new Utf8OutputStreamWriter(byteArrayOutputStream)) {
+        Utf8OutputStreamWriter utf8OutputStreamWriter = new Utf8OutputStreamWriter(byteArrayOutputStream);
+        try {
             utf8OutputStreamWriter.write(s);
             utf8OutputStreamWriter.flush();
 
             return byteArrayOutputStream.getByteArray();
+        } finally {
+            utf8OutputStreamWriter.close();
         }
     }
 

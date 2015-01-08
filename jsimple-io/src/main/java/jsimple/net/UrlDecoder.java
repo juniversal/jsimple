@@ -42,9 +42,7 @@
 package jsimple.net;
 
 import jsimple.io.IOUtils;
-import jsimple.util.StringTokenizer;
-import jsimple.util.StringUtils;
-import jsimple.util.TextualPath;
+import jsimple.util.*;
 
 /**
  * This class was based on, and modified from, the Apache Harmony java.net.URLDecoder class.  Unlike the standard Java
@@ -93,7 +91,7 @@ public class UrlDecoder {
                 int len = 0;
                 do {
                     if (i + 2 >= s.length())
-                        throw new RuntimeException("Incomplete % sequence at: " + i);
+                        throw new InvalidFormatException("Incomplete % sequence at: " + i);
 
                     int d1 = StringUtils.toByteFromHexCharacter(s.charAt(i + 1));
                     int d2 = StringUtils.toByteFromHexCharacter(s.charAt(i + 2));

@@ -1,6 +1,6 @@
 package jsimple.io;
 
-import static org.junit.Assert.*;
+import jsimple.unit.UnitTest;
 import jsimple.util.ByteArrayRange;
 
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.junit.Test;
  * @author Dorin Suletea
  * @since 12/1/2014
  */
-public class SequenceInputStreamTest {
+public class SequenceInputStreamTest extends UnitTest {
 
 	@Test
 	public void testRead() {

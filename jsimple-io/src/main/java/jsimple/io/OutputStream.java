@@ -127,8 +127,11 @@ public abstract class OutputStream extends jsimple.lang.AutoCloseable {
      * @param s string to write
      */
     public void writeUtf8EncodedString(String s) {
-        try (Utf8OutputStreamWriter writer = new Utf8OutputStreamWriter(this, false)) {
+        Utf8OutputStreamWriter writer = new Utf8OutputStreamWriter(this, false);
+        try {
             writer.write(s);
+        } finally {
+            writer.close();
         }
     }
 

@@ -1,17 +1,14 @@
 package jsimple.io;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-
+import jsimple.unit.UnitTest;
 import org.junit.Test;
 
 /**
  * @author Dorin Suletea
  * @since 12/1/2014
  */
-public class ByteArrayInputStreamTest {
-	@Test
-	public void testRead() {
+public class ByteArrayInputStreamTest extends UnitTest {
+	@Test public void testRead() {
 		byte[] data = new byte[3];
 		data[0] = 1;
 		data[1] = 2;
@@ -25,8 +22,7 @@ public class ByteArrayInputStreamTest {
 		assertArrayEquals(data, readData);
 	}
 
-	@Test
-	public void testReadFully() {
+	@Test public void testReadFully() {
 		byte[] data = new byte[3];
 		data[0] = 1;
 		data[1] = 2;
@@ -40,8 +36,7 @@ public class ByteArrayInputStreamTest {
 		assertArrayEquals(data, readData);
 	}
 
-	@Test
-	public void testCoppy() {
+	@Test public void testCoppy() {
 		byte[] data = new byte[3];
 		data[0] = 1;
 		data[1] = 2;
@@ -58,8 +53,7 @@ public class ByteArrayInputStreamTest {
 		assertArrayEquals(data, coppiedData);
 	}
 
-	@Test
-	public void testOffsetRead() {
+	@Test public void testOffsetRead() {
 		byte[] data = new byte[3];
 		data[0] = 1;
 		data[1] = 2;
@@ -74,8 +68,7 @@ public class ByteArrayInputStreamTest {
 		assertEquals(data[0], readData[1]);
 	}
 	
-	@Test
-	public void testCoppyToByteArray(){
+	@Test public void testCoppyToByteArray(){
 		byte[] data = new byte[3];
 		data[0] = 1;
 		data[1] = 2;
@@ -87,6 +80,5 @@ public class ByteArrayInputStreamTest {
 	
 		assertEquals(data[0], readData[0]);
 		assertEquals(data[1], readData[1]);
-	
 	}
 }
