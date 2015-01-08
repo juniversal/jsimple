@@ -35,14 +35,14 @@ namespace jsimple.net
             this.tcpClient = tcpClient;
         }
 
-        public override InputStream InputStream
+        public override InputStream getInputStream()
         {
-            get { return new DotNetStreamInputStream(tcpClient.GetStream()); }
+            return new DotNetStreamInputStream(tcpClient.GetStream());
         }
 
-        public override OutputStream OutputStream
+        public override OutputStream getOutputStream()
         {
-            get { return new DotNetStreamOutputStream(tcpClient.GetStream()); }
+            return new DotNetStreamOutputStream(tcpClient.GetStream());
         }
 
         public override void close()
@@ -50,12 +50,9 @@ namespace jsimple.net
             tcpClient.Close();
         }
 
-        public override bool Closed
+        public override bool isClosed()
         {
-            get
-            {
-                return false /* !socket.Connected */;
-            }
+            return false /* !socket.Connected */;
         }
     }
 }

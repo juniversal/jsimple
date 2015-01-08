@@ -41,19 +41,19 @@ namespace jsimple.net
         }
 
         // TODO: Catch web exception too and either set StatusCode here or change JSimple code to throw exceptions instead
-        public override int StatusCode
+        public override int getStatusCode()
         {
-            get { return (int)httpWebResponse.StatusCode; }
+            return (int)httpWebResponse.StatusCode;
         }
 
-        public override string StatusMessage
+        public override string getStatusMessage()
         {
-            get { return httpWebResponse.StatusDescription; }
+            return httpWebResponse.StatusDescription;
         }
 
-        public override InputStream BodyStream
+        public override InputStream getBodyStream()
         {
-            get { return new DotNetStreamInputStream(httpWebResponse.GetResponseStream()); }
+            return new DotNetStreamInputStream(httpWebResponse.GetResponseStream());
         }
 
         // TODO: Test Content-Encoding, Content-Length, Content-Type, Last-Modified, and Server

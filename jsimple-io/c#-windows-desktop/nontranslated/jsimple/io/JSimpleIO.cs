@@ -35,11 +35,15 @@ namespace jsimple.io
         /// </summary>
         public static void init()
         {
-            HttpRequest.setFactory(new WindowsDesktopHttpRequest.WindowsDesktopHttpRequestFactory());
-            SocketListener.setFactory(new DotNetTcpIpSocketListener.DotNetSocketListenerFactory());
-            Paths.setInstance(new WindowsDesktopPaths());
+            if (!initialized)
+            {
 
-            initialized = true;
+                HttpRequest.setFactory(new WindowsDesktopHttpRequest.WindowsDesktopHttpRequestFactory());
+                SocketListener.setFactory(new DotNetTcpIpSocketListener.DotNetSocketListenerFactory());
+                Paths.setInstance(new WindowsDesktopPaths());
+
+                initialized = true;
+            }
         }
     }
 }

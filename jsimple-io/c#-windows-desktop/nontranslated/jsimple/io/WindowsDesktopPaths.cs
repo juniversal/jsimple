@@ -31,20 +31,17 @@ namespace jsimple.io
         static volatile FileSystemDirectory applicationDataDirectory = null;
 
         /// <returns> the directory where the application should store its private data. </returns>
-        public override Directory ApplicationDataDirectory
+        public override Directory getApplicationDataDirectory()
         {
-            get
+            if (applicationDataDirectory == null)
             {
-                if (applicationDataDirectory == null)
+                lock (lockObject)
                 {
-                    lock (lockObject)
-                    {
-                        if (applicationDataDirectory == null)
-                            applicationDataDirectory = new FileSystemDirectory("c:\\foo");
-                    }
+                    if (applicationDataDirectory == null)
+                        applicationDataDirectory = new FileSystemDirectory("c:\\foo");
                 }
-                return applicationDataDirectory;
             }
+            return applicationDataDirectory;
         }
 
         /// <summary>

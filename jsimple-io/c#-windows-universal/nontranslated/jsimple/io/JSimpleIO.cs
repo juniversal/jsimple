@@ -26,6 +26,7 @@ namespace jsimple.io
 {
     public class JSimpleIO
     {
+        private static bool initialized = false;
 
         /// <summary>
         /// This method should be called before jsimple.net is used.  It's normally called at app startup. It initializes
@@ -33,8 +34,11 @@ namespace jsimple.io
         /// </summary>
         public static void init()
         {
-            HttpRequest.setFactory(new WindowUniversalHttpRequest.WindowsPhoneHttpRequestFactory());
-            Paths.setInstance(new WindowsPhonePaths());
+            if (!initialized)
+            {
+                HttpRequest.setFactory(new WindowUniversalHttpRequest.WindowsPhoneHttpRequestFactory());
+                Paths.setInstance(new WindowsPhonePaths());
+            }
         }
     }
 }

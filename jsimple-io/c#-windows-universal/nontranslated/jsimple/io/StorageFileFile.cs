@@ -91,7 +91,7 @@ namespace jsimple.io
             try
             {
                 storageFile =
-                    parent.StorageFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting)
+                    parent.getStorageFolder().CreateFileAsync(name, CreationCollisionOption.ReplaceExisting)
                           .DoSynchronously();
 
                 IRandomAccessStream randomAccessStream =
@@ -147,7 +147,7 @@ namespace jsimple.io
             StorageFileFile destinationStorageFile = (StorageFileFile) destination;
 
             try {
-                storageFile.MoveAsync(destinationStorageFile.ParentStorageFolderDirectory.StorageFolder, destinationStorageFile.getName(), NameCollisionOption.ReplaceExisting);
+                storageFile.MoveAsync(destinationStorageFile.ParentStorageFolderDirectory.getStorageFolder(), destinationStorageFile.getName(), NameCollisionOption.ReplaceExisting);
             }
             catch (System.IO.IOException e) {
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
@@ -160,7 +160,7 @@ namespace jsimple.io
 
             try
             {
-                return PlatformUtils.toMillisFromDateTimeOffset(storageFile.GetBasicPropertiesAsync().DoSynchronously().DateModified);
+                return PlatformUtil.toMillisFromDateTimeOffset(storageFile.GetBasicPropertiesAsync().DoSynchronously().DateModified);
             }
             catch (System.IO.IOException e)
             {
@@ -193,7 +193,7 @@ namespace jsimple.io
             {
                 try
                 {
-                    storageFile = parent.StorageFolder.GetFileAsync(name).DoSynchronously();
+                    storageFile = parent.getStorageFolder().GetFileAsync(name).DoSynchronously();
                 }
                 catch (System.IO.IOException e)
                 {

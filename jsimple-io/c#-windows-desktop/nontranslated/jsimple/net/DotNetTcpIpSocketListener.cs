@@ -78,7 +78,7 @@ namespace jsimple.net
 
                 TcpClientSocket tcpClientSocket = new TcpClientSocket(tcpClient);
 
-                Thread connectionThread = new Thread(() => SocketConnectionHandler.sockedConnected(tcpClientSocket));
+                Thread connectionThread = new Thread(() => getSocketConnectionHandler().sockedConnected(tcpClientSocket));
                 connectionThread.Start();
 
 /*
