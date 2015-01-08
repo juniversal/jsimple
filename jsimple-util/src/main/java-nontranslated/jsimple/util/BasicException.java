@@ -38,6 +38,10 @@ public class BasicException extends RuntimeException {
         super(message);
     }
 
+    public BasicException(String message, Throwable t) {
+        super(message, t);
+    }
+
     public BasicException(String message, Object arg1) {
         this(MessageFormatter.format(message, arg1));
     }
