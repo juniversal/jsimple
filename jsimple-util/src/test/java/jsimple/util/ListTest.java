@@ -79,12 +79,12 @@ public class ListTest extends UnitTest {
         }
 
         @Override
-        public int indexOf(Object object) {
+        public int indexOf(T object) {
             return this.arrayList.indexOf(object);
         }
 
         @Override
-        public int lastIndexOf(Object object) {
+        public int lastIndexOf(T object) {
             return this.arrayList.lastIndexOf(object);
         }
 
@@ -97,11 +97,11 @@ public class ListTest extends UnitTest {
     @Test
     public void testHashCode() {
         List<Integer> list = new ArrayList<Integer>();
-        list.add(new Integer(3));
-        list.add(new Integer(15));
-        list.add(new Integer(5));
-        list.add(new Integer(1));
-        list.add(new Integer(7));
+        list.add(3);
+        list.add(15);
+        list.add(5);
+        list.add(1);
+        list.add(7);
         int hashCode = 1;
         Iterator<Integer> i = list.iterator();
         while (i.hasNext()) {
@@ -122,7 +122,7 @@ public class ListTest extends UnitTest {
         it.next();
     }
 
-    class MockArrayList<E> extends List<E> {
+    static class MockArrayList<E> extends List<E> {
         ArrayList<E> list = new ArrayList<E>();
 
         public E remove(int idx) {
@@ -150,12 +150,12 @@ public class ListTest extends UnitTest {
         }
 
         @Override
-        public int indexOf(Object object) {
+        public int indexOf(E object) {
             return list.indexOf(object);
         }
 
         @Override
-        public int lastIndexOf(Object object) {
+        public int lastIndexOf(E object) {
             return list.lastIndexOf(object);
         }
 
@@ -167,11 +167,11 @@ public class ListTest extends UnitTest {
 
     @Test
     public void testIndexOf() {
-        List<Integer> list = new MockArrayList<Integer>();
-        list.addAll(ArrayList.create(1, 2, 3, 4, 5));
+        List<String> list = new MockArrayList<String>();
+        list.addAll(new ArrayList<String>("1", "2", "3", "4", "5"));
 
-        assertEquals("find 0 in the list do not contain 0", -1, list.indexOf(new Integer(0)));
-        assertEquals("did not return the right location of element 3", 2, list.indexOf(new Integer(3)));
+        assertEquals("find 0 in the list do not contain 0", -1, list.indexOf("0"));
+        assertEquals("did not return the right location of element 3", 2, list.indexOf("3"));
         assertEquals("find null in the list do not contain null element", -1, list.indexOf(null));
         list.add(null);
         assertEquals("did not return the right location of element null", 5, list.indexOf(null));
@@ -179,11 +179,11 @@ public class ListTest extends UnitTest {
 
     @Test
     public void testLastIndexOf() {
-        List<Integer> list = new MockArrayList<Integer>();
-        list.addAll(ArrayList.create(1, 2, 3, 4, 5, 5, 4, 3, 2, 1));
+        List<String> list = new MockArrayList<String>();
+        list.addAll(new ArrayList<String>("1", "2", "3", "4", "5", "5", "4", "3", "2", "1"));
 
-        assertEquals("find 6 in the list do not contain 6", -1, list.lastIndexOf(new Integer(6)));
-        assertEquals("did not return the right location of element 4", 6, list.lastIndexOf(new Integer(4)));
+        assertEquals("find 6 in the list do not contain 6", -1, list.lastIndexOf("6"));
+        assertEquals("did not return the right location of element 4", 6, list.lastIndexOf("4"));
         assertEquals("find null in the list do not contain null element", -1, list.lastIndexOf(null));
         list.add(null);
         assertEquals("did not return the right location of element null", 10, list.lastIndexOf(null));
