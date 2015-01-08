@@ -51,13 +51,13 @@ public class IntegerUtilTest extends UnitTest {
     @Test public void test_decodeLjava_lang_String2() {
         // Test for method java.lang.Integer
         // java.lang.IntegerUtil.decode(java.lang.String)
-        assertEquals("Failed for 132233", 132233, IntegerUtil.decode("132233").intValue());
-        assertEquals("Failed for 07654321", 07654321, IntegerUtil.decode("07654321").intValue());
+        assertEquals("Failed for 132233", 132233, IntegerUtil.decode("132233"));
+        assertEquals("Failed for 07654321", 0x1f58d1, IntegerUtil.decode("07654321"));
         assertTrue("Failed for #1234567", IntegerUtil.decode("#1234567") == 0x1234567);
         assertTrue("Failed for 0xdAd", IntegerUtil.decode("0xdAd") == 0xdad);
-        assertEquals("Failed for -23", -23, IntegerUtil.decode("-23").intValue());
-        assertEquals("Returned incorrect value for 0 decimal", 0, IntegerUtil.decode("0").intValue());
-        assertEquals("Returned incorrect value for 0 hex", 0, IntegerUtil.decode("0x0").intValue());
+        assertEquals("Failed for -23", -23, IntegerUtil.decode("-23"));
+        assertEquals("Returned incorrect value for 0 decimal", 0, IntegerUtil.decode("0"));
+        assertEquals("Returned incorrect value for 0 hex", 0, IntegerUtil.decode("0x0"));
         assertTrue("Returned incorrect value for most negative value decimal",
                 IntegerUtil.decode("-2147483648") == 0x80000000);
         assertTrue("Returned incorrect value for most negative value hex",
@@ -149,12 +149,14 @@ public class IntegerUtilTest extends UnitTest {
             // Expected
         }
 
+/*
         try {
             IntegerUtil.decode(null);
             fail("Expected exception for null");
         } catch (NullPointerException e) {
             // Expected
         }
+*/
 
         try {
             IntegerUtil.decode("");
@@ -303,9 +305,9 @@ public class IntegerUtilTest extends UnitTest {
         // java.lang.Integer.toBinaryString(int)
         assertEquals("Incorrect string returned", "11", IntegerUtil.toBinaryString(3));
         assertEquals("Incorrect string returned", "1111111111111111111111111111111",
-                IntegerUtil.toBinaryString(Integer.MAX_VALUE));
+                IntegerUtil.toBinaryString(IntegerUtil.MAX_VALUE));
         assertEquals("Incorrect string returned", "10000000000000000000000000000000",
-                IntegerUtil.toBinaryString(Integer.MIN_VALUE));
+                IntegerUtil.toBinaryString(IntegerUtil.MIN_VALUE));
     }
 
     /**
@@ -335,9 +337,7 @@ public class IntegerUtilTest extends UnitTest {
     @Test public void test_toString2() {
         // Test for method java.lang.String java.lang.IntegerUtil.toString()
 
-        Integer i = new Integer(-80001);
-
-        assertEquals("Returned incorrect String", "-80001", i.toString());
+        assertEquals("Returned incorrect String", "-80001", IntegerUtil.toString(-80001));
     }
 
     /**
@@ -367,13 +367,13 @@ public class IntegerUtilTest extends UnitTest {
     @Test public void test_valueOfLjava_lang_String2() {
         // Test for method java.lang.Integer
         // java.lang.IntegerUtil.valueOf(java.lang.String)
-        assertEquals("Returned incorrect int", 8888888, IntegerUtil.valueOf("8888888").intValue());
-        assertTrue("Returned incorrect int", IntegerUtil.valueOf("2147483647").intValue() == IntegerUtil.MAX_VALUE);
-        assertTrue("Returned incorrect int", IntegerUtil.valueOf("-2147483648").intValue() == IntegerUtil.MIN_VALUE);
+        assertEquals("Returned incorrect int", 8888888, IntegerUtil.parseInt("8888888"));
+        assertTrue("Returned incorrect int", IntegerUtil.parseInt("2147483647") == IntegerUtil.MAX_VALUE);
+        assertTrue("Returned incorrect int", IntegerUtil.parseInt("-2147483648") == IntegerUtil.MIN_VALUE);
 
         boolean exception = false;
         try {
-            IntegerUtil.valueOf("2147483648");
+            IntegerUtil.parseInt("2147483648");
         } catch (InvalidFormatException e) {
             // Correct
             exception = true;
@@ -382,7 +382,7 @@ public class IntegerUtilTest extends UnitTest {
 
         exception = false;
         try {
-            IntegerUtil.valueOf("-2147483649");
+            IntegerUtil.parseInt("-2147483649");
         } catch (InvalidFormatException e) {
             // Correct
             exception = true;
@@ -396,21 +396,21 @@ public class IntegerUtilTest extends UnitTest {
     @Test public void test_valueOfLjava_lang_StringI2() {
         // Test for method java.lang.Integer
         // java.lang.IntegerUtil.valueOf(java.lang.String, int)
-        assertEquals("Returned incorrect int for hex string", 255, IntegerUtil.valueOf("FF", 16).intValue());
-        assertEquals("Returned incorrect int for oct string", 16, IntegerUtil.valueOf("20", 8).intValue());
-        assertEquals("Returned incorrect int for bin string", 4, IntegerUtil.valueOf("100", 2).intValue());
+        assertEquals("Returned incorrect int for hex string", 255, IntegerUtil.parseInt("FF", 16));
+        assertEquals("Returned incorrect int for oct string", 16, IntegerUtil.parseInt("20", 8));
+        assertEquals("Returned incorrect int for bin string", 4, IntegerUtil.parseInt("100", 2));
 
-        assertEquals("Returned incorrect int for - hex string", -255, IntegerUtil.valueOf("-FF", 16).intValue());
-        assertEquals("Returned incorrect int for - oct string", -16, IntegerUtil.valueOf("-20", 8).intValue());
-        assertEquals("Returned incorrect int for - bin string", -4, IntegerUtil.valueOf("-100", 2).intValue());
-        assertTrue("Returned incorrect int", IntegerUtil.valueOf("2147483647", 10) == IntegerUtil.MAX_VALUE);
-        assertTrue("Returned incorrect int", IntegerUtil.valueOf("-2147483648", 10) == IntegerUtil.MIN_VALUE);
-        assertTrue("Returned incorrect int", IntegerUtil.valueOf("7fffffff", 16) == IntegerUtil.MAX_VALUE);
-        assertTrue("Returned incorrect int", IntegerUtil.valueOf("-80000000", 16) == IntegerUtil.MIN_VALUE);
+        assertEquals("Returned incorrect int for - hex string", -255, IntegerUtil.parseInt("-FF", 16));
+        assertEquals("Returned incorrect int for - oct string", -16, IntegerUtil.parseInt("-20", 8));
+        assertEquals("Returned incorrect int for - bin string", -4, IntegerUtil.parseInt("-100", 2));
+        assertTrue("Returned incorrect int", IntegerUtil.parseInt("2147483647", 10) == IntegerUtil.MAX_VALUE);
+        assertTrue("Returned incorrect int", IntegerUtil.parseInt("-2147483648", 10) == IntegerUtil.MIN_VALUE);
+        assertTrue("Returned incorrect int", IntegerUtil.parseInt("7fffffff", 16) == IntegerUtil.MAX_VALUE);
+        assertTrue("Returned incorrect int", IntegerUtil.parseInt("-80000000", 16) == IntegerUtil.MIN_VALUE);
 
         boolean exception = false;
         try {
-            IntegerUtil.valueOf("FF", 2);
+            IntegerUtil.parseInt("FF", 2);
         } catch (InvalidFormatException e) {
             // Correct
             exception = true;
@@ -419,7 +419,7 @@ public class IntegerUtilTest extends UnitTest {
 
         exception = false;
         try {
-            IntegerUtil.valueOf("2147483648", 10);
+            IntegerUtil.parseInt("2147483648", 10);
         } catch (InvalidFormatException e) {
             // Correct
             exception = true;
@@ -428,7 +428,7 @@ public class IntegerUtilTest extends UnitTest {
 
         exception = false;
         try {
-            IntegerUtil.valueOf("-2147483649", 10);
+            IntegerUtil.parseInt("-2147483649", 10);
         } catch (InvalidFormatException e) {
             // Correct
             exception = true;
@@ -437,7 +437,7 @@ public class IntegerUtilTest extends UnitTest {
 
         exception = false;
         try {
-            IntegerUtil.valueOf("80000000", 16);
+            IntegerUtil.parseInt("80000000", 16);
         } catch (InvalidFormatException e) {
             // Correct
             exception = true;
@@ -446,7 +446,7 @@ public class IntegerUtilTest extends UnitTest {
 
         exception = false;
         try {
-            IntegerUtil.valueOf("-80000001", 16);
+            IntegerUtil.parseInt("-80000001", 16);
         } catch (InvalidFormatException e) {
             // Correct
             exception = true;
@@ -465,76 +465,6 @@ public class IntegerUtilTest extends UnitTest {
     }
 
     /**
-     * @tests java.lang.Integer#valueOf(String)
-     */
-    @Test public void test_valueOfLjava_lang_String() {
-        assertEquals(new Integer(0), IntegerUtil.valueOf("0"));
-        assertEquals(new Integer(1), IntegerUtil.valueOf("1"));
-        assertEquals(new Integer(-1), IntegerUtil.valueOf("-1"));
-
-        try {
-            IntegerUtil.valueOf("0x1");
-            fail("Expected InvalidFormatException with hex string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            IntegerUtil.valueOf("9.2");
-            fail("Expected InvalidFormatException with floating point string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            IntegerUtil.valueOf("");
-            fail("Expected InvalidFormatException with empty string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            IntegerUtil.valueOf(null);
-            fail("Expected InvalidFormatException with null string.");
-        } catch (InvalidFormatException e) {
-        }
-    }
-
-    /**
-     * @tests java.lang.Integer#valueOf(String, int)
-     */
-    @Test public void test_valueOfLjava_lang_StringI() {
-        assertEquals(new Integer(0), IntegerUtil.valueOf("0", 10));
-        assertEquals(new Integer(1), IntegerUtil.valueOf("1", 10));
-        assertEquals(new Integer(-1), IntegerUtil.valueOf("-1", 10));
-
-        //must be consistent with Character.digit()
-        assertEquals(Character.digit('1', 2), IntegerUtil.valueOf("1", 2).byteValue());
-        assertEquals(Character.digit('F', 16), IntegerUtil.valueOf("F", 16).byteValue());
-
-        try {
-            IntegerUtil.valueOf("0x1", 10);
-            fail("Expected InvalidFormatException with hex string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            IntegerUtil.valueOf("9.2", 10);
-            fail("Expected InvalidFormatException with floating point string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            IntegerUtil.valueOf("", 10);
-            fail("Expected InvalidFormatException with empty string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            IntegerUtil.valueOf(null, 10);
-            fail("Expected InvalidFormatException with null string.");
-        } catch (InvalidFormatException e) {
-        }
-    }
-
-    /**
      * @tests java.lang.Integer#parseInt(String)
      */
     @Test public void test_parseIntLjava_lang_String() {
@@ -545,25 +475,25 @@ public class IntegerUtilTest extends UnitTest {
         try {
             IntegerUtil.parseInt("0x1");
             fail("Expected InvalidFormatException with hex string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
 
         try {
             IntegerUtil.parseInt("9.2");
             fail("Expected InvalidFormatException with floating point string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
 
         try {
             IntegerUtil.parseInt("");
             fail("Expected InvalidFormatException with empty string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
 
         try {
             IntegerUtil.parseInt(null);
             fail("Expected InvalidFormatException with null string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
     }
 
@@ -576,31 +506,31 @@ public class IntegerUtilTest extends UnitTest {
         assertEquals(-1, IntegerUtil.parseInt("-1", 10));
 
         //must be consistent with Character.digit()
-        assertEquals(Character.digit('1', 2), IntegerUtil.parseInt("1", 2));
-        assertEquals(Character.digit('F', 16), IntegerUtil.parseInt("F", 16));
+        assertEquals(1, IntegerUtil.parseInt("1", 2));
+        assertEquals(15, IntegerUtil.parseInt("F", 16));
 
         try {
             IntegerUtil.parseInt("0x1", 10);
             fail("Expected InvalidFormatException with hex string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
 
         try {
             IntegerUtil.parseInt("9.2", 10);
             fail("Expected InvalidFormatException with floating point string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
 
         try {
             IntegerUtil.parseInt("", 10);
             fail("Expected InvalidFormatException with empty string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
 
         try {
             IntegerUtil.parseInt(null, 10);
             fail("Expected InvalidFormatException with null string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
     }
 
@@ -608,41 +538,34 @@ public class IntegerUtilTest extends UnitTest {
      * @tests java.lang.Integer#decode(String)
      */
     @Test public void test_decodeLjava_lang_String() {
-        assertEquals(new Integer(0), IntegerUtil.decode("0"));
-        assertEquals(new Integer(1), IntegerUtil.decode("1"));
-        assertEquals(new Integer(-1), IntegerUtil.decode("-1"));
-        assertEquals(new Integer(0xF), IntegerUtil.decode("0xF"));
-        assertEquals(new Integer(0xF), IntegerUtil.decode("#F"));
-        assertEquals(new Integer(0xF), IntegerUtil.decode("0XF"));
-        assertEquals(new Integer(07), IntegerUtil.decode("07"));
+        assertEquals(0, IntegerUtil.decode("0"));
+        assertEquals(1, IntegerUtil.decode("1"));
+        assertEquals(-1, IntegerUtil.decode("-1"));
+        assertEquals(0xF, IntegerUtil.decode("0xF"));
+        assertEquals(0xF, IntegerUtil.decode("#F"));
+        assertEquals(0xF, IntegerUtil.decode("0XF"));
+        assertEquals(7, IntegerUtil.decode("07"));
 
         try {
             IntegerUtil.decode("9.2");
             fail("Expected InvalidFormatException with floating point string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
 
         try {
             IntegerUtil.decode("");
             fail("Expected InvalidFormatException with empty string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
 
+/*
         try {
             IntegerUtil.decode(null);
             //undocumented NPE, but seems consistent across JREs
             fail("Expected NullPointerException with null string.");
         } catch (NullPointerException ignored) {
         }
-    }
-
-    /**
-     * @tests java.lang.Integer#intValue()
-     */
-    @Test public void test_intValue() {
-        assertEquals(-1, new Integer(-1).intValue());
-        assertEquals(0, new Integer(0).intValue());
-        assertEquals(1, new Integer(1).intValue());
+*/
     }
 
     /**

@@ -43,8 +43,8 @@ public class AbstractMapTest extends UnitTest {
 
 	@Test
 	public void testClear() {
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-		map.put(1, 1);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("a", "a");
 		map.clear();
 		assertTrue(map.isEmpty());
 	}
@@ -80,32 +80,5 @@ public class AbstractMapTest extends UnitTest {
 
 		assertFalse(a.equals(b));
 		assertFalse(b.equals(a));
-	}
-
-	@Test
-	public void testNullsOnViews() {
-		Map<String, String> nullHostile = new HashMap<String, String>();
-
-		nullHostile.put("a", "apple");
-		testNullsOnView(nullHostile.entrySet());
-
-		nullHostile.put("a", "apple");
-		testNullsOnView(nullHostile.keySet());
-
-		nullHostile.put("a", "apple");
-		testNullsOnView(nullHostile.values());
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void testNullsOnView(Collection<?> view) {
-		assertFalse(view.contains(null));
-
-		assertFalse(view.remove(null));
-
-		HashSet setOfNull = new HashSet();
-		setOfNull.add(null);
-		assertFalse(view.equals(setOfNull));
-		assertFalse(view.removeAll(setOfNull));
-		assertTrue(view.retainAll(setOfNull)); // destructive
 	}
 }

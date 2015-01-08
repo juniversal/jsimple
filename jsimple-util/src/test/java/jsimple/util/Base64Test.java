@@ -67,7 +67,7 @@ public class Base64Test extends UnitTest {
     }
 
     @Test public void testEncodeBase64ByteArrayBooleanBooleanInt() {
-        byte[] binaryData = new byte[]{'1', '2', '3'};
+        byte[] binaryData = new byte[]{(byte) '1', (byte) '2', (byte) '3'};
 
         byte[] encoded = Base64.encodeBase64(binaryData);
         assertNotNull(encoded);

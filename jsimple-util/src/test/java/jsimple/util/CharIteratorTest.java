@@ -1,19 +1,15 @@
 package jsimple.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import jsimple.unit.UnitTest;
 import org.junit.Test;
 
 /**
  * @author Dorin Suletea
  * @since 12/1/2014
  */
-public class CharIteratorTest {
+public class CharIteratorTest extends UnitTest {
 	
-	@Test
-	public void testAdvance() {
+	@Test public void testAdvance() {
 		CharIterator sut = new CharIterator("Test 2string");
 		sut.advance();
 		sut.advance();
@@ -22,16 +18,14 @@ public class CharIteratorTest {
 		assertEquals('s', currentChr);
 	}
 
-	@Test
-	public void testAdvanceWhitespace() {
+	@Test public void testAdvanceWhitespace() {
 		CharIterator sut = new CharIterator("   Test 2string");
 		sut.advancePastWhitespace();
 		char currentChr = sut.curr();
 		assertEquals('T', currentChr);
 	}
 
-	@Test
-	public void testAtEnd() {
+	@Test public void testAtEnd() {
 		CharIterator sut = new CharIterator("Test 2string");
 		assertFalse(sut.atEnd());
 
@@ -42,8 +36,7 @@ public class CharIteratorTest {
 		assertTrue(sut.atEnd());
 	}
 
-	@Test
-	public void testGetIndex() {
+	@Test public void testGetIndex() {
 		CharIterator sut = new CharIterator("Test 2string");
 		assertEquals(0, sut.getIndex());
 		sut.advance();
@@ -51,8 +44,7 @@ public class CharIteratorTest {
 		assertEquals(2, sut.getIndex());
 	}
 
-	@Test
-	public void testGetRemaining() {
+	@Test public void testGetRemaining() {
 		CharIterator sut = new CharIterator("Test 2string");
 		sut.advance();
 		String remaining = sut.getRemaining();
@@ -61,8 +53,7 @@ public class CharIteratorTest {
 		assertEquals(remaining, expected);
 	}
 
-	@Test
-	public void testIsAsciiOrDigit() {
+	@Test public void testIsAsciiOrDigit() {
 		CharIterator sut = new CharIterator("Te2string");
 		sut.advance();
 
@@ -73,22 +64,19 @@ public class CharIteratorTest {
 		assertTrue(sut.isAsciiLetter());
 	}
 
-	@Test
-	public void testIsNewline() {
+	@Test public void testIsNewline() {
 		CharIterator sut = new CharIterator("T\nstring");
 		sut.advance();
 		assertTrue(sut.isLineBreak());
 	}
 
-	@Test
-	public void testIsWhitespace() {
+	@Test public void testIsWhitespace() {
 		CharIterator sut = new CharIterator("T string");
 		sut.advance();
 		assertTrue(sut.isWhitespace());
 	}
 
-	@Test
-	public void testIsWhitespaceSameLine() {
+	@Test public void testIsWhitespaceSameLine() {
 		CharIterator sut = new CharIterator("T\n string");
 		sut.advance();
 
@@ -113,8 +101,7 @@ public class CharIteratorTest {
 	}
 */
 
-	@Test
-	public void testMatchSubstring() {
+	@Test public void testMatchSubstring() {
 		CharIterator sut = new CharIterator("T 23string");	
 		
 		assertTrue(sut.match("T 2"));

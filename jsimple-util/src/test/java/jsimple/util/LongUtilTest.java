@@ -49,10 +49,10 @@ public class LongUtilTest extends UnitTest {
      * @tests java.lang.Long#decode(java.lang.String)
      */
     @Test public void test_decodeLjava_lang_String2() {
-        assertEquals("Returned incorrect value for hex string", 255L, LongUtil.decode("0xFF").longValue());
-        assertEquals("Returned incorrect value for dec string", -89000L, LongUtil.decode("-89000").longValue());
-        assertEquals("Returned incorrect value for 0 decimal", 0, LongUtil.decode("0").longValue());
-        assertEquals("Returned incorrect value for 0 hex", 0, LongUtil.decode("0x0").longValue());
+        assertEquals("Returned incorrect value for hex string", 255L, LongUtil.decode("0xFF"));
+        assertEquals("Returned incorrect value for dec string", -89000L, LongUtil.decode("-89000"));
+        assertEquals("Returned incorrect value for 0 decimal", 0, LongUtil.decode("0"));
+        assertEquals("Returned incorrect value for 0 hex", 0, LongUtil.decode("0x0"));
         assertTrue("Returned incorrect value for most negative value decimal",
                 LongUtil.decode("-9223372036854775808") == 0x8000000000000000L);
         assertTrue("Returned incorrect value for most negative value hex",
@@ -61,7 +61,7 @@ public class LongUtilTest extends UnitTest {
                 LongUtil.decode("9223372036854775807") == 0x7fffffffffffffffL);
         assertTrue("Returned incorrect value for most positive value hex",
                 LongUtil.decode("0x7fffffffffffffff") == 0x7fffffffffffffffL);
-        assertTrue("Failed for 07654321765432", LongUtil.decode("07654321765432") == 07654321765432l);
+        assertTrue("Failed for 07654321765432", LongUtil.decode("07654321765432") == 0x7d6347eb1aL);
 
         boolean exception = false;
         try {
@@ -284,14 +284,13 @@ public class LongUtilTest extends UnitTest {
     @Test public void test_valueOfLjava_lang_String2() {
         // Test for method java.lang.Long
         // java.lang.LongUtil.valueOf(java.lang.String)
-        assertEquals("Returned incorrect value", 100000000L, LongUtil.valueOf("100000000")
-                .longValue());
-        assertTrue("Returned incorrect value", LongUtil.valueOf("9223372036854775807").longValue() == LongUtil.MAX_VALUE);
-        assertTrue("Returned incorrect value", LongUtil.valueOf("-9223372036854775808").longValue() == LongUtil.MIN_VALUE);
+        assertEquals("Returned incorrect value", 100000000L, LongUtil.parseLong("100000000"));
+        assertTrue("Returned incorrect value", LongUtil.parseLong("9223372036854775807") == LongUtil.MAX_VALUE);
+        assertTrue("Returned incorrect value", LongUtil.parseLong("-9223372036854775808") == LongUtil.MIN_VALUE);
 
         boolean exception = false;
         try {
-            LongUtil.valueOf("999999999999999999999999999999999999999999999999999999999999");
+            LongUtil.parseLong("999999999999999999999999999999999999999999999999999999999999");
         } catch (InvalidFormatException e) {
             // correct
             exception = true;
@@ -300,7 +299,7 @@ public class LongUtilTest extends UnitTest {
 
         exception = false;
         try {
-            LongUtil.valueOf("9223372036854775808");
+            LongUtil.parseLong("9223372036854775808");
         } catch (InvalidFormatException e) {
             // correct
             exception = true;
@@ -309,7 +308,7 @@ public class LongUtilTest extends UnitTest {
 
         exception = false;
         try {
-            LongUtil.valueOf("-9223372036854775809");
+            LongUtil.parseLong("-9223372036854775809");
         } catch (InvalidFormatException e) {
             // correct
             exception = true;
@@ -323,18 +322,18 @@ public class LongUtilTest extends UnitTest {
     @Test public void test_valueOfLjava_lang_StringI() {
         // Test for method java.lang.Long
         // java.lang.LongUtil.valueOf(java.lang.String, int)
-        assertEquals("Returned incorrect value", 100000000L, (long) LongUtil.valueOf("100000000", 10));
-        assertEquals("Returned incorrect value from hex string", 68719476735L, (long) LongUtil.valueOf("FFFFFFFFF", 16));
-        assertTrue("Returned incorrect value from octal string: " + LongUtil.valueOf("77777777777", 8).toString(),
-                LongUtil.valueOf("77777777777", 8) == 8589934591L);
-        assertTrue("Returned incorrect value", LongUtil.valueOf("9223372036854775807", 10) == LongUtil.MAX_VALUE);
-        assertTrue("Returned incorrect value", LongUtil.valueOf("-9223372036854775808", 10) == LongUtil.MIN_VALUE);
-        assertTrue("Returned incorrect value", LongUtil.valueOf("7fffffffffffffff", 16) == LongUtil.MAX_VALUE);
-        assertTrue("Returned incorrect value", LongUtil.valueOf("-8000000000000000", 16) == LongUtil.MIN_VALUE);
+        assertEquals("Returned incorrect value", 100000000L, LongUtil.parseLong("100000000", 10));
+        assertEquals("Returned incorrect value from hex string", 68719476735L, LongUtil.parseLong("FFFFFFFFF", 16));
+        assertTrue("Returned incorrect value from octal string: " + LongUtil.toString(LongUtil.parseLong("77777777777", 8)),
+                LongUtil.parseLong("77777777777", 8) == 8589934591L);
+        assertTrue("Returned incorrect value", LongUtil.parseLong("9223372036854775807", 10) == LongUtil.MAX_VALUE);
+        assertTrue("Returned incorrect value", LongUtil.parseLong("-9223372036854775808", 10) == LongUtil.MIN_VALUE);
+        assertTrue("Returned incorrect value", LongUtil.parseLong("7fffffffffffffff", 16) == LongUtil.MAX_VALUE);
+        assertTrue("Returned incorrect value", LongUtil.parseLong("-8000000000000000", 16) == LongUtil.MIN_VALUE);
 
         boolean exception = false;
         try {
-            LongUtil.valueOf("999999999999", 8);
+            LongUtil.parseLong("999999999999", 8);
         } catch (InvalidFormatException e) {
             // correct
             exception = true;
@@ -343,7 +342,7 @@ public class LongUtilTest extends UnitTest {
 
         exception = false;
         try {
-            LongUtil.valueOf("9223372036854775808", 10);
+            LongUtil.parseLong("9223372036854775808", 10);
         } catch (InvalidFormatException e) {
             // correct
             exception = true;
@@ -353,7 +352,7 @@ public class LongUtilTest extends UnitTest {
 
         exception = false;
         try {
-            LongUtil.valueOf("-9223372036854775809", 10);
+            LongUtil.parseLong("-9223372036854775809", 10);
         } catch (InvalidFormatException e) {
             // correct
             exception = true;
@@ -369,76 +368,6 @@ public class LongUtilTest extends UnitTest {
         assertEquals("0", LongUtil.toString(0));
         assertEquals("1", LongUtil.toString(1));
         assertEquals("-1", LongUtil.toString(0xFFFFFFFF));
-    }
-
-    /**
-     * @tests java.lang.Long#valueOf(String)
-     */
-    @Test public void test_valueOfLjava_lang_String() {
-        assertEquals(new Long(0), LongUtil.valueOf("0"));
-        assertEquals(new Long(1), LongUtil.valueOf("1"));
-        assertEquals(new Long(-1), LongUtil.valueOf("-1"));
-
-        try {
-            LongUtil.valueOf("0x1");
-            fail("Expected InvalidFormatException with hex string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            LongUtil.valueOf("9.2");
-            fail("Expected InvalidFormatException with floating point string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            LongUtil.valueOf("");
-            fail("Expected InvalidFormatException with empty string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            LongUtil.valueOf(null);
-            fail("Expected InvalidFormatException with null string.");
-        } catch (InvalidFormatException e) {
-        }
-    }
-
-    /**
-     * @tests java.lang.Long#valueOf(String, long)
-     */
-    @Test public void test_valueOfLjava_lang_StringJ() {
-        assertEquals(new Long(0), LongUtil.valueOf("0", 10));
-        assertEquals(new Long(1), LongUtil.valueOf("1", 10));
-        assertEquals(new Long(-1), LongUtil.valueOf("-1", 10));
-        
-        //must be consistent with Character.digit()
-        assertEquals(IntegerUtil.digit('1', 2), (long) LongUtil.valueOf("1", 2));
-        assertEquals(IntegerUtil.digit('F', 16), (long) LongUtil.valueOf("F", 16));
-        
-        try {
-            LongUtil.valueOf("0x1", 10);
-            fail("Expected InvalidFormatException with hex string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            LongUtil.valueOf("9.2", 10);
-            fail("Expected InvalidFormatException with floating point string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            LongUtil.valueOf("", 10);
-            fail("Expected InvalidFormatException with empty string.");
-        } catch (InvalidFormatException e) {
-        }
-
-        try {
-            LongUtil.valueOf(null, 10);
-            fail("Expected InvalidFormatException with null string.");
-        } catch (InvalidFormatException e) {
-        }
     }
 
     /**
@@ -515,32 +444,34 @@ public class LongUtilTest extends UnitTest {
      * @tests java.lang.Long#decode(String)
      */
     @Test public void test_decodeLjava_lang_String() {
-        assertEquals(new Long(0), LongUtil.decode("0"));
-        assertEquals(new Long(1), LongUtil.decode("1"));
-        assertEquals(new Long(-1), LongUtil.decode("-1"));
-        assertEquals(new Long(0xF), LongUtil.decode("0xF"));
-        assertEquals(new Long(0xF), LongUtil.decode("#F"));
-        assertEquals(new Long(0xF), LongUtil.decode("0XF"));
-        assertEquals(new Long(07), LongUtil.decode("07"));
+        assertEquals(0, LongUtil.decode("0"));
+        assertEquals(1, LongUtil.decode("1"));
+        assertEquals(-1, LongUtil.decode("-1"));
+        assertEquals(0xF, LongUtil.decode("0xF"));
+        assertEquals(0xF, LongUtil.decode("#F"));
+        assertEquals(0xF, LongUtil.decode("0XF"));
+        assertEquals(7, LongUtil.decode("07"));
 
         try {
             LongUtil.decode("9.2");
             fail("Expected InvalidFormatException with floating point string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
 
         try {
             LongUtil.decode("");
             fail("Expected InvalidFormatException with empty string.");
-        } catch (InvalidFormatException e) {
+        } catch (InvalidFormatException ignored) {
         }
 
+/*
         try {
             LongUtil.decode(null);
             //undocumented NPE, but seems consistent across JREs
             fail("Expected NullPointerException with null string.");
         } catch (NullPointerException e) {
         }
+*/
     }
 
     /**
