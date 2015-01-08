@@ -51,11 +51,17 @@ abstract public class JsonObjectOrArray {
     }
 
     public ByteArrayRange toUtf8Bytes() {
-        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-            try (Utf8OutputStreamWriter writer = new Utf8OutputStreamWriter(byteArrayOutputStream)) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            Utf8OutputStreamWriter writer = new Utf8OutputStreamWriter(byteArrayOutputStream);
+            try {
                 write(writer);
                 return byteArrayOutputStream.closeAndGetByteArray();
+            } finally {
+                writer.close();
             }
+        } finally {
+            byteArrayOutputStream.close();
         }
     }
 }

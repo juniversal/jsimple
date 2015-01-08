@@ -27,6 +27,8 @@ import jsimple.json.objectmodel.JsonNull;
 import jsimple.json.objectmodel.JsonObject;
 import jsimple.json.objectmodel.JsonObjectOrArray;
 import jsimple.unit.UnitTest;
+import jsimple.util.DoubleUtil;
+import jsimple.util.LongUtil;
 import org.junit.Test;
 
 /**
@@ -40,10 +42,10 @@ public class JsonSerializerTest extends UnitTest {
                         add("num", 3).
                         add("escape", "\\ \" / \r \n \t \f \b").
                         add("control", "\0 \u0001 \u001F \u0020 \u007F \u009F \u00A0").
-                        add("longmax", Long.MAX_VALUE).
-                        add("longmin", Long.MIN_VALUE).
-                        add("doublemax", Double.MAX_VALUE).
-                        add("doublemin", Double.MIN_VALUE).
+                        add("longmax", LongUtil.MAX_VALUE).
+                        add("longmin", LongUtil.MIN_VALUE).
+                        add("doublemax", DoubleUtil.MAX_VALUE).
+                        add("doublemin", DoubleUtil.MIN_VALUE).
                         add("bool", true).
                         add("bool2", false).
                         add("nul", JsonNull.singleton).
@@ -53,10 +55,10 @@ public class JsonSerializerTest extends UnitTest {
                 "  \"num\": 3,",
                 "  \"escape\": \"\\\\ \\\" / \\r \\n \\t \\f \\b\",",
                 "  \"control\": \"\\u0000 \\u0001 \\u001F \u0020 \\u007F \\u009F \u00A0\",",
-                "  \"longmax\": " + Long.MAX_VALUE + ",",
-                "  \"longmin\": " + Long.MIN_VALUE + ",",
-                "  \"doublemax\": " + Double.MAX_VALUE + ",",
-                "  \"doublemin\": " + Double.MIN_VALUE + ",",
+                "  \"longmax\": " + LongUtil.MAX_VALUE + ",",
+                "  \"longmin\": " + LongUtil.MIN_VALUE + ",",
+                "  \"doublemax\": " + DoubleUtil.MAX_VALUE + ",",
+                "  \"doublemin\": " + DoubleUtil.MIN_VALUE + ",",
                 "  \"bool\": true,",
                 "  \"bool2\": false,",
                 "  \"nul\": null,",

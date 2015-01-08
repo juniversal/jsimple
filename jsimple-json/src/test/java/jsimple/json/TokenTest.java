@@ -156,7 +156,7 @@ public class TokenTest extends UnitTest {
         validateFloatingPointNumberToken(-1.0, "-1.0000");
         validateFloatingPointNumberToken(11.010, "11.010");
 
-        validateFloatingPointNumberToken(11., "11.");
+        validateFloatingPointNumberToken(11.0, "11.");
         validateParsingException("Expected a digit to follow a minus sign but encountered '.'", "-.1");
 
         // 17 digits is about at the limit of precision for a double--17 digit precision is preserved, 18 is not
@@ -172,17 +172,17 @@ public class TokenTest extends UnitTest {
         validateParsingException("Numbers in scientific notation aren't currently supported", "123.12E5");
     }
 
-    private void validateNumberToken(Integer expectedPrimitiveValue, String numberToken) {
+    private void validateNumberToken(int expectedPrimitiveValue, String numberToken) {
         Token token = new Token(new StringReader(numberToken));
         assertEquals(expectedPrimitiveValue, token.getPrimitiveValue());
     }
 
-    private void validateNumberToken(Long expectedPrimitiveValue, String numberToken) {
+    private void validateNumberToken(long expectedPrimitiveValue, String numberToken) {
         Token token = new Token(new StringReader(numberToken));
         assertEquals(expectedPrimitiveValue, token.getPrimitiveValue());
     }
 
-    private void validateFloatingPointNumberToken(Double expectedPrimitiveValue, String doubleToken) {
+    private void validateFloatingPointNumberToken(double expectedPrimitiveValue, String doubleToken) {
         Token token = new Token(new StringReader(doubleToken));
         assertEquals(expectedPrimitiveValue, token.getPrimitiveValue());
     }

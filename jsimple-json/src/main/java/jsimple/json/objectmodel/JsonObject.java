@@ -22,6 +22,7 @@
 
 package jsimple.json.objectmodel;
 
+import jsimple.json.Json;
 import jsimple.json.JsonException;
 import jsimple.util.ArrayList;
 import org.jetbrains.annotations.Nullable;
@@ -111,13 +112,9 @@ public final class JsonObject extends JsonObjectOrArray {
         return (boolean) (Boolean) get(name);
     }
 
-    public @Nullable Boolean getBooleanOrNull(String name) {
-        return (Boolean) getOrNull(name);
-    }
-
     public boolean getBooleanOrDefault(String name, boolean defaultValue) {
-        @Nullable Boolean value = getBooleanOrNull(name);
-        return value == null ? defaultValue : (boolean) value;
+        @Nullable Object value = getOrNull(name);
+        return value == null ? defaultValue : (Boolean) value;
     }
 
     public String getString(String name) {
@@ -134,37 +131,23 @@ public final class JsonObject extends JsonObjectOrArray {
     }
 
     public int getInt(String name) {
-        return (int) (Integer) get(name);
-    }
-
-    public @Nullable Integer getIntOrNull(String name) {
-        return (Integer) getOrNull(name);
+        return (Integer) get(name);
     }
 
     public int getIntOrDefault(String name, int defaultValue) {
-        @Nullable Integer value = getIntOrNull(name);
-        return value == null ? defaultValue : (int) value;
+        @Nullable Object value = getOrNull(name);
+        return value == null ? defaultValue : (Integer) value;
     }
 
     public long getLong(String name) {
-        Object value = get(name);
-        if (value instanceof Integer)
-            return (long) (Integer) value;
-        else return (long) (Long) value;
-    }
-
-    public @Nullable Long getLongOrNull(String name) {
-        @Nullable Object value = getOrNull(name);
-        if (value == null)
-            return null;
-        else if (value instanceof Integer)
-            return (long) (Integer) value;
-        else return (Long) value;
+        return Json.toLong(get(name));
     }
 
     public long getLongOrDefault(String name, long defaultValue) {
-        @Nullable Long value = getLongOrNull(name);
-        return value == null ? defaultValue : (long) value;
+        @Nullable Object value = getOrNull(name);
+        if (value == null)
+            return defaultValue;
+        else return Json.toLong(value);
     }
 
     public double getDouble(String name) {
@@ -176,8 +159,8 @@ public final class JsonObject extends JsonObjectOrArray {
     }
 
     public double getDoubleOrDefault(String name, double defaultValue) {
-        @Nullable Double value = getDoubleOrNull(name);
-        return value == null ? defaultValue : (double) value;
+        @Nullable Object value = getOrNull(name);
+        return value == null ? defaultValue : (Double) value;
     }
 
     public JsonObject getJsonObject(String name) {

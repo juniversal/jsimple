@@ -136,4 +136,10 @@ public final class Json {
     public static JsonArrayWriter writeArray(Writer writer) {
         return new JsonArrayWriter(new Serializer(writer), true);
     }
+
+    public static long toLong(Object value) {
+        if (value instanceof Integer)
+            return (long) (Integer) value;
+        else return (Long) value;
+    }
 }

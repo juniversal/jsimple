@@ -51,7 +51,7 @@ public final class JsonArray extends JsonObjectOrArray {
     }
 
     public boolean getBoolean(int index) {
-        return (boolean) get(index);
+        return (Boolean) get(index);
     }
 
     public String getString(int index) {
@@ -59,15 +59,15 @@ public final class JsonArray extends JsonObjectOrArray {
     }
 
     public int getInt(int index) {
-        return (int) get(index);
+        return (Integer) get(index);
     }
 
     public long getLong(int index) {
-        return (long) get(index);
+        return (Long) get(index);
     }
 
     public double getDouble(int index) {
-        return (double) get(index);
+        return (Double) get(index);
     }
 
     public JsonObject getJsonObject(int index) {
