@@ -30,6 +30,10 @@ namespace jsimple.unit
     {
         private static string projectDirectory;
 
+        [SetUp] public virtual void setUp() { }
+
+        [TearDown] public virtual void tearDown() { }
+
         public override string getJavaProjectDirectory()
         {
             if (projectDirectory == null)

@@ -13,7 +13,9 @@
 package jsimple.unit;
 
 import org.jetbrains.annotations.Nullable;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,6 +25,12 @@ import org.junit.Assert;
  */
 public class UnitTest extends UnitTestBase {
     private static volatile @Nullable String projectDirectory = null;
+
+    @Before public void setUp() {
+    }
+
+    @After public void tearDown() {
+    }
 
     @Override public String getJavaProjectDirectory() {
         if (projectDirectory == null)
