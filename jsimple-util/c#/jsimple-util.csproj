@@ -75,11 +75,10 @@
     <Compile Include="jsimple\**\*.cs" />
     <Compile Include="nontranslated\jsimple\lang\AutoCloseable.cs" />
     <Compile Include="nontranslated\jsimple\lang\Iterable.cs" />
-    <Compile Include="nontranslated\jsimple\lang\System.cs" />
     <Compile Include="nontranslated\jsimple\util\BasicException.cs" />
     <Compile Include="nontranslated\jsimple\util\Iterator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="nontranslated\jsimple\util\PlatformUtils.cs" />
+    <Compile Include="nontranslated\jsimple\util\PlatformUtil.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
