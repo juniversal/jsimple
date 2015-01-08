@@ -28,7 +28,8 @@
 
 package jsimple.oauth.utils;
 
-import java.util.Map;
+import jsimple.util.Map;
+import jsimple.util.MapEntry;
 
 /**
  * @author Pablo Fernandez
@@ -42,7 +43,7 @@ public class MapUtils {
         result.append("{");
 
         boolean addedSomething = false;
-        for (Map.Entry<K, V> entry : map.entrySet()) {
+        for (MapEntry<K, V> entry : map.entrySet()) {
             if (addedSomething)
                 result.append(", ");
             else addedSomething = true;

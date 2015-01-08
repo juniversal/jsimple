@@ -28,6 +28,7 @@
 
 package jsimple.oauth.model;
 
+import jsimple.util.BasicException;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -68,7 +69,7 @@ public class Token /* implements Serializable */ {
 
     public String getRawResponse() {
         if (rawResponse == null)
-            throw new RuntimeException("This token object was not constructed by scribe and does not have a rawResponse");
+            throw new BasicException("This token object was not constructed by scribe and does not have a rawResponse");
         return rawResponse;
     }
 

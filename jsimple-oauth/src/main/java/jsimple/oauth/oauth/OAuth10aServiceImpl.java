@@ -31,9 +31,9 @@ package jsimple.oauth.oauth;
 import jsimple.oauth.builder.api.DefaultOAuthApi10a;
 import jsimple.oauth.model.*;
 import jsimple.oauth.utils.MapUtils;
+import jsimple.util.BasicException;
+import jsimple.util.MapEntry;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Map;
 
 /**
  * OAuth 1.0a implementation of {@link OAuthService}
@@ -115,7 +115,7 @@ public class OAuth10aServiceImpl implements OAuthService {
      * {@inheritDoc}
      */
     public Token refreshAccessToken(Token refreshOrAccessToken, boolean includeSecret) {
-        throw new RuntimeException("Refresh token is not supported in Scribe OAuth 1.0");
+        throw new BasicException("Refresh token is not supported in Scribe OAuth 1.0");
     }
 
     /**
@@ -166,7 +166,7 @@ public class OAuth10aServiceImpl implements OAuthService {
         } else if (signatureType == SignatureType.QueryString) {
             config.log("using Querystring signature");
 
-            for (Map.Entry<String, String> entry : request.getOauthParameters().entrySet())
+            for (MapEntry<String, String> entry : request.getOauthParameters().entrySet())
                 request.addQueryStringParameter(entry.getKey(), entry.getValue());
         }
     }

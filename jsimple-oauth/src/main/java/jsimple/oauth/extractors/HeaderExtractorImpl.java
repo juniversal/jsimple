@@ -31,8 +31,7 @@ package jsimple.oauth.extractors;
 import jsimple.oauth.exceptions.OAuthParametersMissingException;
 import jsimple.oauth.model.OAuthRequest;
 import jsimple.oauth.utils.OAuthEncoder;
-
-import java.util.Map;
+import jsimple.util.Map;
 
 /**
  * Default implementation of {@link HeaderExtractor}. Conforms to OAuth 1.0a

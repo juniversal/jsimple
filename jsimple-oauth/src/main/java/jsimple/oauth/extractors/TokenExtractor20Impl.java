@@ -30,6 +30,7 @@ package jsimple.oauth.extractors;
 
 import jsimple.oauth.model.Token;
 import jsimple.oauth.utils.OAuthEncoder;
+import jsimple.util.BasicException;
 import jsimple.util.CharIterator;
 
 /**
@@ -51,7 +52,7 @@ public class TokenExtractor20Impl implements AccessTokenExtractor {
         while (!tokenIterator.isWhitespace() && tokenIterator.curr() != '&' && !tokenIterator.atEnd())
             tokenBuffer.append(tokenIterator.read());
         if (tokenBuffer.toString().isEmpty())
-            throw new RuntimeException("oauth_token is empty string");
+            throw new BasicException("oauth_token is empty string");
 
         String token = OAuthEncoder.decode(tokenBuffer.toString());
         return new Token(token, EMPTY_SECRET, response);

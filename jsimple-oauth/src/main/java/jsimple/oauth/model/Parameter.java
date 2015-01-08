@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author: Pablo Fernandez
  */
-public class Parameter implements Comparable<Parameter> {
+public class Parameter implements jsimple.lang.Comparable<Parameter> {
     private static final String UTF = "UTF8";
 
     private final String key;
@@ -66,7 +66,7 @@ public class Parameter implements Comparable<Parameter> {
         return key.hashCode() + value.hashCode();
     }
 
-    public int compareTo(Parameter parameter) {
+    @Override public int compareTo(Parameter parameter) {
         int keyDiff = key.compareTo(parameter.key);
 
         return keyDiff != 0 ? keyDiff : value.compareTo(parameter.value);

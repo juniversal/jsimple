@@ -43,21 +43,21 @@ import org.jetbrains.annotations.Nullable;
  * @author Pablo Fernandez
  */
 public class ServiceBuilder {
-    private @Nullable String apiKey;
-    private @Nullable String apiSecret;
-    private String callback;
+    private @Nullable String serviceApiKey;
+    private @Nullable String serviceApiSecret;
+    private String serviceCallback;
     private @Nullable OAuthApi api;
-    private @Nullable String scope;
-    private SignatureType signatureType;
-    private @Nullable OAuthLogger debugLogger;
+    private @Nullable String serviceScope;
+    private SignatureType serviceSignatureType;
+    private @Nullable OAuthLogger serviceDebugLogger;
 
     /**
      * Default constructor
      */
     public ServiceBuilder() {
-        this.callback = OAuthConstants.OUT_OF_BAND;
-        this.signatureType = SignatureType.Header;
-        this.debugLogger = null;
+        this.serviceCallback = OAuthConstants.OUT_OF_BAND;
+        this.serviceSignatureType = SignatureType.Header;
+        this.serviceDebugLogger = null;
     }
 
     /**
@@ -82,7 +82,7 @@ public class ServiceBuilder {
      */
     public ServiceBuilder callback(String callback) {
         assert callback != null : "Callback can't be null";
-        this.callback = callback;
+        this.serviceCallback = callback;
         return this;
     }
 
@@ -94,7 +94,7 @@ public class ServiceBuilder {
      */
     public ServiceBuilder apiKey(String apiKey) {
         assert !apiKey.isEmpty() : "Invalid Api key";
-        this.apiKey = apiKey;
+        this.serviceApiKey = apiKey;
         return this;
     }
 
@@ -106,7 +106,7 @@ public class ServiceBuilder {
      */
     public ServiceBuilder apiSecret(String apiSecret) {
         assert !apiSecret.isEmpty() : "Invalid Api secret";
-        this.apiSecret = apiSecret;
+        this.serviceApiSecret = apiSecret;
         return this;
     }
 
@@ -118,7 +118,7 @@ public class ServiceBuilder {
      */
     public ServiceBuilder scope(String scope) {
         assert !scope.isEmpty() : "Invalid OAuth scope";
-        this.scope = scope;
+        this.serviceScope = scope;
         return this;
     }
 
@@ -129,13 +129,13 @@ public class ServiceBuilder {
      * @return the {@link ServiceBuilder} instance for method chaining
      */
     public ServiceBuilder signatureType(SignatureType type) {
-        this.signatureType = type;
+        this.serviceSignatureType = type;
         return this;
     }
 
     public ServiceBuilder debugLogger(OAuthLogger logger) {
         assert logger != null : "debug stream can't be null";
-        this.debugLogger = logger;
+        this.serviceDebugLogger = logger;
         return this;
     }
 
@@ -153,8 +153,8 @@ public class ServiceBuilder {
      */
     public OAuthService build() {
         assert api != null : "nullness";          // You must specify a valid api through the provider() method"
-        assert apiKey != null : "nullness";       // You must provide an api key
-        assert apiSecret != null : "nullness";    // You must provide an api secret
-        return api.createService(new OAuthConfig(apiKey, apiSecret, callback, signatureType, scope, debugLogger));
+        assert serviceApiKey != null : "nullness";       // You must provide an api key
+        assert serviceApiSecret != null : "nullness";    // You must provide an api secret
+        return api.createService(new OAuthConfig(serviceApiKey, serviceApiSecret, serviceCallback, serviceSignatureType, serviceScope, serviceDebugLogger));
     }
 }

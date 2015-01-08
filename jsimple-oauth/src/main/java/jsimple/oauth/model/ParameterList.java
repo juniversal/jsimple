@@ -29,12 +29,8 @@
 package jsimple.oauth.model;
 
 import jsimple.oauth.utils.OAuthEncoder;
-import jsimple.util.PlatformUtils;
+import jsimple.util.*;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author: Pablo Fernandez
@@ -58,7 +54,7 @@ public class ParameterList {
 
     public ParameterList(Map<String, String> map) {
         this();
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        for (MapEntry<String, String> entry : map.entrySet()) {
             parameters.add(new Parameter(entry.getKey(), entry.getValue()));
         }
     }
@@ -122,8 +118,14 @@ public class ParameterList {
 
     public ParameterList sort() {
         ParameterList sorted = new ParameterList(parameters);
+
         // TODO (Bret): This doesn't seem exactly right--the OAuth spec says that parameters should be sorted in byte order
-        PlatformUtils.sortList(sorted.parameters);
+        sorted.parameters.sort(new Comparator<Parameter>() {
+            @Override public int compare(Parameter object1, Parameter object2) {
+                return object1.compareTo(object2);
+            }
+        });
+
         return sorted;
     }
 }

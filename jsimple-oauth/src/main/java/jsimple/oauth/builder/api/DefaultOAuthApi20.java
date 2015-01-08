@@ -34,6 +34,7 @@ import jsimple.oauth.model.OAuthConfig;
 import jsimple.oauth.model.Verb;
 import jsimple.oauth.oauth.OAuth20ServiceImpl;
 import jsimple.oauth.oauth.OAuthService;
+import jsimple.util.BasicException;
 
 /**
  * Default implementation of the OAuth protocol, version 2.0 (draft 11)
@@ -97,6 +98,6 @@ public abstract class DefaultOAuthApi20 implements OAuthApi {
      * @return the parameter needed to refresh an access token
      */
     public String getRefreshTokenParameterName() {
-        throw new RuntimeException("Refresh token not implemented");
+        throw new BasicException("Refresh token not implemented");
     }
 }

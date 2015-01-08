@@ -30,6 +30,7 @@ package jsimple.oauth.oauth;
 
 import jsimple.oauth.builder.api.DefaultOAuthApi20;
 import jsimple.oauth.model.*;
+import jsimple.util.ProgrammerError;
 import org.jetbrains.annotations.Nullable;
 
 public class OAuth20ServiceImpl implements OAuthService {
@@ -90,7 +91,7 @@ public class OAuth20ServiceImpl implements OAuthService {
      * {@inheritDoc}
      */
     public Token getRequestToken() {
-        throw new UnsupportedOperationException("Unsupported operation, please use 'getAuthorizationUrl' and redirect your users there");
+        throw new ProgrammerError("Unsupported operation, please use 'getAuthorizationUrl' and redirect your users there");
     }
 
     /**

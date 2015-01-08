@@ -42,7 +42,7 @@ public class OAuthSignatureException extends OAuthException {
      * @param stringToSign plain string that gets signed (HMAC-SHA, etc)
      * @param e            original exception
      */
-    public OAuthSignatureException(String stringToSign, Exception e) {
+    public OAuthSignatureException(String stringToSign, Throwable e) {
         super("Error while signing string: " + stringToSign, e);
     }
 }

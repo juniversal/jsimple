@@ -28,9 +28,9 @@
 
 package jsimple.oauth.services;
 
-import jsimple.util.PlatformUtils;
-
-import java.util.Random;
+import jsimple.util.LongUtil;
+import jsimple.util.PlatformUtil;
+import jsimple.util.Random;
 
 /**
  * Implementation of {@link TimestampService} using plain java classes.
@@ -42,18 +42,18 @@ public class TimestampServiceImpl implements TimestampService {
      * {@inheritDoc}
      */
     public String getNonce() {
-        Long ts = getTs();
-        return Long.toString(ts + new Random().nextInt());
+        long ts = getTs();
+        return LongUtil.toString(ts + new Random().nextInt());
     }
 
     /**
      * {@inheritDoc}
      */
     public String getTimestampInSeconds() {
-        return getTs().toString();
+        return LongUtil.toString(getTs());
     }
 
-    private Long getTs() {
-        return PlatformUtils.getCurrentTimeMillis() / 1000;
+    private long getTs() {
+        return PlatformUtil.getCurrentTimeMillis() / 1000;
     }
 }

@@ -37,14 +37,8 @@ import jsimple.logging.LoggerFactory;
 import jsimple.net.*;
 import jsimple.oauth.exceptions.OAuthConnectionException;
 import jsimple.oauth.exceptions.OAuthException;
-import jsimple.util.ByteArrayRange;
-import jsimple.util.PlatformUtils;
-import jsimple.util.ProgrammerError;
-import jsimple.util.TextualPath;
+import jsimple.util.*;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The representation of an OAuth HttpRequest.
@@ -63,7 +57,7 @@ public class OAuthRequest {
     private @Nullable String stringPayload = null;
     private @Nullable File filePayload = null;
     private @Nullable HttpRequest httpRequest = null;
-    private @Nullable Integer timeout = null;
+    private @Nullable int timeout = -1;
     private Map<String, String> oauthParameters;
 
     public static final String DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded";
@@ -167,8 +161,8 @@ public class OAuthRequest {
 
         httpReq.setMethod(this.verb);
 
-        if (timeout != null)
-            httpReq.setTimeout(timeout.intValue());
+        if (timeout != -1)
+            httpReq.setTimeout(timeout);
 
         for (String key : headers.keySet())
             httpReq.setHeader(key, headers.get(key));
@@ -180,11 +174,11 @@ public class OAuthRequest {
             OAuthResponse response;
 
             if (logger.isTraceEnabled()) {
-                long startTime = PlatformUtils.getCurrentTimeMillis();
+                long startTime = PlatformUtil.getCurrentTimeMillis();
 
                 response = new OAuthResponse(httpReq.send());
 
-                long duration = PlatformUtils.getCurrentTimeMillis() - startTime;
+                long duration = PlatformUtil.getCurrentTimeMillis() - startTime;
                 logger.trace("{} {}; took {}ms", verb, getUrl(), duration);
             } else response = new OAuthResponse(httpReq.send());
 
@@ -203,17 +197,27 @@ public class OAuthRequest {
             Long filePayloadSize = filePayload.getSize();
             httpReq.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, filePayloadSize.toString());
 
-            try (InputStream fileStream = filePayload.openForRead()) {
-                try (OutputStream bodyStream = httpReq.createRequestBodyStream()) {
+            InputStream fileStream = filePayload.openForRead();
+            try {
+                OutputStream bodyStream = httpReq.createRequestBodyStream();
+                try {
                     fileStream.copyTo(bodyStream);
+                } finally {
+                    bodyStream.close();
                 }
+            } finally {
+                fileStream.close();
             }
         } else {
             ByteArrayRange byteArrayRange = getByteBodyContents();
             Integer byteArrayRangeLength = byteArrayRange.getLength();
             httpReq.setHeader(HttpRequest.HEADER_CONTENT_LENGTH, byteArrayRangeLength.toString());
-            try (OutputStream bodyStream = httpReq.createRequestBodyStream()) {
+
+            OutputStream bodyStream = httpReq.createRequestBodyStream();
+            try {
                 bodyStream.write(byteArrayRange);
+            } finally {
+                bodyStream.close();
             }
         }
     }

@@ -28,14 +28,14 @@
 
 package jsimple.oauth.exceptions;
 
-import org.jetbrains.annotations.Nullable;
+import jsimple.util.BasicException;
 
 /**
  * Default scribe exception. Represents a problem in the OAuth signing process
  *
  * @author Pablo Fernandez
  */
-public class OAuthException extends RuntimeException {
+public class OAuthException extends BasicException {
 
     /**
      * Default constructor
@@ -43,7 +43,7 @@ public class OAuthException extends RuntimeException {
      * @param message message explaining what went wrong
      * @param e       original exception
      */
-    public OAuthException(String message, @Nullable Exception e) {
+    public OAuthException(String message, Throwable e) {
         super(message, e);
     }
 
@@ -53,7 +53,7 @@ public class OAuthException extends RuntimeException {
      * @param message message explaining what went wrong
      */
     public OAuthException(String message) {
-        super(message, null);
+        super(message);
     }
 
     private static final long serialVersionUID = 1L;

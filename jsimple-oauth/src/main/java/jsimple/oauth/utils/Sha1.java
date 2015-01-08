@@ -30,7 +30,7 @@ package jsimple.oauth.utils;
  * @since 8/18/2014 5:10 PM
  */
 
-import jsimple.util.PlatformUtils;
+import jsimple.util.PlatformUtil;
 
 /**
  * SHA-1 message digest implementation, translated from C source code (the origin is unknown).
@@ -337,7 +337,7 @@ public final class Sha1 {
             // Zero pad the key up to BLOCK_SIZE.   Take advantage of the fact that arrays are always initialized to 0
             // in Java
             normalizedKey = new byte[BLOCK_SIZE];
-            PlatformUtils.copyBytes(key, 0, normalizedKey, 0, key.length);
+            PlatformUtil.copyBytes(key, 0, normalizedKey, 0, key.length);
         } else normalizedKey = key;
 
         Sha1 sha1Inner = new Sha1();
@@ -379,11 +379,11 @@ public final class Sha1 {
             tester.update((byte) (SELFTEST_MESSAGE.charAt(nI1) & 0x0ff));
         }
 
-        byte[] digest = tester.digest();
+        byte[] digestValue = tester.digest();
 
         boolean failed = false;
         for (int nI = 0; nI < DIGEST_SIZE; nI++) {
-            if (digest[nI] != SELFTEST_DIGEST[nI]) {
+            if (digestValue[nI] != SELFTEST_DIGEST[nI]) {
                 failed = true;
                 break;
             }
