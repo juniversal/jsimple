@@ -52,6 +52,9 @@ import org.jetbrains.annotations.Nullable;
  * Does not implement Serializable
  * <p/>
  * Does not support clone; use HashMap constructor taking a Map argument instead (which is more flexible and type safe)
+ * <p/>
+ * Does not support null keys.  They are rarely used and removing support for them makes the implementation slightly
+ * simpler/faster and allows tighter nullable constraints.   Null values, however, are still supported.
  */
 public class HashMap<K, V> extends Map<K, V> {
     // Lazily initialized key set.
@@ -250,7 +253,7 @@ public class HashMap<K, V> extends Map<K, V> {
      * @return Reference to the element array
      */
     @SuppressWarnings("unchecked") HashMapEntry<K, V>[] newElementArray(int s) {
-        return (HashMapEntry<K, V>[]) new Object[s];
+        return (HashMapEntry<K, V>[]) new HashMapEntry[s];
     }
 
     /**
@@ -307,7 +310,7 @@ public class HashMap<K, V> extends Map<K, V> {
             this.loadFactor = loadFactor;
             computeThreshold();
         } else {
-            throw new ProgrammerError("HashMap capacity and/or loadFactor is invalid");
+            throw new ProgrammerError("HashMap capacity and/or loadFactor is invalid (e.g. negative)");
         }
     }
 
@@ -359,7 +362,7 @@ public class HashMap<K, V> extends Map<K, V> {
      * @return {@code true} if this map contains the specified key, {@code false} otherwise.
      */
     @Override
-    public boolean containsKey(Object key) {
+    public boolean containsKey(K key) {
         HashMapEntry<K, V> m = getEntry(key);
         return m != null;
     }
@@ -371,12 +374,12 @@ public class HashMap<K, V> extends Map<K, V> {
      * @return {@code true} if this map contains the specified value, {@code false} otherwise.
      */
     @Override
-    public boolean containsValue(Object value) {
+    public boolean containsValue(V value) {
         if (value != null) {
             for (int i = 0; i < elementData.length; i++) {
                 HashMapEntry<K, V> entry = elementData[i];
                 while (entry != null) {
-                    if (areEqualValues(value, entry.value)) {
+                    if (value.equals(entry.value)) {
                         return true;
                     }
                     entry = entry.next;
@@ -408,46 +411,33 @@ public class HashMap<K, V> extends Map<K, V> {
     }
 
     /**
-     * Returns the value of the mapping with the specified key.
+     * Returns the value of the mapping with the specified key
      *
      * @param key the key.
-     * @return the value of the mapping with the specified key, or {@code null} if no mapping for the specified key is
-     * found.
+     * @return the value of the mapping with the specified key, or {@code null} / default value for non-nullable value
+     * type if no mapping for the specified key is found.
      */
     @Override
-    public V get(Object key) {
+    public V get(K key) {
         HashMapEntry<K, V> m = getEntry(key);
         if (m != null) {
             return m.value;
         }
-        return null;
+        return PlatformUtil.<V>defaultValue();
     }
 
-    final @Nullable HashMapEntry<K, V> getEntry(Object key) {
-        HashMapEntry<K, V> m;
-        if (key == null) {
-            m = findNullKeyEntry();
-        } else {
-            int hash = computeHashCode(key);
-            int index = hash & (elementData.length - 1);
-            m = findNonNullKeyEntry(key, index, hash);
-        }
-        return m;
+    final @Nullable HashMapEntry<K, V> getEntry(K key) {
+        int hash = key.hashCode();
+        int index = hash & (elementData.length - 1);
+        return findNonNullKeyEntry(key, index, hash);
     }
 
-    final @Nullable HashMapEntry<K, V> findNonNullKeyEntry(Object key, int index, int keyHash) {
+    final @Nullable HashMapEntry<K, V> findNonNullKeyEntry(K key, int index, int keyHash) {
         HashMapEntry<K, V> m = elementData[index];
         while (m != null
-                && (m.origKeyHash != keyHash || !areEqualKeys(key, m.key))) {
+                && (m.origKeyHash != keyHash || !key.equals(m.key))) {
             m = m.next;
         }
-        return m;
-    }
-
-    final @Nullable HashMapEntry<K, V> findNullKeyEntry() {
-        HashMapEntry<K, V> m = elementData[0];
-        while (m != null && m.key != null)
-            m = m.next;
         return m;
     }
 
@@ -513,34 +503,22 @@ public class HashMap<K, V> extends Map<K, V> {
      *
      * @param key   the key.
      * @param value the value.
-     * @return the value of any previous mapping with the specified key or {@code null} if there was no such mapping.
+     * @return the value of any previous mapping with the specified key or {@code null} / default value for non-nullable
+     * value type if there was no such mapping
      */
-    @Override
-    public V put(K key, V value) {
+    @Override public V put(K key, V value) {
         return putImpl(key, value);
     }
 
     V putImpl(K key, V value) {
-        HashMapEntry<K, V> entry;
-        if (key == null) {
-            entry = findNullKeyEntry();
-            if (entry == null) {
-                modCount++;
-                entry = createHashedEntry(null, 0, 0);
-                if (++elementCount > threshold) {
-                    rehash();
-                }
-            }
-        } else {
-            int hash = computeHashCode(key);
-            int index = hash & (elementData.length - 1);
-            entry = findNonNullKeyEntry(key, index, hash);
-            if (entry == null) {
-                modCount++;
-                entry = createHashedEntry(key, index, hash);
-                if (++elementCount > threshold) {
-                    rehash();
-                }
+        int hash = key.hashCode();
+        int index = hash & (elementData.length - 1);
+        HashMapEntry<K, V> entry = findNonNullKeyEntry(key, index, hash);
+        if (entry == null) {
+            modCount++;
+            entry = createHashedEntry(key, index, hash);
+            if (++elementCount > threshold) {
+                rehash();
             }
         }
 
@@ -608,15 +586,16 @@ public class HashMap<K, V> extends Map<K, V> {
      * Removes the mapping with the specified key from this map.
      *
      * @param key the key of the mapping to remove.
-     * @return the value of the removed mapping or {@code null} if no mapping for the specified key was found.
+     * @return the value of the removed mapping or {@code null} / default value for non-nullable value type if no mapping
+     * for the specified key was found
      */
     @Override
-    public V remove(Object key) {
+    public V remove(K key) {
         HashMapEntry<K, V> entry = removeEntry(key);
         if (entry != null) {
             return entry.value;
         }
-        return null;
+        return PlatformUtil.<V>defaultValue();
     }
 
     /*
@@ -639,25 +618,19 @@ public class HashMap<K, V> extends Map<K, V> {
         elementCount--;
     }
 
-    final HashMapEntry<K, V> removeEntry(Object key) {
+    final HashMapEntry<K, V> removeEntry(K key) {
         int index = 0;
         HashMapEntry<K, V> entry;
         HashMapEntry<K, V> last = null;
-        if (key != null) {
-            int hash = computeHashCode(key);
-            index = hash & (elementData.length - 1);
-            entry = elementData[index];
-            while (entry != null && !(entry.origKeyHash == hash && areEqualKeys(key, entry.key))) {
-                last = entry;
-                entry = entry.next;
-            }
-        } else {
-            entry = elementData[0];
-            while (entry != null && entry.key != null) {
-                last = entry;
-                entry = entry.next;
-            }
+
+        int hash = key.hashCode();
+        index = hash & (elementData.length - 1);
+        entry = elementData[index];
+        while (entry != null && !(entry.origKeyHash == hash && key.equals(entry.key))) {
+            last = entry;
+            entry = entry.next;
         }
+
         if (entry == null) {
             return null;
         }
@@ -729,20 +702,5 @@ public class HashMap<K, V> extends Map<K, V> {
         @Override public boolean add(V object) {
             throw new ProgrammerError("add method not supported for HashMap.values collection");
         }
-    }
-
-    /*
-     * Contract-related functionality 
-     */
-    static int computeHashCode(Object key) {
-        return key.hashCode();
-    }
-
-    static boolean areEqualKeys(Object key1, Object key2) {
-        return (key1 == key2) || key1.equals(key2);
-    }
-
-    static boolean areEqualValues(Object value1, Object value2) {
-        return (value1 == value2) || value1.equals(value2);
     }
 }

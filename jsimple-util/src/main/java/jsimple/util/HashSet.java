@@ -52,15 +52,6 @@ package jsimple.util;
 public class HashSet<E> extends Set<E> {
     transient HashMap<E, HashSet<E>> backingMap;
 
-    public static <T> HashSet<T> create(T... args) {
-        HashSet<T> newSet = new HashSet<T>(args.length);
-        for (T arg : args) {
-            newSet.add(arg);
-        }
-
-        return newSet;
-    }
-
     /**
      * Constructs a new empty instance of {@code HashSet}.
      */
@@ -100,6 +91,21 @@ public class HashSet<E> extends Set<E> {
         this(new HashMap<E, HashSet<E>>(collection.size() < 6 ? 11 : collection.size() * 2));
         for (E e : collection) {
             add(e);
+        }
+    }
+
+    /**
+     * Constructs a HashSet, with the specified initial members.
+     *
+     * Changes from the java.util version:  The constructor is new, added as a convenience method to easily create
+     * initialized sets.
+     *
+     * @param args elements to add initially to the set
+     */
+    public HashSet(E... args) {
+        this(args.length);
+        for (E arg : args) {
+            add(arg);
         }
     }
 

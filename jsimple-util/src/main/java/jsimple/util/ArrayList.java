@@ -59,15 +59,6 @@ public final class ArrayList<E> extends List<E> {
     private transient int itemCount;   // This member was named "size" in original Harmony source; renamed to not conflict with size() method
     private transient E[] array;
 
-    public static <T> ArrayList<T> create(T... args) {
-        ArrayList<T> newList = new ArrayList<T>(args.length);
-        for (T arg : args) {
-            newList.add(arg);
-        }
-
-        return newList;
-    }
-
     private static class ArrayListIterator<E> extends Iterator<E> {
         private ArrayList<E> arrayList;
         private int numLeft;
@@ -167,8 +158,23 @@ public final class ArrayList<E> extends List<E> {
         //         Could be better to use the collection iterator and
         //         copy once?
         array = newElementArray(itemCount + (itemCount / 10));
-        jsimple.lang.System.arraycopy(objects, 0, array, 0, itemCount);
+        PlatformUtil.arraycopy(objects, 0, array, 0, itemCount);
         modCount = 1;
+    }
+
+    /**
+     * Constructs an ArrayList, with the specified initial members.
+     *
+     * Changes from the java.util version:  The constructor is new, added as a convenience method to easily create
+     * initialized lists.
+     *
+     * @param args elements to add initially to the list
+     */
+    public ArrayList(E... args) {
+        this(args.length);
+        for (E arg : args) {
+            add(arg);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -205,11 +211,10 @@ public final class ArrayList<E> extends List<E> {
                 growForInsert(location, 1);
             } else if (firstIndex + itemCount == array.length
                     || (firstIndex > 0 && location < itemCount / 2)) {
-                jsimple.lang.System.arraycopy(array, firstIndex, array, --firstIndex,
-                        location);
+                PlatformUtil.arraycopy(array, firstIndex, array, --firstIndex, location);
             } else {
                 int index = location + firstIndex;
-                jsimple.lang.System.arraycopy(array, index, array, index + 1, itemCount
+                PlatformUtil.arraycopy(array, index, array, index + 1, itemCount
                         - location);
             }
             array[location + firstIndex] = object;
@@ -274,20 +279,20 @@ public final class ArrayList<E> extends List<E> {
                 int newFirst = firstIndex - growSize;
                 if (newFirst < 0) {
                     int index = location + firstIndex;
-                    jsimple.lang.System.arraycopy(array, index, array, index - newFirst,
+                    PlatformUtil.arraycopy(array, index, array, index - newFirst,
                             itemCount - location);
                     newFirst = 0;
                 }
-                jsimple.lang.System.arraycopy(array, firstIndex, array, newFirst, location);
+                PlatformUtil.arraycopy(array, firstIndex, array, newFirst, location);
                 firstIndex = newFirst;
             } else {
                 int index = location + firstIndex;
-                jsimple.lang.System.arraycopy(array, index, array, index + growSize, itemCount
+                PlatformUtil.arraycopy(array, index, array, index + growSize, itemCount
                         - location);
             }
         }
 
-        jsimple.lang.System.arraycopy(dumparray, 0, this.array, location + firstIndex, growSize);
+        PlatformUtil.arraycopy(dumparray, 0, this.array, location + firstIndex, growSize);
         itemCount += growSize;
         modCount++;
         return true;
@@ -308,8 +313,7 @@ public final class ArrayList<E> extends List<E> {
         if (dumpArray.length > array.length - (firstIndex + itemCount)) {
             growAtEnd(dumpArray.length);
         }
-        jsimple.lang.System.arraycopy(dumpArray, 0, this.array, firstIndex + itemCount,
-                dumpArray.length);
+        PlatformUtil.arraycopy(dumpArray, 0, this.array, firstIndex + itemCount, dumpArray.length);
         itemCount += dumpArray.length;
         modCount++;
         return true;
@@ -321,13 +325,12 @@ public final class ArrayList<E> extends List<E> {
      * @see #isEmpty
      * @see #size
      */
-    @Override
-    public void clear() {
+    @Override public void clear() {
         if (itemCount != 0) {
             // REVIEW: Should we use Arrays.fill() instead of just
             //         allocating a new array?  Should we use the same
             //         sized array?
-            fillWithNull(firstIndex, firstIndex + itemCount);
+            fillWithDefault(firstIndex, firstIndex + itemCount);
             // REVIEW: Should the indexes point into the middle of the
             //         array rather than 0?
             firstIndex = itemCount = 0;
@@ -389,14 +392,12 @@ public final class ArrayList<E> extends List<E> {
 
     private void growAtEnd(int required) {
         if (array.length - itemCount >= required) {
-            // REVIEW: as growAtEnd, why not move size == 0 out as
-            //         special case
+            // REVIEW: as growAtEnd, why not move size == 0 out as special case
             if (itemCount != 0) {
-                jsimple.lang.System.arraycopy(array, firstIndex, array, 0, itemCount);
+                PlatformUtil.arraycopy(array, firstIndex, array, 0, itemCount);
                 int start = itemCount < firstIndex ? firstIndex : itemCount;
-                // REVIEW: I think we null too much
-                //         array.length should be lastIndex ?
-                fillWithNull(start, array.length);
+                // REVIEW: I think we null too much array.length should be lastIndex ?
+                fillWithDefault(start, array.length);
             }
             firstIndex = 0;
         } else {
@@ -411,7 +412,7 @@ public final class ArrayList<E> extends List<E> {
             }
             E[] newArray = newElementArray(itemCount + increment);
             if (itemCount != 0) {
-                jsimple.lang.System.arraycopy(array, firstIndex, newArray, 0, itemCount);
+                PlatformUtil.arraycopy(array, firstIndex, newArray, 0, itemCount);
                 firstIndex = 0;
             }
             array = newArray;
@@ -424,10 +425,10 @@ public final class ArrayList<E> extends List<E> {
             // REVIEW: as growAtEnd, why not move size == 0 out as
             //         special case
             if (itemCount != 0) {
-                jsimple.lang.System.arraycopy(array, firstIndex, array, newFirst, itemCount);
+                PlatformUtil.arraycopy(array, firstIndex, array, newFirst, itemCount);
                 int lastIndex = firstIndex + itemCount;
                 int length = lastIndex > newFirst ? newFirst : lastIndex;
-                fillWithNull(firstIndex, length);
+                fillWithDefault(firstIndex, length);
             }
             firstIndex = newFirst;
         } else {
@@ -440,7 +441,7 @@ public final class ArrayList<E> extends List<E> {
             }
             E[] newArray = newElementArray(itemCount + increment);
             if (itemCount != 0) {
-                jsimple.lang.System.arraycopy(array, firstIndex, newArray, increment, itemCount);
+                PlatformUtil.arraycopy(array, firstIndex, newArray, increment, itemCount);
             }
             firstIndex = newArray.length - itemCount;
             array = newArray;
@@ -464,15 +465,15 @@ public final class ArrayList<E> extends List<E> {
         int newFirst = increment - required;
         // Copy elements after location to the new array skipping inserted
         // elements
-        jsimple.lang.System.arraycopy(array, location + firstIndex, newArray, newFirst
+        PlatformUtil.arraycopy(array, location + firstIndex, newArray, newFirst
                 + location + required, itemCount - location);
         // Copy elements before location to the new array from firstIndex
-        jsimple.lang.System.arraycopy(array, firstIndex, newArray, newFirst, location);
+        PlatformUtil.arraycopy(array, firstIndex, newArray, newFirst, location);
         firstIndex = newFirst;
         array = newArray;
     }
 
-    @Override public int indexOf(Object object) {
+    @Override public int indexOf(E object) {
         // REVIEW: should contains call this method?
         int lastIndex = firstIndex + itemCount;
         if (object != null) {
@@ -497,7 +498,7 @@ public final class ArrayList<E> extends List<E> {
     }
 
     @Override
-    public int lastIndexOf(Object object) {
+    public int lastIndexOf(E object) {
         int lastIndex = firstIndex + itemCount;
         if (object != null) {
             for (int i = lastIndex - 1; i >= firstIndex; i--) {
@@ -542,20 +543,20 @@ public final class ArrayList<E> extends List<E> {
         }
         if (location == 0) {
             result = array[firstIndex];
-            array[firstIndex++] = null;
+            array[firstIndex++] = PlatformUtil.<E>defaultValue();
         } else if (location == itemCount - 1) {
             int lastIndex = firstIndex + itemCount - 1;
             result = array[lastIndex];
-            array[lastIndex] = null;
+            array[lastIndex] = PlatformUtil.<E>defaultValue();
         } else {
             int elementIndex = firstIndex + location;
             result = array[elementIndex];
             if (location < itemCount / 2) {
-                jsimple.lang.System.arraycopy(array, firstIndex, array, firstIndex + 1, location);
-                array[firstIndex++] = null;
+                PlatformUtil.arraycopy(array, firstIndex, array, firstIndex + 1, location);
+                array[firstIndex++] = PlatformUtil.<E>defaultValue();
             } else {
-                jsimple.lang.System.arraycopy(array, elementIndex + 1, array, elementIndex, itemCount - location - 1);
-                array[firstIndex + itemCount - 1] = null;
+                PlatformUtil.arraycopy(array, elementIndex + 1, array, elementIndex, itemCount - location - 1);
+                array[firstIndex + itemCount - 1] = PlatformUtil.<E>defaultValue();
             }
         }
         itemCount--;
@@ -614,7 +615,7 @@ public final class ArrayList<E> extends List<E> {
     @Override
     public Object[] toArray() {
         Object[] result = new Object[itemCount];
-        jsimple.lang.System.arraycopy(array, firstIndex, result, 0, itemCount);
+        PlatformUtil.arraycopy(array, firstIndex, result, 0, itemCount);
         return result;
     }
 
@@ -634,12 +635,16 @@ public final class ArrayList<E> extends List<E> {
                     "Array only has length {}, which isn't big enough to hold the {} elements in the collection",
                     contents.length, size());
 
-        jsimple.lang.System.arraycopy(array, firstIndex, contents, 0, itemCount);
+        PlatformUtil.arraycopy(array, firstIndex, contents, 0, itemCount);
         if (itemCount < contents.length) {
-            // REVIEW: do we use this incorrectly - i.e. do we null
-            //         the rest out?
-            contents[itemCount] = null;
+            // REVIEW: do we use this incorrectly - i.e. do we null the rest out?
+            contents[itemCount] = PlatformUtil.<E>defaultValue();
         }
+    }
+
+    public void sort(Comparator<E> comparator) {
+        Arrays.sort(array, firstIndex, firstIndex + itemCount, comparator);
+        modCount++;
     }
 
     /**
@@ -649,15 +654,16 @@ public final class ArrayList<E> extends List<E> {
      */
     public void trimToSize() {
         E[] newArray = newElementArray(itemCount);
-        jsimple.lang.System.arraycopy(array, firstIndex, newArray, 0, itemCount);
+        PlatformUtil.arraycopy(array, firstIndex, newArray, 0, itemCount);
         array = newArray;
         firstIndex = 0;
         modCount = 0;
     }
 
-    private void fillWithNull(int fromIndex, int toIndex) {
+    private void fillWithDefault(int fromIndex, int toIndex) {
+        E defaultValue = PlatformUtil.<E>defaultValue();
         for (int i = fromIndex; i < toIndex; i++) {
-            array[i] = null;
+            array[i] = defaultValue;
         }
     }
 }

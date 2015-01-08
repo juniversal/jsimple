@@ -6,17 +6,15 @@ package jsimple.util;
  */
 class HashMapEntry<K, V> extends MapEntryImpl<K, V> {
     final int origKeyHash;
-
     HashMapEntry<K, V> next;
 
     HashMapEntry(K theKey, int hash) {
-        super(theKey, null);
+        super(theKey);
         this.origKeyHash = hash;
     }
 
     HashMapEntry(K theKey, V theValue) {
         super(theKey, theValue);
-        origKeyHash = (theKey == null ? 0 : theKey.hashCode());
+        origKeyHash = theKey.hashCode();
     }
 }
-

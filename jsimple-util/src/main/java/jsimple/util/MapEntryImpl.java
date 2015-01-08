@@ -67,7 +67,7 @@ class MapEntryImpl<K, V> implements MapEntry<K, V> {
         throw new ProgrammerError("equals method not supported for HashMap MapEntry");
     }
 
-    public K getKey() {
+    @Override public K getKey() {
         return key;
     }
 
@@ -77,8 +77,7 @@ class MapEntryImpl<K, V> implements MapEntry<K, V> {
 
     @Override
     public int hashCode() {
-        return (key == null ? 0 : key.hashCode())
-                ^ (value == null ? 0 : value.hashCode());
+        return key.hashCode() ^ (value == null ? 0 : value.hashCode());
     }
 
     public V setValue(V object) {

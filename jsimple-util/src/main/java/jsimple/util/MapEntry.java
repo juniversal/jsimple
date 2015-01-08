@@ -44,7 +44,7 @@ package jsimple.util;
 /**
  * {@code Map.Entry} is a key/value mapping contained in a {@code Map}.
  */
-public interface  MapEntry<K,V> {
+public interface MapEntry<K,V> {
     /**
      * Compares the specified object to this {@code Map.Entry} and returns if they
      * are equal. To be equal, the object must be an instance of {@code Map.Entry} and have the
