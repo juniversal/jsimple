@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-json", "..\jsimple-json\c#\jsimple-json.csproj", "{28AD3A60-45C2-4D7A-BD4D-83827C4DC5B5}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-io-windows-universal", "..\jsimple-io\c#-windows-universal\jsimple-io-windows-universal.csproj", "{4DF56D82-54E7-4178-B2DA-B0BA5F6E44A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-io-windows-desktop", "..\jsimple-io\c#-windows-desktop\jsimple-io-windows-desktop.csproj", "{2112E03D-0FFF-4A01-9084-381F29ECB120}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsimple-util-test", "..\jsimple-util\c#-test\jsimple-util-test.csproj", "{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +149,16 @@ Global
 		{2112E03D-0FFF-4A01-9084-381F29ECB120}.Release|ARM.ActiveCfg = Release|Any CPU
 		{2112E03D-0FFF-4A01-9084-381F29ECB120}.Release|x64.ActiveCfg = Release|Any CPU
 		{2112E03D-0FFF-4A01-9084-381F29ECB120}.Release|x86.ActiveCfg = Release|Any CPU
+		{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}.Release|ARM.ActiveCfg = Release|Any CPU
+		{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}.Release|x64.ActiveCfg = Release|Any CPU
+		{84CCE73C-52E4-4288-8028-DFAAA8ED8D75}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
