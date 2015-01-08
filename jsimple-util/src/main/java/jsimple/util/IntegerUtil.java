@@ -73,15 +73,15 @@ public final class IntegerUtil {
     public static final int MAX_RADIX = 36;
 
     /**
-     * Parses the specified string and returns a {@code Integer} instance if the string can be decoded into an integer
+     * Parses the specified string and returns an {@code int} if the string can be decoded into an integer
      * value. The string may be an optional minus sign "-" followed by a hexadecimal ("0x..." or "#..."), octal
      * ("0..."), or decimal ("...") representation of an integer.
      *
      * @param string a string representation of an integer value.
-     * @return an {@code Integer} containing the value represented by {@code string}.
-     * @throws InvalidFormatException if {@code string} can not be parsed as an integer value.
+     * @return an int for the value represented by {@code string}
+     * @throws InvalidFormatException if {@code string} can not be parsed as an integer value
      */
-    public static Integer decode(String string) throws InvalidFormatException {
+    public static int decode(String string) throws InvalidFormatException {
         int length = string.length(), i = 0;
         if (length == 0) {
             throw new InvalidFormatException("Integer can't be empty string");
@@ -298,35 +298,6 @@ public final class IntegerUtil {
             buffer[0] = '-';
         }
         return new String(buffer);
-    }
-
-    /**
-     * Parses the specified string as a signed decimal integer value.
-     *
-     * @param string the string representation of an integer value.
-     * @return an {@code Integer} instance containing the integer value represented by {@code string}.
-     * @throws InvalidFormatException if {@code string} is {@code null}, has a length of zero or can not be parsed as an
-     *                                integer value.
-     * @see #parseInt(String)
-     */
-    public static Integer valueOf(String string) throws InvalidFormatException {
-        return parseInt(string);
-    }
-
-    /**
-     * Parses the specified string as a signed integer value using the specified radix.
-     *
-     * @param string the string representation of an integer value.
-     * @param radix  the radix to use when parsing.
-     * @return an {@code Integer} instance containing the integer value represented by {@code string} using {@code
-     * radix}.
-     * @throws InvalidFormatException if {@code string} is {@code null} or has a length of zero, {@code radix <
-     *                                Character.MIN_RADIX}, {@code radix > Character.MAX_RADIX}, or if {@code string}
-     *                                can not be parsed as an integer value.
-     * @see #parseInt(String, int)
-     */
-    public static Integer valueOf(String string, int radix) throws InvalidFormatException {
-        return parseInt(string, radix);
     }
 
     /**

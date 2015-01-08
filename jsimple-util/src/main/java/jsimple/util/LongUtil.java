@@ -63,15 +63,15 @@ public final class LongUtil {
     public static final long MIN_VALUE = 0x8000000000000000L;
 
     /**
-     * Parses the specified string and returns a {@code Long} instance if the string can be decoded into a long value.
+     * Parses the specified string and returns a {@code long} if the string can be decoded into a long value.
      * The string may be an optional minus sign "-" followed by a hexadecimal ("0x..." or "#..."), octal ("0..."), or
      * decimal ("...") representation of a long.
      *
-     * @param string a string representation of a long value.
-     * @return a {@code Long} containing the value represented by {@code string}.
-     * @throws InvalidFormatException if {@code string} can not be parsed as a long value.
+     * @param string a string representation of a long value
+     * @return a {@code long} for the value represented by {@code string}
+     * @throws InvalidFormatException if {@code string} can not be parsed as a long value
      */
-    public static Long decode(String string) throws InvalidFormatException {
+    public static long decode(String string) throws InvalidFormatException {
         int length = string.length(), i = 0;
         if (length == 0) {
             throw new InvalidFormatException("Long can't be empty string");
@@ -269,34 +269,6 @@ public final class LongUtil {
             buffer[0] = '-';
         }
         return new String(buffer);
-    }
-
-    /**
-     * Parses the specified string as a signed decimal long value.
-     *
-     * @param string the string representation of a long value.
-     * @return a {@code Long} instance containing the long value represented by {@code string}.
-     * @throws InvalidFormatException if {@code string} is {@code null}, has a length of zero or can not be parsed as a
-     *                                long value.
-     * @see #parseLong(String)
-     */
-    public static Long valueOf(String string) throws InvalidFormatException {
-        return parseLong(string);
-    }
-
-    /**
-     * Parses the specified string as a signed long value using the specified radix.
-     *
-     * @param string the string representation of a long value.
-     * @param radix  the radix to use when parsing.
-     * @return a {@code Long} instance containing the long value represented by {@code string} using {@code radix}.
-     * @throws InvalidFormatException if {@code string} is {@code null} or has a length of zero, {@code radix <
-     *                                Character.MIN_RADIX}, {@code radix > Character.MAX_RADIX}, or if {@code string}
-     *                                can not be parsed as a long value.
-     * @see #parseLong(String, int)
-     */
-    public static Long valueOf(String string, int radix) throws InvalidFormatException {
-        return parseLong(string, radix);
     }
 
     /**
