@@ -219,7 +219,7 @@ public abstract class List<E> extends Collection<E> {
      * @param object the object to search for.
      * @return the index of the first occurrence of the object or -1 if the object was not found.
      */
-    public abstract int indexOf(Object object);
+    public abstract int indexOf(E object);
 
     /**
      * Searches this {@code List} for the specified object and returns the index of the last occurrence.
@@ -227,7 +227,7 @@ public abstract class List<E> extends Collection<E> {
      * @param object the object to search for.
      * @return the index of the last occurrence of the object, or -1 if the object was not found.
      */
-    public abstract int lastIndexOf(Object object);
+    public abstract int lastIndexOf(E object);
 
     /**
      * Removes the object at the specified location from this {@code List}.
