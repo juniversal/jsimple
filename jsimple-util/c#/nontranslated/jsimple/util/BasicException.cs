@@ -59,6 +59,11 @@ namespace jsimple.util
             : base(formattingTuple.getFormattedMessage(), formattingTuple.getThrowable())
         {
         }
+
+        public String getMessage()
+        {
+            return Message;
+        }
     }
 
 }
