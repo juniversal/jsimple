@@ -22,20 +22,15 @@
 
 package jsimple.util;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * @author Bret Johnson
  * @since 10/21/12 10:39 PM
  */
-public class PlatformUtils extends PlatformUtilsBase {
+public class PlatformUtil extends PlatformUtilBase {
     /**
      * Get the number of milliseconds since Jan 1, 1970, UTC time.  That's also known as epoch time.  It's the time unit
      * we generally use in JSimple.
@@ -44,14 +39,6 @@ public class PlatformUtils extends PlatformUtilsBase {
      */
     public static long platformGetCurrentTimeMillis() {
         return System.currentTimeMillis();
-    }
-
-    public static <T extends Comparable<? super T>> void sortList(List<T> list) {
-        Collections.sort(list);
-    }
-
-    public static <T> void sortList(List<T> list, Comparator<? super T> comparator) {
-        Collections.sort(list, comparator);
     }
 
     private static String lineSeparator = System.getProperty("line.separator");
@@ -72,12 +59,16 @@ public class PlatformUtils extends PlatformUtilsBase {
      * @return string containing the message & stack trace for the exception
      */
     public static String getExceptionDescription(Throwable e) {
-        try (StringWriter stringWriter = new StringWriter()) {
-            try (PrintWriter printWriter = new PrintWriter(stringWriter)) {
+        try {
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(stringWriter);
+            try {
                 e.printStackTrace(printWriter);
+                return stringWriter.getBuffer().toString();
+            } finally {
+                stringWriter.close();
+                printWriter.close();
             }
-
-            return stringWriter.getBuffer().toString();
         } catch (IOException e2) {
             return e.getMessage() + "\r\n<error generating stack trace>";
         }
@@ -165,5 +156,46 @@ public class PlatformUtils extends PlatformUtilsBase {
      */
     public static double rawLongBitsToDouble(long value) {
         return Double.longBitsToDouble(value);
+    }
+
+    public static <T> T defaultValue() {
+        return null;
+    }
+
+    /**
+     * Copies the number of {@code length} elements of the Array {@code src}
+     * starting at the offset {@code srcPos} into the Array {@code dest} at
+     * the position {@code destPos}.
+     *
+     * @param src
+     *            the source array to copy the content.
+     * @param srcPos
+     *            the starting index of the content in {@code src}.
+     * @param dest     *            the destination array to copy the data into.
+     * @param destPos
+     *            the starting index for the copied content in {@code dest}.
+     * @param length
+     *            the number of elements of the {@code array1} content they have
+     *            to be copied.
+     */
+    public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length) {
+        java.lang.System.arraycopy(src, srcPos, dest, destPos, length);
+    }
+
+    /**
+     * Causes the virtual machine to stop running and the program to exit. If
+     * {@link #runFinalizersOnExit(boolean)} has been previously invoked with a
+     * {@code true} argument, then all objects will be properly
+     * garbage-collected and finalized first.
+     *
+     * @param code
+     *            the return code.
+     * @throws SecurityException
+     *             if the running thread has not enough permission to exit the
+     *             virtual machine.
+     * @see SecurityManager#checkExit
+     */
+    public static void exit(int code) {
+        java.lang.System.exit(code);
     }
 }
