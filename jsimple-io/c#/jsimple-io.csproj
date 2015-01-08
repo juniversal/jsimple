@@ -38,7 +38,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="*.cs" />
     <Compile Include="jsimple\**\*.cs" />
     <Compile Include="nontranslated\jsimple\io\DebugWriter.cs" />
     <Compile Include="nontranslated\jsimple\io\DotNetIOUtils.cs" />
