@@ -1,18 +1,16 @@
 package jsimple.util;
 
-import static org.junit.Assert.*;
-
+import jsimple.unit.UnitTest;
 import org.junit.Test;
 
 /**
  * @author Dorin Suletea
  * @since 12/1/2014
  */
-public class ListUtilTest {
-	@Test
-	public void testListEquals(){
+public class ListUtilTest extends UnitTest {
+	@Test public void testListEquals(){
 		ArrayList<Integer> a = new ArrayList<Integer>();
-		a.add(new Integer(1));
+		a.add(1);
 		a.add(2);
 		a.add(3);
 		
@@ -21,13 +19,12 @@ public class ListUtilTest {
 		b.add(2);
 		b.add(3);
 		
-		boolean equals = ListUtils.arrayListsEqual(a, b);
-		assertTrue(equals);
+		boolean listsEqual = ListUtils.arrayListsEqual(a, b);
+		assertTrue(listsEqual);
 		
 	}
 	
-	@Test
-	public void testListNegativeEquals(){
+	@Test public void testListNegativeEquals(){
 		ArrayList<Integer> a = new ArrayList<Integer>();
 		a.add(3);
 		a.add(1);
@@ -39,24 +36,22 @@ public class ListUtilTest {
 		b.add(2);
 		b.add(3);
 		
-		boolean equals = ListUtils.arrayListsEqual(a, b);
-		assertFalse(equals);
+		boolean listsEqual = ListUtils.arrayListsEqual(a, b);
+		assertFalse(listsEqual);
 	}
 	
-	@Test
-	public void testListDistinctElement(){
+	@Test public void testListDistinctElement(){
 		ArrayList<Integer> a = new ArrayList<Integer>();
 		a.add(3);
 		a.add(2);
 		a.add(2);
 		a.add(4);
-		
-		
+
 		List<Integer> output = ListUtils.distinctElements(a);
 		
 		assertEquals(3, output.size());
-		assertEquals(new Integer(3), output.get(0));
-		assertEquals(new Integer(2), output.get(1));
-		assertEquals(new Integer(4), output.get(2));
+		assertEquals(3, (int) output.get(0));
+		assertEquals(2, (int) output.get(1));
+		assertEquals(4, (int) output.get(2));
 	}
 }
