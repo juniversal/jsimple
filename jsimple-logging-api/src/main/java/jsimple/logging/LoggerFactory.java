@@ -54,6 +54,7 @@
 package jsimple.logging;
 
 import jsimple.logging.helpers.NOPLogger;
+import jsimple.util.BasicException;
 
 /**
  * The <code>LoggerFactory</code> is a utility class producing Loggers for various logging APIs, most notably for log4j,
@@ -77,7 +78,7 @@ public final class LoggerFactory {
 
     public static void init(ILoggerFactory loggerFactory) {
         if (concreteLoggerFactory != null)
-            throw new RuntimeException("LoggerFactory is already initialized");
+            throw new BasicException("LoggerFactory is already initialized");
         concreteLoggerFactory = loggerFactory;
     }
 

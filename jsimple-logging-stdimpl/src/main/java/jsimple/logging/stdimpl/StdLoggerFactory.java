@@ -17,10 +17,9 @@ import jsimple.logging.ILoggerFactory;
 import jsimple.logging.Level;
 import jsimple.logging.Logger;
 import jsimple.logging.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import jsimple.util.ArrayList;
+import jsimple.util.HashMap;
+import jsimple.util.List;
 
 /**
  * @author Bret Johnson

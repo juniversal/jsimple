@@ -15,8 +15,7 @@ package jsimple.logging.stdimpl;
 import jsimple.logging.Level;
 import jsimple.logging.LogEnterLeave;
 import jsimple.logging.Logger;
-
-import java.util.List;
+import jsimple.util.List;
 
 /**
  * @author Bret Johnson
