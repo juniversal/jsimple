@@ -28,7 +28,6 @@
 
 package jsimple.oauth.services;
 
-import jsimple.oauth.exceptions.OAuthSignatureException;
 import jsimple.oauth.utils.OAuthEncoder;
 
 /**
@@ -43,12 +42,8 @@ public class PlaintextSignatureService implements SignatureService {
      * {@inheritDoc}
      */
     public String getSignature(String baseString, String apiSecret, String tokenSecret) {
-        try {
-            assert !apiSecret.trim().isEmpty() : "Api secret cant be null or empty string";
-            return OAuthEncoder.encode(apiSecret) + '&' + OAuthEncoder.encode(tokenSecret);
-        } catch (Exception e) {
-            throw new OAuthSignatureException(baseString, e);
-        }
+        assert !apiSecret.trim().isEmpty() : "Api secret cant be null or empty string";
+        return OAuthEncoder.encode(apiSecret) + '&' + OAuthEncoder.encode(tokenSecret);
     }
 
     /**

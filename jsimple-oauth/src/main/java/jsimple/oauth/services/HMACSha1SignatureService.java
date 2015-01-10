@@ -29,10 +29,10 @@
 package jsimple.oauth.services;
 
 import jsimple.io.IOUtils;
-import jsimple.oauth.exceptions.OAuthSignatureException;
 import jsimple.oauth.utils.OAuthEncoder;
 import jsimple.oauth.utils.Sha1;
 import jsimple.util.Base64;
+import jsimple.util.StringUtils;
 
 /**
  * HMAC-SHA1 implementation of {@SignatureService}
@@ -46,14 +46,10 @@ public class HMACSha1SignatureService implements SignatureService {
      * {@inheritDoc}
      */
     public String getSignature(String baseString, String apiSecret, String tokenSecret) {
-        try {
-            assert baseString != null && !baseString.isEmpty() : "Base string cant be null or empty string";
-            assert apiSecret != null && !apiSecret.isEmpty() : "Api secret cant be null or empty string";
+        assert !StringUtils.isNullOrEmpty(baseString) : "Base string cant be null or empty string";
+        assert !StringUtils.isNullOrEmpty(apiSecret) : "Api secret cant be null or empty string";
 
-            return doSign(baseString, OAuthEncoder.encode(apiSecret) + '&' + OAuthEncoder.encode(tokenSecret));
-        } catch (Exception e) {
-            throw new OAuthSignatureException(baseString, e);
-        }
+        return doSign(baseString, OAuthEncoder.encode(apiSecret) + '&' + OAuthEncoder.encode(tokenSecret));
     }
 
     private String doSign(String toSign, String keyString) {

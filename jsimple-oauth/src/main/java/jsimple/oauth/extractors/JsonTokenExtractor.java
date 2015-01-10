@@ -31,6 +31,7 @@ package jsimple.oauth.extractors;
 import jsimple.oauth.exceptions.OAuthException;
 import jsimple.oauth.model.Token;
 import jsimple.util.CharIterator;
+import jsimple.util.InvalidFormatException;
 
 public class JsonTokenExtractor implements AccessTokenExtractor {
     public Token extract(String response) {
@@ -53,7 +54,7 @@ public class JsonTokenExtractor implements AccessTokenExtractor {
             tokenIterator.checkAndAdvance('\"');
 
             return new Token(tokenBuffer.toString(), "", response);
-        } catch (RuntimeException e) {
+        } catch (InvalidFormatException e) {
             throw new OAuthException("Cannot extract an access token. Response was: " + response, e);
         }
     }
