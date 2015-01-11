@@ -123,7 +123,7 @@ public class TokenTest extends UnitTest {
         validateParsingException("Expected a digit to follow a minus sign but encountered 'a'", "-a");
         validateNumberToken(0x7fffffff, "2147483647");
         validateNumberToken(0x80000000L, "2147483648");
-        validateNumberToken(-0x80000000, "-2147483648");
+        validateNumberToken(0x80000000, "-2147483648");
         validateNumberToken(-0x80000001L, "-2147483649");
         validateNumberToken(-0x80000001L, "-2147483649");
         validateNumberToken(0, "0");
