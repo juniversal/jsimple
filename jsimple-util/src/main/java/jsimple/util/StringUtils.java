@@ -22,11 +22,16 @@
 
 package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * @author Bret Johnson
  * @since 10/23/12 12:23 AM
  */
 public class StringUtils {
+    public static boolean isNullOrEmpty(@Nullable String string) {
+        return string == null || string.isEmpty();
+    }
 
     /**
      * Convert a byte array to a hexadecimal string.  Leading zeros are of course preserved.  Hex letters are upper
