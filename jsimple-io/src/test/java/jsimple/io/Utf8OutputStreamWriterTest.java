@@ -24,7 +24,7 @@ package jsimple.io;
 
 import jsimple.unit.UnitTest;
 import jsimple.util.ByteArrayRange;
-import jsimple.util.StringUtils;
+import jsimple.util.StringBuilderUtils;
 import org.junit.Test;
 
 /**
@@ -60,11 +60,11 @@ public class Utf8OutputStreamWriterTest extends UnitTest {
     private void appendCodePoints(int codePlane, StringBuilder uni) {
         int highWord = codePlane << 16;
 
-        StringUtils.appendCodePoint(uni, highWord | 0x0000);
-        StringUtils.appendCodePoint(uni, highWord | 0x0001);
-        StringUtils.appendCodePoint(uni, highWord | 0x000F);
-        StringUtils.appendCodePoint(uni, highWord | 0xFFFE);
-        StringUtils.appendCodePoint(uni, highWord | 0xFFFF);
+        StringBuilderUtils.appendCodePoint(uni, highWord | 0x0000);
+        StringBuilderUtils.appendCodePoint(uni, highWord | 0x0001);
+        StringBuilderUtils.appendCodePoint(uni, highWord | 0x000F);
+        StringBuilderUtils.appendCodePoint(uni, highWord | 0xFFFE);
+        StringBuilderUtils.appendCodePoint(uni, highWord | 0xFFFF);
     }
 
     private void testRoundTripping(String input) {

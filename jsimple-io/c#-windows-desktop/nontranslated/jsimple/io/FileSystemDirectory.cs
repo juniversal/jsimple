@@ -155,7 +155,7 @@ namespace jsimple.io
         {
             try
             {
-                return PlatformUtil.toMillisFromDateTime(System.IO.Directory.GetLastWriteTimeUtc(directoryPath));
+                return PlatformUtils.toMillisFromDateTime(System.IO.Directory.GetLastWriteTimeUtc(directoryPath));
             }
             catch (System.IO.IOException e)
             {
@@ -168,7 +168,7 @@ namespace jsimple.io
             try
             {
                 System.IO.Directory.SetLastWriteTimeUtc(directoryPath,
-                    PlatformUtil.toDotNetDateTimeFromMillis(value));
+                    PlatformUtils.toDotNetDateTimeFromMillis(value));
             }
             catch (System.IO.IOException e)
             {

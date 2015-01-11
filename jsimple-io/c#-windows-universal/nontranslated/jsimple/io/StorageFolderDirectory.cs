@@ -65,7 +65,7 @@ namespace jsimple.io
         {
             try
             {
-                return PlatformUtil.toMillisFromDateTimeOffset(storageFolder.GetBasicPropertiesAsync().DoSynchronously().DateModified);
+                return PlatformUtils.toMillisFromDateTimeOffset(storageFolder.GetBasicPropertiesAsync().DoSynchronously().DateModified);
             }
             catch (System.IO.IOException e)
             {

@@ -45,7 +45,7 @@ namespace jsimple.io
 
         public override long getLastModifiedTime()
         {
-            return PlatformUtil.toMillisFromDateTimeOffset(getBasicProperties().DateModified);
+            return PlatformUtils.toMillisFromDateTimeOffset(getBasicProperties().DateModified);
         }
 
         public override long getSize()
