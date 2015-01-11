@@ -138,23 +138,76 @@ public class StringUtils {
     }
 
     /**
-     * Append the specified UTF-32 code point to the string builder, encoding it in UTF-16 (as is used for standard Java
-     * and C# strings) as a single 16 bit character if it's in the basic multilingual plane or as a surrogate pair if
-     * it's in one of the supplementary planes.  See http://en.wikipedia.org/wiki/UTF-16 for details.
+     * Splits this string using the supplied pattern as the delimiter.   Does the same thing as split(string, delimiter,
+     * 0).
      *
-     * @param s
-     * @param utf32Character
+     * @param string    string to split
+     * @param delimiter the pattern used to delimit substrings
+     * @return a list of Strings created by separating the via matches of the pattern
      */
-    public static void appendCodePoint(StringBuilder s, int utf32Character) {
-        if ((utf32Character >= 0x0000 && utf32Character <= 0xd7ff) ||
-                (utf32Character >= 0xe000 && utf32Character <= 0xffff))
-            s.append((char) utf32Character);
-        else if (utf32Character >= 0x10000 && utf32Character <= 0x10ffff) {
-            int value = utf32Character - 0x10000;   // 20 bit value in the range 0..0xFFFFF
-            int leadSurrogate = (value >> 0x3FF) + 0xD800;   // 10 bits
-            int trailSurrogate = (value & 0x3FF) + 0xDC00;   // 10 bits
-            s.append((char) leadSurrogate);
-            s.append((char) trailSurrogate);
-        } else throw new BasicException("Invalid UTF-32 character code: {}", utf32Character);
+    public static ArrayList<String> split(String string, Pattern delimiter) {
+        return split(string, delimiter, 0);
+    }
+
+    /**
+     * Splits this string using the supplied pattern as the delimiter.   In typical cases, the {@code delimiter} pattern
+     * is character or literal string, but it can be arbitrarily complex.
+     * <p/>
+     * The parameter {@code max} controls how many times the pattern is applied, by specifying the max number of items
+     * in the returned list.  If the limit is reached, the last item returned includes the remainder of the string.
+     * Specify 0 for no limit.
+     *
+     * @param string    string to split
+     * @param delimiter the pattern used to delimit substrings
+     * @param max       the max number of entries in the resulting array; if 0 then unlimited
+     * @return a list of Strings created by separating the via matches of the pattern
+     */
+    public static ArrayList<String> split(String string, Pattern delimiter, int max) {
+        ArrayList<String> strings = new ArrayList<String>();
+
+        MatchBuilder matchBuilder = new MatchBuilder(string);
+
+        while (true) {
+            if (max != 0 && strings.size() >= max - 1)
+                matchBuilder.matchRestOfString();
+            else matchBuilder.matchUntil(delimiter);
+
+            strings.add(matchBuilder.toString());
+
+            if (matchBuilder.hitEnd())
+                break;
+
+            matchBuilder.match(delimiter);
+            matchBuilder.startOverAtCurrentPosition();
+        }
+
+        return strings;
+    }
+
+    /**
+     * Splits this string using the supplied character as the delimiter.
+     *
+     * @param string    string to split
+     * @param delimiter the character used to delimit substrings
+     * @return a list of Strings created by separating the via matches of the character
+     */
+    public static ArrayList<String> split(String string, final char delimiter) {
+        return split(string, delimiter, 0);
+    }
+
+    /**
+     * Splits this string using the supplied character as the delimiter, returning at most {@code max} items.
+     *
+     * @param string    string to split
+     * @param delimiter the character used to delimit substrings
+     * @param max       the max number of entries in the resulting array; if 0 then unlimited
+     * @return a list of Strings created by separating the via matches of the character
+     */
+    public static ArrayList<String> split(String string, final char delimiter, int max) {
+        return split(string, new Pattern() {
+            @Override public boolean match(MatchBuilder matchBuilder) {
+                return matchBuilder.match(delimiter);
+            }
+        }, max);
     }
 }
