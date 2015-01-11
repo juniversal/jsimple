@@ -42,7 +42,7 @@
 package jsimple.util;
 
 /**
- * {@code Map.Entry} is a key/value mapping contained in a {@code Map}.
+ * {@code MapEntry} is a key/value mapping contained in a {@code Map}.
  */
 public interface MapEntry<K,V> {
     /**
