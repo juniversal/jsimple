@@ -642,7 +642,7 @@ public final class ArrayList<E> extends List<E> {
         }
     }
 
-    public void sort(Comparator<E> comparator) {
+    public void sortInPlace(Comparator<E> comparator) {
         Arrays.sort(array, firstIndex, firstIndex + itemCount, comparator);
         modCount++;
     }
