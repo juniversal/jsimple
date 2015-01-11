@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="BlowfishJ originated source" pattern="file[jsimple-oauth]:src/main/java/jsimple/oauth/utils/Sha1.java" />
+  <scope name="BlowfishJ originated source" pattern="file[jsimple-oauth]:src/main/java/jsimple/oauth/utils/Sha1.java||file[jsimple-oauth]:src/test/java/jsimple/oauth/utils/Sha1Test.java" />
 </component>
