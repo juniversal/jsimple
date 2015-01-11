@@ -79,7 +79,7 @@ public class FacebookFacade {
 		return ret;
 	}
 	
-	public List<FacebookFriend> getAllFbFriends(){
+	public ArrayList<FacebookFriend> getAllFbFriends(){
 		String friendsJson = connector.getFriendList();
 		return parser.parserFriendList(friendsJson);
 	}

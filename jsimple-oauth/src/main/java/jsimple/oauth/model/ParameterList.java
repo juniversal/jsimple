@@ -38,8 +38,8 @@ import org.jetbrains.annotations.Nullable;
 public class ParameterList {
     private static final char QUERY_STRING_SEPARATOR_CHAR = '?';
     private static final String QUERY_STRING_SEPARATOR = "?";
-    private static final String PARAM_SEPARATOR = "&";
-    private static final String PAIR_SEPARATOR = "=";
+    private static final char PARAM_SEPARATOR_CHAR = '&';
+    private static final char PAIR_SEPARATOR_CHAR = '=';
     private static final String EMPTY_STRING = "";
 
     private final ArrayList<Parameter> parameters;
@@ -70,7 +70,7 @@ public class ParameterList {
         if (queryString.equals(EMPTY_STRING)) {
             return url;
         } else {
-            url += url.indexOf(QUERY_STRING_SEPARATOR_CHAR) != -1 ? PARAM_SEPARATOR : QUERY_STRING_SEPARATOR;
+            url += url.indexOf(QUERY_STRING_SEPARATOR_CHAR) != -1 ? CharacterUtil.toString(PARAM_SEPARATOR_CHAR) : QUERY_STRING_SEPARATOR;
             url += queryString;
             return url;
         }
@@ -98,11 +98,11 @@ public class ParameterList {
     }
 
     public void addQueryString(@Nullable String queryString) {
-        if (queryString != null && queryString.length() > 0) {
-            for (String param : queryString.split(PARAM_SEPARATOR)) {
-                String[] pair = param.split(PAIR_SEPARATOR);
-                String key = OAuthEncoder.decode(pair[0]);
-                String value = pair.length > 1 ? OAuthEncoder.decode(pair[1]) : EMPTY_STRING;
+        if (! StringUtils.isNullOrEmpty(queryString)) {
+            for (String param : StringUtils.split(queryString, PARAM_SEPARATOR_CHAR)) {
+                List<String> pair = StringUtils.split(param, PAIR_SEPARATOR_CHAR);
+                String key = OAuthEncoder.decode(pair.get(0));
+                String value = pair.size() > 1 ? OAuthEncoder.decode(pair.get(1)) : EMPTY_STRING;
                 parameters.add(new Parameter(key, value));
             }
         }
@@ -120,9 +120,9 @@ public class ParameterList {
         ParameterList sorted = new ParameterList(parameters);
 
         // TODO (Bret): This doesn't seem exactly right--the OAuth spec says that parameters should be sorted in byte order
-        sorted.parameters.sort(new Comparator<Parameter>() {
-            @Override public int compare(Parameter object1, Parameter object2) {
-                return object1.compareTo(object2);
+        sorted.parameters.sortInPlace(new Comparator<Parameter>() {
+            @Override public int compare(Parameter paramter1, Parameter parameter2) {
+                return paramter1.compareTo(parameter2);
             }
         });
 

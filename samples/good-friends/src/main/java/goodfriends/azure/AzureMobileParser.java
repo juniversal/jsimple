@@ -17,8 +17,8 @@ public class AzureMobileParser {
     /**
      * Json to Model object parser
      */
-    public List<FacebookFriend> parserFriendList(String json) {
-        List<FacebookFriend> ret = new ArrayList<FacebookFriend>();
+    public ArrayList<FacebookFriend> parserFriendList(String json) {
+        ArrayList<FacebookFriend> ret = new ArrayList<FacebookFriend>();
         //create a new json parser and extract the root object
         ObjectModelParser parser = new ObjectModelParser(new StringReader(json));
         JsonObjectOrArray root = parser.parseRoot();

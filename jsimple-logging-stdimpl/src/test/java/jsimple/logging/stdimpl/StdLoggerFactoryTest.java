@@ -36,7 +36,7 @@ public class StdLoggerFactoryTest {
         LoggerFactory.init(new StdLoggerFactory());
 
         Logger logger = LoggerFactory.getLogger("mylogger");
-        ((StdLogger) logger).setLevel(Level.TRACE);
+        logger.setLevel(Level.TRACE);
 
         logger.trace("trace message");
         logger.debug("debug message");

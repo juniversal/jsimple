@@ -31,7 +31,7 @@ package jsimple.oauth.services;
 import jsimple.oauth.utils.OAuthEncoder;
 
 /**
- * plaintext implementation of {@SignatureService}
+ * plaintext implementation of {@link SignatureService}
  *
  * @author Pablo Fernandez
  */

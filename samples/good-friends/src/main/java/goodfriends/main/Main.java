@@ -4,10 +4,7 @@ import java.util.Scanner;
 
 import jsimple.io.JSimpleIO;
 import jsimple.oauth.model.Token;
-import jsimple.util.ArrayList;
-import jsimple.util.BasicException;
-import jsimple.util.List;
-import jsimple.util.PlatformUtils;
+import jsimple.util.*;
 import goodfriends.azure.AzureMobileFacade;
 import goodfriends.facebook.FacebookFacade;
 import goodfriends.local.LocalFileFacade;
@@ -109,10 +106,14 @@ public class Main {
 		System.out.println("Loading ....");
 		System.out.println("All your friends are : ");
 		
-		
-		List<FacebookFriend> fbFriends = fbFacade.getAllFbFriends();
-		Main.sortFriendList(fbFriends);
-		
+		ArrayList<FacebookFriend> fbFriends = fbFacade.getAllFbFriends();
+		// Sort the friends, ordering by name
+		fbFriends.sortInPlace(new Comparator<FacebookFriend>() {
+			@Override public int compare(FacebookFriend friend1, FacebookFriend friend2) {
+				return friend1.compareToByName(friend2);
+			}
+		});
+
 		for (int i = 0; i < fbFriends.size(); i++) {
 			System.out.println(i + ")" + fbFriends.get(i).getName());
 		}
@@ -204,17 +205,5 @@ public class Main {
 		} while (!isValidInput(input, lowRange, topRange));
 		return new Integer(input);
 	}
-	
-	private static void sortFriendList(List<FacebookFriend> original) {
-		java.util.List<FacebookFriend> list = new java.util.ArrayList<FacebookFriend>();
-		for (FacebookFriend facebookFriend : original) {
-			list.add(facebookFriend);
-		}
-		PlatformUtils.sortList(list);
-		original.clear();
 
-		for (FacebookFriend facebookFriend : list) {
-			original.add(facebookFriend);
-		}
-	}
 }

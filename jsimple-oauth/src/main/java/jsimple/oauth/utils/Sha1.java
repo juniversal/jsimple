@@ -357,38 +357,4 @@ public final class Sha1 {
 
         return sha1Outer.digest(hashInner);
     }
-
-    /**
-     * Runs an integrity test.
-     */
-    public static void main(String[] args) {
-        final String SELFTEST_MESSAGE =
-                "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq";
-
-        final byte[] SELFTEST_DIGEST =
-                {
-                        (byte) 0x84, (byte) 0x98, (byte) 0x3e, (byte) 0x44, (byte) 0x1c,
-                        (byte) 0x3b, (byte) 0xd2, (byte) 0x6e, (byte) 0xba, (byte) 0xae,
-                        (byte) 0x4a, (byte) 0xa1, (byte) 0xf9, (byte) 0x51, (byte) 0x29,
-                        (byte) 0xe5, (byte) 0xe5, (byte) 0x46, (byte) 0x70, (byte) 0xf1
-                };
-
-        Sha1 tester = new Sha1();
-
-        for (int nI1 = 0, nC = SELFTEST_MESSAGE.length(); nI1 < nC; nI1++) {
-            tester.update((byte) (SELFTEST_MESSAGE.charAt(nI1) & 0x0ff));
-        }
-
-        byte[] digestValue = tester.digest();
-
-        boolean failed = false;
-        for (int nI = 0; nI < DIGEST_SIZE; nI++) {
-            if (digestValue[nI] != SELFTEST_DIGEST[nI]) {
-                failed = true;
-                break;
-            }
-        }
-
-        System.out.println(failed ? "Test failed!" : "Test succeeded");
-    }
 }

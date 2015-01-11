@@ -1,6 +1,6 @@
 package goodfriends.model;
 
-public class FacebookFriend implements Comparable<FacebookFriend>{
+public class FacebookFriend {
 	private String name;
 	private String pictureUrl;
 
@@ -34,8 +34,7 @@ public class FacebookFriend implements Comparable<FacebookFriend>{
 		return "{\"name\":\"" + name + "\",\"picURL\":\"" + pictureUrl + "\",\"myid\":" + applicationUserId + "}";
 	}
 
-	public int compareTo(FacebookFriend arg0) {
+	public int compareToByName(FacebookFriend arg0) {
 		return name.compareTo(arg0.name);
 	}
-
 }

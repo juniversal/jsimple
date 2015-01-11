@@ -18,8 +18,8 @@ public class FacebookParser {
     /**
      * Create friends data object from the friend json received from facebook
      */
-    public List<FacebookFriend> parserFriendList(String json) {
-        List<FacebookFriend> ret = new ArrayList<FacebookFriend>();
+    public ArrayList<FacebookFriend> parserFriendList(String json) {
+        ArrayList<FacebookFriend> ret = new ArrayList<FacebookFriend>();
         ObjectModelParser parser = new ObjectModelParser(new StringReader(json));
         JsonObjectOrArray root = parser.parseRoot();
         //when receiving data from facebook the all the information is in a json 

@@ -35,7 +35,7 @@ import jsimple.util.Base64;
 import jsimple.util.StringUtils;
 
 /**
- * HMAC-SHA1 implementation of {@SignatureService}
+ * HMAC-SHA1 implementation of {@link SignatureService}
  *
  * @author Pablo Fernandez
  */
