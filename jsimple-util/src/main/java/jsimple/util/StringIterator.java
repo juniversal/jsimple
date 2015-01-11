@@ -26,12 +26,12 @@ package jsimple.util;
  * @author Bret Johnson
  * @since 11/25/12 4:00 PM
  */
-public class CharIterator {
+public class StringIterator {
     private String str;
     private int index = 0;
     private int length;
 
-    public CharIterator(String string) {
+    public StringIterator(String string) {
         this.str = string;
         this.length = string.length();
     }

@@ -13,7 +13,7 @@
 package jsimple.logging.stdimpl;
 
 import jsimple.io.Writer;
-import jsimple.util.PlatformUtil;
+import jsimple.util.PlatformUtils;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -35,7 +35,7 @@ public class WriterAppender extends Appender {
 
             @Nullable Throwable throwable = loggingEvent.getThrowable();
             if (throwable != null)
-                writer.writeln(PlatformUtil.getExceptionDescription(throwable));
+                writer.writeln(PlatformUtils.getExceptionDescription(throwable));
 
             if (flushImmediately)
                 writer.flush();

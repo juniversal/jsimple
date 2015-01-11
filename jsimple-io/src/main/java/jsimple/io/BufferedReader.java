@@ -41,7 +41,7 @@
 
 package jsimple.io;
 
-import jsimple.util.PlatformUtil;
+import jsimple.util.PlatformUtils;
 import jsimple.util.ProgrammerError;
 
 /**
@@ -151,11 +151,11 @@ public class BufferedReader extends Reader {
                 newLength = markLimit;
             }
             char[] newbuf = new char[newLength];
-            PlatformUtil.copyChars(buf, 0, newbuf, 0, buf.length);
+            PlatformUtils.copyChars(buf, 0, newbuf, 0, buf.length);
             buf = newbuf;
         } else if (markPos > 0) {
             /* make room by shifting the buffered data to left mark positions */
-            PlatformUtil.copyChars(buf, markPos, buf, 0, buf.length - markPos);
+            PlatformUtils.copyChars(buf, markPos, buf, 0, buf.length - markPos);
             pos -= markPos;
             end -= markPos;
             markPos = 0;
@@ -239,7 +239,7 @@ public class BufferedReader extends Reader {
             int available = end - pos;
             if (available > 0) {
                 int count = available >= outstanding ? outstanding : available;
-                PlatformUtil.copyChars(buf, pos, buffer, offset, count);
+                PlatformUtils.copyChars(buf, pos, buffer, offset, count);
                 pos += count;
                 offset += count;
                 outstanding -= count;

@@ -31,7 +31,7 @@ package jsimple.oauth.extractors;
 import jsimple.oauth.model.Token;
 import jsimple.oauth.utils.OAuthEncoder;
 import jsimple.util.BasicException;
-import jsimple.util.CharIterator;
+import jsimple.util.StringIterator;
 
 /**
  * Default implementation of {@RequestTokenExtractor} and {@AccessTokenExtractor}. Conforms to OAuth 1.0a
@@ -49,7 +49,7 @@ public class TokenExtractorImpl implements RequestTokenExtractor, AccessTokenExt
         // private static final Pattern TOKEN_REGEX = Pattern.compile("oauth_token=([^&]+)");
         // private static final Pattern SECRET_REGEX = Pattern.compile("oauth_token_secret=([^&]*)");
 
-        CharIterator tokenIterator = new CharIterator(response);
+        StringIterator tokenIterator = new StringIterator(response);
         tokenIterator.skipAheadPast("oauth_token=");
         StringBuilder tokenBuffer = new StringBuilder();
         while (!tokenIterator.isWhitespace() && tokenIterator.curr() != '&' && !tokenIterator.atEnd())
@@ -57,7 +57,7 @@ public class TokenExtractorImpl implements RequestTokenExtractor, AccessTokenExt
         if (tokenBuffer.toString().isEmpty())
             throw new BasicException("oauth_token is empty string");
 
-        CharIterator secretIterator = new CharIterator(response);
+        StringIterator secretIterator = new StringIterator(response);
         secretIterator.skipAheadPast("oauth_token_secret=");
         StringBuilder secretBuffer = new StringBuilder();
         while (!secretIterator.isWhitespace() && secretIterator.curr() != '&' && !secretIterator.atEnd())

@@ -91,7 +91,7 @@ public final class DateTime {
      * @since 2.0
      */
     public static DateTime now() {
-        return new DateTime(PlatformUtil.getCurrentTimeMillis());
+        return new DateTime(PlatformUtils.getCurrentTimeMillis());
     }
 
     /**
@@ -423,26 +423,26 @@ public final class DateTime {
     }
 
     public static DateTime parseRFC3339(String rfc3339DateTime) {
-        CharIterator charIterator = new CharIterator(rfc3339DateTime);
+        StringIterator stringIterator = new StringIterator(rfc3339DateTime);
 
-        int year = parseFixedDigitsInt(charIterator, 4);
-        charIterator.checkAndAdvance('-');
-        int month = parseFixedDigitsInt(charIterator, 2);
-        charIterator.checkAndAdvance('-');
-        int day = parseFixedDigitsInt(charIterator, 2);
+        int year = parseFixedDigitsInt(stringIterator, 4);
+        stringIterator.checkAndAdvance('-');
+        int month = parseFixedDigitsInt(stringIterator, 2);
+        stringIterator.checkAndAdvance('-');
+        int day = parseFixedDigitsInt(stringIterator, 2);
 
         if (month < 1 || month > 12)
             throw new InvalidFormatException("Month {} is outside expected range in {}", month, rfc3339DateTime);
         if (day < 1 || day > 31)
             throw new InvalidFormatException("Day {} is outside expected range in {}", day, rfc3339DateTime);
 
-        charIterator.checkAndAdvance('T');
+        stringIterator.checkAndAdvance('T');
 
-        int hour = parseFixedDigitsInt(charIterator, 2);
-        charIterator.checkAndAdvance(':');
-        int minute = parseFixedDigitsInt(charIterator, 2);
-        charIterator.checkAndAdvance(':');
-        int second = parseFixedDigitsInt(charIterator, 2);
+        int hour = parseFixedDigitsInt(stringIterator, 2);
+        stringIterator.checkAndAdvance(':');
+        int minute = parseFixedDigitsInt(stringIterator, 2);
+        stringIterator.checkAndAdvance(':');
+        int second = parseFixedDigitsInt(stringIterator, 2);
 
         if (hour < 0 || hour > 23)
             throw new InvalidFormatException("Hour {} is outside expected range in {}", hour, rfc3339DateTime);
@@ -452,12 +452,12 @@ public final class DateTime {
             throw new InvalidFormatException("Second {} is outside expected range in {}", second, rfc3339DateTime);
 
         double fractionalSeconds = 0.0;
-        if (charIterator.curr() == '.') {
-            charIterator.advance();
+        if (stringIterator.curr() == '.') {
+            stringIterator.advance();
 
             double divisor = 0.1;
-            while (charIterator.isDigit()) {
-                char c = charIterator.read();
+            while (stringIterator.isDigit()) {
+                char c = stringIterator.read();
                 fractionalSeconds = fractionalSeconds + (c - '0') * divisor;
                 divisor /= 10.0;
             }
@@ -467,18 +467,18 @@ public final class DateTime {
         DateTime dateTime = new DateTime(year, month, day, hour, minute, second, millisecond);
 
         // If a time zone offset is specified, map the time back to UTC
-        char timeZoneOffsetChar = charIterator.read();
+        char timeZoneOffsetChar = stringIterator.read();
         if (timeZoneOffsetChar == 'Z') {
             // Do nothing--already UTC
         } else if (timeZoneOffsetChar == '+' || timeZoneOffsetChar == '-') {
-            int timeZoneOffsetMinutes = parseFixedDigitsInt(charIterator, 2) * 60;
+            int timeZoneOffsetMinutes = parseFixedDigitsInt(stringIterator, 2) * 60;
 
             // According to the RFC 3339 and ISO 8601 specs, the colon is mandatory.  However, the Microsoft SkyDrive
             // API uses +0000 to mean UTC so we're more lenient here, allowing the colon to be optional.
-            if (charIterator.curr() == ':')
-                charIterator.advance();
+            if (stringIterator.curr() == ':')
+                stringIterator.advance();
 
-            timeZoneOffsetMinutes += parseFixedDigitsInt(charIterator, 2);
+            timeZoneOffsetMinutes += parseFixedDigitsInt(stringIterator, 2);
 
             // Apply the reverse of the time zone offset, to map time back to UTC
             int multiplier = timeZoneOffsetChar == '+' ? -1 : 1;
@@ -489,14 +489,14 @@ public final class DateTime {
         return dateTime;
     }
 
-    private static int parseFixedDigitsInt(CharIterator charIterator, int numberOfDigits) {
+    private static int parseFixedDigitsInt(StringIterator stringIterator, int numberOfDigits) {
         int value = 0;
 
         for (int digitCount = 0; digitCount < numberOfDigits; ++digitCount) {
-            if (!charIterator.isDigit())
-                throw new InvalidFormatException("Expected digit; encountered '{}' at '{}' in '{}'", charIterator.curr(),
-                        charIterator.getRemaining(), charIterator.getString());
-            char c = charIterator.read();
+            if (!stringIterator.isDigit())
+                throw new InvalidFormatException("Expected digit; encountered '{}' at '{}' in '{}'", stringIterator.curr(),
+                        stringIterator.getRemaining(), stringIterator.getString());
+            char c = stringIterator.read();
             value = 10 * value + (c - '0');
         }
 

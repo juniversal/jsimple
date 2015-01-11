@@ -30,7 +30,7 @@ package jsimple.oauth.extractors;
 
 import jsimple.oauth.exceptions.OAuthException;
 import jsimple.oauth.model.Token;
-import jsimple.util.CharIterator;
+import jsimple.util.StringIterator;
 import jsimple.util.InvalidFormatException;
 
 public class JsonTokenExtractor implements AccessTokenExtractor {
@@ -41,7 +41,7 @@ public class JsonTokenExtractor implements AccessTokenExtractor {
             // Original regex
             // private Pattern accessTokenPattern = Pattern.compile("\"access_token\":\\s*\"(\\S*?)\"");
 
-            CharIterator tokenIterator = new CharIterator(response);
+            StringIterator tokenIterator = new StringIterator(response);
 
             tokenIterator.skipAheadPast("\"access_token\":");
             tokenIterator.advancePastWhitespace();

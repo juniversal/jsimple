@@ -41,7 +41,7 @@
 
 package jsimple.io;
 
-import jsimple.util.PlatformUtil;
+import jsimple.util.PlatformUtils;
 
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.Writer class.  Unlike the standard Java Writer
@@ -58,7 +58,7 @@ import jsimple.util.PlatformUtil;
  * @see Reader
  */
 public abstract class Writer extends jsimple.lang.AutoCloseable {
-    private String lineSeparator = PlatformUtil.getLineSeparator();
+    private String lineSeparator = PlatformUtils.getLineSeparator();
 
     /**
      * Closes this writer. Implementations of this method should free any resources associated with the writer.

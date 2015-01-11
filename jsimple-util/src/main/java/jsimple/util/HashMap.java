@@ -423,7 +423,7 @@ public class HashMap<K, V> extends Map<K, V> {
         if (m != null) {
             return m.value;
         }
-        return PlatformUtil.<V>defaultValue();
+        return PlatformUtils.<V>defaultValue();
     }
 
     final @Nullable HashMapEntry<K, V> getEntry(K key) {
@@ -595,7 +595,7 @@ public class HashMap<K, V> extends Map<K, V> {
         if (entry != null) {
             return entry.value;
         }
-        return PlatformUtil.<V>defaultValue();
+        return PlatformUtils.<V>defaultValue();
     }
 
     /*

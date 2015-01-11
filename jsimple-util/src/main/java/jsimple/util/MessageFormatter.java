@@ -292,7 +292,7 @@ final public class MessageFormatter {
 
             final int trimemdLen = argArray.length - 1;
             Object[] trimmed = new Object[trimemdLen];
-            PlatformUtil.arraycopy(argArray, 0, trimmed, 0, trimemdLen);
+            PlatformUtils.arraycopy(argArray, 0, trimmed, 0, trimemdLen);
             return trimmed;
         }
 

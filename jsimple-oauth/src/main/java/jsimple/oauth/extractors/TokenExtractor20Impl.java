@@ -31,7 +31,7 @@ package jsimple.oauth.extractors;
 import jsimple.oauth.model.Token;
 import jsimple.oauth.utils.OAuthEncoder;
 import jsimple.util.BasicException;
-import jsimple.util.CharIterator;
+import jsimple.util.StringIterator;
 
 /**
  * Default implementation of {@AccessTokenExtractor}. Conforms to OAuth 2.0
@@ -46,7 +46,7 @@ public class TokenExtractor20Impl implements AccessTokenExtractor {
         // Original code regex:
         // private static final String TOKEN_REGEX = "access_token=([^&]+)";
 
-        CharIterator tokenIterator = new CharIterator(response);
+        StringIterator tokenIterator = new StringIterator(response);
         tokenIterator.skipAheadPast("access_token=");
         StringBuilder tokenBuffer = new StringBuilder();
         while (!tokenIterator.isWhitespace() && tokenIterator.curr() != '&' && !tokenIterator.atEnd())

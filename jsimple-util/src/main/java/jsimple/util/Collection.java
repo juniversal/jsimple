@@ -386,7 +386,7 @@ public abstract class Collection<E> extends jsimple.lang.Iterable<E> {
             contents[index++] = entry;
         }
 
-        E defaultValue = PlatformUtil.<E>defaultValue();
+        E defaultValue = PlatformUtils.<E>defaultValue();
         if (index < contents.length) {
             contents[index] = defaultValue;
         }

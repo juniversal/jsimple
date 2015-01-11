@@ -24,7 +24,7 @@ package jsimple.logging.stdimpl;
 
 import jsimple.logging.Level;
 import jsimple.logging.LogEnterLeave;
-import jsimple.util.PlatformUtil;
+import jsimple.util.PlatformUtils;
 
 /**
  * @author Bret Johnson
@@ -44,13 +44,13 @@ public class LogEnterLeaveStdImpl extends LogEnterLeave {
             this.level = level;
             this.format = format;
             this.arguments = arguments;
-            startTime = PlatformUtil.getCurrentTimeMillis();
+            startTime = PlatformUtils.getCurrentTimeMillis();
         }
     }
 
     @Override public void close() {
         if (startTime != 0) {
-            String suffix = "; took " + (PlatformUtil.getCurrentTimeMillis() - startTime) + "ms";
+            String suffix = "; took " + (PlatformUtils.getCurrentTimeMillis() - startTime) + "ms";
             logger.log(level, "<<<<< Leave " + format + suffix, arguments);
         }
     }

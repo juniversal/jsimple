@@ -42,7 +42,7 @@
 package jsimple.io;
 
 import jsimple.util.ByteArrayRange;
-import jsimple.util.PlatformUtil;
+import jsimple.util.PlatformUtils;
 
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.ByteArrayOutputStream class.  Unlike the Java
@@ -119,7 +119,7 @@ public class ByteArrayOutputStream extends OutputStream {
             return;
 
         byte[] newBuffer = new byte[(count + i) * 2];
-        PlatformUtil.copyBytes(buffer, 0, newBuffer, 0, count);
+        PlatformUtils.copyBytes(buffer, 0, newBuffer, 0, count);
         buffer = newBuffer;
     }
 
@@ -163,7 +163,7 @@ public class ByteArrayOutputStream extends OutputStream {
      */
     public byte[] toByteArray() {
         byte[] copy = new byte[count];
-        PlatformUtil.copyBytes(buffer, 0, copy, 0, count);
+        PlatformUtils.copyBytes(buffer, 0, copy, 0, count);
         return copy;
     }
 
@@ -181,7 +181,7 @@ public class ByteArrayOutputStream extends OutputStream {
         // Expand if necessary
         expand(length);
 
-        PlatformUtil.copyBytes(buffer, offset, this.buffer, this.count, length);
+        PlatformUtils.copyBytes(buffer, offset, this.buffer, this.count, length);
         this.count += length;
     }
 

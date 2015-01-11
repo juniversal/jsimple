@@ -42,7 +42,7 @@
 package jsimple.io;
 
 import jsimple.util.ByteArrayRange;
-import jsimple.util.PlatformUtil;
+import jsimple.util.PlatformUtils;
 
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.ByteArrayInputStream class.  Unlike the Java
@@ -135,7 +135,7 @@ public class ByteArrayInputStream extends InputStream {
             return 0;
 
         int copyLength = this.count - pos < length ? this.count - pos : length;
-        PlatformUtil.copyBytes(buf, pos, b, offset, copyLength);
+        PlatformUtils.copyBytes(buf, pos, b, offset, copyLength);
         pos += copyLength;
         return copyLength;
     }

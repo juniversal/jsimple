@@ -762,7 +762,6 @@ public class IntegerUtilTest extends UnitTest {
         assertEquals(0xF, IntegerUtil.rotateRight(0xF0000000, 28));
         assertEquals(0xF0000000, IntegerUtil.rotateRight(0xF0000000, 32));
         assertEquals(0xF0000000, IntegerUtil.rotateRight(0xF0000000, 0));
-
     }
 
     /**
