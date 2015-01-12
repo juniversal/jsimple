@@ -42,291 +42,328 @@
 package jsimple.util;
 
 import jsimple.unit.UnitTest;
-
+import org.jetbrains.annotations.Nullable;
 import org.junit.Test;
 
 public class CollectionTest extends UnitTest {
+    @Test public void testAddObject() {
+        Collection<Object> ac = new TestAddObjectCollection(this);
 
-	@Test
-	public void testAddObject() {
-		Collection<Object> ac = new Collection<Object>() {
-			@Override
-			public Iterator<Object> iterator() {
-				fail("iterator should not get called");
-				return null;
-			}
+        try {
+            ac.add(null);
+        } catch (ProgrammerError e) {
+        }
+    }
 
-			@Override
-			public int size() {
-				fail("size should not get called");
-				return 0;
-			}
-		};
+    private static class TestAddObjectCollection extends TestCollection<Object> {
+        public TestAddObjectCollection(UnitTest unitTest) {
+            super(unitTest);
+        }
 
-		try {
-			ac.add(null);
-		} catch (ProgrammerError e) {
-		}
-	}
+        @Override public Iterator<Object> iterator() {
+            fail("iterator should not get called");
+            return null;
+        }
 
-	@Test
-	public void testAddAll() {
-		final Collection<String> fixtures = ArrayList.create("0", "1", "2");
-		Collection<String> ac = new Collection<String>() {
+        @Override public int size() {
+            fail("size should not get called");
+            return 0;
+        }
+    }
 
-			@Override
-			public boolean add(String object) {
-				assertTrue(fixtures.contains(object));
-				return true;
-			}
+    @Test public void testAddAll() {
+        final Collection<String> fixtures = new ArrayList<String>("0", "1", "2");
+        Collection<String> ac = new TestAddAllCollection(this, fixtures);
+        assertTrue(ac.addAll(fixtures));
+    }
 
-			@Override
-			public Iterator<String> iterator() {
-				fail("iterator should not get called");
-				return null;
-			}
+    private static class TestAddAllCollection extends TestCollection<String> {
+        private final Collection<String> fixtures;
 
-			@Override
-			public int size() {
-				fail("size should not get called");
-				return 0;
-			}
+        public TestAddAllCollection(UnitTest unitTest, Collection<String> fixtures) {
+            super(unitTest);
+            this.fixtures = fixtures;
+        }
 
-		};
-		assertTrue(ac.addAll(fixtures));
-	}
+        @Override public boolean add(String object) {
+            assertTrue(fixtures.contains(object));
+            return true;
+        }
 
-	@Test
-	public void testContainsAll() {
-		final Collection<String> fixtures = ArrayList.create("0", "1", "2");
-		Collection<String> ac = new Collection<String>() {
+        @Override public Iterator<String> iterator() {
+            fail("iterator should not get called");
+            return null;
+        }
 
-			@Override
-			public boolean contains(String object) {
-				assertTrue(fixtures.contains(object));
-				return true;
-			}
+        @Override public int size() {
+            fail("size should not get called");
+            return 0;
+        }
+    }
 
-			@Override
-			public Iterator<String> iterator() {
-				fail("iterator should not get called");
-				return null;
-			}
+    @Test public void testContainsAll() {
+        final Collection<String> fixtures = new ArrayList<String>("0", "1", "2");
+        Collection<String> ac = new TestContainsAllCollection(this, fixtures);
+        assertTrue(ac.containsAll(fixtures));
+    }
 
-			@Override
-			public int size() {
-				fail("size should not get called");
-				return 0;
-			}
+    private static class TestContainsAllCollection extends TestCollection<String> {
+        private final Collection<String> fixtures;
 
-		};
-		assertTrue(ac.containsAll(fixtures));
-	}
+        public TestContainsAllCollection(UnitTest unitTest, Collection<String> fixtures) {
+            super(unitTest);
+            this.fixtures = fixtures;
+        }
 
-	@Test
-	public void testIsEmpty() {
-		final boolean[] sizeCalled = new boolean[1];
-		Collection<Object> ac = new Collection<Object>() {
-			@Override
-			public Iterator<Object> iterator() {
-				fail("iterator should not get called");
-				return null;
-			}
+        @Override public boolean contains(String object) {
+            assertTrue(fixtures.contains(object));
+            return true;
+        }
 
-			@Override
-			public int size() {
-				sizeCalled[0] = true;
-				return 0;
-			}
-		};
-		assertTrue(ac.isEmpty());
-		assertTrue(sizeCalled[0]);
-	}
+        @Override public Iterator<String> iterator() {
+            fail("iterator should not get called");
+            return null;
+        }
 
-	@Test
-	public void testRemoveAll() {
-		final String[] removed = new String[3];
-		Collection<String> ac = new Collection<String>() {
+        @Override public int size() {
+            fail("size should not get called");
+            return 0;
+        }
+    }
 
-			@Override
-			public Iterator<String> iterator() {
-				return new Iterator<String>() {
-					String[] values = new String[] { "0", "1", "2" };
-					int index;
+    @Test public void testIsEmpty() {
+        final boolean[] sizeCalled = new boolean[1];
+        Collection<Object> ac = new TestIsEmptyCollection(this, sizeCalled);
+        assertTrue(ac.isEmpty());
+        assertTrue(sizeCalled[0]);
+    }
 
-					public boolean hasNext() {
-						return index < values.length;
-					}
+    private static class TestIsEmptyCollection extends TestCollection<Object> {
+        private final boolean[] sizeCalled;
 
-					public String next() {
-						return values[index++];
-					}
+        public TestIsEmptyCollection(UnitTest unitTest, boolean[] sizeCalled) {
+            super(unitTest);
+            this.sizeCalled = sizeCalled;
+        }
 
-					public void remove() {
-						removed[index - 1] = values[index - 1];
-					}
-				};
-			}
+        @Override public Iterator<Object> iterator() {
+            fail("iterator should not get called");
+            return null;
+        }
 
-			@Override
-			public int size() {
-				fail("size should not get called");
-				return 0;
-			}
+        @Override public int size() {
+            sizeCalled[0] = true;
+            return 0;
+        }
+    }
 
-		};
+    @Test public void testRemoveAll() {
+        final String[] removed = new String[3];
+        Collection<String> ac = new TestRemoveAllCollection(this, removed);
 
-		assertTrue(ac.removeAll(ArrayList.create("0", "1", "2")));
-		for (String r : removed) {
-			if (!"0".equals(r) && !"1".equals(r) && !"2".equals(r)) {
-				fail("an unexpected element was removed");
-			}
-		}
-	}
+        assertTrue(ac.removeAll(new ArrayList<String>("0", "1", "2")));
+        for (String r : removed) {
+            if (!"0".equals(r) && !"1".equals(r) && !"2".equals(r)) {
+                fail("an unexpected element was removed");
+            }
+        }
+    }
 
-	@Test
-	public void testRetainAll() {
-		final String[] removed = new String[1];
-		Collection<String> ac = new Collection<String>() {
 
-			@Override
-			public Iterator<String> iterator() {
-				return new Iterator<String>() {
-					String[] values = new String[] { "0", "1", "2" };
-					int index;
+    private static class TestRemoveAllCollection extends TestCollection<String> {
+        private final String[] removed;
 
-					public boolean hasNext() {
-						return index < values.length;
-					}
+        public TestRemoveAllCollection(UnitTest unitTest, String[] removed) {
+            super(unitTest);
+            this.removed = removed;
+        }
 
-					public String next() {
-						return values[index++];
-					}
+        @Override public Iterator<String> iterator() {
+            return new TestRemoveAllCollectionIterator(this);
+        }
 
-					public void remove() {
-						removed[index - 1] = values[index - 1];
-					}
+        @Override public int size() {
+            fail("size should not get called");
+            return 0;
+        }
 
-				};
-			}
+        private static class TestRemoveAllCollectionIterator extends Iterator<String> {
+            private TestRemoveAllCollection outer;
+            String[] values = new String[]{"0", "1", "2"};
+            int index;
 
-			@Override
-			public int size() {
-				fail("size should not get called");
-				return 0;
-			}
+            public TestRemoveAllCollectionIterator(TestRemoveAllCollection outer) {
+                this.outer = outer;
+            }
 
-		};
-		assertTrue(ac.retainAll(ArrayList.create("1", "2")));
-		assertEquals("0", removed[0]);
-	}
+            public boolean hasNext() {
+                return index < values.length;
+            }
 
-	@Test
-	public void testToArrayTypeless() {
-		Collection<String> ac = new Collection<String>() {
-			@Override
-			public Iterator<String> iterator() {
-				return new Iterator<String>() {
-					String[] values = new String[] { "0", "1", "2" };
-					int index;
+            public String next() {
+                return values[index++];
+            }
 
-					public boolean hasNext() {
-						return index < values.length;
-					}
+            public void remove() {
+                outer.removed[index - 1] = values[index - 1];
+            }
+        }
+    }
 
-					public String next() {
-						return values[index++];
-					}
+    @Test public void testRetainAll() {
+        final String[] removed = new String[1];
+        Collection<String> ac = new TestRetainAllCollection(this, removed);
+        assertTrue(ac.retainAll(new ArrayList<String>("1", "2")));
+        assertEquals("0", removed[0]);
+    }
 
-					public void remove() {
-						fail("remove should not get called");
-					}
-				};
-			}
+    private static class TestRetainAllCollection extends TestCollection<String> {
+        private final String[] removed;
 
-			@Override
-			public int size() {
-				return 3;
-			}
-		};
+        public TestRetainAllCollection(UnitTest unitTest, String[] removed) {
+            super(unitTest);
+            this.removed = removed;
+        }
 
-		Object[] array = ac.toArray();
-		assertEquals(3, array.length);
-		for (Object o : array) {
-			if (!"0".equals(o) && !"1".equals(o) && !"2".equals(o)) {
-				fail("an unexpected element was removed");
-			}
-		}
-	}
+        @Override public Iterator<String> iterator() {
+            return new TestRetainAllCollectionIterator(this);
+        }
 
-	@Test
-	public void testToArrayTyped() {
-		Collection<String> ac = new Collection<String>() {
-			@Override
-			public Iterator<String> iterator() {
-				return new Iterator<String>() {
-					String[] values = new String[] { "0", "1", "2" };
-					int index;
+        @Override public int size() {
+            fail("size should not get called");
+            return 0;
+        }
 
-					public boolean hasNext() {
-						return index < values.length;
-					}
+        private static class TestRetainAllCollectionIterator extends Iterator<String> {
+            private TestRetainAllCollection outer;
+            String[] values = new String[]{"0", "1", "2"};
+            int index;
 
-					public String next() {
-						return values[index++];
-					}
+            public TestRetainAllCollectionIterator(TestRetainAllCollection outer) {
+                this.outer = outer;
+            }
 
-					public void remove() {
-						fail("remove should not get called");
-					}
-				};
-			}
+            public boolean hasNext() {
+                return index < values.length;
+            }
 
-			@Override
-			public int size() {
-				return 3;
-			}
-		};
+            public String next() {
+                return values[index++];
+            }
 
-		try {
-			ac.toArray(null);
-			fail("No expected NullPointerException");
-		} catch (NullPointerException e) {
-			// expected
-		}
+            public void remove() {
+                outer.removed[index - 1] = values[index - 1];
+            }
+        }
+    }
 
-		String[] csa = new String[3];
-		ac.toArray(csa);
-		assertEquals(3, csa.length);
-		assertEquals("0", csa[0]);
-		assertEquals("1", csa[1]);
-		assertEquals("2", csa[2]);
-	}
+    @Test public void testToArrayTypeless() {
+        Collection<String> ac = new TestToArrayTypelessCollection(this);
 
-	@Test
-	public void testToString() {
-		// see HARMONY-1522
-		// collection that returns null iterator(this is against the spec.)
-		Collection<?> c = new Collection<Object>() {
-			@Override
-			public int size() {
-				// return non-zero value to pass 'isEmpty' check
-				return 1;
-			}
+        Object[] array = ac.toArray();
+        assertEquals(3, array.length);
+        for (Object o : array) {
+            if (!"0".equals(o) && !"1".equals(o) && !"2".equals(o)) {
+                fail("an unexpected element was removed");
+            }
+        }
+    }
 
-			@Override
-			public Iterator<Object> iterator() {
-				// this violates the spec.
-				return null;
-			}
-		};
 
-		try {
-			// Collection.toString() doesn't verify
-			// whether iterator() returns null value or not
-			c.toString();
-			fail("No expected NullPointerException");
-		} catch (NullPointerException e) {
-		}
-	}
+    private static class TestToArrayTypelessCollection extends TestCollection<String> {
+        public TestToArrayTypelessCollection(UnitTest unitTest) {
+            super(unitTest);
+        }
+
+        @Override public Iterator<String> iterator() {
+            return new TestToArrayTypelessCollectionIterator(this);
+        }
+
+        @Override public int size() {
+            return 3;
+        }
+
+        private static class TestToArrayTypelessCollectionIterator extends Iterator<String> {
+            private TestToArrayTypelessCollection outer;
+            String[] values = new String[]{"0", "1", "2"};
+            int index;
+
+            public TestToArrayTypelessCollectionIterator(TestToArrayTypelessCollection outer) {
+                this.outer = outer;
+            }
+
+            public boolean hasNext() {
+                return index < values.length;
+            }
+
+            public String next() {
+                return values[index++];
+            }
+
+            public void remove() {
+                outer.fail("remove should not get called");
+            }
+        }
+    }
+
+    @Test public void testToArrayTyped() {
+        Collection<String> ac = new TestToArrayTypedCollection(this);
+
+        String[] csa = new String[3];
+        ac.toArray(csa);
+        assertEquals(3, csa.length);
+        assertEquals("0", csa[0]);
+        assertEquals("1", csa[1]);
+        assertEquals("2", csa[2]);
+    }
+
+    private static class TestToArrayTypedCollection extends TestCollection<String> {
+        public TestToArrayTypedCollection(UnitTest unitTest) {
+            super(unitTest);
+        }
+
+        @Override public Iterator<String> iterator() {
+            return new TestToArrayTypedCollectionIterator(this);
+        }
+
+        @Override public int size() {
+            return 3;
+        }
+
+        private static class TestToArrayTypedCollectionIterator extends Iterator<String> {
+            private TestToArrayTypedCollection outer;
+            String[] values = new String[]{"0", "1", "2"};
+            int index;
+
+            public TestToArrayTypedCollectionIterator(TestToArrayTypedCollection outer) {
+                this.outer = outer;
+            }
+
+            public boolean hasNext() {
+                return index < values.length;
+            }
+
+            public String next() {
+                return values[index++];
+            }
+
+            public void remove() {
+                outer.fail("remove should not get called");
+            }
+        }
+    }
+
+    private static abstract class TestCollection<T> extends Collection<T> {
+        private UnitTest unitTest;
+
+        public TestCollection(UnitTest unitTest) {
+            this.unitTest = unitTest;
+        }
+
+        public void fail(@Nullable String message) {
+            unitTest.fail(message);
+        }
+
+        public void assertTrue(boolean condition) { unitTest.assertTrue(condition); }
+    }
 }
