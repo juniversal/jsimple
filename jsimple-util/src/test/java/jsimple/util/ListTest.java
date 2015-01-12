@@ -102,13 +102,13 @@ public class ListTest extends UnitTest {
         list.add(5);
         list.add(1);
         list.add(7);
-        int hashCode = 1;
+        int hashCodeValue = 1;
         Iterator<Integer> i = list.iterator();
         while (i.hasNext()) {
             Object obj = i.next();
-            hashCode = 31 * hashCode + (obj == null ? 0 : obj.hashCode());
+            hashCodeValue = 31 * hashCodeValue + (obj == null ? 0 : obj.hashCode());
         }
-        assertTrue("Incorrect hashCode returned.  Wanted: " + hashCode + " got: " + list.hashCode(), hashCode == list.hashCode());
+        assertTrue("Incorrect hashCode returned.  Wanted: " + hashCodeValue + " got: " + list.hashCode(), hashCodeValue == list.hashCode());
     }
 
     @Test
