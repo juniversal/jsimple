@@ -586,8 +586,8 @@ public class HashMap<K, V> extends Map<K, V> {
      * Removes the mapping with the specified key from this map.
      *
      * @param key the key of the mapping to remove.
-     * @return the value of the removed mapping or {@code null} / default value for non-nullable value type if no mapping
-     * for the specified key was found
+     * @return the value of the removed mapping or {@code null} / default value for non-nullable value type if no
+     * mapping for the specified key was found
      */
     @Override
     public V remove(K key) {

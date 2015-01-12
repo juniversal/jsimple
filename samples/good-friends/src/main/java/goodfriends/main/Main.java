@@ -205,5 +205,4 @@ public class Main {
 		} while (!isValidInput(input, lowRange, topRange));
 		return new Integer(input);
 	}
-
 }
