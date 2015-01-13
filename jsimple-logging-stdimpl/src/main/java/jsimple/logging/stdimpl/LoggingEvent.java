@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2014 Microsoft Mobile.  All Rights Reserved.
+ * Copyright (c) 2012-2015 Microsoft Mobile.  All Rights Reserved.
  *
  * This file is based on or incorporates material from Logback http://logback.qos.ch
  * (collectively, "Third Party Code"). Microsoft Mobile is not the original
