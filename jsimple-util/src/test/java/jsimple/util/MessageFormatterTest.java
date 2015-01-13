@@ -36,20 +36,22 @@ package jsimple.util;
 import jsimple.unit.UnitTest;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 /**
  * @author Ceki Gulcu
  * @author Bret Johnson modified for JSimple
  */
 public class MessageFormatterTest extends UnitTest {
-    Integer i1 = new Integer(1);
-    Integer i2 = new Integer(2);
-    Integer i3 = new Integer(3);
-    Integer[] ia0 = new Integer[]{i1, i2, i3};
+    Integer i1 = 1;
+    Integer i2 = 2;
+    Integer i3 = 3;
+    Integer[] ia0;
     Integer[] ia1 = new Integer[]{new Integer(10), new Integer(20), new Integer(30)};
 
     String result;
+
+    @Override public void setUp() {
+        ia0 = new Integer[]{i1, i2, i3};
+    }
 
     @Test public void testNullParam() {
         result = MessageFormatter.format("Value is {}.", null).getFormattedMessage();
@@ -68,15 +70,15 @@ public class MessageFormatterTest extends UnitTest {
         assertEquals("Val1 is null, val2 is 2.", result);
 
         result = MessageFormatter.arrayFormat("Val1 is {}, val2 is {}, val3 is {}",
-                new Integer[]{null, null, null}).getFormattedMessage();
+                new Object[]{null, null, null}).getFormattedMessage();
         assertEquals("Val1 is null, val2 is null, val3 is null", result);
 
         result = MessageFormatter.arrayFormat("Val1 is {}, val2 is {}, val3 is {}",
-                new Integer[]{null, i2, i3}).getFormattedMessage();
+                new Object[]{null, i2, i3}).getFormattedMessage();
         assertEquals("Val1 is null, val2 is 2, val3 is 3", result);
 
         result = MessageFormatter.arrayFormat("Val1 is {}, val2 is {}, val3 is {}",
-                new Integer[]{null, null, i3}).getFormattedMessage();
+                new Object[]{null, null, i3}).getFormattedMessage();
         assertEquals("Val1 is null, val2 is null, val3 is 3", result);
     }
 
@@ -146,14 +148,15 @@ public class MessageFormatterTest extends UnitTest {
     }
 
     @Test public void testExceptionIn_toString() {
-        Object o = new Object() {
-            public String toString() {
-                throw new IllegalStateException("a");
-            }
-        };
+        Object o = new TestExceptionIn_toString();
         result = MessageFormatter.format("Troublesome object {}", o).getFormattedMessage();
-        assertEquals("Troublesome object [FAILED toString(); toString threw exception: java.lang.IllegalStateException: a]", result);
+        assertEquals("Troublesome object [FAILED toString(); toString threw exception: jsimple.util.BasicException: a]", result);
+    }
 
+    private static class TestExceptionIn_toString {
+        public String toString() {
+            throw new BasicException("a");
+        }
     }
 
     // tests the case when the parameters are supplied in a single array
@@ -186,8 +189,7 @@ public class MessageFormatterTest extends UnitTest {
         Object[] ia = new Object[]{i1, i2, i3, t};
         Object[] iaWitness = new Object[]{i1, i2, i3};
 
-        ft = MessageFormatter
-                .arrayFormat("Value {} is smaller than {} and {}.", ia);
+        ft = MessageFormatter.arrayFormat("Value {} is smaller than {} and {}.", ia);
         assertEquals("Value 1 is smaller than 2 and 3.", ft.getFormattedMessage());
         assertTrue(Arrays.equals(iaWitness, ft.getArgArray()));
         assertEquals(t, ft.getThrowable());
