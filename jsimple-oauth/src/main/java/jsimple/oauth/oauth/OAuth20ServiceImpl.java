@@ -47,6 +47,13 @@
  * THE SOFTWARE.
  */
 
+/*
+TODO: MOVE THIS NOTE:
+JSimple OAuth is taken from Scribe.  We also merged in this fork:
+    https://github.com/fernandezpablo85/scribe-java/pull/253
+to make it easier to refresh OAuth2 tokens.
+ */
+
 package jsimple.oauth.oauth;
 
 import jsimple.oauth.builder.api.DefaultOAuthApi20;
