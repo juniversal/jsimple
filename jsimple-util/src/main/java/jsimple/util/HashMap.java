@@ -224,7 +224,7 @@ public class HashMap<K, V> extends Map<K, V> {
         @Override public boolean remove(MapEntry<KT, VT> object) {
             if (object != null) {
                 HashMapEntry<KT, VT> entry = associatedMap.getEntry(object.getKey());
-                if (entry != null && Utils.equals(entry.value, object.getValue())) {
+                if (entry != null && PlatformUtils.equals(entry.value, object.getValue())) {
                     associatedMap.removeEntry(entry);
                     return true;
                 }
@@ -232,12 +232,11 @@ public class HashMap<K, V> extends Map<K, V> {
             return false;
         }
 
-        @Override
-        public boolean contains(MapEntry<KT, VT> object) {
+        @Override public boolean contains(MapEntry<KT, VT> object) {
             if (object == null)
                 return false;
             HashMapEntry<KT, VT> entry = associatedMap.getEntry(object.getKey());
-            return entry != null && Utils.equals(entry.value, object.getValue());
+            return entry != null && PlatformUtils.equals(entry.value, object.getValue());
         }
 
         @Override

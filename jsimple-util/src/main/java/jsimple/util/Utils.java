@@ -80,39 +80,4 @@ public class Utils {
             return v1;
         else return v2;
     }
-
-    /**
-     * Return true if the two objects are equal, according to their equals method.  For reference types, this method
-     * allows the objects to be null, returning true only if both are null.   And this method properly supports value
-     * types for languages that support them (e.g. in C#).
-     *
-     * @param object1 object 1
-     * @param object2 object 2
-     * @return true if both objects are equal or both are null, false otherwise
-     */
-    public static <T> boolean equals(@Nullable T object1, @Nullable T object2) {
-        if (object1 == object2)
-            return true;
-
-        // For value types, we can't compare them to null so instead do the more general comparison to the default value
-        // for the type (which is null for reference types, 0 for int value types, etc.)
-        T defaultValue = PlatformUtils.<T>defaultValue();
-        if (object1 == defaultValue || object2 == defaultValue)
-            return false;
-
-        return object1.equals(object2);
-    }
-
-    public static <T extends Equatable<T>> boolean equalTo(@Nullable T object1, @Nullable T object2) {
-        if (object1 == object2)
-            return true;
-
-        // For value types, we can't compare them to null so instead do the more general comparison to the default value
-        // for the type (which is null for reference types, 0 for int value types, etc.)
-        T defaultValue = PlatformUtils.<T>defaultValue();
-        if (object1 == defaultValue || object2 == defaultValue)
-            return false;
-
-        return object1.equalTo(object2);
-    }
 }

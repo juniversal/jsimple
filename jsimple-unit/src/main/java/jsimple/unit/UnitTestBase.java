@@ -13,6 +13,7 @@
 package jsimple.unit;
 
 import jsimple.util.Equatable;
+import jsimple.util.PlatformUtils;
 import jsimple.util.Utils;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,10 +37,6 @@ public abstract class UnitTestBase {
         assertEquals(null, expected, actual);
     }
 
-    public <T extends Equatable<T>> void assertEquals(@Nullable T expected, @Nullable T actual) {
-        assertEqualTo(null, expected, actual);
-    }
-
     /**
      * Asserts that two objects are equal. If they are not, a test framework assertion error without a message is
      * thrown. If <code>expected</code> and <code>actual</code> are <code>null</code>, they are considered equal.
@@ -61,10 +58,6 @@ public abstract class UnitTestBase {
      */
     public abstract void assertEquals(@Nullable String message, @Nullable Object expected, @Nullable Object actual);
 
-    public <T extends Equatable<T>> void assertEquals(@Nullable String message, @Nullable T expected, @Nullable T actual) {
-        assertEqualTo(message, expected, actual);
-    }
-    
     /**
      * Asserts that two objects are equal. If they are not, a test framework assertion error is thrown with the given
      * message. If <code>expected</code> and <code>actual</code> are <code>null</code>, they are considered equal.
@@ -75,7 +68,7 @@ public abstract class UnitTestBase {
      */
     public <T extends Equatable<T>> void assertEqualTo(@Nullable String message, @Nullable T expected,
                                                        @Nullable T actual) {
-        if (!Utils.equalTo(expected, actual)) {
+        if (!PlatformUtils.equalTo(expected, actual)) {
             fail(message);
         }
     }

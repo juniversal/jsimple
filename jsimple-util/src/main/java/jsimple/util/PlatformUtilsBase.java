@@ -22,6 +22,8 @@
 
 package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * This class is used to wrap one off utility methods that need to be implemented in a platform dependent way.  Methods
  * here are static & not actually defined in the base class--just a template comment is given here, and the method
@@ -195,4 +197,15 @@ public class PlatformUtilsBase {
      * @see SecurityManager#checkExit
      */
     //public static void exit(int code)
+
+    /*
+     * Return true if the two objects are equal, according to their equals method.  For reference types, this method
+     * allows the objects to be null, returning true only if both are null.   And this method properly supports value
+     * types for languages that support them (e.g. in C#).
+     *
+     * @param object1 object 1
+     * @param object2 object 2
+     * @return true if both objects are equal or both are null, false otherwise
+     */
+    //public static <T> boolean equals(@Nullable T object1, @Nullable T object2);
 }

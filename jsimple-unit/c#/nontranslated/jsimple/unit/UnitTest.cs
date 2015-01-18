@@ -34,7 +34,7 @@ namespace jsimple.unit
 
         [TearDown] public virtual void tearDown() { }
 
-        public override string getJavaProjectDirectory()
+        public override string getProjectDirectory()
         {
             if (projectDirectory == null)
             {

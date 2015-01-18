@@ -76,7 +76,7 @@ class MapEntryImpl<K, V> implements MapEntry<K, V> {
         if (otherMapEntry == null)
             return false;
 
-        return Utils.equals(key, otherMapEntry.getKey()) && Utils.equals(value, otherMapEntry.getValue());
+        return PlatformUtils.equals(key, otherMapEntry.getKey()) && PlatformUtils.equals(value, otherMapEntry.getValue());
     }
 
     @Override public K getKey() {
@@ -87,8 +87,7 @@ class MapEntryImpl<K, V> implements MapEntry<K, V> {
         return value;
     }
 
-    @Override
-    public int hashCode() {
+    @Override public int hashCode() {
         return key.hashCode() ^ (value == null ? 0 : value.hashCode());
     }
 

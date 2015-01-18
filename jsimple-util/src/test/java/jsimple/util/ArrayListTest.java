@@ -313,14 +313,6 @@ public class ArrayListTest extends UnitTest {
         }
 
         try {
-            obj.addAll(obj.size() + 1, null);
-            fail("Should throw programmer error");
-        } catch (ProgrammerError e) {
-            // Expected
-            assertTrue(e.getMessage().startsWith("Index out of bounds"));
-        }
-
-        try {
             obj.addAll((int) -1, (Collection<String>) null);
             fail("Endex out of bounds error expected");
         } catch (ProgrammerError e) {

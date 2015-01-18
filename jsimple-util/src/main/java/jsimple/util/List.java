@@ -161,7 +161,7 @@ public abstract class List<E> extends Collection<E> implements Equatable<List<E>
             E e1 = it1.next();
             E e2 = it2.next();
 
-            if (!Utils.equals(e1, e2))
+            if (!PlatformUtils.equals(e1, e2))
                 return false;
         }
         return true;

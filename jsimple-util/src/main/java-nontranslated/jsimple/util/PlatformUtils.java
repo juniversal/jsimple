@@ -22,6 +22,8 @@
 
 package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -197,27 +199,36 @@ public class PlatformUtils extends PlatformUtilsBase {
         java.lang.System.exit(code);
     }
 
-    static <E> boolean listEquals(List<E> list, Object object) {
-        if (list == object) {
-            return true;
-        }
+    /**
+     * Return true if the two objects are equal, according to their equals method.  For reference types, this method
+     * allows the objects to be null, returning true only if both are null.   And this method properly supports value
+     * types for languages that support them (e.g. in C#).
+     *
+     * @param object1 object 1
+     * @param object2 object 2
+     * @return true if both objects are equal or both are null, false otherwise
+     */
+    public static <T> boolean equals(@Nullable T object1, @Nullable T object2) {
+        if (object1 == null)
+            return object2 == null;
+        else return object1.equals(object2);
+    }
 
-        if (object instanceof List) {
-            List<?> list2 = (List<?>) object;
-            if (list2.size() != list.size()) {
-                return false;
-            }
+    public static <T extends Equatable<T>> boolean equalTo(@Nullable T object1, @Nullable T object2) {
+        if (object1 == null)
+            return object2 == null;
+        else return object1.equalTo(object2);
+    }
 
-            Iterator<E> it1 = list.iterator();
-            Iterator<?> it2 = list2.iterator();
-            while (it1.hasNext()) {
-                Object e1 = it1.next(), e2 = it2.next();
-                if (!(e1 == null ? e2 == null : e1.equals(e2))) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
+    /**
+     * Returns true if the object has the default value for the type.   The default is null for reference types.   For
+     * languages that support value types (e.g. C# and C++), the default value is 0 for integers, etc.
+     *
+     * @param object object in question
+     * @param <T>    type in question
+     * @return true if object is the default value for the type otherwise
+     */
+    public static <T> boolean isNullOrTypeDefault(@Nullable T object) {
+        return object == null;
     }
 }

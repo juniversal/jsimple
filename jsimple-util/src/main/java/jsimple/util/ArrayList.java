@@ -256,10 +256,11 @@ public final class ArrayList<E> extends List<E> {
             throw new ProgrammerError("Index out of bounds; index: {}, size: {}", location, itemCount);
         }
 
+        // TODO: Rework this to use iterator instead; one reason is to avoid boxing
+
         Object[] dumparray = collection.toArray();
         int growSize = dumparray.length;
-        // REVIEW: Why do this check here rather than check
-        //         collection.size() earlier? RI behaviour?
+        // REVIEW: Why do this check here rather than check collection.size() earlier? RI behaviour?
         if (growSize == 0) {
             return false;
         }

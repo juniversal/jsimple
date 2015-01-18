@@ -62,31 +62,25 @@ import org.junit.Test;
  * @author Bret Johnson modified for JSimple
  */
 public class MessageFormatterTest extends UnitTest {
-    Integer i1 = 1;
-    Integer i2 = 2;
-    Integer i3 = 3;
-    Integer[] ia0;
-    Integer[] ia1 = new Integer[]{new Integer(10), new Integer(20), new Integer(30)};
-
-    String result;
+    Object[] ia0;
 
     @Override public void setUp() {
-        ia0 = new Integer[]{i1, i2, i3};
+        ia0 = new Object[]{1, 2, 3};
     }
 
     @Test public void testNullParam() {
-        result = MessageFormatter.format("Value is {}.", null).getFormattedMessage();
+        String result = MessageFormatter.format("Value is {}.", null).getFormattedMessage();
         assertEquals("Value is null.", result);
 
         result = MessageFormatter.format("Val1 is {}, val2 is {}.", null, null)
                 .getFormattedMessage();
         assertEquals("Val1 is null, val2 is null.", result);
 
-        result = MessageFormatter.format("Val1 is {}, val2 is {}.", i1, null)
+        result = MessageFormatter.format("Val1 is {}, val2 is {}.", 1, null)
                 .getFormattedMessage();
         assertEquals("Val1 is 1, val2 is null.", result);
 
-        result = MessageFormatter.format("Val1 is {}, val2 is {}.", null, i2)
+        result = MessageFormatter.format("Val1 is {}, val2 is {}.", null, 2)
                 .getFormattedMessage();
         assertEquals("Val1 is null, val2 is 2.", result);
 
@@ -95,40 +89,40 @@ public class MessageFormatterTest extends UnitTest {
         assertEquals("Val1 is null, val2 is null, val3 is null", result);
 
         result = MessageFormatter.arrayFormat("Val1 is {}, val2 is {}, val3 is {}",
-                new Object[]{null, i2, i3}).getFormattedMessage();
+                new Object[]{null, 2, 3}).getFormattedMessage();
         assertEquals("Val1 is null, val2 is 2, val3 is 3", result);
 
         result = MessageFormatter.arrayFormat("Val1 is {}, val2 is {}, val3 is {}",
-                new Object[]{null, null, i3}).getFormattedMessage();
+                new Object[]{null, null, 3}).getFormattedMessage();
         assertEquals("Val1 is null, val2 is null, val3 is 3", result);
     }
 
     @Test public void testOneParameter() {
-        result = MessageFormatter.format("Value is {}.", i3).getFormattedMessage();
+        String result = MessageFormatter.format("Value is {}.", 3).getFormattedMessage();
         assertEquals("Value is 3.", result);
 
-        result = MessageFormatter.format("Value is {", i3).getFormattedMessage();
+        result = MessageFormatter.format("Value is {", 3).getFormattedMessage();
         assertEquals("Value is {", result);
 
-        result = MessageFormatter.format("{} is larger than 2.", i3).getFormattedMessage();
+        result = MessageFormatter.format("{} is larger than 2.", 3).getFormattedMessage();
         assertEquals("3 is larger than 2.", result);
 
-        result = MessageFormatter.format("No subst", i3).getFormattedMessage();
+        result = MessageFormatter.format("No subst", 3).getFormattedMessage();
         assertEquals("No subst", result);
 
-        result = MessageFormatter.format("Incorrect {subst", i3).getFormattedMessage();
+        result = MessageFormatter.format("Incorrect {subst", 3).getFormattedMessage();
         assertEquals("Incorrect {subst", result);
 
-        result = MessageFormatter.format("Value is {bla} {}", i3).getFormattedMessage();
+        result = MessageFormatter.format("Value is {bla} {}", 3).getFormattedMessage();
         assertEquals("Value is {bla} 3", result);
 
-        result = MessageFormatter.format("Escaped \\{} subst", i3).getFormattedMessage();
+        result = MessageFormatter.format("Escaped \\{} subst", 3).getFormattedMessage();
         assertEquals("Escaped {} subst", result);
 
-        result = MessageFormatter.format("{Escaped", i3).getFormattedMessage();
+        result = MessageFormatter.format("{Escaped", 3).getFormattedMessage();
         assertEquals("{Escaped", result);
 
-        result = MessageFormatter.format("\\{}Escaped", i3).getFormattedMessage();
+        result = MessageFormatter.format("\\{}Escaped", 3).getFormattedMessage();
         assertEquals("{}Escaped", result);
 
         result = MessageFormatter.format("File name is {{}}.", "App folder.zip").getFormattedMessage();
@@ -140,37 +134,37 @@ public class MessageFormatterTest extends UnitTest {
     }
 
     @Test public void testTwoParameters() {
-        result = MessageFormatter.format("Value {} is smaller than {}.", i1, i2).getFormattedMessage();
+        String result = MessageFormatter.format("Value {} is smaller than {}.", 1, 2).getFormattedMessage();
         assertEquals("Value 1 is smaller than 2.", result);
 
-        result = MessageFormatter.format("Value {} is smaller than {}", i1, i2).getFormattedMessage();
+        result = MessageFormatter.format("Value {} is smaller than {}", 1, 2).getFormattedMessage();
         assertEquals("Value 1 is smaller than 2", result);
 
-        result = MessageFormatter.format("{}{}", i1, i2).getFormattedMessage();
+        result = MessageFormatter.format("{}{}", 1, 2).getFormattedMessage();
         assertEquals("12", result);
 
-        result = MessageFormatter.format("Val1={}, Val2={", i1, i2).getFormattedMessage();
+        result = MessageFormatter.format("Val1={}, Val2={", 1, 2).getFormattedMessage();
         assertEquals("Val1=1, Val2={", result);
 
-        result = MessageFormatter.format("Value {} is smaller than \\{}", i1, i2).getFormattedMessage();
+        result = MessageFormatter.format("Value {} is smaller than \\{}", 1, 2).getFormattedMessage();
         assertEquals("Value 1 is smaller than {}", result);
 
-        result = MessageFormatter.format("Value {} is smaller than \\{} tail", i1, i2).getFormattedMessage();
+        result = MessageFormatter.format("Value {} is smaller than \\{} tail", 1, 2).getFormattedMessage();
         assertEquals("Value 1 is smaller than {} tail", result);
 
-        result = MessageFormatter.format("Value {} is smaller than \\{", i1, i2).getFormattedMessage();
+        result = MessageFormatter.format("Value {} is smaller than \\{", 1, 2).getFormattedMessage();
         assertEquals("Value 1 is smaller than \\{", result);
 
-        result = MessageFormatter.format("Value {} is smaller than {tail", i1, i2).getFormattedMessage();
+        result = MessageFormatter.format("Value {} is smaller than {tail", 1, 2).getFormattedMessage();
         assertEquals("Value 1 is smaller than {tail", result);
 
-        result = MessageFormatter.format("Value \\{} is smaller than {}", i1, i2).getFormattedMessage();
+        result = MessageFormatter.format("Value \\{} is smaller than {}", 1, 2).getFormattedMessage();
         assertEquals("Value {} is smaller than 1", result);
     }
 
     @Test public void testExceptionIn_toString() {
         Object o = new TestExceptionIn_toString();
-        result = MessageFormatter.format("Troublesome object {}", o).getFormattedMessage();
+        String result = MessageFormatter.format("Troublesome object {}", o).getFormattedMessage();
         assertEquals("Troublesome object [FAILED toString(); toString threw exception: jsimple.util.BasicException: a]", result);
     }
 
@@ -182,7 +176,7 @@ public class MessageFormatterTest extends UnitTest {
 
     // tests the case when the parameters are supplied in a single array
     @Test public void testArrayFormat() {
-        result = MessageFormatter.arrayFormat("Value {} is smaller than {} and {}.", ia0).getFormattedMessage();
+        String result = MessageFormatter.arrayFormat("Value {} is smaller than {} and {}.", ia0).getFormattedMessage();
         assertEquals("Value 1 is smaller than 2 and 3.", result);
 
         result = MessageFormatter.arrayFormat("{}{}{}", ia0).getFormattedMessage();
@@ -207,8 +201,8 @@ public class MessageFormatterTest extends UnitTest {
     @Test public void testArrayThrowable() {
         MessageFormatter.FormattingTuple ft;
         Throwable t = new Throwable();
-        Object[] ia = new Object[]{i1, i2, i3, t};
-        Object[] iaWitness = new Object[]{i1, i2, i3};
+        Object[] ia = new Object[]{1, 2, 3, t};
+        Object[] iaWitness = new Object[]{1, 2, 3};
 
         ft = MessageFormatter.arrayFormat("Value {} is smaller than {} and {}.", ia);
         assertEquals("Value 1 is smaller than 2 and 3.", ft.getFormattedMessage());

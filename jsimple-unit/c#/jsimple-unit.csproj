@@ -49,6 +49,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\jsimple-util\c#\jsimple-util.csproj">
+      <Project>{7de38eb4-9d6a-4d5a-ae5f-4769befbda74}</Project>
+      <Name>jsimple-util</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
