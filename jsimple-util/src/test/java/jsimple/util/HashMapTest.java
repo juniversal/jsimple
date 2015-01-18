@@ -42,6 +42,7 @@
 package jsimple.util;
 
 import jsimple.unit.UnitTest;
+import org.jetbrains.annotations.Nullable;
 import org.junit.Test;
 
 public final class HashMapTest extends UnitTest {
@@ -572,7 +573,7 @@ public final class HashMapTest extends UnitTest {
 
         Object real = e.next();
 		MapEntry<Integer, String> copyEntry = new MockEntry();
-        assertEquals(real, copyEntry);
+        assertEqualTo((MapEntry<Integer, String>) real, copyEntry);
         assertTrue(entrySet.contains(copyEntry));
 
         entrySet.remove(copyEntry);
@@ -580,6 +581,13 @@ public final class HashMapTest extends UnitTest {
     }
 
     private static class MockEntry implements MapEntry<Integer, String> {
+        @Override public boolean equalTo(@Nullable MapEntry<Integer, String> other) {
+            if (other == null)
+                return false;
+
+            return other.getKey() == 1 && other.getValue().equals("ONE");
+        }
+
         public Integer getKey() {
             return 1;
         }

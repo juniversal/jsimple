@@ -41,6 +41,8 @@
 
 package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * A {@code Map} is a data structure consisting of a set of keys and values in which each key is mapped to a single
  * value.  The class of the objects used as keys is declared when the {@code Map} is declared, as is the class of the
@@ -58,7 +60,7 @@ package jsimple.util;
  *
  * @since 1.2
  */
-public abstract class Map<K, V> {
+public abstract class Map<K, V> implements Equatable<Map<K, V>> {
     /**
      * Constructs a new instance of this {@code AbstractMap}.
      */
@@ -75,64 +77,59 @@ public abstract class Map<K, V> {
     public abstract Set<MapEntry<K, V>> entrySet();
 
     /**
-     * By default, equals isn't supported for maps or other collections, though subclasses can choose to override this
-     * behavior if they want.   Instead developers should call some other, more specific, method, checking for the exact
-     * kind of equality they want.
+     * The default Java equals(Object) method isn't supported for JSimple maps.   Instead you should use
+     * equals(Map&lt;K, V&gt;).
      * <p/>
-     * As background:  This behavior differs from the standard java.util.AbstractMaps.equals method, where two maps are
-     * considered equal if the have the same number of entries and those entries have keys and values that are equal,
-     * according to equals.   That's so-called deep equality.   Whereas C#, on the other hand, just does reference
-     * equality by default for maps, saying two maps are equal if they reference the same object.
-     * <p/>
-     * There are two main reasons we differ from standard Java and don't support equals here or for other collection
-     * methods:
-     * <p/>
-     * (a) The desired semantics are ambiguous (deep, shallow, or reference equality?  should order matter?  map type
-     * matter?). There's no single obvious right answer & different semantics are appropriate in different cases. (b)
-     * It's hard to implement the Java semantics and support generics, with covariance, properly and have it work with
-     * Java to C#/Swift translation.  Limited C# and Swift support for covariance, especially when casting from an
-     * Object, makes it all the harder. So best to just avoid all those issues & make the developer do explicitly what
-     * they want, calling some other method.
+     * Background:  The reason for this is the the default Java version isn't typesafe and with casting from Object
+     * (both for the map itself and its members) it's too hard to make everything work properly with translation to C# /
+     * other languages that have reified (that is, "real", not type erased) generics and value types, with consistent
+     * semantics around covariance and avoiding the performance hit of boxing for value types. Better to avoid all that
+     * and go with the more modern, typesafe version of equals.   It can perform slightly better even in straight Java
+     * too.
      *
-     * @param object the object to compare to this object.
-     * @return {@code true} if the specified object is equal to this list, {@code false} otherwise; though by default
-     * this method throws an exception and developers generally shouldn't use it
+     * @param object the object to compare to this object
+     * @return always throws an exception; don't use this method and use the typesafe equals(List&lt;K, V&gt;) equals
+     * instead
      */
     @Override
     public boolean equals(Object object) {
         throw new ProgrammerError("equals isn't supported by default for collections;  use == for reference equality or implement your own method for other types of equality");
-        /*
-        if (this == object) {
-            return true;
-        }
-        if (object instanceof Map) {
-            Map<?, ?> map = (Map<?, ?>) object;
-            if (size() != map.size()) {
-                return false;
-            }
+    }
 
-            try {
-                for (Entry<K, V> entry : entrySet()) {
-                    K key = entry.getKey();
-                    V mine = entry.getValue();
-                    Object theirs = map.get(key);
-                    if (mine == null) {
-                        if (theirs != null || !map.containsKey(key)) {
-                            return false;
-                        }
-                    } else if (!mine.equals(theirs)) {
-                        return false;
-                    }
-                }
-            } catch (NullPointerException ignored) {
-                return false;
-            } catch (ClassCastException ignored) {
-                return false;
-            }
+    /**
+     * Two maps are considered equal if they have the same number of entries and those entries have keys and values that
+     * are equal, according to equals.   That's so-called deep equality.
+     *
+     * @param otherMap map to compare against
+     * @return true if and only if the maps are equal
+     */
+    @Override public boolean equalTo(@Nullable Map<K, V> otherMap) {
+        if (this == otherMap) {
             return true;
         }
-        return false;
-        */
+
+        if (otherMap == null)
+            return false;
+
+        if (size() != otherMap.size())
+            return false;
+
+        V defaultValue = PlatformUtils.<V>defaultValue();
+        for (MapEntry<K, V> entry : entrySet()) {
+            K myKey = entry.getKey();
+            V myValue = entry.getValue();
+            V otherValue = otherMap.get(myKey);
+
+            if (myValue == defaultValue) {
+                if (otherValue != defaultValue || !otherMap.containsKey(myKey)) {
+                    return false;
+                }
+            } else if (!myValue.equals(otherValue)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -153,10 +150,10 @@ public abstract class Map<K, V> {
 
     /**
      * Returns the string representation of this map.
-     *
-     * Note that this method doesn't support maps with a loop in the object graph that end up containing
-     * themselves (e.g. map that directly or indirectly points back to itself as a key or value in the map).
-     * Such maps will result in infinite recursion and ultimately a stack overflow exception.
+     * <p/>
+     * Note that this method doesn't support maps with a loop in the object graph that end up containing themselves
+     * (e.g. map that directly or indirectly points back to itself as a key or value in the map). Such maps will result
+     * in infinite recursion and ultimately a stack overflow exception.
      *
      * @return the string representation of this map.
      */

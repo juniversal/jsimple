@@ -34,7 +34,7 @@ public class Utils {
     /**
      * Return an array of bytes containing as elements this method's parameters.  Parameters are ints but they should be
      * in a legal range for a byte (technically -128 to 127, but treating the range like 0-255 also works as expected).
-     * <p>
+     * <p/>
      * This method exists mostly to avoid casting problems populating a byte[] literals inline--casting issues caused by
      * integer literals always being ints not bytes in Java (and thus requiring a byte cast--compile issue #1) and
      * translated C# always treating hex literals as unsigned and not allowing ones > 127 to be cast to (signed) bytes
@@ -82,18 +82,37 @@ public class Utils {
     }
 
     /**
-     * Return true if the two objects are equal, according to their equals method.  This method allows the objects to
-     * be null, returning true if both are null & false if just one is null.
+     * Return true if the two objects are equal, according to their equals method.  For reference types, this method
+     * allows the objects to be null, returning true only if both are null.   And this method properly supports value
+     * types for languages that support them (e.g. in C#).
      *
-     * @param o1 object 1
-     * @param o2 object 2
+     * @param object1 object 1
+     * @param object2 object 2
      * @return true if both objects are equal or both are null, false otherwise
      */
-    public static boolean equalsNullable(@Nullable Object o1, @Nullable Object o2) {
-        if (o1 == o2)
+    public static <T> boolean equals(@Nullable T object1, @Nullable T object2) {
+        if (object1 == object2)
             return true;
-        if (o1 == null || o2 == null)
+
+        // For value types, we can't compare them to null so instead do the more general comparison to the default value
+        // for the type (which is null for reference types, 0 for int value types, etc.)
+        T defaultValue = PlatformUtils.<T>defaultValue();
+        if (object1 == defaultValue || object2 == defaultValue)
             return false;
-        return o1.equals(o2);
+
+        return object1.equals(object2);
+    }
+
+    public static <T extends Equatable<T>> boolean equalTo(@Nullable T object1, @Nullable T object2) {
+        if (object1 == object2)
+            return true;
+
+        // For value types, we can't compare them to null so instead do the more general comparison to the default value
+        // for the type (which is null for reference types, 0 for int value types, etc.)
+        T defaultValue = PlatformUtils.<T>defaultValue();
+        if (object1 == defaultValue || object2 == defaultValue)
+            return false;
+
+        return object1.equalTo(object2);
     }
 }

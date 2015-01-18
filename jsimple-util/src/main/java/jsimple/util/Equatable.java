@@ -20,13 +20,10 @@
  * THE SOFTWARE.
  */
 
+package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
 
-description = ''
-dependencies {
-    compile group: 'com.intellij', name: 'annotations', version:'9.0.4'
-    compile group: 'types.checkers', name: 'jsr308-all', version:'1.2.6'
-
-    testCompile group: 'junit', name: 'junit', version:'4.10'
-    testCompile project(':jsimple-unit')
+public interface Equatable<T> {
+    public boolean equalTo(@Nullable T other);
 }

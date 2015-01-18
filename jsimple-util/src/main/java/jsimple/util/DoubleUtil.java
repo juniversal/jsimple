@@ -42,64 +42,20 @@
 package jsimple.util;
 
 /**
- * MapEntry is an internal class which provides an implementation of Map.Entry.
+ * The wrapper for the primitive type {@code double}.
+ * 
+ * @see java.lang.Number
+ * @since 1.0
  */
-class MapEntryImpl<K, V> implements MapEntry<K, V> {
-    K key;
-    V value;
+public final class DoubleUtil {
+    /**
+     * Constant for the maximum {@code double} value, (2 - 2<sup>-52</sup>) *
+     * 2<sup>1023</sup>.
+     */
+    public static final double MAX_VALUE = 1.79769313486231570e+308;
 
-    /*
-    interface Type<RT, KT, VT> {
-        RT get(MapEntry<KT, VT> entry);
-    }
-    */
-
-    MapEntryImpl(K theKey) {
-        key = theKey;
-    }
-
-    MapEntryImpl(K theKey, V theValue) {
-        key = theKey;
-        value = theValue;
-    }
-
-    @Override public boolean equals(Object object) {
-        throw new ProgrammerError("equals method not supported for HashMap MapEntry");
-    }
-
-    @Override
-    public boolean equalTo(MapEntry<K, V> otherMapEntry) {
-        if (this == otherMapEntry) {
-            return true;
-        }
-
-        if (otherMapEntry == null)
-            return false;
-
-        return Utils.equals(key, otherMapEntry.getKey()) && Utils.equals(value, otherMapEntry.getValue());
-    }
-
-    @Override public K getKey() {
-        return key;
-    }
-
-    public V getValue() {
-        return value;
-    }
-
-    @Override
-    public int hashCode() {
-        return key.hashCode() ^ (value == null ? 0 : value.hashCode());
-    }
-
-    public V setValue(V object) {
-        V result = value;
-        value = object;
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return key + "=" + value;
-    }
+    /**
+     * Constant for the minimum {@code double} value, 2<sup>-1074</sup>.
+     */
+    public static final double MIN_VALUE = 5e-324;
 }

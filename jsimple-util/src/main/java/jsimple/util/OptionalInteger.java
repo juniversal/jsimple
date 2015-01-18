@@ -20,13 +20,27 @@
  * THE SOFTWARE.
  */
 
+package jsimple.util;
 
+/**
+ * Created by bretjohn on 1/7/2015.
+ */
+public class OptionalInteger {
+    boolean hasVal;
+    int val;
 
-description = ''
-dependencies {
-    compile group: 'com.intellij', name: 'annotations', version:'9.0.4'
-    compile group: 'types.checkers', name: 'jsr308-all', version:'1.2.6'
+    public OptionalInteger(boolean hasVal, int val) {
+        this.hasVal = hasVal;
+        this.val = val;
+    }
 
-    testCompile group: 'junit', name: 'junit', version:'4.10'
-    testCompile project(':jsimple-unit')
+    public boolean hasValue() {
+        return hasVal;
+    }
+
+    int value() {
+        if (! hasVal)
+            throw new ProgrammerError("Called value on OptionalInteger with no value");
+        return val;
+    }
 }

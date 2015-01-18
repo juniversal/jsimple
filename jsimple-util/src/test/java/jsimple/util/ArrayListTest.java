@@ -466,7 +466,7 @@ public class ArrayListTest extends UnitTest {
     public void testClone() {
         // Test for method java.lang.Object java.util.ArrayList.clone()
         ArrayList<Object> x = new ArrayList<Object>(alist);
-        assertTrue("Cloned list was inequal to original", x.equals(alist));
+        assertTrue("Cloned list was inequal to original", x.equalTo(alist));
         for (int i = 0; i < alist.size(); i++) {
             assertTrue("Cloned list contains incorrect elements", alist.get(i) == x.get(i));
         }
@@ -475,7 +475,7 @@ public class ArrayListTest extends UnitTest {
         alist.add(25, null);
 
         x = new ArrayList<Object>(alist);
-        assertTrue("nulls test - Cloned list was inequal to original", x.equals(alist));
+        assertTrue("nulls test - Cloned list was inequal to original", x.equalTo(alist));
 
         for (int i = 0; i < alist.size(); i++) {
             assertTrue("nulls test - Cloned list contains incorrect elements", alist.get(i) == x.get(i));
@@ -581,12 +581,12 @@ public class ArrayListTest extends UnitTest {
         alist.add(50, null);
         alist.remove(50);
         alist.remove(25);
-        assertTrue("Removing nulls did not work", alist.equals(myList));
+        assertTrue("Removing nulls did not work", alist.equalTo(myList));
 
         List<String> list = new ArrayList<String>("a", "b", "c", "d", "e", "f", "g");
         assertTrue("Removed wrong element 1", list.remove(0) == "a");
         assertTrue("Removed wrong element 2", list.remove(4) == "f");
-        assertTrue("Removed wrong element 3", list.equals(new ArrayList<String>("b", "c", "d", "e", "g")));
+        assertTrue("Removed wrong element 3", list.equalTo(new ArrayList<String>("b", "c", "d", "e", "g")));
 
         List<Object> l = new ArrayList<Object>(0);
         l.add(new Object());

@@ -41,6 +41,8 @@
 
 package jsimple.util;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * A {@code List} is a collection which maintains an ordering for its elements. Every element in the {@code List} has an
  * index. Each element can thus be accessed by its index, with the first index being zero. Normally, {@code List}s allow
@@ -56,7 +58,7 @@ package jsimple.util;
  *
  * @since 1.2
  */
-public abstract class List<E> extends Collection<E> {
+public abstract class List<E> extends Collection<E> implements Equatable<List<E>> {
     /**
      * Constructs a new instance of this AbstractList.
      */
@@ -117,75 +119,52 @@ public abstract class List<E> extends Collection<E> {
         return !collection.isEmpty();
     }
 
-/*
-    */
-/**
-     * Compares the given object with the {@code List}, and returns true if they
-     * represent the <em>same</em> object using a class specific comparison. For
-     * {@code List}s, this means that they contain the same elements in exactly the same
-     * order.
-     *
-     * @param object
-     *            the object to compare with this object.
-     * @return boolean {@code true} if the object is the same as this object,
-     *         and {@code false} if it is different from this object.
-     * @see #hashCode
-     *//*
-
-    public boolean equals(Object object);
-
-*/
-
     /**
-     * By default, equals isn't supported for lists or other collections, though subclasses can choose to override this
-     * behavior if they want.   Instead developers should call some other, more specific, method, checking for the exact
-     * kind of equality they want.
+     * The default Java equals(Object) method isn't supported for JSimple lists.   Instead you should use
+     * equals(List&lt;E&gt;).
      * <p/>
-     * As background:  This behavior differs from the standard java.util.AbstractList.equals method, where two lists are
-     * considered equal if the have the same number of elements and those elements are equals, according to equals, in
-     * the same order.   That's so-called deep equality.   Whereas C#, on the other hand, just does reference equality
-     * by default for lists, saying two lists are equal if they reference the same list.
-     * <p/>
-     * Anyway, there are two main reasons we differ from standard Java and don't support equals here or for other
-     * collection methods:
-     * <p/>
-     * (a) The desired semantics are ambiguous (deep, shallow, or reference equality?  should order matter?  list type
-     * matter?). There's no single obvious right answer & different semantics are appropriate in different cases. (b)
-     * It's hard to implement the Java semantics and support generics, with covariance, properly and have it work with
-     * Java to C#/Swift translation.  Limited C# and Swift support for covariance, especially when casting from an
-     * Object, makes it all the harder. So best to just avoid all those issues & make the developer do explicitly what
-     * they want, calling some other method.
+     * Background:  The reason for this is the the default Java version isn't typesafe and with casting from Object
+     * (both for the list itself and its members) it's too hard to make everything work properly with translation to C#
+     * / other languages that have reified (that is, "real", not type erased) generics and value types, with consistent
+     * semantics around covariance and avoiding the performance hit of boxing for value types. Better to avoid all that
+     * and go with the more modern, typesafe version of equals.   It can perform slightly better even in straight Java
+     * too.
      *
-     * @param object the object to compare to this object.
-     * @return {@code true} if the specified object is equal to this list, {@code false} otherwise; though by default
-     * this method throws an exception and developers generally shouldn't use it
+     * @param object object to compare against
+     * @return always throws an exception; don't use this method and use the typesafe equals(List&lt;E&gt;) equals
+     * instead
      */
     @Override public boolean equals(Object object) {
-        throw new ProgrammerError("equals isn't supported by default for collections;  use == for reference equality or implement your own method for other types of equality");
+        throw new ProgrammerError("equals(Object) isn't supported by default for lists; use equalTo(List<E>) instead as it's more type safe and performant");
+    }
 
-        /*
-        if (this == object) {
+    /**
+     * Two lists are considered equal if the both contain the same number of elements and the elements of both, when
+     * traversed in order, are equal according to elements' equals() methods.
+     *
+     * @param otherList list to compare against
+     * @return true if and only if the lists are equal
+     */
+    @Override public boolean equalTo(@Nullable List<E> otherList) {
+        if (this == otherList)
             return true;
-        }
 
-        if (object instanceof List) {
-            List<?> list = (List<?>) object;
-            if (list.size() != size()) {
+        if (otherList == null)
+            return false;
+
+        if (otherList.size() != size())
+            return false;
+
+        Iterator<E> it1 = iterator();
+        Iterator<E> it2 = otherList.iterator();
+        while (it1.hasNext()) {
+            E e1 = it1.next();
+            E e2 = it2.next();
+
+            if (!Utils.equals(e1, e2))
                 return false;
-            }
-
-            Iterator<E> it1 = iterator();
-            Iterator<?> it2 = list.iterator();
-            while (it1.hasNext()) {
-                Object e1 = it1.next(), e2 = it2.next();
-                if (!(e1 == null ? e2 == null : e1.equals(e2))) {
-                    return false;
-                }
-            }
-            return true;
         }
-        return false;
-        */
+        return true;
     }
 
     /**
@@ -206,12 +185,11 @@ public abstract class List<E> extends Collection<E> {
      */
     @Override public int hashCode() {
         int result = 1;
-        for (E object : this) {
-            result = (31 * result) + (object == null ? 0 : object.hashCode());
+        for (E item : this) {
+            result = (31 * result) + (item == null ? 0 : item.hashCode());
         }
         return result;
     }
-
 
     /**
      * Searches this {@code List} for the specified object and returns the index of the first occurrence.

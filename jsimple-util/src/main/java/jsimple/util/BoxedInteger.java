@@ -42,64 +42,40 @@
 package jsimple.util;
 
 /**
- * MapEntry is an internal class which provides an implementation of Map.Entry.
+ * Created by bretjohn on 1/5/2015.
  */
-class MapEntryImpl<K, V> implements MapEntry<K, V> {
-    K key;
-    V value;
+public class BoxedInteger {
+    private int value;
 
-    /*
-    interface Type<RT, KT, VT> {
-        RT get(MapEntry<KT, VT> entry);
-    }
-    */
-
-    MapEntryImpl(K theKey) {
-        key = theKey;
+    private BoxedInteger(int value) {
+        this.value = value;
     }
 
-    MapEntryImpl(K theKey, V theValue) {
-        key = theKey;
-        value = theValue;
-    }
-
-    @Override public boolean equals(Object object) {
-        throw new ProgrammerError("equals method not supported for HashMap MapEntry");
-    }
-
-    @Override
-    public boolean equalTo(MapEntry<K, V> otherMapEntry) {
-        if (this == otherMapEntry) {
-            return true;
-        }
-
-        if (otherMapEntry == null)
-            return false;
-
-        return Utils.equals(key, otherMapEntry.getKey()) && Utils.equals(value, otherMapEntry.getValue());
-    }
-
-    @Override public K getKey() {
-        return key;
-    }
-
-    public V getValue() {
+    public int intValue() {
         return value;
     }
 
-    @Override
-    public int hashCode() {
-        return key.hashCode() ^ (value == null ? 0 : value.hashCode());
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+
+        if (! (o instanceof BoxedInteger))
+            return false;
+
+        BoxedInteger that = (BoxedInteger) o;
+        return value == that.value;
     }
 
-    public V setValue(V object) {
-        V result = value;
-        value = object;
-        return result;
+    @Override public int hashCode() {
+        return value;
     }
 
-    @Override
-    public String toString() {
-        return key + "=" + value;
+    @Override public String toString() {
+        return IntegerUtil.toString(value);
+    }
+
+    public static BoxedInteger valueOf(int value) {
+        // TODO: Add cache here (probably); do timings to see how much it perf difference it makes
+        return new BoxedInteger(value);
     }
 }

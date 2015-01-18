@@ -80,7 +80,7 @@ public class AbstractMapTest extends UnitTest {
 
 		hm2.put("this", "that");
 		hm1.putAll(hm2);
-		assertEquals("Should be equal", hm1, hm2);
+		assertEqualTo("Should be equal", hm1, (Map<String, String>) hm2);
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class AbstractMapTest extends UnitTest {
 		a.put("c", "cat");
 		a.put("d", "dog");
 
-		assertFalse(a.equals(b));
-		assertFalse(b.equals(a));
+		assertFalse(a.equalTo(b));
+		assertFalse(b.equalTo(a));
 	}
 }

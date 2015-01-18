@@ -39,67 +39,39 @@
  * limitations under the License.
  */
 
-package jsimple.util;
+package jsimple.lang;
 
 /**
- * MapEntry is an internal class which provides an implementation of Map.Entry.
+ * This interface should be implemented by all classes that wish to define a
+ * <em>natural order</em> of their instances.
+ * {@link java.util.Collections#sort} and {@code java.util.Arrays#sort} can then
+ * be used to automatically sort lists of classes that implement this interface.
+ * <p>
+ * The order rule must be both transitive (if {@code x.compareTo(y) < 0} and
+ * {@code y.compareTo(z) < 0}, then {@code x.compareTo(z) < 0} must hold) and
+ * invertible (the sign of the result of x.compareTo(y) must be equal to the
+ * negation of the sign of the result of y.compareTo(x) for all combinations of
+ * x and y).
+ * <p>
+ * In addition, it is recommended (but not required) that if and only if the
+ * result of x.compareTo(y) is zero, then the result of x.equals(y) should be
+ * {@code true}.
  */
-class MapEntryImpl<K, V> implements MapEntry<K, V> {
-    K key;
-    V value;
-
-    /*
-    interface Type<RT, KT, VT> {
-        RT get(MapEntry<KT, VT> entry);
-    }
-    */
-
-    MapEntryImpl(K theKey) {
-        key = theKey;
-    }
-
-    MapEntryImpl(K theKey, V theValue) {
-        key = theKey;
-        value = theValue;
-    }
-
-    @Override public boolean equals(Object object) {
-        throw new ProgrammerError("equals method not supported for HashMap MapEntry");
-    }
-
-    @Override
-    public boolean equalTo(MapEntry<K, V> otherMapEntry) {
-        if (this == otherMapEntry) {
-            return true;
-        }
-
-        if (otherMapEntry == null)
-            return false;
-
-        return Utils.equals(key, otherMapEntry.getKey()) && Utils.equals(value, otherMapEntry.getValue());
-    }
-
-    @Override public K getKey() {
-        return key;
-    }
-
-    public V getValue() {
-        return value;
-    }
-
-    @Override
-    public int hashCode() {
-        return key.hashCode() ^ (value == null ? 0 : value.hashCode());
-    }
-
-    public V setValue(V object) {
-        V result = value;
-        value = object;
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return key + "=" + value;
-    }
+public interface Comparable<T> {
+    
+    /**
+     * Compares this object to the specified object to determine their relative
+     * order.
+     * 
+     * @param another
+     *            the object to compare to this instance.
+     * @return a negative integer if this instance is less than {@code another};
+     *         a positive integer if this instance is greater than
+     *         {@code another}; 0 if this instance has the same order as
+     *         {@code another}.
+     * @throws ClassCastException
+     *             if {@code another} cannot be converted into something
+     *             comparable to {@code this} instance.
+     */
+    int compareTo(T another);
 }

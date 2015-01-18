@@ -42,64 +42,40 @@
 package jsimple.util;
 
 /**
- * MapEntry is an internal class which provides an implementation of Map.Entry.
+ * Created by bretjohn on 1/5/2015.
  */
-class MapEntryImpl<K, V> implements MapEntry<K, V> {
-    K key;
-    V value;
+public class BoxedLong {
+    private long value;
 
-    /*
-    interface Type<RT, KT, VT> {
-        RT get(MapEntry<KT, VT> entry);
-    }
-    */
-
-    MapEntryImpl(K theKey) {
-        key = theKey;
+    private BoxedLong(long value) {
+        this.value = value;
     }
 
-    MapEntryImpl(K theKey, V theValue) {
-        key = theKey;
-        value = theValue;
-    }
-
-    @Override public boolean equals(Object object) {
-        throw new ProgrammerError("equals method not supported for HashMap MapEntry");
-    }
-
-    @Override
-    public boolean equalTo(MapEntry<K, V> otherMapEntry) {
-        if (this == otherMapEntry) {
-            return true;
-        }
-
-        if (otherMapEntry == null)
-            return false;
-
-        return Utils.equals(key, otherMapEntry.getKey()) && Utils.equals(value, otherMapEntry.getValue());
-    }
-
-    @Override public K getKey() {
-        return key;
-    }
-
-    public V getValue() {
+    public long longValue() {
         return value;
     }
 
-    @Override
-    public int hashCode() {
-        return key.hashCode() ^ (value == null ? 0 : value.hashCode());
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+
+        if (! (o instanceof BoxedLong))
+            return false;
+
+        BoxedLong that = (BoxedLong) o;
+        return value == that.value;
     }
 
-    public V setValue(V object) {
-        V result = value;
-        value = object;
-        return result;
+    @Override public int hashCode() {
+        return (int) (value ^ (value >>> 32));
     }
 
-    @Override
-    public String toString() {
-        return key + "=" + value;
+    @Override public String toString() {
+        return LongUtil.toString(value);
+    }
+
+    public static BoxedLong valueOf(int value) {
+        // TODO: Add cache here (possibly); do timings to see how much it perf difference it makes
+        return new BoxedLong(value);
     }
 }
