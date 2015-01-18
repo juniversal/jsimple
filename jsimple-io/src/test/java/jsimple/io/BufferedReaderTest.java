@@ -34,7 +34,7 @@ public class BufferedReaderTest extends UnitTest {
 
     public void setUp() {
         JSimpleIO.init();
-        testFilesPath =  getProjeectDirectory() + "/src/test/resources";
+        testFilesPath =  getProjectDirectory() + "/src/test/resources";
     }
 
     @Test public void testReadChar() {

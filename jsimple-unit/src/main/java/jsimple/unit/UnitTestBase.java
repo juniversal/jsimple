@@ -18,12 +18,12 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class UnitTestBase {
     /**
-     * Get the Java project directory, with the Java source etc. underneath it.  This directory can then be used to
-     * locate test data files, etc.
+     * Get the project directory (typically the parent of the "src" directory for the module).  This directory can then
+     * be used to locate test data files, etc.
      *
      * @return project directory
      */
-    public abstract String getProjeectDirectory();
+    public abstract String getProjectDirectory();
 
     /**
      * Asserts that two objects are equal. If they are not, a test framework assertion error without a message is

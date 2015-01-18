@@ -36,7 +36,7 @@ public class Utf8InputStreamReaderTest extends UnitTest {
         // Test UTF-8 decoding by reading the UTF-8 stress test file, along with a Unicode encoded version of it,
         // and test the UTF-8 decoder on each line, ensuring the decoded text matches the Unicode version
 
-        String resourcesDirectoryPath = getProjeectDirectory() + "/src/test/resources";
+        String resourcesDirectoryPath = getProjectDirectory() + "/src/test/resources";
 
         FileSystemDirectory resourcesDirectory = new FileSystemDirectory(resourcesDirectoryPath);
 

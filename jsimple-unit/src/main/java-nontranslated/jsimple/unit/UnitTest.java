@@ -32,7 +32,19 @@ public class UnitTest extends UnitTestBase {
     @After public void tearDown() {
     }
 
-    @Override public String getProjeectDirectory() {
+    /**
+     * Get the project directory (typically the parent of the "src" directory for the module).  This directory can then
+     * be used to locate test data files, etc.
+     * <p/>
+     * The Java implementation determines this directory by getting the working (current) directory from the JVM.  You
+     * may need to configure the test runner so that the working directory is set appropriately.   For instance, in
+     * Gradle you may need to set workingDir (I think only in multiproject builds, so don't get the root project).   And
+     * in IntelliJ / Android Studio you may need to go to Run / Edit Configurations / Defaults / JUnit and set the
+     * Working directory to $MODULE_DIR$.
+     *
+     * @return project directory
+     */
+    @Override public String getProjectDirectory() {
         if (projectDirectory == null) {
             projectDirectory = System.getProperty("user.dir");
 
