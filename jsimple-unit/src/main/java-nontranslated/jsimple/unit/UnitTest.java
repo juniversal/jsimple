@@ -32,9 +32,35 @@ public class UnitTest extends UnitTestBase {
     @After public void tearDown() {
     }
 
-    @Override public String getJavaProjectDirectory() {
-        if (projectDirectory == null)
+    @Override public String getProjeectDirectory() {
+        if (projectDirectory == null) {
             projectDirectory = System.getProperty("user.dir");
+
+/*
+            @Nullable URL rootResourceURL = getClass().getResource("/");
+            if (rootResourceURL == null)
+                throw new BasicException("Root resource, used for test files, not found");
+
+            String resourcePath = rootResourceURL.getPath();
+            if (resourcePath.isEmpty())
+                throw new BasicException("Root resource, used for test files, is unexpectedly the empty string");
+
+            // To find the project directory, we find the "build" directory in the path to the and assume that its
+            // parent is the project directory
+            File file = new File(resourcePath);
+            while (!file.getName().equals("build")) {
+                @Nullable File parentFile = file.getParentFile();
+
+                if (parentFile == null)
+                    throw new BasicException("'build' directory, used to locate test resources, not found in path {}", resourcePath);
+
+                file = parentFile;
+            }
+
+            projectDirectory = file.getParentFile().getAbsolutePath();
+            System.out.println(projectDirectory);
+*/
+        }
         return projectDirectory;
     }
 

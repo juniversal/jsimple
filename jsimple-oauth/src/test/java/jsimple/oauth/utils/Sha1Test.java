@@ -96,7 +96,7 @@ public class Sha1Test extends UnitTest {
     /**
      * Runs an integrity test.
      */
-    @Test public void testIntegrity(String[] args) {
+    @Test public void testIntegrity() {
         final String SELFTEST_MESSAGE =
                 "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq";
 

@@ -30,11 +30,11 @@ import org.junit.Test;
  * @since 12/1/2014
  */
 public class BufferedReaderTest extends UnitTest {
-    private String resourcesDirectoryPath;
+    private String testFilesPath;
 
     public void setUp() {
         JSimpleIO.init();
-        resourcesDirectoryPath =  getJavaProjectDirectory() + "/src/test/resources";
+        testFilesPath =  getProjeectDirectory() + "/src/test/resources";
     }
 
     @Test public void testReadChar() {
@@ -175,12 +175,13 @@ public class BufferedReaderTest extends UnitTest {
         br.close();
     }
 
+/*
     @Test public void readUTF8() {
         // try {
         // java.io.BufferedReader br;
         // try {
         // br = new java.io.BufferedReader(new
-        // java.io.FileReader(resourcesDirectoryPath + "/UTF-8-test.utf8"));
+        // java.io.FileReader(testFilesPath + "/UTF-8-test.utf8"));
         // StringBuilder sb = new StringBuilder();
         // String line = br.readLine();
         // System.out.println(line);
@@ -193,21 +194,20 @@ public class BufferedReaderTest extends UnitTest {
         // e.printStackTrace();
         // }
 
-        FileSystemDirectory resourcesDirectory = new FileSystemDirectory(
-                resourcesDirectoryPath);
+        FileSystemDirectory resourcesDirectory = new FileSystemDirectory(testFilesPath);
         InputStream plainTextFile = new FileSystemFile(resourcesDirectory,
-                resourcesDirectoryPath + "/UTF-8-test.utf8").openForRead();
-        BufferedReader br = new BufferedReader(new Utf8InputStreamReader(
-                plainTextFile));
+                testFilesPath + "/UTF-8-test.utf8").openForRead();
+        BufferedReader br = new BufferedReader(new Utf8InputStreamReader(plainTextFile));
         br.read();
 
         br.close();
     }
+*/
 
     private BufferedReader getBufferedReader() {
-        FileSystemDirectory resourcesDirectory = new FileSystemDirectory(resourcesDirectoryPath);
+        FileSystemDirectory resourcesDirectory = new FileSystemDirectory(testFilesPath);
         InputStream plainTextFile = new FileSystemFile(resourcesDirectory,
-                resourcesDirectoryPath + "/plain-text.txt").openForRead();
+                testFilesPath + "/plain-text.txt").openForRead();
         BufferedReader br = new BufferedReader(new Utf8InputStreamReader(plainTextFile));
         return br;
     }

@@ -54,23 +54,18 @@ public class ByteArrayOutputStreamTest extends UnitTest {
 	@Test
 	public void testReset() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		byte[] data = new byte[3];
-		byte newFirst = 5;
-		data[0] = 1;
-		data[1] = 2;
-		data[2] = 3;
+
+		byte[] data = new byte[] { 1, 2, 3};
 		baos.write(data);
+
 		// reset the stream , replace first byte with 5
 		baos.reset();
+		byte newFirst = 5;
 		baos.write(newFirst);
-
 		byte[] sut = baos.getByteArray().toByteArray();
 		baos.close();
-		
-		assertEquals(sut[0], newFirst);
-		assertEquals(sut[1], data[1]);
-		assertEquals(sut[2], data[2]);
 
+		assertArrayEquals(sut, new byte[] { newFirst });
 	}
 
 	// the stream is closed multiple times , the trigger should be activated
@@ -117,7 +112,7 @@ public class ByteArrayOutputStreamTest extends UnitTest {
 
 		sut.close();
 
-		assertEquals(expected, sut.getByteArray());
+		assertArrayEquals(expected, sut.getByteArray().toByteArray());
 	}
 	
 	@Test

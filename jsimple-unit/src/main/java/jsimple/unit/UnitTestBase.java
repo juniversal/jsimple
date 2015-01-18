@@ -12,6 +12,8 @@
 
 package jsimple.unit;
 
+import jsimple.util.Equatable;
+import jsimple.util.Utils;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class UnitTestBase {
@@ -21,7 +23,7 @@ public abstract class UnitTestBase {
      *
      * @return project directory
      */
-    public abstract String getJavaProjectDirectory();
+    public abstract String getProjeectDirectory();
 
     /**
      * Asserts that two objects are equal. If they are not, a test framework assertion error without a message is
@@ -34,6 +36,21 @@ public abstract class UnitTestBase {
         assertEquals(null, expected, actual);
     }
 
+    public <T extends Equatable<T>> void assertEquals(@Nullable T expected, @Nullable T actual) {
+        assertEqualTo(null, expected, actual);
+    }
+
+    /**
+     * Asserts that two objects are equal. If they are not, a test framework assertion error without a message is
+     * thrown. If <code>expected</code> and <code>actual</code> are <code>null</code>, they are considered equal.
+     *
+     * @param expected expected value
+     * @param actual   the value to check against <code>expected</code>
+     */
+    public <T extends Equatable<T>> void assertEqualTo(@Nullable T expected, @Nullable T actual) {
+        assertEqualTo(null, expected, actual);
+    }
+
     /**
      * Asserts that two objects are equal. If they are not, a test framework assertion error is thrown with the given
      * message. If <code>expected</code> and <code>actual</code> are <code>null</code>, they are considered equal.
@@ -43,6 +60,25 @@ public abstract class UnitTestBase {
      * @param actual   actual value
      */
     public abstract void assertEquals(@Nullable String message, @Nullable Object expected, @Nullable Object actual);
+
+    public <T extends Equatable<T>> void assertEquals(@Nullable String message, @Nullable T expected, @Nullable T actual) {
+        assertEqualTo(message, expected, actual);
+    }
+    
+    /**
+     * Asserts that two objects are equal. If they are not, a test framework assertion error is thrown with the given
+     * message. If <code>expected</code> and <code>actual</code> are <code>null</code>, they are considered equal.
+     *
+     * @param message  the identifying message for the assertion error (<code>null</code> okay)
+     * @param expected expected value
+     * @param actual   actual value
+     */
+    public <T extends Equatable<T>> void assertEqualTo(@Nullable String message, @Nullable T expected,
+                                                       @Nullable T actual) {
+        if (!Utils.equalTo(expected, actual)) {
+            fail(message);
+        }
+    }
 
     /**
      * Asserts that two longs are equal. If they are not, a test framework assertion error is thrown.
@@ -277,9 +313,9 @@ public abstract class UnitTestBase {
      * Asserts that two objects refer to the same object. If they are not, a test frame assertion error is thrown with
      * the given message
      *
-     * @param message the identifying message for the test framework assertion error (<code>null</code> okay)
+     * @param message  the identifying message for the test framework assertion error (<code>null</code> okay)
      * @param expected the expected object
-     * @param actual the object to compare to expected
+     * @param actual   the object to compare to expected
      */
     public abstract void assertSame(String message, @Nullable Object expected, @Nullable Object actual);
 
