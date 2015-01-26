@@ -40,6 +40,7 @@ buildscript {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven'
+    apply plugin: 'signing'
     apply plugin: 'javaToObjectiveC'
     apply plugin: 'javaToCSharpTangible'
     apply plugin: 'javaToCSharp'
@@ -72,8 +73,26 @@ subprojects {
         //configuration = false
     }
 
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+        from javadoc
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives javadocJar, sourcesJar
+    }
+
+    signing {
+        sign configurations.archives
+    }
+
     task all {
-        dependsOn build, javaToCSharpTangible, javaToObjectiveC, msbuild
+        dependsOn build, javaToCSharp, msbuild
     }
 
     sourceSets {
@@ -103,6 +122,53 @@ subprojects {
 
     jar {
         manifest.attributes provider: 'gradle'
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                if (project.hasProperty('ossrhUsernameJUniversal') && project.hasProperty('ossrhPasswordJUniversal')) {
+                    repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                        authentication(userName: ossrhUsernameJUniversal, password: ossrhPasswordJUniversal)
+                    }
+
+                    snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                        authentication(userName: ossrhUsernameJUniversal, password: ossrhPasswordJUniversal)
+                    }
+                }
+
+                pom.project {
+                    name 'JSimple library'
+                    packaging 'jar'
+                    // optionally artifactId can be defined here
+                    description 'JSimple cross platform friendly library'
+                    url 'https://github.com/juniversal/jsimple'
+
+                    scm {
+                        connection 'scm:git:git@github.com:juniversal/jsimple.git'
+                        developerConnection 'scm:git:git@github.com:juniversal/jsimple.git'
+                        url 'git@github.com:juniversal/jsimple.git'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The MIT License'
+                            url 'http://opensource.org/licenses/MIT'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            //id 'manfred'
+                            name 'Bret Johnson'
+                            email 'bret.johnson@microsoft.com'
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // In Java8, the Javadoc command was changed to be very strict, error'ing out on anything that's not completely
