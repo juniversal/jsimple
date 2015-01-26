@@ -1,0 +1,8 @@
+ext.masterVersionJUniversal = '0.8.1-SNAPSHOT'
+ext.masterVersionJSimple = '0.9.0-SNAPSHOT'
+
+if (hasProperty("teamcity")) {
+    ext.buildNumber = teamcity["build.number"]
+} else {
+    ext.buildNumber = '<local-build>'
+}

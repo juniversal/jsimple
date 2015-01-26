@@ -25,13 +25,15 @@ task wrapper(type: Wrapper) {
 }
 
 buildscript {
+    apply from: 'shared.gradle'
+
     repositories {
         mavenLocal()
         mavenCentral()
     }
 
     dependencies {
-        classpath group: 'org.juniversal', name: 'juniversal-gradle-plugins', version: '0.8-SNAPSHOT'
+        classpath group: 'org.juniversal', name: 'juniversal-gradle-plugins', version: masterVersionJUniversal
     }
 }
 
@@ -48,7 +50,7 @@ subprojects {
     targetCompatibility = 1.6
 
     group = 'org.juniversal'
-    version = '0.8-SNAPSHOT'
+    version = masterVersionJSimple
 
     javaToObjectiveC {
         docComments = false
