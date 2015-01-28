@@ -33,7 +33,7 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'org.juniversal', name: 'juniversal-gradle-plugins', version: masterVersionJUniversal
+        classpath group: 'org.juniversal', name: 'juniversal-gradle-plugins', version: juniversalVersion
     }
 }
 
@@ -51,7 +51,7 @@ subprojects {
     targetCompatibility = 1.6
 
     group = 'org.juniversal'
-    version = masterVersionJSimple
+    version = jsimpleVersion
 
     javaToObjectiveC {
         docComments = false
