@@ -29,8 +29,7 @@ import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonObject;
 import jsimple.json.objectmodel.JsonObjectOrArray;
 import jsimple.json.objectmodel.ObjectModelParser;
-import jsimple.util.ArrayList;
-import jsimple.util.List;
+import jsimple.util.*;
 
 /**
  * Parses jsons received from facebook and constructs model objects
@@ -140,7 +139,13 @@ public class FacebookParser {
      * Replace character that can not be read (special characters , etc with _)
      */
     public String replaceNonUTF(String original) {
-        return original.replaceAll("[^A-Za-z0-9()\\[\\]]", "_");
+        return StringUtils.replaceAll(original, new MatchPattern() {
+            @Override public boolean match(MatchBuilder mb) {
+                return ! (mb.matchAsciiLetter() || mb.matchDigit() || mb.match('(', ')', '[', ']'));
+            }
+        }, "_");
+
+        //return original.replaceAll("[^A-Za-z0-9()\\[\\]]", "_");
     }
     
     public String getNextPostPage(String wallJSon){

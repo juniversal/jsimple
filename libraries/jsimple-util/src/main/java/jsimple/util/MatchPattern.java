@@ -20,12 +20,8 @@
  * THE SOFTWARE.
  */
 
-description = ''
-dependencies {
-    compile group: 'org.jsimplelib', name: 'jsimple-util', version: jsimpleVersion
-    compile group: 'org.jsimplelib', name: 'jsimple-json', version: jsimpleVersion
-    compile group: 'org.jsimplelib', name: 'jsimple-oauth', version: jsimpleVersion
-    compile group: 'com.intellij', name: 'annotations', version: '9.0.4'
+package jsimple.util;
 
-    testCompile group: 'org.jsimplelib', name: 'jsimple-unit', version: jsimpleVersion
+@FunctionalInterface public interface MatchPattern {
+    public boolean match(MatchBuilder matchBuilder);
 }

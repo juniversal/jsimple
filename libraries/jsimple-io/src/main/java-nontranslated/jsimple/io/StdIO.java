@@ -20,12 +20,20 @@
  * THE SOFTWARE.
  */
 
-description = ''
-dependencies {
-    compile group: 'org.jsimplelib', name: 'jsimple-util', version: jsimpleVersion
-    compile group: 'org.jsimplelib', name: 'jsimple-json', version: jsimpleVersion
-    compile group: 'org.jsimplelib', name: 'jsimple-oauth', version: jsimpleVersion
-    compile group: 'com.intellij', name: 'annotations', version: '9.0.4'
+package jsimple.io;
 
-    testCompile group: 'org.jsimplelib', name: 'jsimple-unit', version: jsimpleVersion
+/**
+ * The StdIO class can be used to write to stdout & stderr.
+ *
+ * @author Bret Johnson
+ * @since 12/2/12 12:50 AM
+ */
+public class StdIO {
+    public static final OutputStream stdoutStream = new JSimpleOutputStreamOnJavaStream(System.out);
+    public static final OutputStream stderrStream = new JSimpleOutputStreamOnJavaStream(System.err);
+    public static final InputStream stdinStream = new JSimpleInputStreamOnJavaStream(System.in);
+
+    public static final Writer stdout = new Utf8OutputStreamWriter(stdoutStream);
+    public static final Writer stderr = new Utf8OutputStreamWriter(stderrStream);
+    public static final BufferedReader stdin = new BufferedReader(new Utf8InputStreamReader(stdinStream));
 }

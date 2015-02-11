@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jsimplelib:jsimple-json:develop-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/org/jsimplelib/jsimple-json/develop-SNAPSHOT/jsimple-json-develop-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/org/jsimplelib/jsimple-json/develop-SNAPSHOT/jsimple-json-develop-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

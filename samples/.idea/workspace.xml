@@ -1,0 +1,1204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BuildServerSettings">
+    <option name="LOGIN" value="" />
+    <option name="SERVER_URL" value="http://buildserver" />
+    <option name="PASSWORD" />
+    <option name="REMEMBER_ME" value="true" />
+    <option name="USE_IDEA_PROXY_SETTINGS" value="true" />
+    <option name="INSPECTIONS_BUILD_TYPE_IDS" />
+    <option name="DUPLICATES_BUILD_TYPE_IDS" />
+    <option name="COVERAGE_SETTINGS" />
+    <option name="TEST_STATUS_ENABLED" value="true" />
+    <option name="TEST_STATUS_SHOW_SUCCESSFUL" value="false" />
+    <option name="ARTIFACTS_BUILD_TYPE_IDS" />
+    <option name="PERFORM_COMMIT_IF_SUCCESSFUL" value="true" />
+    <option name="PERFORM_COMMIT_IF_NO_NEW_FAILED_TESTS" value="false" />
+    <option name="REQUEST_CONFIRMATON" value="false" />
+    <option name="PRE_TESTED_COMMIT" value="true" />
+    <option name="PROJECT_STATUS_DIALOG_SPLITTER_DIVIDER_LOCATION" value="500" />
+    <option name="CHANGES_STATUS_DIALOG_SPLITTER_DIVIDER_LOCATION" value="500" />
+    <option name="FILTER_BY_STATUS" value="false" />
+    <option name="FILTER_MARKED_AS_FIXED" value="false" />
+    <option name="SHOW_CLOSE_PROMPT" value="true" />
+    <option name="TOOL_WINDOW_SELECTED_CONTENT_INDEX" value="0" />
+    <option name="FILTER_BY_CURRENT_PROJECT" value="true" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5c7e0394-5fd2-4ea9-9661-7f88a5ff634d" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_intellij_annotations_9_0_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/samples/good-friends/good-friends.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jsimplelib_jsimple_json_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../libraries/.idea/libraries/Gradle__org_jsimplelib_jsimple_logging_api_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../libraries/libraries.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../libraries/.idea/libraries/Gradle__org_jsimplelib_jsimple_unit_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__types_checkers_jsr308_all_1_2_6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_10.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../libraries/.idea/libraries/Gradle__org_jsimplelib_jsimple_json_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../libraries/.idea/libraries/Gradle__org_jsimplelib_jsimple_io_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jsimplelib_jsimple_util_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jsimplelib_jsimple_unit_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../libraries/.idea/libraries/Gradle__org_jsimplelib_jsimple_util_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/samples.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../libraries/.idea/libraries/Gradle__org_jsimplelib_jsimple_oauth_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../libraries/jsimple.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jsimplelib_jsimple_io_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jsimplelib_jsimple_oauth_develop_SNAPSHOT.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jsimplelib_jsimple_logging_api_develop_SNAPSHOT.xml" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\gradlew" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\gradle\wrapper\gradle-wrapper.jar" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\gradle\wrapper\gradle-wrapper.properties" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\.idea\libraries\Gradle__annotations_9_0_4.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\.idea\libraries\Gradle__junit_4_10.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\.idea\libraries\Gradle__jsr308_all_1_2_6.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\gradlew.bat" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\build.gradle" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\.idea\libraries\Gradle__hamcrest_core_1_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\settings.gradle" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\samples\good-friends\special-friends.iml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Dropbox\projects\jsimple\jsimple.iml" afterPath="" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#\nontranslated\jsimple\io\DotNetStreamOutputStream.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#/nontranslated/jsimple/io/DotNetStreamOutputStream.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\MatchBuilder.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/MatchBuilder.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\extractors\TokenExtractorImpl.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/extractors/TokenExtractorImpl.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\c#\packages\NUnit.2.6.2\lib\nunit.framework.dll" afterPath="$PROJECT_DIR$/../libraries/c#/packages/NUnit.2.6.2/lib/nunit.framework.dll" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\src\main\java\jsimple\logging\LogEnterLeave.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/src/main/java/jsimple/logging/LogEnterLeave.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\src\main\java\jsimple\logging\helpers\NOPLogger.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/src/main/java/jsimple/logging/helpers/NOPLogger.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonObjectWriter.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonObjectWriter.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\net\JavaHttpRequest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/net/JavaHttpRequest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\text\JsonParsingException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/text/JsonParsingException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\Utils.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/Utils.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\nontranslated\jsimple\net\WindowsDesktopHttpRequest.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/nontranslated/jsimple/net/WindowsDesktopHttpRequest.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\Arrays.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/Arrays.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\.settings\org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\build.gradle" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/build.gradle" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\Utf8OutputStreamWriterTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/Utf8OutputStreamWriterTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\HttpRequest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/HttpRequest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#\jsimple-io.csproj.DotSettings" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#/jsimple-io.csproj.DotSettings" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\c#\packages.config" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-test/packages.config" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\Base64.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/Base64.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\c#\jsimple-util.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/c#/jsimple-util.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-universal\nontranslated\jsimple\net\WindowsUniversalHttpResponse.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-universal/nontranslated/jsimple/net/WindowsUniversalHttpResponse.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\OptionalInteger.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/OptionalInteger.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\src\main\java\jsimple\logging\stdimpl\StdLoggerFactory.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/src/main/java/jsimple/logging/stdimpl/StdLoggerFactory.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\vcs.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/vcs.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\TextualPathTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/TextualPathTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\Pattern.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/MatchPattern.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\src\test\java\jsimple\logging\stdimpl\StdLoggerFactoryTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/src/test/java/jsimple/logging/stdimpl/StdLoggerFactoryTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\nontranslated\jsimple\io\FileSystemDirectory.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/nontranslated/jsimple/io/FileSystemDirectory.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\json.iml" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/json.iml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\.settings\org.eclipse.core.resources.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/.settings/org.eclipse.core.resources.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\scopes\Scribe_originated_source.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/scopes/Scribe_originated_source.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\DateTime.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/DateTime.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\.settings\org.eclipse.m2e.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/.settings/org.eclipse.m2e.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\CollectionTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/CollectionTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\misc.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/misc.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\utils\OAuthEncoder.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/utils/OAuthEncoder.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\objectmodel\JsonArray.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/objectmodel/JsonArray.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\jsimple-io-windows-phone.csproj.DotSettings" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/jsimple-io-windows-phone.csproj.DotSettings" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\c#\packages\NUnit.2.6.2\license.txt" afterPath="$PROJECT_DIR$/../libraries/c#/packages/NUnit.2.6.2/license.txt" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\HttpRequestParams.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/HttpRequestParams.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\MurmurHash3.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/MurmurHash3.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\net\WindowsPhoneHttpRequest.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/net/WindowsPhoneHttpRequest.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\c#\jsimple-logging-stdimpl.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/c#/jsimple-logging-stdimpl.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\MessageFormatter.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/MessageFormatter.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\HashMapTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/HashMapTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\io\JavaIOUtils.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/io/JavaIOUtils.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\SequenceInputStream.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/SequenceInputStream.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\Set.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/Set.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\io\AsyncOperationExtension.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-universal/nontranslated/jsimple/io/AsyncOperationExtension.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\OAuthApi.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/OAuthApi.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\src\main\java\jsimple\logging\stdimpl\WriterAppender.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/src/main/java/jsimple/logging/stdimpl/WriterAppender.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#\nontranslated\jsimple\io\StdIO.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#/nontranslated/jsimple/io/StdIO.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonStringProperty.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonStringProperty.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\Writer.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/Writer.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\.settings\org.eclipse.m2e.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/.settings/org.eclipse.m2e.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-store\jsimple-io-windows-store.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-store/jsimple-io-windows-store.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\OAuthConfig.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/OAuthConfig.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\VisitFailed.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/VisitFailed.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\scopes\Apache_Harmony_originated_source.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/scopes/Apache_Harmony_originated_source.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java-nontranslated\jsimple\lang\Iterable.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java-nontranslated/jsimple/lang/Iterable.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\PlatformUtilsBase.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/PlatformUtilsBase.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\CharacterUtil.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/CharacterUtil.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\nontranslated\jsimple\io\JSimpleIO.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/nontranslated/jsimple/io/JSimpleIO.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\OAuthRequest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/OAuthRequest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\.settings\org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\services\TimestampServiceImpl.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/services/TimestampServiceImpl.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\.project" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/.project" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\ArrayList.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/ArrayList.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\HttpResponse.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/HttpResponse.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\io\JavaPaths.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/io/JavaPaths.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\OAuthResponse.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/OAuthResponse.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\jsimple-json.iml" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/jsimple-json.iml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\BoxedInteger.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/BoxedInteger.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-universal\nontranslated\jsimple\net\WindowUniversalHttpRequest.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-universal/nontranslated/jsimple/net/WindowUniversalHttpRequest.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\original-scribe-1.3.1-sources.zip" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/original-scribe-1.3.1-sources.zip" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\src\main\java\jsimple\logging\stdimpl\LoggingEvent.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/src/main/java/jsimple/logging/stdimpl/LoggingEvent.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\LiveOAuthApi.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/LiveOAuthApi.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\BufferedReader.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/BufferedReader.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\c#\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/c#/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\nontranslated\jsimple\io\WindowsDesktopPaths.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/nontranslated/jsimple/io/WindowsDesktopPaths.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\c#\jsimple-oauth.csproj.DotSettings" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/c#/jsimple-oauth.csproj.DotSettings" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\c#\nontranslated\jsimple\util\Iterator.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/c#/nontranslated/jsimple/util/Iterator.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\extractors\TokenExtractor20Impl.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/extractors/TokenExtractor20Impl.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\extractors\AccessTokenExtractor.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/extractors/AccessTokenExtractor.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\extractors\HeaderExtractorImpl.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/extractors/HeaderExtractorImpl.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\build.gradle" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/build.gradle" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\DirectoryVisitor.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/DirectoryVisitor.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\jsimple-oauth.iml" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/jsimple-oauth.iml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\PathAttributes.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/PathAttributes.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\ArrayListTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/ArrayListTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\extractors\BaseStringExtractor.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/extractors/BaseStringExtractor.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\ArraysTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/ArraysTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\src\main\java\jsimple\unit\UnitTestBase.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/src/main/java/jsimple/unit/UnitTestBase.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\.classpath" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/.classpath" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\Random.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/Random.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookParser.java" afterPath="$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookParser.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\copyright\profiles_settings.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/copyright/profiles_settings.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\src\main\java\jsimple\logging\stdimpl\StdLogger.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/src/main/java/jsimple/logging/stdimpl/StdLogger.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonIntProperty.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonIntProperty.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\oauth\OAuth10aServiceImpl.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/oauth/OAuth10aServiceImpl.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonObjectReader.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonObjectReader.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\HashSet.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/HashSet.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\c#\nontranslated\jsimple\util\BasicException.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/c#/nontranslated/jsimple/util/BasicException.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\text\Token.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/text/Token.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\Path.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/Path.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-store\jsimple-io-windows-store.csproj.DotSettings" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-store/jsimple-io-windows-store.csproj.DotSettings" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\net\UrlEncoderTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/net/UrlEncoderTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\.settings\org.eclipse.core.resources.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/.settings/org.eclipse.core.resources.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\.classpath" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/.classpath" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\Json.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/Json.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\Equatable.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/Equatable.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\IOException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/IOException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\Comparator.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/Comparator.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\scopes\scope_settings.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/scopes/scope_settings.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\net2\JSimpleNet.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/net2/JSimpleNet.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-test\packages.config" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/c#/packages.config" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\.settings\org.eclipse.m2e.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/.settings/org.eclipse.m2e.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\StringWriterTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/StringWriterTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\test\java\jsimple\oauth\utils\Sha1Test.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/test/java/jsimple/oauth/utils/Sha1Test.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\.settings\org.eclipse.core.resources.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/.settings/org.eclipse.core.resources.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\io\StorageFolderDirectory.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/io/StorageFolderDirectory.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\Verb.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/Verb.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\resources\UTF-8-test.unicode" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/resources/UTF-8-test.unicode" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\extractors\JsonTokenExtractor.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/extractors/JsonTokenExtractor.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\TumblrOAuthApi.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/TumblrOAuthApi.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\pushnotifications\PushNotificationsReceiver.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/pushnotifications/PushNotificationsReceiver.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonDoubleProperty.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonDoubleProperty.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\net\JavaTcpSocketListener.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/net/JavaTcpSocketListener.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\resources\plain-text.txt" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/resources/plain-text.txt" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\.settings\org.eclipse.core.resources.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/.settings/org.eclipse.core.resources.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java-nontranslated\jsimple\util\PlatformUtils.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java-nontranslated/jsimple/util/PlatformUtils.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\c#\jsimple-logging-stdimpl.csproj.DotSettings" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/c#/jsimple-logging-stdimpl.csproj.DotSettings" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\.classpath" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/.classpath" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\OAuthConstants.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/OAuthConstants.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\.settings\org.eclipse.core.resources.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/.settings/org.eclipse.core.resources.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\.classpath" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/.classpath" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/good-friends/build.gradle" afterPath="$PROJECT_DIR$/good-friends/build.gradle" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\resources\UTF-8-test.utf8" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/resources/UTF-8-test.utf8" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-store\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-store/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonProperty.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonProperty.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\SocketConnectionHandler.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/SocketConnectionHandler.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\.settings\org.eclipse.m2e.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/.settings/org.eclipse.m2e.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\c#\packages\NUnit.2.6.2\NUnit.2.6.2.nuspec" afterPath="$PROJECT_DIR$/../libraries/c#/packages/NUnit.2.6.2/NUnit.2.6.2.nuspec" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\.settings\org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\.settings\org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\Utf8OutputStreamWriter.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/Utf8OutputStreamWriter.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonArrayProperty.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonArrayProperty.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\FacebookOAuthApi.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/FacebookOAuthApi.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\.settings\org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\io\StorageFileFile.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/io/StorageFileFile.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\testfile.txt" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/testfile.txt" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-universal\nontranslated\jsimple\io\StorageItemPathAttributes.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-universal/nontranslated/jsimple/io/StorageItemPathAttributes.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\scopes\JUnit_originated_source.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/scopes/JUnit_originated_source.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\.settings\org.eclipse.m2e.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/.settings/org.eclipse.m2e.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\.settings\org.eclipse.m2e.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/.settings/org.eclipse.m2e.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\Map.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/Map.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\Parameter.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/Parameter.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\services\HMACSha1SignatureService.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/services/HMACSha1SignatureService.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-test\jsimple-io-test.csproj.DotSettings" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-test/jsimple-io-test.csproj.DotSettings" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonArrayWriter.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonArrayWriter.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-universal\nontranslated\jsimple\io\WindowsPhonePaths.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-universal/nontranslated/jsimple/io/WindowsPhonePaths.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\objectmodel\JsonObject.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/objectmodel/JsonObject.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-universal\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-universal/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\c#-test\jsimple-json-test.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/c#-test/jsimple-json-test.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\libraries\Gradle__org_hamcrest_hamcrest_core_1_1.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_1.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\objectmodel\JsonNull.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/objectmodel/JsonNull.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\List.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/List.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\TextualPath.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/TextualPath.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\UnknownHostException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/UnknownHostException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\Base64Test.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/Base64Test.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\ServiceBuilder.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/ServiceBuilder.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\.project" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/.project" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\lang\Math.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/lang/Math.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\c#-test\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/c#-test/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\services\SignatureService.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/services/SignatureService.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\c#-test\jsimple-util-test.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/c#-test/jsimple-util-test.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\ProgrammerError.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/ProgrammerError.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\Utf8InputStreamReader.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/Utf8InputStreamReader.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\test\java\jsimple\json\ReaderWriterTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/test/java/jsimple/json/ReaderWriterTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\build.gradle" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/build.gradle" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\OutputStream.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/OutputStream.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\scopes\Logback_originated_source.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/scopes/Logback_originated_source.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\LongUtil.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/LongUtil.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\SignatureType.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/SignatureType.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonObjectType.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonObjectType.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\net2\WindowsPhoneHttpRequest.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/net2/WindowsPhoneHttpRequest.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\c#\packages\NUnit.2.6.2\NUnit.2.6.2.nupkg" afterPath="$PROJECT_DIR$/../libraries/c#/packages/NUnit.2.6.2/NUnit.2.6.2.nupkg" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\DirectoryTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/DirectoryTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\objectmodel\ObjectModelParser.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/objectmodel/ObjectModelParser.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\pom.xml" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/pom.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\c#\jsimple-json.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/c#/jsimple-json.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\jsimple-io-windows-phone.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/jsimple-io-windows-phone.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\StringIteratorTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/StringIteratorTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\src\test\java\jsimple\unit\UnitTestsTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/src/test/java/jsimple/unit/UnitTestsTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\c#\jsimple-unit.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/c#/jsimple-unit.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\StringReader.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/StringReader.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\src\main\java\jsimple\logging\ILoggerFactory.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/src/main/java/jsimple/logging/ILoggerFactory.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\net\UrlDecoderTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/net/UrlDecoderTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\oauth\OAuthService.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/oauth/OAuthService.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\Utf8InputStreamReaderTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/Utf8InputStreamReaderTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\GoogleOAuthApi.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/GoogleOAuthApi.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\Paths.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/Paths.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java-nontranslated\jsimple\lang\AutoCloseable.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java-nontranslated/jsimple/lang/AutoCloseable.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\JsonException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/JsonException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#\nontranslated\jsimple\io\DebugWriter.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#/nontranslated/jsimple/io/DebugWriter.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\c#-test\packages.config" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/c#-test/packages.config" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\src\main\java\jsimple\logging\stdimpl\Appender.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/src/main/java/jsimple/logging/stdimpl/Appender.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\c#\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/c#/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\io\StdIO.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/io/StdIO.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java-nontranslated\jsimple\util\BasicException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java-nontranslated/jsimple/util/BasicException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\jsimple-logging-api.iml" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/jsimple-logging-api.iml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\c#-test\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/c#-test/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\ByteArrayOutputStreamTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/ByteArrayOutputStreamTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\objectmodel\JsonObjectOrArray.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/objectmodel/JsonObjectOrArray.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\copyright\Apache_Commons_Net_originated_source_copyright.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/copyright/Apache_Commons_Net_originated_source_copyright.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\c#\jsimple.sln" afterPath="$PROJECT_DIR$/../libraries/c#/jsimple.sln" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\AbstractMapTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/AbstractMapTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\test\java\jsimple\json\JsonParserTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/test/java/jsimple/json/JsonParserTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\jsimple-io-windows-desktop.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/jsimple-io-windows-desktop.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-universal\nontranslated\jsimple\io\StorageFolderDirectory.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-universal/nontranslated/jsimple/io/StorageFolderDirectory.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\InputStream.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/InputStream.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\net2\WindowsPhoneHttpResponse.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/net2/WindowsPhoneHttpResponse.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\io\JSimpleOutputStreamOnJavaStream.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/io/JSimpleOutputStreamOnJavaStream.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\MapEntryImpl.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/MapEntryImpl.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\pom.xml" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/pom.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\.project" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/.project" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\extractors\HeaderExtractor.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/extractors/HeaderExtractor.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\text\Serializer.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/text/Serializer.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\c#\jsimple-util.csproj.DotSettings" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/c#/jsimple-util.csproj.DotSettings" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#\jsimple-io.sln" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#/jsimple-io.sln" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\ListUtils.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/ListUtils.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\BufferedReaderTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/BufferedReaderTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\services\TimestampService.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/services/TimestampService.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-test\jsimple-io-test.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-test/jsimple-io-test.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\nontranslated\jsimple\net\DotNetTcpIpSocketListener.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/nontranslated/jsimple/net/DotNetTcpIpSocketListener.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\StringUtilsTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/StringUtilsTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\TwitterOAuthApi.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/TwitterOAuthApi.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\DropBoxOAuthApi.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/DropBoxOAuthApi.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\CharConversionException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/CharConversionException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\HashMap.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/HashMap.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\net\WindowsPhoneHttpResponse.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/net/WindowsPhoneHttpResponse.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\copyright\Joda_Time_originated_source_copyright.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/copyright/Joda_Time_originated_source_copyright.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\exceptions\OAuthConnectionException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/exceptions/OAuthConnectionException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\UrlDecoder.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/UrlDecoder.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\encodings.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/encodings.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\exceptions\OAuthParametersMissingException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/exceptions/OAuthParametersMissingException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonLongProperty.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonLongProperty.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonArrayReader.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonArrayReader.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\StringTokenizer.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/StringTokenizer.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\InvalidFormatException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/InvalidFormatException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-universal\nontranslated\jsimple\io\StorageFileFile.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-universal/nontranslated/jsimple/io/StorageFileFile.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\io\FileSystemFile.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/io/FileSystemFile.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\Url.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/Url.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\File.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/File.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\SocketTimeoutException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/SocketTimeoutException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java-nontranslated\jsimple\util\Iterator.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java-nontranslated/jsimple/util/Iterator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/good-friends/good-friends.iml" afterPath="$PROJECT_DIR$/good-friends/good-friends.iml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\extractors\BaseStringExtractorImpl.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/extractors/BaseStringExtractorImpl.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-test\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-test/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\c#\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/c#/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\src\main\java\jsimple\logging\Logger.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/src/main/java/jsimple/logging/Logger.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\copyright\Default_copyright.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/copyright/Default_copyright.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\ByteArrayInputStreamTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/ByteArrayInputStreamTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\StringBuilderUtils.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/StringBuilderUtils.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\io\OperationComplete.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/io/OperationComplete.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\c#\packages\NUnit.2.6.2\lib\nunit.framework.xml" afterPath="$PROJECT_DIR$/../libraries/c#/packages/NUnit.2.6.2/lib/nunit.framework.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\.project" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/.project" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\build.gradle" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/build.gradle" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\test\java\jsimple\json\TokenTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/test/java/jsimple/json/TokenTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\.settings\org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\ClosedListener.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/ClosedListener.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\codeStyleSettings.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/codeStyleSettings.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\src\main\java\jsimple\logging\Level.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/src/main/java/jsimple/logging/Level.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-universal\nontranslated\jsimple\io\AsyncOperationExtension.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/io/AsyncOperationExtension.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\jsimple-io.iml" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/jsimple-io.iml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\LongUtilTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/LongUtilTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\extractors\RequestTokenExtractor.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/extractors/RequestTokenExtractor.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\c#\jsimple-oauth.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/c#/jsimple-oauth.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\pom.xml" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/pom.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-universal\nontranslated\jsimple\io\JSimpleIO.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-universal/nontranslated/jsimple/io/JSimpleIO.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\SequenceInputStreamTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/SequenceInputStreamTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\IntegerUtilTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/IntegerUtilTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\Token.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/Token.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\ListTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/ListTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\packages.config" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/packages.config" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\copyright\Scribe_originated_source_copyright.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/copyright/Scribe_originated_source_copyright.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\jsimple-unit.iml" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/jsimple-unit.iml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\OAuthLogger.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/OAuthLogger.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\MessageFormatterTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/MessageFormatterTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\.settings\org.eclipse.core.resources.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/.settings/org.eclipse.core.resources.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\.project" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/.project" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\Reader.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/Reader.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\src\main\java\jsimple\logging\stdimpl\LogEnterLeaveStdImpl.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/src/main/java/jsimple/logging/stdimpl/LogEnterLeaveStdImpl.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\src\main\java-nontranslated\jsimple\unit\UnitTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/src/main/java-nontranslated/jsimple/unit/UnitTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\ByteArrayInputStream.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/ByteArrayInputStream.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\Collection.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/Collection.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-universal\jsimple-io-windows-universal.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-universal/jsimple-io-windows-universal.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\scopes\BlowfishJ_originated_source.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/scopes/BlowfishJ_originated_source.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\io\WindowsPhonePaths.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/io/WindowsPhonePaths.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\.classpath" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/.classpath" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\c#\packages\repositories.config" afterPath="$PROJECT_DIR$/../libraries/c#/packages/repositories.config" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\services\PlaintextSignatureService.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/services/PlaintextSignatureService.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\SocketListener.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/SocketListener.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#\jsimple-io.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#/jsimple-io.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\scopes\Joda_Time_originated_source.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/scopes/Joda_Time_originated_source.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\libraries\Gradle__junit_junit_4_10.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/libraries/Gradle__junit_junit_4_10.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\StringUtils.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/StringUtils.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\c#\nontranslated\jsimple\lang\Iterable.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/c#/nontranslated/jsimple/lang/Iterable.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\FileVisitor.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/FileVisitor.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\io\StorageItemPathAttributes.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/io/StorageItemPathAttributes.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\nontranslated\jsimple\io\FileSystemFile.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/nontranslated/jsimple/io/FileSystemFile.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-phone\nontranslated\jsimple\io\JSimpleIO.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-phone/nontranslated/jsimple/io/JSimpleIO.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\DefaultOAuthApi20.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/DefaultOAuthApi20.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\StringReaderTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/StringReaderTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonBooleanProperty.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonBooleanProperty.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\.project" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/.project" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\.classpath" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/.classpath" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\c#\nontranslated\jsimple\lang\AutoCloseable.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/c#/nontranslated/jsimple/lang/AutoCloseable.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\Verifier.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/Verifier.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\.settings\org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\copyright\BlowfishJ_originated_source_copyright.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/copyright/BlowfishJ_originated_source_copyright.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\Px500OAuthApi.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/Px500OAuthApi.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\.project" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/.project" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\BoxedLong.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/BoxedLong.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\io\JSimpleIO.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/io/JSimpleIO.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\SubstreamInputStreamTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/SubstreamInputStreamTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\net\UrlTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/net/UrlTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\jsimple-io-windows-desktop.csproj.DotSettings" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/jsimple-io-windows-desktop.csproj.DotSettings" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#\nontranslated\jsimple\io\DotNetStreamInputStream.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#/nontranslated/jsimple/io/DotNetStreamInputStream.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\scopes\Apache_Commons_Net_originated_source.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/scopes/Apache_Commons_Net_originated_source.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\text\TokenType.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/text/TokenType.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\c#-test\jsimple-json-test.csproj.DotSettings" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/c#-test/jsimple-json-test.csproj.DotSettings" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\io\FileSystemDirectory.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/io/FileSystemDirectory.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\.settings\org.eclipse.core.resources.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/.settings/org.eclipse.core.resources.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\MapEntry.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/MapEntry.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\pom.xml" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/pom.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\copyright\Apache_Harmony_originated_source_copyright.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/copyright/Apache_Harmony_originated_source_copyright.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\HashMapEntry.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/HashMapEntry.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\DefaultOAuthApi10a.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/DefaultOAuthApi10a.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\build.gradle" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/build.gradle" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\io\JSimpleInputStreamOnJavaStream.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/io/JSimpleInputStreamOnJavaStream.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\libraries\Gradle__types_checkers_jsr308_all_1_2_6.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/libraries/Gradle__types_checkers_jsr308_all_1_2_6.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\HashSetTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/HashSetTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\c#\jsimple-oauth.sln" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/c#/jsimple-oauth.sln" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\ByteArrayOutputStream.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/ByteArrayOutputStream.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\jsimple-util.iml" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/jsimple-util.iml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\main\java\jsimple\json\readerwriter\JsonObjectProperty.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/main/java/jsimple/json/readerwriter/JsonObjectProperty.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\ListUtilTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/ListUtilTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\test\java\jsimple\io\MurmurHash3Test.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/test/java/jsimple/io/MurmurHash3Test.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\c#\nontranslated\jsimple\util\PlatformUtils.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/c#/nontranslated/jsimple/util/PlatformUtils.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\nontranslated\jsimple\net\WindowsDesktopHttpResponse.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/nontranslated/jsimple/net/WindowsDesktopHttpResponse.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\SubstreamInputStream.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/SubstreamInputStream.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\copyright\SLF4J_originated_source_copyright.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/copyright/SLF4J_originated_source_copyright.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\utils\Sha1.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/utils/Sha1.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\compiler.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/compiler.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\builder\api\FlickrOAuthApi.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/builder/api/FlickrOAuthApi.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\copyright\Logback_originated_source_copyright.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/copyright/Logback_originated_source_copyright.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\pom.xml" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/pom.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\DoubleUtil.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/DoubleUtil.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\c#\jsimple-logging-api.csproj" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/c#/jsimple-logging-api.csproj" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\utils\MapUtils.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/utils/MapUtils.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\modules.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/modules.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\UrlEncoder.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/UrlEncoder.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\libraries\Gradle__com_intellij_annotations_9_0_4.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/libraries/Gradle__com_intellij_annotations_9_0_4.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\.name" afterPath="$PROJECT_DIR$/../libraries/.idea/.name" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\c#\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/c#/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\copyright\JUnit_originated_source_copyright.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/copyright/JUnit_originated_source_copyright.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-json\src\test\java\jsimple\json\JsonSerializerTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/src/test/java/jsimple/json/JsonSerializerTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\model\ParameterList.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/model/ParameterList.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\net\Socket.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/net/Socket.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\net\JavaHttpResponse.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/net/JavaHttpResponse.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\build.gradle" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/build.gradle" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\test\java\jsimple\util\DateTimeTest.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/test/java/jsimple/util/DateTimeTest.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\StringWriter.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/StringWriter.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\lang\Comparable.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/lang/Comparable.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\PathNotFoundException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/PathNotFoundException.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\ByteArrayRange.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/ByteArrayRange.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#\nontranslated\jsimple\io\DotNetIOUtils.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#/nontranslated/jsimple/io/DotNetIOUtils.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\gradle.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/gradle.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\src\main\java\jsimple\logging\LoggerFactory.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/src/main/java/jsimple/logging/LoggerFactory.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\.classpath" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/.classpath" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\uiDesigner.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/uiDesigner.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\.settings\org.eclipse.m2e.core.prefs" afterPath="$PROJECT_DIR$/../libraries/jsimple-json/.settings/org.eclipse.m2e.core.prefs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java-nontranslated\jsimple\net\JavaSocket.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java-nontranslated/jsimple/net/JavaSocket.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\IntegerUtil.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/IntegerUtil.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-stdimpl\jsimple-logging-stdimpl.iml" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-stdimpl/jsimple-logging-stdimpl.iml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\.idea\scopes\SLFJ_originated_source.xml" afterPath="$PROJECT_DIR$/../libraries/.idea/scopes/SLFJ_originated_source.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\oauth\OAuth20ServiceImpl.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/oauth/OAuth20ServiceImpl.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\pom.xml" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/pom.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\pom.xml" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/pom.xml" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\c#\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/c#/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\IOUtils.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/IOUtils.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\c#\nontranslated\jsimple\unit\UnitTest.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/c#/nontranslated/jsimple/unit/UnitTest.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-util\src\main\java\jsimple\util\StringIterator.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-util/src/main/java/jsimple/util/StringIterator.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\src\main\java\jsimple\io\Directory.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/src/main/java/jsimple/io/Directory.java" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-logging-api\c#\Properties\AssemblyInfo.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-logging-api/c#/Properties/AssemblyInfo.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-unit\c#\jsimple-unit.csproj.DotSettings" afterPath="$PROJECT_DIR$/../libraries/jsimple-unit/c#/jsimple-unit.csproj.DotSettings" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\build.gradle" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/build.gradle" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-io\c#-windows-desktop\nontranslated\jsimple\net\TcpClientSocket.cs" afterPath="$PROJECT_DIR$/../libraries/jsimple-io/c#-windows-desktop/nontranslated/jsimple/net/TcpClientSocket.cs" />
+      <change type="MOVED" beforePath="C:\Dropbox\projects\jsimple\jsimple-oauth\src\main\java\jsimple\oauth\exceptions\OAuthException.java" afterPath="$PROJECT_DIR$/../libraries/jsimple-oauth/src/main/java/jsimple/oauth/exceptions/OAuthException.java" />
+    </list>
+    <ignored path="jsimple.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/samples/good-friends/.gradle/" />
+    <ignored path="$PROJECT_DIR$/samples/good-friends/build/" />
+    <ignored path="$PROJECT_DIR$/good-friends/.gradle/" />
+    <ignored path="$PROJECT_DIR$/good-friends/build/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="jsimple" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/good-friends/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.35137796" vertical-offset="0" max-vertical-offset="1016">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AzureMobileConnector.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/azure/AzureMobileConnector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="442" max-vertical-offset="1462">
+              <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FacebookConnector.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookConnector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1088">
+              <caret line="51" column="25" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Connector.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/util/Connector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="816">
+              <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/util/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="527">
+              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FacebookParser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="2414">
+              <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HttpRequest.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/jsimplelib/jsimple-io/develop-SNAPSHOT/jsimple-io-develop-SNAPSHOT-sources.jar!/jsimple/net/HttpRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="279" max-vertical-offset="2703">
+              <caret line="82" column="7" selection-start-line="82" selection-start-column="7" selection-end-line="82" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FacebookAuthenticator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookAuthenticator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="782">
+              <caret line="41" column="73" selection-start-line="41" selection-start-column="73" selection-end-line="41" selection-end-column="73" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="595" max-vertical-offset="1853">
+              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="tasksExpandState">
+      <map>
+        <entry key="" value="true" />
+        <entry key=":good-friends/samples/" value="true" />
+        <entry key="jsimple/" value="true" />
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$/../libraries" value="12796037169407" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/good-friends/build.gradle" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1176" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="samples" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="FullScreen" value="false" />
+    <property name="options.lastSelected" value="reference.settings.project.maven.repository.indices" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../libraries" />
+  </component>
+  <component name="RunManager" selected="Gradle.samples:samples:good-friends [all]">
+    <configuration default="false" name="samples:samples:good-friends [all]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/samples/good-friends" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="all" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <RunnerSettings RunnerId="ExternalSystemTaskRunner" />
+      <ConfigurationWrapper RunnerId="ExternalSystemTaskRunner" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Gradle.samples:samples:good-friends [all]" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Gradle.samples:samples:good-friends [all]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5c7e0394-5fd2-4ea9-9661-7f88a5ff634d" name="Default" comment="" />
+      <created>1423474156777</created>
+      <option name="number" value="Default" />
+      <updated>1423474156777</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1176" extended-state="7" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16684435" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TeamCity" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32943925" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17607313" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/good-friends/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/azure/AzureMobileConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="442" max-vertical-offset="1462">
+          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1088">
+          <caret line="51" column="25" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/util/Connector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="816">
+          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/util/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="527">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="2431">
+          <caret line="45" column="52" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jsimplelib/jsimple-io/develop-SNAPSHOT/jsimple-io-develop-SNAPSHOT-sources.jar!/jsimple/net/HttpRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="279" max-vertical-offset="2703">
+          <caret line="82" column="7" selection-start-line="82" selection-start-column="7" selection-end-line="82" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookAuthenticator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="782">
+          <caret line="41" column="73" selection-start-line="41" selection-start-column="73" selection-end-line="41" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="595" max-vertical-offset="1853">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/azure/AzureMobileConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="1802">
+          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1088">
+          <caret line="51" column="25" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/util/Connector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="816">
+          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/util/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="527">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="2431">
+          <caret line="46" column="58" selection-start-line="46" selection-start-column="58" selection-end-line="46" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jsimplelib/jsimple-io/develop-SNAPSHOT/jsimple-io-develop-SNAPSHOT-sources.jar!/jsimple/net/HttpRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="279" max-vertical-offset="2703">
+          <caret line="82" column="7" selection-start-line="82" selection-start-column="7" selection-end-line="82" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookAuthenticator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="782">
+          <caret line="41" column="73" selection-start-line="41" selection-start-column="73" selection-end-line="41" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="595" max-vertical-offset="1853">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="629">
+          <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/azure/AzureMobileConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1462">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="595" max-vertical-offset="1853">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1853">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookAuthenticator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
+          <caret line="41" column="73" selection-start-line="41" selection-start-column="73" selection-end-line="41" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/azure/AzureMobileConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="1802">
+          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1088">
+          <caret line="51" column="25" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/util/Connector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
+          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/util/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/src/main/java/goodfriends/facebook/FacebookParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="2414">
+          <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jsimplelib/jsimple-io/develop-SNAPSHOT/jsimple-io-develop-SNAPSHOT-sources.jar!/jsimple/net/HttpRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="279" max-vertical-offset="2703">
+          <caret line="82" column="7" selection-start-line="82" selection-start-column="7" selection-end-line="82" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/good-friends/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35137796" vertical-offset="0" max-vertical-offset="1016">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

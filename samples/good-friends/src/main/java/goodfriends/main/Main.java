@@ -22,9 +22,8 @@
 
 package goodfriends.main;
 
-import java.util.Scanner;
-
 import jsimple.io.JSimpleIO;
+import jsimple.io.StdIO;
 import jsimple.oauth.model.Token;
 import jsimple.util.*;
 import goodfriends.azure.AzureMobileFacade;
@@ -36,8 +35,6 @@ import goodfriends.model.FacebookPost;
 
 
 public class Main {
-	static Scanner keyboard = new Scanner(System.in);
-
 	public static void main(String[] args) {
 		// ========================bootstrap
 		/* start jsimple */
@@ -50,7 +47,7 @@ public class Main {
 		// ========================
 
 		// ========================refresh token or get a new one
-		System.out.println("Do you want to refresh your previous token or get a new one?");
+		StdIO.stdout.writeln("Do you want to refresh your previous token or get a new one?");
 		
 		in = Main.getInput(1, 2,"1=refresh ; 2=get new:");
 		if (in == 1) {
@@ -59,19 +56,19 @@ public class Main {
 			fbToken = fbFacade.refreshToken(fbToken);
 		} else {
 			/* get the facebook ouath code and validate it */
-			System.out.println("Paste this in your browser , authenticate and coppy the <code> from the request");
-			System.out.println("--> " + fbFacade.getAuthorizationUrl() + "\n");
+			StdIO.stdout.writeln("Paste this in your browser , authenticate and coppy the <code> from the request");
+            StdIO.stdout.writeln("--> " + fbFacade.getAuthorizationUrl() + "\n");
 			
 			boolean invalidCode = false;
 			do {
 				invalidCode = false;
-				System.out.print("Insert facebook code : ");
-				String authCode = keyboard.next();
+                StdIO.stdout.writeln("Insert facebook code : ");
+				String authCode = StdIO.stdin.readLine();
 				try {
 					/*get acesstoken from the facebook code , or print what was the error and try again*/
 					fbToken = fbFacade.getAcessToken(authCode);
 				} catch (BasicException e) {
-					System.out.println("Error " + e.getMessage() + "\n");
+                    StdIO.stdout.writeln("Error " + e.getMessage() + "\n");
 					invalidCode = true;
 				}
 			} while (invalidCode);
@@ -86,8 +83,8 @@ public class Main {
 		fbFacade.setConnectorAuthToken(fbToken.getTokenString());
 		String myName = fbFacade.getMyFbName();
 		String myFbID = fbFacade.getMyFbId();
-		System.out.println("Authentication Successful");
-		System.out.println("You are " + myName + "[" + myFbID + "]\n");
+        StdIO.stdout.writeln("Authentication Successful");
+        StdIO.stdout.writeln("You are " + myName + "[" + myFbID + "]\n");
 		// ========================
 
 		// ========================load the friendlist
@@ -116,17 +113,17 @@ public class Main {
 		List<FacebookFriend> goodFriends = ApplicationModelRoot.getInstance().getSpecialFriends();
 
 		if (ApplicationModelRoot.getInstance().getSpecialFriends().size() != 0) {
-			System.out.println("\nYour good friends are : ");
+            StdIO.stdout.writeln("\nYour good friends are : ");
 			for (int i = 0; i < goodFriends.size(); i++) {
-				System.out.println(i + ")" + goodFriends.get(i).getName());
+                StdIO.stdout.writeln(i + ")" + goodFriends.get(i).getName());
 			}
 		} else {
 			System.out.println("You don't have any good friends");
 		}
 
-		System.out.println("-----------");
-		System.out.println("Loading ....");
-		System.out.println("All your friends are : ");
+        StdIO.stdout.writeln("-----------");
+        StdIO.stdout.writeln("Loading ....");
+        StdIO.stdout.writeln("All your friends are : ");
 		
 		ArrayList<FacebookFriend> fbFriends = fbFacade.getAllFbFriends();
 		// Sort the friends, ordering by name
@@ -137,7 +134,7 @@ public class Main {
 		});
 
 		for (int i = 0; i < fbFriends.size(); i++) {
-			System.out.println(i + ")" + fbFriends.get(i).getName());
+            StdIO.stdout.writeln(i + ")" + fbFriends.get(i).getName());
 		}
 		// ========================
 
@@ -218,12 +215,11 @@ public class Main {
 		}
 		return true;
 	}
-
 	private static int getInput(int lowRange, int topRange,String label) {
 		String input = null;
 		do {
 			System.out.print(label);
-			input = keyboard.next();
+			input = StdIO.stdin.readLine();
 		} while (!isValidInput(input, lowRange, topRange));
 		return new Integer(input);
 	}
