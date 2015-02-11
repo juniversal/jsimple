@@ -6,6 +6,7 @@ build/
 
 # Generated C# files
 **/c#/jsimple
+**/c#/goodfriends
 **/c#-test/jsimple
 StringHelperClass.cs
 HashMapGetHelperClass.cs
