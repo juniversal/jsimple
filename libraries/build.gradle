@@ -1,0 +1,205 @@
+/*
+ * Copyright (c) 2012-2015, Microsoft Mobile
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.1'
+}
+
+buildscript {
+    apply from: '../shared.gradle'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath group: 'org.juniversal', name: 'juniversal-gradle-plugins', version: juniversalVersion
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'signing'
+    apply plugin: 'javaToObjectiveC'
+    apply plugin: 'javaToCSharpTangible'
+    apply plugin: 'javaToCSharp'
+    apply plugin: 'javaToCPlusPlus'
+    apply plugin: 'msbuild'
+
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+
+    group = 'org.jsimplelib'
+    version = jsimpleVersion
+
+    javaToObjectiveC {
+        docComments = false
+        useArc = true
+    }
+
+    javaToCSharpTangible {
+        converterDirectory = file('third-party/java-to-csharp-converter')
+        converterSettings = file('std-java-to-c#-converter-settings.dat')
+    }
+
+    javaToCSharp {
+    }
+
+    javaToCPlusPlus {
+    }
+
+    msbuild {
+        //configuration = false
+    }
+
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+        from javadoc
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives javadocJar, sourcesJar
+    }
+
+    signing {
+        required { gradle.taskGraph.hasTask("uploadArchives") }
+        sign configurations.archives
+    }
+
+    task all {
+        dependsOn build, javaToCSharp, msbuild
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ["src/main/java", "src/main/java-nontranslated"]
+            }
+        }
+
+        test {
+            java {
+                srcDirs = ["src/test/java", "src/main/java-nontranslated"]
+            }
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+
+        maven { url "http://types.cs.washington.edu/m2-repo" }
+    }
+
+    test{
+        workingDir = project.projectDir
+    }
+
+    jar {
+        manifest.attributes provider: 'gradle'
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                if (project.hasProperty('ossrhUsernameJUniversal') && project.hasProperty('ossrhPasswordJUniversal')) {
+                    repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                        authentication(userName: ossrhUsernameJUniversal, password: ossrhPasswordJUniversal)
+                    }
+
+                    snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                        authentication(userName: ossrhUsernameJUniversal, password: ossrhPasswordJUniversal)
+                    }
+                }
+
+                pom.project {
+                    name 'JSimple library'
+                    packaging 'jar'
+                    // optionally artifactId can be defined here
+                    description 'JSimple cross platform friendly library'
+                    url 'https://github.com/juniversal/jsimple'
+
+                    scm {
+                        connection 'scm:git:git@github.com:juniversal/jsimple.git'
+                        developerConnection 'scm:git:git@github.com:juniversal/jsimple.git'
+                        url 'git@github.com:juniversal/jsimple.git'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The MIT License'
+                            url 'http://opensource.org/licenses/MIT'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            //id 'manfred'
+                            name 'JUniversal Team'
+                            email 'juniversalteam@outlook.com'
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // In Java8, the Javadoc command was changed to be very strict, error'ing out on anything that's not completely
+    // valid HTML, an issue described here http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html.
+    // Loosen up the strictness with Xdoclint:none so it behaves more like previous JDK releases
+    if (JavaVersion.current().isJava8Compatible()) {
+        allprojects {
+            tasks.withType(Javadoc) {
+                options.addStringOption('Xdoclint:none', '-quiet')
+            }
+        }
+    }
+}
+
+def exportedProjects= [
+        "jsimple-unit",
+        "jsimple-util",
+        "jsimple-io",
+        "jsimple-json",
+        "jsimple-oauth",
+        "jsimple-logging-api",
+        "jsimple-logging-stdimpl"
+]
+
+task alljavadoc(type: Javadoc) {
+    source exportedProjects.collect { project(it).sourceSets.main.allJava }
+    classpath = files(exportedProjects.collect { project(it).sourceSets.main.compileClasspath })
+    destinationDir = file("${buildDir}/docs/javadoc")
+
+    if (JavaVersion.current().isJava8Compatible()) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
