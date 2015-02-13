@@ -195,11 +195,11 @@ public class OAuthRequest {
             OAuthResponse response;
 
             if (logger.isTraceEnabled()) {
-                long startTime = PlatformUtils.getCurrentTimeMillis();
+                long startTime = SystemUtils.getCurrentTimeMillis();
 
                 response = new OAuthResponse(httpReq.send());
 
-                long duration = PlatformUtils.getCurrentTimeMillis() - startTime;
+                long duration = SystemUtils.getCurrentTimeMillis() - startTime;
                 logger.trace("{} {}; took {}ms", verb, getUrl(), duration);
             } else response = new OAuthResponse(httpReq.send());
 

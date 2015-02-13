@@ -26,7 +26,7 @@ description = 'JSimple stream, file, and network I/O utilities'
 
 dependencies {
     compile group: 'com.intellij', name: 'annotations', version: '9.0.4'
-    compile project(':jsimple-util')
+    compile project(':libraries:jsimple-util')
 
-    testCompile project(':jsimple-unit')
+    testCompile project(':libraries:jsimple-unit')
 }

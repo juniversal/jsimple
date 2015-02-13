@@ -50,7 +50,7 @@
 package jsimple.oauth.services;
 
 import jsimple.util.LongUtil;
-import jsimple.util.PlatformUtils;
+import jsimple.util.SystemUtils;
 import jsimple.util.Random;
 
 /**
@@ -75,6 +75,6 @@ public class TimestampServiceImpl implements TimestampService {
     }
 
     private long getTs() {
-        return PlatformUtils.getCurrentTimeMillis() / 1000;
+        return SystemUtils.getCurrentTimeMillis() / 1000;
     }
 }

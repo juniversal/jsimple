@@ -14,7 +14,7 @@ package jsimple.logging.stdimpl;
 
 import jsimple.logging.Level;
 import jsimple.util.MessageFormatter;
-import jsimple.util.PlatformUtils;
+import jsimple.util.SystemUtils;
 
 /**
  * @author Bret Johnson
@@ -33,7 +33,7 @@ public class LoggingEvent {
     private Throwable throwable = null;
 
     public LoggingEvent(String loggerName, Level level, String message, Object[] argArray) {
-        this.timestamp = PlatformUtils.getCurrentTimeMillis();
+        this.timestamp = SystemUtils.getCurrentTimeMillis();
         this.loggerName = loggerName;
         this.level = level;
 
@@ -48,7 +48,7 @@ public class LoggingEvent {
     }
 
     public LoggingEvent(String loggerName, Level level, String message, Throwable t) {
-        this.timestamp = PlatformUtils.getCurrentTimeMillis();
+        this.timestamp = SystemUtils.getCurrentTimeMillis();
         this.loggerName = loggerName;
         this.level = level;
 

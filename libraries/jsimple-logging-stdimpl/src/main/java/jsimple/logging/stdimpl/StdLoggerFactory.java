@@ -39,7 +39,7 @@ public class StdLoggerFactory implements ILoggerFactory {
     }
 
     public StdLoggerFactory() {
-        defaultAppenders.add(new WriterAppender(StdIO.stdout));
+        defaultAppenders.add(new WriterAppender(StdIO.out));
     }
 
     /**

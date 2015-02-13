@@ -41,7 +41,7 @@
 
 package jsimple.io;
 
-import jsimple.util.PlatformUtils;
+import jsimple.util.SystemUtils;
 import jsimple.util.ProgrammerError;
 import org.jetbrains.annotations.Nullable;
 
@@ -116,7 +116,7 @@ public class StringReader extends Reader {
             return -1;
         int end = pos + length > this.count ? this.count : pos + length;
         //TODO: Add test for this
-        PlatformUtils.copyChars(str, pos, buf, offset, end - pos);
+        SystemUtils.copyChars(str, pos, buf, offset, end - pos);
         //str.getChars(pos, end, buf, offset);
         int charsRead = end - pos;
         pos = end;

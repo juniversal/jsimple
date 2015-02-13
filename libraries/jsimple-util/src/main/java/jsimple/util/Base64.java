@@ -237,7 +237,7 @@ public class Base64 {
             readPos = 0;
         } else {
             byte[] b = new byte[buffer.length * DEFAULT_BUFFER_RESIZE_FACTOR];
-            PlatformUtils.copyBytes(buffer, 0, b, 0, buffer.length);
+            SystemUtils.copyBytes(buffer, 0, b, 0, buffer.length);
             buffer = b;
         }
     }
@@ -255,7 +255,7 @@ public class Base64 {
         if (buffer != null) {
             int len = Math.min(avail(), bAvail);
             if (buffer != b) {
-                PlatformUtils.copyBytes(buffer, readPos, b, bPos, len);
+                SystemUtils.copyBytes(buffer, readPos, b, bPos, len);
                 readPos += len;
                 if (readPos >= pos) {
                     buffer = null;

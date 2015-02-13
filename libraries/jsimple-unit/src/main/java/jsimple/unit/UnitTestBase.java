@@ -13,8 +13,7 @@
 package jsimple.unit;
 
 import jsimple.util.Equatable;
-import jsimple.util.PlatformUtils;
-import jsimple.util.Utils;
+import jsimple.util.SystemUtils;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class UnitTestBase {
@@ -68,7 +67,7 @@ public abstract class UnitTestBase {
      */
     public <T extends Equatable<T>> void assertEqualTo(@Nullable String message, @Nullable T expected,
                                                        @Nullable T actual) {
-        if (!PlatformUtils.equalTo(expected, actual)) {
+        if (!SystemUtils.equalTo(expected, actual)) {
             fail(message);
         }
     }

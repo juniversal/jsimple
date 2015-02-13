@@ -23,17 +23,22 @@
 package jsimple.io;
 
 /**
- * The StdIO class can be used to write to stdout & stderr.
+ * The StdIO class can be used to write to stdout & stderr and read from stdin.   It's similar to System.out, System.in,
+ * and System.err but in a separate class here, instead of SystemUtils, to keep it in the jsimple-io module and avoid
+ * jsimple-util depending on I/O.
+ * <p/>
+ * Note that unlike the standard Java System in, out, and err fields, here both Reader/Writer and Stream objects are
+ * provided.   The former use UTF-8 encoding; use the Stream fields if you want a different encoding.
  *
  * @author Bret Johnson
  * @since 12/2/12 12:50 AM
  */
 public class StdIO {
-    public static final OutputStream stdoutStream = new JSimpleOutputStreamOnJavaStream(System.out);
-    public static final OutputStream stderrStream = new JSimpleOutputStreamOnJavaStream(System.err);
-    public static final InputStream stdinStream = new JSimpleInputStreamOnJavaStream(System.in);
+    public static final OutputStream outStream = new JSimpleOutputStreamOnJavaStream(System.out);
+    public static final OutputStream errStream = new JSimpleOutputStreamOnJavaStream(System.err);
+    public static final InputStream inStream = new JSimpleInputStreamOnJavaStream(System.in);
 
-    public static final Writer stdout = new Utf8OutputStreamWriter(stdoutStream);
-    public static final Writer stderr = new Utf8OutputStreamWriter(stderrStream);
-    public static final BufferedReader stdin = new BufferedReader(new Utf8InputStreamReader(stdinStream));
+    public static final Writer out = new Utf8OutputStreamWriter(outStream);
+    public static final Writer err = new Utf8OutputStreamWriter(errStream);
+    public static final BufferedReader in = new BufferedReader(new Utf8InputStreamReader(inStream));
 }

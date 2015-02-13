@@ -25,8 +25,8 @@
 description = ''
 dependencies {
     compile group: 'com.intellij', name: 'annotations', version: '9.0.4'
-    compile project(':jsimple-util')
-    compile project(':jsimple-io')
-    compile project(':jsimple-logging-api')
-    testCompile project(':jsimple-unit')
+    compile project(':libraries:jsimple-util')
+    compile project(':libraries:jsimple-io')
+    compile project(':libraries:jsimple-logging-api')
+    testCompile project(':libraries:jsimple-unit')
 }

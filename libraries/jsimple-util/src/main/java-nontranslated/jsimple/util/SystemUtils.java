@@ -32,7 +32,7 @@ import java.io.StringWriter;
  * @author Bret Johnson
  * @since 10/21/12 10:39 PM
  */
-public class PlatformUtils extends PlatformUtilsBase {
+public class SystemUtils extends SystemUtilsBase {
     /**
      * Get the number of milliseconds since Jan 1, 1970, UTC time.  That's also known as epoch time.  It's the time unit
      * we generally use in JSimple.

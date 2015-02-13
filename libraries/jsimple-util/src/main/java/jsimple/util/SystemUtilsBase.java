@@ -22,8 +22,6 @@
 
 package jsimple.util;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * This class is used to wrap one off utility methods that need to be implemented in a platform dependent way.  Methods
  * here are static & not actually defined in the base class--just a template comment is given here, and the method
@@ -37,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Bret Johnson
  * @since 10/21/12 3:26 PM
  */
-public class PlatformUtilsBase {
+public class SystemUtilsBase {
     public static long currentTimeOverride = DateTime.NULL_DATE;
 
     /**
@@ -49,7 +47,7 @@ public class PlatformUtilsBase {
     public static long getCurrentTimeMillis() {
         if (currentTimeOverride != DateTime.NULL_DATE)
             return currentTimeOverride;
-        else return PlatformUtils.platformGetCurrentTimeMillis();
+        else return SystemUtils.platformGetCurrentTimeMillis();
     }
 
     /**
@@ -62,7 +60,7 @@ public class PlatformUtilsBase {
      * @param currentTimeOverrideInMillis override for current time, in millis, or DateTime.NULL_DATE to clear override
      */
     public static void setCurrentTimeOverride(long currentTimeOverrideInMillis) {
-        PlatformUtilsBase.currentTimeOverride = currentTimeOverrideInMillis;
+        SystemUtilsBase.currentTimeOverride = currentTimeOverrideInMillis;
     }
 
     /**

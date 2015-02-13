@@ -224,7 +224,7 @@ public class HashMap<K, V> extends Map<K, V> {
         @Override public boolean remove(MapEntry<KT, VT> object) {
             if (object != null) {
                 HashMapEntry<KT, VT> entry = associatedMap.getEntry(object.getKey());
-                if (entry != null && PlatformUtils.equals(entry.value, object.getValue())) {
+                if (entry != null && SystemUtils.equals(entry.value, object.getValue())) {
                     associatedMap.removeEntry(entry);
                     return true;
                 }
@@ -236,7 +236,7 @@ public class HashMap<K, V> extends Map<K, V> {
             if (object == null)
                 return false;
             HashMapEntry<KT, VT> entry = associatedMap.getEntry(object.getKey());
-            return entry != null && PlatformUtils.equals(entry.value, object.getValue());
+            return entry != null && SystemUtils.equals(entry.value, object.getValue());
         }
 
         @Override
@@ -422,7 +422,7 @@ public class HashMap<K, V> extends Map<K, V> {
         if (m != null) {
             return m.value;
         }
-        return PlatformUtils.<V>defaultValue();
+        return SystemUtils.<V>defaultValue();
     }
 
     final @Nullable HashMapEntry<K, V> getEntry(K key) {
@@ -594,7 +594,7 @@ public class HashMap<K, V> extends Map<K, V> {
         if (entry != null) {
             return entry.value;
         }
-        return PlatformUtils.<V>defaultValue();
+        return SystemUtils.<V>defaultValue();
     }
 
     /*

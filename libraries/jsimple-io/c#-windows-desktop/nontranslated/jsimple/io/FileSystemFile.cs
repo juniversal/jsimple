@@ -135,7 +135,7 @@ namespace jsimple.io {
 
         public override long getLastModifiedTime() {
             try {
-                return PlatformUtils.toMillisFromDateTime(System.IO.File.GetLastWriteTimeUtc(filePath));
+                return SystemUtils.toMillisFromDateTime(System.IO.File.GetLastWriteTimeUtc(filePath));
             }
             catch (System.IO.IOException e) {
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);
@@ -144,7 +144,7 @@ namespace jsimple.io {
 
         public override void setLastModifiedTime(long value)  {
             try {
-                System.IO.File.SetLastWriteTimeUtc(filePath, PlatformUtils.toDotNetDateTimeFromMillis(value));
+                System.IO.File.SetLastWriteTimeUtc(filePath, SystemUtils.toDotNetDateTimeFromMillis(value));
             }
             catch (System.IO.IOException e) {
                 throw DotNetIOUtils.jSimpleExceptionFromDotNetIOException(e);

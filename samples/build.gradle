@@ -20,10 +20,6 @@
  * THE SOFTWARE.
  */
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.2.1'
-}
-
 buildscript {
     apply from: '../shared.gradle'
 

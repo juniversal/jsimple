@@ -104,7 +104,7 @@ public final class DateTime {
      * @since 2.0
      */
     public static DateTime now() {
-        return new DateTime(PlatformUtils.getCurrentTimeMillis());
+        return new DateTime(SystemUtils.getCurrentTimeMillis());
     }
 
     /**

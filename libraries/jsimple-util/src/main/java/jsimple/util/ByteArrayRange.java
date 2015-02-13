@@ -71,7 +71,7 @@ public class ByteArrayRange {
             return this.bytes;
         else {
             byte[] copy = new byte[length];
-            PlatformUtils.copyBytes(bytes, position, copy, 0, length);
+            SystemUtils.copyBytes(bytes, position, copy, 0, length);
             return copy;
         }
     }

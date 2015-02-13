@@ -119,8 +119,8 @@ public abstract class Map<K, V> implements Equatable<Map<K, V>> {
             V myValue = entry.getValue();
             V otherValue = otherMap.get(myKey);
 
-            if (PlatformUtils.isNullOrTypeDefault(myValue)) {
-                if (! PlatformUtils.isNullOrTypeDefault(otherValue) || !otherMap.containsKey(myKey)) {
+            if (SystemUtils.isNullOrTypeDefault(myValue)) {
+                if (! SystemUtils.isNullOrTypeDefault(otherValue) || !otherMap.containsKey(myKey)) {
                     return false;
                 }
             } else if (!myValue.equals(otherValue)) {

@@ -43,7 +43,6 @@
     <Compile Include="nontranslated\jsimple\io\DotNetIOUtils.cs" />
     <Compile Include="nontranslated\jsimple\io\DotNetStreamInputStream.cs" />
     <Compile Include="nontranslated\jsimple\io\DotNetStreamOutputStream.cs" />
-    <Compile Include="nontranslated\jsimple\io\StdIO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

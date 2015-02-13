@@ -259,7 +259,7 @@ public class Arrays {
 
         // if arrays are already sorted - no merge
         if (c.compare(in[med - 1], in[med]) <= 0) {
-            PlatformUtils.arraycopy(in, start, out, start, len);
+            SystemUtils.arraycopy(in, start, out, start, len);
             return;
         }
         int r = med, i = start;
@@ -271,7 +271,7 @@ public class Arrays {
             if (c.compare(fromVal, rVal) <= 0) {
                 int l_1 = find(in, rVal, -1, start + 1, med - 1, c);
                 int toCopy = l_1 - start + 1;
-                PlatformUtils.arraycopy(in, start, out, i, toCopy);
+                SystemUtils.arraycopy(in, start, out, i, toCopy);
                 i += toCopy;
                 out[i++] = rVal;
                 r++;
@@ -279,7 +279,7 @@ public class Arrays {
             } else {
                 int r_1 = find(in, fromVal, 0, r + 1, end - 1, c);
                 int toCopy = r_1 - r + 1;
-                PlatformUtils.arraycopy(in, r, out, i, toCopy);
+                SystemUtils.arraycopy(in, r, out, i, toCopy);
                 i += toCopy;
                 out[i++] = fromVal;
                 start++;
@@ -289,9 +289,9 @@ public class Arrays {
 
         // copy rest of array
         if ((end - r) <= 0) {
-            PlatformUtils.arraycopy(in, start, out, i, med - start);
+            SystemUtils.arraycopy(in, start, out, i, med - start);
         } else {
-            PlatformUtils.arraycopy(in, r, out, i, end - r);
+            SystemUtils.arraycopy(in, r, out, i, end - r);
         }
     }
 
@@ -350,7 +350,7 @@ public class Arrays {
     private static <T> void sort(int start, int end, T[] array, Comparator<T> comparator) {
         int length = end - start;
         T[] out = (T[]) new Object[end];
-        PlatformUtils.arraycopy(array, start, out, start, length);
+        SystemUtils.arraycopy(array, start, out, start, length);
         mergeSort(out, array, start, end, comparator);
     }
 

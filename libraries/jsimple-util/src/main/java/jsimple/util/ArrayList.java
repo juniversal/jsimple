@@ -158,7 +158,7 @@ public final class ArrayList<E> extends List<E> {
         //         Could be better to use the collection iterator and
         //         copy once?
         array = newElementArray(itemCount + (itemCount / 10));
-        PlatformUtils.arraycopy(objects, 0, array, 0, itemCount);
+        SystemUtils.arraycopy(objects, 0, array, 0, itemCount);
         modCount = 1;
     }
 
@@ -211,10 +211,10 @@ public final class ArrayList<E> extends List<E> {
                 growForInsert(location, 1);
             } else if (firstIndex + itemCount == array.length
                     || (firstIndex > 0 && location < itemCount / 2)) {
-                PlatformUtils.arraycopy(array, firstIndex, array, --firstIndex, location);
+                SystemUtils.arraycopy(array, firstIndex, array, --firstIndex, location);
             } else {
                 int index = location + firstIndex;
-                PlatformUtils.arraycopy(array, index, array, index + 1, itemCount
+                SystemUtils.arraycopy(array, index, array, index + 1, itemCount
                         - location);
             }
             array[location + firstIndex] = object;
@@ -280,20 +280,20 @@ public final class ArrayList<E> extends List<E> {
                 int newFirst = firstIndex - growSize;
                 if (newFirst < 0) {
                     int index = location + firstIndex;
-                    PlatformUtils.arraycopy(array, index, array, index - newFirst,
+                    SystemUtils.arraycopy(array, index, array, index - newFirst,
                             itemCount - location);
                     newFirst = 0;
                 }
-                PlatformUtils.arraycopy(array, firstIndex, array, newFirst, location);
+                SystemUtils.arraycopy(array, firstIndex, array, newFirst, location);
                 firstIndex = newFirst;
             } else {
                 int index = location + firstIndex;
-                PlatformUtils.arraycopy(array, index, array, index + growSize, itemCount
+                SystemUtils.arraycopy(array, index, array, index + growSize, itemCount
                         - location);
             }
         }
 
-        PlatformUtils.arraycopy(dumparray, 0, this.array, location + firstIndex, growSize);
+        SystemUtils.arraycopy(dumparray, 0, this.array, location + firstIndex, growSize);
         itemCount += growSize;
         modCount++;
         return true;
@@ -314,7 +314,7 @@ public final class ArrayList<E> extends List<E> {
         if (dumpArray.length > array.length - (firstIndex + itemCount)) {
             growAtEnd(dumpArray.length);
         }
-        PlatformUtils.arraycopy(dumpArray, 0, this.array, firstIndex + itemCount, dumpArray.length);
+        SystemUtils.arraycopy(dumpArray, 0, this.array, firstIndex + itemCount, dumpArray.length);
         itemCount += dumpArray.length;
         modCount++;
         return true;
@@ -395,7 +395,7 @@ public final class ArrayList<E> extends List<E> {
         if (array.length - itemCount >= required) {
             // REVIEW: as growAtEnd, why not move size == 0 out as special case
             if (itemCount != 0) {
-                PlatformUtils.arraycopy(array, firstIndex, array, 0, itemCount);
+                SystemUtils.arraycopy(array, firstIndex, array, 0, itemCount);
                 int start = itemCount < firstIndex ? firstIndex : itemCount;
                 // REVIEW: I think we null too much array.length should be lastIndex ?
                 fillWithDefault(start, array.length);
@@ -413,7 +413,7 @@ public final class ArrayList<E> extends List<E> {
             }
             E[] newArray = newElementArray(itemCount + increment);
             if (itemCount != 0) {
-                PlatformUtils.arraycopy(array, firstIndex, newArray, 0, itemCount);
+                SystemUtils.arraycopy(array, firstIndex, newArray, 0, itemCount);
                 firstIndex = 0;
             }
             array = newArray;
@@ -426,7 +426,7 @@ public final class ArrayList<E> extends List<E> {
             // REVIEW: as growAtEnd, why not move size == 0 out as
             //         special case
             if (itemCount != 0) {
-                PlatformUtils.arraycopy(array, firstIndex, array, newFirst, itemCount);
+                SystemUtils.arraycopy(array, firstIndex, array, newFirst, itemCount);
                 int lastIndex = firstIndex + itemCount;
                 int length = lastIndex > newFirst ? newFirst : lastIndex;
                 fillWithDefault(firstIndex, length);
@@ -442,7 +442,7 @@ public final class ArrayList<E> extends List<E> {
             }
             E[] newArray = newElementArray(itemCount + increment);
             if (itemCount != 0) {
-                PlatformUtils.arraycopy(array, firstIndex, newArray, increment, itemCount);
+                SystemUtils.arraycopy(array, firstIndex, newArray, increment, itemCount);
             }
             firstIndex = newArray.length - itemCount;
             array = newArray;
@@ -466,10 +466,10 @@ public final class ArrayList<E> extends List<E> {
         int newFirst = increment - required;
         // Copy elements after location to the new array skipping inserted
         // elements
-        PlatformUtils.arraycopy(array, location + firstIndex, newArray, newFirst
+        SystemUtils.arraycopy(array, location + firstIndex, newArray, newFirst
                 + location + required, itemCount - location);
         // Copy elements before location to the new array from firstIndex
-        PlatformUtils.arraycopy(array, firstIndex, newArray, newFirst, location);
+        SystemUtils.arraycopy(array, firstIndex, newArray, newFirst, location);
         firstIndex = newFirst;
         array = newArray;
     }
@@ -544,20 +544,20 @@ public final class ArrayList<E> extends List<E> {
         }
         if (location == 0) {
             result = array[firstIndex];
-            array[firstIndex++] = PlatformUtils.<E>defaultValue();
+            array[firstIndex++] = SystemUtils.<E>defaultValue();
         } else if (location == itemCount - 1) {
             int lastIndex = firstIndex + itemCount - 1;
             result = array[lastIndex];
-            array[lastIndex] = PlatformUtils.<E>defaultValue();
+            array[lastIndex] = SystemUtils.<E>defaultValue();
         } else {
             int elementIndex = firstIndex + location;
             result = array[elementIndex];
             if (location < itemCount / 2) {
-                PlatformUtils.arraycopy(array, firstIndex, array, firstIndex + 1, location);
-                array[firstIndex++] = PlatformUtils.<E>defaultValue();
+                SystemUtils.arraycopy(array, firstIndex, array, firstIndex + 1, location);
+                array[firstIndex++] = SystemUtils.<E>defaultValue();
             } else {
-                PlatformUtils.arraycopy(array, elementIndex + 1, array, elementIndex, itemCount - location - 1);
-                array[firstIndex + itemCount - 1] = PlatformUtils.<E>defaultValue();
+                SystemUtils.arraycopy(array, elementIndex + 1, array, elementIndex, itemCount - location - 1);
+                array[firstIndex + itemCount - 1] = SystemUtils.<E>defaultValue();
             }
         }
         itemCount--;
@@ -616,7 +616,7 @@ public final class ArrayList<E> extends List<E> {
     @Override
     public Object[] toArray() {
         Object[] result = new Object[itemCount];
-        PlatformUtils.arraycopy(array, firstIndex, result, 0, itemCount);
+        SystemUtils.arraycopy(array, firstIndex, result, 0, itemCount);
         return result;
     }
 
@@ -636,10 +636,10 @@ public final class ArrayList<E> extends List<E> {
                     "Array only has length {}, which isn't big enough to hold the {} elements in the collection",
                     contents.length, size());
 
-        PlatformUtils.arraycopy(array, firstIndex, contents, 0, itemCount);
+        SystemUtils.arraycopy(array, firstIndex, contents, 0, itemCount);
         if (itemCount < contents.length) {
             // REVIEW: do we use this incorrectly - i.e. do we null the rest out?
-            contents[itemCount] = PlatformUtils.<E>defaultValue();
+            contents[itemCount] = SystemUtils.<E>defaultValue();
         }
     }
 
@@ -655,14 +655,14 @@ public final class ArrayList<E> extends List<E> {
      */
     public void trimToSize() {
         E[] newArray = newElementArray(itemCount);
-        PlatformUtils.arraycopy(array, firstIndex, newArray, 0, itemCount);
+        SystemUtils.arraycopy(array, firstIndex, newArray, 0, itemCount);
         array = newArray;
         firstIndex = 0;
         modCount = 0;
     }
 
     private void fillWithDefault(int fromIndex, int toIndex) {
-        E defaultValue = PlatformUtils.<E>defaultValue();
+        E defaultValue = SystemUtils.<E>defaultValue();
         for (int i = fromIndex; i < toIndex; i++) {
             array[i] = defaultValue;
         }

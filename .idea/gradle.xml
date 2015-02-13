@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../gradle-1.12" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/libraries" />
+            <option value="$PROJECT_DIR$/libraries/jsimple-io" />
+            <option value="$PROJECT_DIR$/libraries/jsimple-json" />
+            <option value="$PROJECT_DIR$/libraries/jsimple-logging-api" />
+            <option value="$PROJECT_DIR$/libraries/jsimple-logging-stdimpl" />
+            <option value="$PROJECT_DIR$/libraries/jsimple-oauth" />
+            <option value="$PROJECT_DIR$/libraries/jsimple-unit" />
+            <option value="$PROJECT_DIR$/libraries/jsimple-util" />
+            <option value="$PROJECT_DIR$/samples" />
+            <option value="$PROJECT_DIR$/samples/good-friends" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

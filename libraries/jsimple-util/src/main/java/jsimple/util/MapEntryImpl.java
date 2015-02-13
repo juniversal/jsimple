@@ -76,7 +76,7 @@ class MapEntryImpl<K, V> implements MapEntry<K, V> {
         if (otherMapEntry == null)
             return false;
 
-        return PlatformUtils.equals(key, otherMapEntry.getKey()) && PlatformUtils.equals(value, otherMapEntry.getValue());
+        return SystemUtils.equals(key, otherMapEntry.getKey()) && SystemUtils.equals(value, otherMapEntry.getValue());
     }
 
     @Override public K getKey() {

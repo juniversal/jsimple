@@ -78,7 +78,7 @@ public class Random {
      * @see #setSeed
      */
     public Random() {
-        setSeed(PlatformUtils.getCurrentTimeMillis() + hashCode());
+        setSeed(SystemUtils.getCurrentTimeMillis() + hashCode());
     }
 
     /**
