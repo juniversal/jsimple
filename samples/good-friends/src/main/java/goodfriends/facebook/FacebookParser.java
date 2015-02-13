@@ -24,6 +24,7 @@ package goodfriends.facebook;
 
 import goodfriends.model.FacebookFriend;
 import goodfriends.model.FacebookPost;
+import jsimple.io.StdIO;
 import jsimple.io.StringReader;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonObject;
@@ -77,7 +78,7 @@ public class FacebookParser {
             String from = post.getJsonObject("from").getString("name");
             String fromUTF = replaceNonUTF(from);
 
-            System.out.println(from);
+            StdIO.out.writeln(from);
 
             String story = null;
             String picture = null;

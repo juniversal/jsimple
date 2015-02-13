@@ -92,7 +92,7 @@ public class FacebookFacade {
 			nextPage = parser.getNextPostPage(wallJson);
 			wallJson = connector.getMyTimeline(nextPage);
 		}
-		for (FacebookPost facebookPost :allPosts) {
+		for (FacebookPost facebookPost : allPosts) {
 			if (friendNames.contains(facebookPost.getFrom())) {
 				ret.add(facebookPost);
 			}

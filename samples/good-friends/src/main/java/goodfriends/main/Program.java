@@ -34,7 +34,7 @@ import goodfriends.model.FacebookFriend;
 import goodfriends.model.FacebookPost;
 
 
-public class Main {
+public class Program {
 	public static void main(String[] args) {
 		// ========================bootstrap
 		/* start jsimple */
@@ -47,34 +47,34 @@ public class Main {
 		// ========================
 
 		// ========================refresh token or get a new one
-		StdIO.stdout.writeln("Do you want to refresh your previous token or get a new one?");
+		StdIO.out.writeln("Do you want to refresh your previous token or get a new one?");
 		
-		in = Main.getInput(1, 2,"1=refresh ; 2=get new:");
+		in = Program.getInput(1, 2, "1=refresh ; 2=get new:");
 		if (in == 1) {
 			/*refresh old token*/
 			fbToken = localFacade.loadTokenLocally();
 			fbToken = fbFacade.refreshToken(fbToken);
 		} else {
 			/* get the facebook ouath code and validate it */
-			StdIO.stdout.writeln("Paste this in your browser , authenticate and coppy the <code> from the request");
-            StdIO.stdout.writeln("--> " + fbFacade.getAuthorizationUrl() + "\n");
+			StdIO.out.writeln("Paste this in your browser , authenticate and coppy the <code> from the request");
+            StdIO.out.writeln("--> " + fbFacade.getAuthorizationUrl() + "\n");
 			
 			boolean invalidCode = false;
 			do {
 				invalidCode = false;
-                StdIO.stdout.writeln("Insert facebook code : ");
-				String authCode = StdIO.stdin.readLine();
+                StdIO.out.writeln("Insert facebook code : ");
+				String authCode = StdIO.in.readLine();
 				try {
 					/*get acesstoken from the facebook code , or print what was the error and try again*/
 					fbToken = fbFacade.getAcessToken(authCode);
 				} catch (BasicException e) {
-                    StdIO.stdout.writeln("Error " + e.getMessage() + "\n");
+                    StdIO.out.writeln("Error " + e.getMessage() + "\n");
 					invalidCode = true;
 				}
 			} while (invalidCode);
 			localFacade.saveToken(fbToken);
 		}
-
+        
 		// ========================facebook authentication
 		// get the facebook data about the current user and save it in app
 		// endpoint
@@ -83,12 +83,12 @@ public class Main {
 		fbFacade.setConnectorAuthToken(fbToken.getTokenString());
 		String myName = fbFacade.getMyFbName();
 		String myFbID = fbFacade.getMyFbId();
-        StdIO.stdout.writeln("Authentication Successful");
-        StdIO.stdout.writeln("You are " + myName + "[" + myFbID + "]\n");
+        StdIO.out.writeln("Authentication Successful");
+        StdIO.out.writeln("You are " + myName + "[" + myFbID + "]\n");
 		// ========================
-
+        
 		// ========================load the friendlist
-		System.out.println("Where to load your saved friends?");
+		StdIO.out.writeln("Where to load your saved friends?");
 		List<FacebookFriend> friends = null;
 		in = getInput(1, 3,"1=cloud ; 2=localFile ; 3=don't load :");
 		 
@@ -113,17 +113,17 @@ public class Main {
 		List<FacebookFriend> goodFriends = ApplicationModelRoot.getInstance().getSpecialFriends();
 
 		if (ApplicationModelRoot.getInstance().getSpecialFriends().size() != 0) {
-            StdIO.stdout.writeln("\nYour good friends are : ");
+            StdIO.out.writeln("\nYour good friends are : ");
 			for (int i = 0; i < goodFriends.size(); i++) {
-                StdIO.stdout.writeln(i + ")" + goodFriends.get(i).getName());
+                StdIO.out.writeln(i + ")" + goodFriends.get(i).getName());
 			}
 		} else {
-			System.out.println("You don't have any good friends");
+			StdIO.out.writeln("You don't have any good friends");
 		}
 
-        StdIO.stdout.writeln("-----------");
-        StdIO.stdout.writeln("Loading ....");
-        StdIO.stdout.writeln("All your friends are : ");
+        StdIO.out.writeln("-----------");
+        StdIO.out.writeln("Loading ....");
+        StdIO.out.writeln("All your friends are : ");
 		
 		ArrayList<FacebookFriend> fbFriends = fbFacade.getAllFbFriends();
 		// Sort the friends, ordering by name
@@ -132,12 +132,12 @@ public class Main {
 				return friend1.compareToByName(friend2);
 			}
 		});
-
+        
 		for (int i = 0; i < fbFriends.size(); i++) {
-            StdIO.stdout.writeln(i + ")" + fbFriends.get(i).getName());
+            StdIO.out.writeln(i + ")" + fbFriends.get(i).getName());
 		}
 		// ========================
-
+        
 		// ======================== add friends from the facebook list to the
 		// special friend list
 		int addMore = -1;
@@ -149,24 +149,24 @@ public class Main {
 			in = getInput(0, fbFriends.size(), "\nThe index of friend you want to add : ");
 			ApplicationModelRoot.getInstance().addSpecialFriend(fbFriends.get(in));
 		}
-		System.out.println("Done !\n");
+		StdIO.out.writeln("Done !\n");
 		// ========================
 
 		// ======================== reprint the special freinds (for validation)
 		goodFriends = ApplicationModelRoot.getInstance().getSpecialFriends();
 		if (ApplicationModelRoot.getInstance().getSpecialFriends().size() != 0) {
-			System.out.println("\nYour good friends are : ");
+			StdIO.out.writeln("\nYour good friends are : ");
 			for (int i = 0; i < ApplicationModelRoot.getInstance().getSpecialFriends().size(); i++) {
-				System.out.println(i + ")" + goodFriends.get(i).getName());
+				StdIO.out.writeln(i + ")" + goodFriends.get(i).getName());
 			}
 		} else {
-			System.out.println("You don't have any special friends");
+			StdIO.out.writeln("You don't have any special friends");
 		}
 		// ========================
 
 		// ======================== Extract your user's timeline from facebook
 		// and print only the posts from special friends
-		System.out.println("Loading ....");
+		StdIO.out.writeln("Loading ....");
 		/* how far into timeline history to go */
 		// facebook uses algorithms with inconsistent behavior to post the feeds,
 		// so to exactly the same request given at the exact moment can return distinct posts.
@@ -176,12 +176,12 @@ public class Main {
 		/* filtered timeline*/
 		List<FacebookPost> fbPosts = fbFacade.getMyFilteredWall(postLimit,100, ApplicationModelRoot.getInstance().getSpecialFriends());
 		if (fbPosts.size() != 0) {
-			System.out.println("\nYour friends posts are : ");
+			StdIO.out.writeln("\nYour friends posts are : ");
 			for (FacebookPost facebookPost : fbPosts) {
-				System.out.println(facebookPost);
+				StdIO.out.writeln(facebookPost.toString());
 			}
 		} else {
-			System.out.println("No recent posts from special friends");
+			StdIO.out.writeln("No recent posts from special friends");
 		}
 		// ========================
 
@@ -194,7 +194,7 @@ public class Main {
 			localFacade.saveFriends(ApplicationModelRoot.getInstance().getSpecialFriends(), myFbID);
 		}
 		// ========================
-		System.out.println("All done.");
+		StdIO.out.writeln("All done.");
 	}
 
 	/**
@@ -204,23 +204,26 @@ public class Main {
 	private static boolean isValidInput(String input, int lowRange, int topRange) {
 		int item;
 		try {
-			item = new Integer(input);
-		} catch (NumberFormatException e) {
-			System.out.println("Bad Option , not a number ");
+			item = IntegerUtil.parseInt(input);
+		} catch (InvalidFormatException e) {
+			StdIO.out.writeln("Bad Option , not a number ");
 			return false;
 		}
+
 		if (item < lowRange || item > topRange) {
-			System.out.println("Bad Option , not in range ");
+			StdIO.out.writeln("Bad Option , not in range ");
 			return false;
 		}
 		return true;
 	}
+
 	private static int getInput(int lowRange, int topRange,String label) {
-		String input = null;
+		String input;
 		do {
-			System.out.print(label);
-			input = StdIO.stdin.readLine();
+			StdIO.out.write(label);
+			input = StdIO.in.readLine();
 		} while (!isValidInput(input, lowRange, topRange));
-		return new Integer(input);
+
+		return IntegerUtil.parseInt(input);
 	}
 }
