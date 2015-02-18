@@ -39,7 +39,7 @@
 package jsimple.oauth.utils;
 
 import jsimple.unit.UnitTest;
-import jsimple.util.StringUtils;
+import jsimple.util.Strings;
 import org.junit.Test;
 
 /**
@@ -88,8 +88,8 @@ public class Sha1Test extends UnitTest {
 
     private byte[] toBytesFromString(String string) {
         if (string.startsWith("0x"))
-            return StringUtils.toBytesFromHexString(string.substring(2));
-        else return StringUtils.toLatin1BytesFromString(string);
+            return Strings.toBytesFromHexString(string.substring(2));
+        else return Strings.toLatin1BytesFromString(string);
     }
 
 

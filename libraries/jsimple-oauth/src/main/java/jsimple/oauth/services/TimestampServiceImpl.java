@@ -49,7 +49,7 @@
 
 package jsimple.oauth.services;
 
-import jsimple.util.LongUtil;
+import jsimple.util.Longs;
 import jsimple.util.SystemUtils;
 import jsimple.util.Random;
 
@@ -64,14 +64,14 @@ public class TimestampServiceImpl implements TimestampService {
      */
     public String getNonce() {
         long ts = getTs();
-        return LongUtil.toString(ts + new Random().nextInt());
+        return Longs.toString(ts + new Random().nextInt());
     }
 
     /**
      * {@inheritDoc}
      */
     public String getTimestampInSeconds() {
-        return LongUtil.toString(getTs());
+        return Longs.toString(getTs());
     }
 
     private long getTs() {

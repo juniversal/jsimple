@@ -29,7 +29,7 @@ import org.junit.Test;
  * @author Dorin Suletea
  * @since 12/1/2014
  */
-public class ListUtilTest extends UnitTest {
+public class ListsTest extends UnitTest {
 	@Test public void testListEquals(){
 		ArrayList<Integer> a = new ArrayList<Integer>();
 		a.add(1);
@@ -41,7 +41,7 @@ public class ListUtilTest extends UnitTest {
 		b.add(2);
 		b.add(3);
 		
-		boolean listsEqual = ListUtils.arrayListsEqual(a, b);
+		boolean listsEqual = Lists.arrayListsEqual(a, b);
 		assertTrue(listsEqual);
 		
 	}
@@ -58,7 +58,7 @@ public class ListUtilTest extends UnitTest {
 		b.add(2);
 		b.add(3);
 		
-		boolean listsEqual = ListUtils.arrayListsEqual(a, b);
+		boolean listsEqual = Lists.arrayListsEqual(a, b);
 		assertFalse(listsEqual);
 	}
 	
@@ -69,7 +69,7 @@ public class ListUtilTest extends UnitTest {
 		a.add(2);
 		a.add(4);
 
-		List<Integer> output = ListUtils.distinctElements(a);
+		List<Integer> output = Lists.distinctElements(a);
 		
 		assertEquals(3, output.size());
 		assertEquals(3, (int) output.get(0));

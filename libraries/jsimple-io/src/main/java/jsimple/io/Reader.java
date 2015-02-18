@@ -44,9 +44,9 @@ package jsimple.io;
 /**
  * This class was based on, and modified from, the Apache Harmony java.io.Reader class.  Unlike the Java Reader class,
  * this doesn't do locking and doesn't throw any checked exceptions.
- * <p>
+ * <p/>
  * The base class for all readers. A reader is a means of reading data from a source in a character-wise manner.
- * <p>
+ * <p/>
  * This abstract class does not provide a fully working implementation, so it needs to be subclassed, and at least the
  * {@link #read(char[], int, int)} and {@link #close()} methods needs to be overridden. Overriding some of the
  * non-abstract methods is also often advised, since it might result in higher efficiency.

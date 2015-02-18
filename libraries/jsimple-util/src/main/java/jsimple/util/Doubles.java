@@ -47,7 +47,7 @@ package jsimple.util;
  * @see java.lang.Number
  * @since 1.0
  */
-public final class DoubleUtil {
+public final class Doubles {
     /**
      * Constant for the maximum {@code double} value, (2 - 2<sup>-52</sup>) *
      * 2<sup>1023</sup>.

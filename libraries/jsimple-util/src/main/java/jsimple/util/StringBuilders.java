@@ -25,7 +25,7 @@ package jsimple.util;
 /**
  * Created by Bret on 1/11/2015.
  */
-public class StringBuilderUtils {
+public class StringBuilders {
     /**
      * Append the specified UTF-32 code point to the string builder, encoding it in UTF-16 (as is used for standard Java
      * and C# strings) as a single 16 bit character if it's in the basic multilingual plane or as a surrogate pair if

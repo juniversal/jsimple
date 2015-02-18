@@ -25,7 +25,7 @@ package jsimple.util;
 /**
  * Created by Bret on 5/19/2014.
  */
-public class ListUtils {
+public class Lists {
     /**
      * See if two ArrayLists are the same.  They are considered the same if their elements are all equal, according to
      * the "equals" method.  This method can be used to overcome an incompatibility between Java and C# in the equals

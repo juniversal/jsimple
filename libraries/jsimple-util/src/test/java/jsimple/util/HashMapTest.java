@@ -206,7 +206,7 @@ public final class HashMapTest extends UnitTest {
     public void testContainsKey() {
         // Test for method boolean
         // java.util.HashMap.containsKey(java.lang.Object)
-        assertTrue("Returned false for valid key", hm.containsKey(IntegerUtil.toString(876)));
+        assertTrue("Returned false for valid key", hm.containsKey(Integers.toString(876)));
         assertTrue("Returned true for invalid key", !hm.containsKey("KKDKDKD"));
     }
 
@@ -383,7 +383,7 @@ public final class HashMapTest extends UnitTest {
         HashMap<Object, Object> hm2 = new HashMap<Object, Object>();
         hm2.putAll(hm);
         for (int i = 0; i < 1000; i++) {
-            assertTrue("Failed to clear all elements", (Integer) hm2.get(IntegerUtil.toString(i)) == i);
+            assertTrue("Failed to clear all elements", (Integer) hm2.get(Integers.toString(i)) == i);
         }
 
         HashMap<Object, Object> emptyHashMap = new HashMap<Object, Object>();
@@ -399,7 +399,7 @@ public final class HashMapTest extends UnitTest {
     public void testRemove() {
         int size = hm.size();
         int y = 9;
-        int x = (Integer) hm.remove(IntegerUtil.toString(y));
+        int x = (Integer) hm.remove(Integers.toString(y));
         assertTrue("Remove returned incorrect value", x == 9);
         assertNull("Failed to remove given key", hm.get(9));
         assertTrue("Failed to decrement size", hm.size() == (size - 1));

@@ -31,6 +31,7 @@ import jsimple.json.objectmodel.JsonObject;
 import jsimple.json.objectmodel.JsonObjectOrArray;
 import jsimple.json.objectmodel.ObjectModelParser;
 import jsimple.util.*;
+import jsimple.util.function.CharPredicate;
 
 /**
  * Parses jsons received from facebook and constructs model objects
@@ -140,15 +141,15 @@ public class FacebookParser {
      * Replace character that can not be read (special characters , etc with _)
      */
     public String replaceNonUTF(String original) {
-        return StringUtils.replaceAll(original, new MatchPattern() {
-            @Override public boolean match(MatchBuilder mb) {
-                return ! (mb.matchAsciiLetter() || mb.matchDigit() || mb.match('(', ')', '[', ']'));
+        return Strings.replaceAll(original, new CharPredicate() {
+            @Override public boolean test(char c) {
+                return ! (Characters.isAsciiLetterOrDigit(c) || c == '(' || c == ')' || c == '[' || c == ']');
             }
         }, "_");
 
         //return original.replaceAll("[^A-Za-z0-9()\\[\\]]", "_");
     }
-    
+
     public String getNextPostPage(String wallJSon){
         ObjectModelParser parser = new ObjectModelParser(new StringReader(wallJSon));
         JsonObjectOrArray root = parser.parseRoot();

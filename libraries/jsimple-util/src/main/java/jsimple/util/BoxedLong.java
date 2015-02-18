@@ -71,7 +71,7 @@ public class BoxedLong {
     }
 
     @Override public String toString() {
-        return LongUtil.toString(value);
+        return Longs.toString(value);
     }
 
     public static BoxedLong valueOf(int value) {

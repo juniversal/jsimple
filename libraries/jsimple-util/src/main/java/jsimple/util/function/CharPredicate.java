@@ -20,27 +20,11 @@
  * THE SOFTWARE.
  */
 
-package jsimple.util;
-
-import jsimple.unit.UnitTest;
-import org.junit.Test;
+package jsimple.util.function;
 
 /**
- * @author Dorin Suletea
- * @since 12/1/2014
+ * Created by bretjohn on 2/16/2015.
  */
-public class StringUtilsTest extends UnitTest {
-	@Test public void testSplit() {
-		testSplit(new String[] {"a", "b", "c" }, StringUtils.split("a,b,c", ','));
-		testSplit(new String[] {"a", "b,c" }, StringUtils.split("a,b,c", ',', 2));
-		testSplit(new String[] {"a,b,c" }, StringUtils.split("a,b,c", ',', 1));
-		testSplit(new String[] {"a,b,c" }, StringUtils.split("a,b,c", '-', 0));
-	}
-
-	public void testSplit(String[] expected, List<String> result) {
-		String[] resultArray = new String[result.size()];
-		result.toArray(resultArray);
-
-		assertArrayEquals(expected, resultArray);
-	}
+public @FunctionalInterface interface CharPredicate {
+    boolean test(char c);
 }

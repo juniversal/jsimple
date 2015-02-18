@@ -1,5 +1,5 @@
-﻿/*
- * Copyright (c) 2012-2014, Microsoft Mobile
+/*
+ * Copyright (c) 2012-2015, Microsoft Mobile
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,19 +20,27 @@
  * THE SOFTWARE.
  */
 
-using System;
+package jsimple.util;
 
-namespace jsimple.io
-{
-    public class StdIO
-    {
-        public static OutputStream outStream = new DotNetStreamOutputStream(Console.OpenStandardOutput());
-        public static OutputStream errStream = new DotNetStreamOutputStream(Console.OpenStandardError());
-        public static InputStream inStream = new DotNetStreamInputStream(Console.OpenStandardInput());
+import jsimple.unit.UnitTest;
+import org.junit.Test;
 
-        public static Writer @out = new AutoFlushWriter(new Latin1OutputStreamWriter(outStream));
-        public static Writer err = new AutoFlushWriter(new Latin1OutputStreamWriter(errStream));
-        public static BufferedReader @in = new BufferedReader(new Latin1InputStreamReader(inStream));
-    }
+/**
+ * @author Dorin Suletea
+ * @since 12/1/2014
+ */
+public class StringsTest extends UnitTest {
+	@Test public void testSplit() {
+		testSplit(new String[] {"a", "b", "c" }, Strings.split("a,b,c", ','));
+		testSplit(new String[] {"a", "b,c" }, Strings.split("a,b,c", ',', 2));
+		testSplit(new String[] {"a,b,c" }, Strings.split("a,b,c", ',', 1));
+		testSplit(new String[] {"a,b,c" }, Strings.split("a,b,c", '-', 0));
+	}
+
+	public void testSplit(String[] expected, List<String> result) {
+		String[] resultArray = new String[result.size()];
+		result.toArray(resultArray);
+
+		assertArrayEquals(expected, resultArray);
+	}
 }
-   

@@ -93,8 +93,8 @@ public class UrlDecoder {
                     if (i + 2 >= s.length())
                         throw new InvalidFormatException("Incomplete % sequence at: " + i);
 
-                    int d1 = StringUtils.toByteFromHexCharacter(s.charAt(i + 1));
-                    int d2 = StringUtils.toByteFromHexCharacter(s.charAt(i + 2));
+                    int d1 = Strings.toByteFromHexCharacter(s.charAt(i + 1));
+                    int d2 = Strings.toByteFromHexCharacter(s.charAt(i + 2));
 
                     buf[len++] = (byte) ((d1 << 4) + d2);
                     i += 3;

@@ -22,6 +22,7 @@
 
 package jsimple.io;
 
+import jsimple.util.InvalidFormatException;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -149,7 +150,7 @@ public class Utf8OutputStreamWriter extends Writer {
                     int trailSurrogate = ((int) c) & 0xFFFF;
 
                     if (trailSurrogate < 0xDC00 || trailSurrogate > 0xDFFF)
-                        throw new CharConversionException("Character " + trailSurrogate +
+                        throw new InvalidFormatException("Character " + trailSurrogate +
                                 " unexpected; only a valid trail surrogate should come after a lead surrogate");
 
                     // Note, the Unicode scalar value n is defined as follows:
@@ -171,7 +172,7 @@ public class Utf8OutputStreamWriter extends Writer {
                 } else if (c >= 0xD800 && c <= 0xDFFF) {
                     int firstSurrogate = ((int) c) & 0xFFFF;
                     if (firstSurrogate > 0xDBFF)
-                        throw new CharConversionException("Character " + firstSurrogate +
+                        throw new InvalidFormatException("Character " + firstSurrogate +
                                 " unexpected; surrogate pair must start with a lead surrogate");
 
                     queuedLeadSurrogate = firstSurrogate;

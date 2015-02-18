@@ -42,7 +42,7 @@
 package jsimple.io;
 
 import jsimple.util.ByteArrayRange;
-import jsimple.util.StringUtils;
+import jsimple.util.Strings;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -109,7 +109,7 @@ public abstract class OutputStream extends jsimple.lang.AutoCloseable {
      * @param s string to write
      */
     public void writeLatin1EncodedString(String s) {
-        write(StringUtils.toLatin1BytesFromString(s));
+        write(Strings.toLatin1BytesFromString(s));
     }
 
     /**

@@ -60,7 +60,7 @@ package jsimple.util;
  *
  * @since 1.0
  */
-public final class CharacterUtil {
+public final class Characters {
     /**
      * Indicates whether the specified character is a Unicode space character. That is, if it is a member of one of the
      * Unicode categories Space Separator, Line Separator, or Paragraph Separator.
@@ -76,6 +76,26 @@ public final class CharacterUtil {
             return false;
         }
         return c <= 0x200b || c == 0x2028 || c == 0x2029 || c == 0x202f || c == 0x3000;
+    }
+
+    public static boolean isAsciiDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
+
+    public static boolean isAsciiLowerCase(char c) {
+        return c >= 'a' && c <= 'z';
+    }
+
+    public static boolean isAsciiUpperCase(char c) {
+        return c >= 'A' && c <= 'Z';
+    }
+
+    public static boolean isAsciiLetter(char c) {
+        return isAsciiLowerCase(c) || isAsciiUpperCase(c);
+    }
+
+    public static boolean isAsciiLetterOrDigit(char c) {
+        return isAsciiLetter(c) || isAsciiDigit(c);
     }
 
     /**

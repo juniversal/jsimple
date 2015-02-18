@@ -22,6 +22,8 @@
 
 package jsimple.util;
 
+import jsimple.util.function.CharPredicate;
+
 /**
  * @author Bret Johnson
  * @since 11/25/12 4:00 PM
@@ -98,6 +100,14 @@ public class StringIterator {
 
         if (pattern.match(matchBuilder)) {
             index = matchBuilder.getCurrPosition();
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean match(CharPredicate charPredicate) {
+        if (charPredicate.test(curr())) {
+            advance();
             return true;
         }
         else return false;

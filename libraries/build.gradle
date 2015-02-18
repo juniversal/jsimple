@@ -113,8 +113,6 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-
-        maven { url "http://types.cs.washington.edu/m2-repo" }
     }
 
     test{

@@ -139,7 +139,7 @@ public abstract class Writer extends jsimple.lang.AutoCloseable {
      *
      * @return current line separator
      */
-    public String getLineSeparator() {
+    public final String getLineSeparator() {
         return lineSeparator;
     }
 
@@ -148,7 +148,7 @@ public abstract class Writer extends jsimple.lang.AutoCloseable {
      *
      * @param lineSeparator line separator
      */
-    public void setLineSeparator(String lineSeparator) {
+    public final void setLineSeparator(String lineSeparator) {
         this.lineSeparator = lineSeparator;
     }
 

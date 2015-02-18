@@ -24,7 +24,8 @@ package jsimple.io;
 
 import jsimple.unit.UnitTest;
 import jsimple.util.ByteArrayRange;
-import jsimple.util.StringBuilderUtils;
+import jsimple.util.InvalidFormatException;
+import jsimple.util.StringBuilders;
 import org.junit.Test;
 
 /**
@@ -60,11 +61,11 @@ public class Utf8OutputStreamWriterTest extends UnitTest {
     private void appendCodePoints(int codePlane, StringBuilder uni) {
         int highWord = codePlane << 16;
 
-        StringBuilderUtils.appendCodePoint(uni, highWord | 0x0000);
-        StringBuilderUtils.appendCodePoint(uni, highWord | 0x0001);
-        StringBuilderUtils.appendCodePoint(uni, highWord | 0x000F);
-        StringBuilderUtils.appendCodePoint(uni, highWord | 0xFFFE);
-        StringBuilderUtils.appendCodePoint(uni, highWord | 0xFFFF);
+        StringBuilders.appendCodePoint(uni, highWord | 0x0000);
+        StringBuilders.appendCodePoint(uni, highWord | 0x0001);
+        StringBuilders.appendCodePoint(uni, highWord | 0x000F);
+        StringBuilders.appendCodePoint(uni, highWord | 0xFFFE);
+        StringBuilders.appendCodePoint(uni, highWord | 0xFFFF);
     }
 
     private void testRoundTripping(String input) {
@@ -91,7 +92,7 @@ public class Utf8OutputStreamWriterTest extends UnitTest {
 
         try {
             IOUtils.toUtf8BytesFromString(input);
-        } catch (CharConversionException e) {
+        } catch (InvalidFormatException e) {
             String message = e.getMessage();
             if (message == null)
                 message = "null";

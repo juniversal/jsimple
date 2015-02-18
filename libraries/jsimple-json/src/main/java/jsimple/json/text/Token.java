@@ -25,9 +25,9 @@ package jsimple.json.text;
 import jsimple.io.Reader;
 import jsimple.json.JsonException;
 import jsimple.json.objectmodel.JsonNull;
-import jsimple.util.CharacterUtil;
-import jsimple.util.IntegerUtil;
-import jsimple.util.LongUtil;
+import jsimple.util.Characters;
+import jsimple.util.Integers;
+import jsimple.util.Longs;
 
 
 /**
@@ -381,7 +381,7 @@ public final class Token {
             lookahead = lookaheadChar();
 
             if (!(lookahead >= '0' && lookahead <= '9'))
-                throw new JsonParsingException("a digit to follow a minus sign", quote(CharacterUtil.toString(lookahead)));
+                throw new JsonParsingException("a digit to follow a minus sign", quote(Characters.toString(lookahead)));
         }
 
         long value = 0;
@@ -392,9 +392,9 @@ public final class Token {
                 int digit = lookahead - '0';
 
                 if (negative) {
-                    if (-1 * value < (LongUtil.MIN_VALUE + digit) / 10)
+                    if (-1 * value < (Longs.MIN_VALUE + digit) / 10)
                         throw new JsonParsingException("Negative number is too big, overflowing the size of a long");
-                } else if (value > (LongUtil.MAX_VALUE - digit) / 10)
+                } else if (value > (Longs.MAX_VALUE - digit) / 10)
                     throw new JsonParsingException("Number is too big, overflowing the size of a long");
 
                 value = 10 * value + digit;
@@ -412,7 +412,7 @@ public final class Token {
         if (negative)
             value = -1 * value;
 
-        if (value <= IntegerUtil.MAX_VALUE && value >= IntegerUtil.MIN_VALUE)
+        if (value <= Integers.MAX_VALUE && value >= Integers.MIN_VALUE)
             return (Integer) ((int) value);
         else return (Long) value;
     }
@@ -427,7 +427,7 @@ public final class Token {
      */
     private double readFractionalPartOfDouble() {
         if (lookaheadChar() != '.')
-            throw new JsonParsingException("fraction to start with a '.'", CharacterUtil.toString(lookaheadChar()));
+            throw new JsonParsingException("fraction to start with a '.'", Characters.toString(lookaheadChar()));
         ++currIndex;
 
         double value = 0;

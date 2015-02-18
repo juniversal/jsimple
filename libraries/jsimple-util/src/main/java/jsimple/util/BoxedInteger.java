@@ -71,7 +71,7 @@ public class BoxedInteger {
     }
 
     @Override public String toString() {
-        return IntegerUtil.toString(value);
+        return Integers.toString(value);
     }
 
     public static BoxedInteger valueOf(int value) {

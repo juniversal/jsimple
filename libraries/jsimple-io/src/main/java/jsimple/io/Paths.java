@@ -32,6 +32,8 @@ import org.jetbrains.annotations.Nullable;
  * @since 1/19/13 4:31 PM
  */
 public abstract class Paths {
+    private Directory applicationDataDirectoryOverride = null;
+
     public static volatile @Nullable Paths instance = null;
 
     public static Paths getInstance() {
@@ -45,7 +47,25 @@ public abstract class Paths {
     }
 
     /**
-     * @return the directory where the application should store its private data.
+     * @return override value set for the application data directory or null if there is no override currently set
+     */
+    public @Nullable Directory getApplicationDataDirectoryOverride() {
+        return applicationDataDirectoryOverride;
+    }
+
+    /**
+     * If set, this will override the value returned from getApplicationDirectory so that the specified directory is
+     * returned from that method instead of the default application data directory for the platform.   If null is passed
+     * in, then any override is removed and the default behavior for getApplicationDirectory resumes.
+     *
+     * @param applicationDataDirectoryOverride override value to set or null to unset
+     */
+    public void setApplicationDataDirectoryOverride(@Nullable Directory applicationDataDirectoryOverride) {
+        this.applicationDataDirectoryOverride = applicationDataDirectoryOverride;
+    }
+
+    /**
+     * @return the directory where the application should store its private data
      */
     public abstract Directory getApplicationDataDirectory();
 

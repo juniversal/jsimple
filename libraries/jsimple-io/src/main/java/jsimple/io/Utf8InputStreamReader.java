@@ -23,6 +23,7 @@
 package jsimple.io;
 
 import jsimple.util.ByteArrayRange;
+import jsimple.util.InvalidFormatException;
 import jsimple.util.ProgrammerError;
 
 /**
@@ -113,7 +114,7 @@ public class Utf8InputStreamReader extends Reader {
      * @param offset the initial position in {@code buf} to store the characters read from this reader
      * @param length the maximum number of characters to read
      * @return the number of characters read or -1 if the end of the reader has been reached
-     * @throws CharConversionException if the stream isn't valid UTF-8
+     * @throws InvalidFormatException if the stream isn't valid UTF-8
      */
     @Override public int read(char[] buffer, int offset, int length) {
         if (length < 0)
@@ -157,7 +158,7 @@ public class Utf8InputStreamReader extends Reader {
                 if (bytesRead < 1) {
                     if (bytesRead < 0) {                  // End of stream
                         if (state == UTF8_REJECT)
-                            throw new CharConversionException("Invalid UTF-8 encoding--stream contains an invalid UTF-8 byte");
+                            throw new InvalidFormatException("Invalid UTF-8 encoding--stream contains an invalid UTF-8 byte");
                         else break;
                     }
 
@@ -219,8 +220,8 @@ public class Utf8InputStreamReader extends Reader {
             int charsRead = destIndex - offset;
             return charsRead == 0 ? -1 : charsRead;
         } else if (state == UTF8_REJECT)
-            throw new CharConversionException("Invalid UTF-8 encoding--stream contains an invalid UTF-8 byte");
+            throw new InvalidFormatException("Invalid UTF-8 encoding--stream contains an invalid UTF-8 byte");
         else
-            throw new CharConversionException("Invalid UTF-8 encoding--stream ends with a partially defined UTF-8 character");
+            throw new InvalidFormatException("Invalid UTF-8 encoding--stream ends with a partially defined UTF-8 character");
     }
 }

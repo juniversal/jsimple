@@ -51,7 +51,7 @@ package jsimple.util;
  * @see java.lang.Number
  * @since 1.0
  */
-public final class LongUtil {
+public final class Longs {
     /**
      * Constant for the maximum {@code long} value, 2<sup>63</sup>-1.
      */
@@ -135,7 +135,7 @@ public final class LongUtil {
      *                                can not be parsed as a long value.
      */
     public static long parseLong(String string, int radix) throws InvalidFormatException {
-        if (string == null || radix < IntegerUtil.MIN_RADIX || radix > IntegerUtil.MAX_RADIX) {
+        if (string == null || radix < Integers.MIN_RADIX || radix > Integers.MAX_RADIX) {
             throw new InvalidFormatException("null string or invalid radix");
         }
         int length = string.length(), i = 0;
@@ -154,7 +154,7 @@ public final class LongUtil {
         long max = MIN_VALUE / radix;
         long result = 0, length = string.length();
         while (offset < length) {
-            int digit = IntegerUtil.digit(string.charAt(offset++), radix);
+            int digit = Integers.digit(string.charAt(offset++), radix);
             if (digit == -1) {
                 throw new InvalidFormatException(string);
             }

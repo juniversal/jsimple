@@ -91,7 +91,7 @@ public class ParameterList {
         if (queryString.equals(EMPTY_STRING)) {
             return url;
         } else {
-            url += url.indexOf(QUERY_STRING_SEPARATOR_CHAR) != -1 ? CharacterUtil.toString(PARAM_SEPARATOR_CHAR) : QUERY_STRING_SEPARATOR;
+            url += url.indexOf(QUERY_STRING_SEPARATOR_CHAR) != -1 ? Characters.toString(PARAM_SEPARATOR_CHAR) : QUERY_STRING_SEPARATOR;
             url += queryString;
             return url;
         }
@@ -119,9 +119,9 @@ public class ParameterList {
     }
 
     public void addQueryString(@Nullable String queryString) {
-        if (! StringUtils.isNullOrEmpty(queryString)) {
-            for (String param : StringUtils.split(queryString, PARAM_SEPARATOR_CHAR)) {
-                List<String> pair = StringUtils.split(param, PAIR_SEPARATOR_CHAR);
+        if (! Strings.isNullOrEmpty(queryString)) {
+            for (String param : Strings.split(queryString, PARAM_SEPARATOR_CHAR)) {
+                List<String> pair = Strings.split(param, PAIR_SEPARATOR_CHAR);
                 String key = OAuthEncoder.decode(pair.get(0));
                 String value = pair.size() > 1 ? OAuthEncoder.decode(pair.get(1)) : EMPTY_STRING;
                 parameters.add(new Parameter(key, value));

@@ -19,7 +19,6 @@
     <orderEntry type="library" exported="" name="Gradle: org.jsimplelib:jsimple-json:develop-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.jsimplelib:jsimple-oauth:develop-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.intellij:annotations:9.0.4" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: types.checkers:jsr308-all:1.2.6" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.jsimplelib:jsimple-io:develop-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.jsimplelib:jsimple-logging-api:develop-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jsimplelib:jsimple-unit:develop-SNAPSHOT" level="project" />

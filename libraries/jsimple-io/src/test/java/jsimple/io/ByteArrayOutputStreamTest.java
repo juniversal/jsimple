@@ -24,7 +24,7 @@ package jsimple.io;
 
 import jsimple.unit.UnitTest;
 import jsimple.util.ByteArrayRange;
-import jsimple.util.StringUtils;
+import jsimple.util.Strings;
 
 import org.junit.Test;
 
@@ -94,7 +94,7 @@ public class ByteArrayOutputStreamTest extends UnitTest {
 		ByteArrayOutputStream sut = new ByteArrayOutputStream();
 		sut.writeLatin1EncodedString(text);
 
-		String output = StringUtils.toStringFromLatin1Bytes(sut.getByteArray().toByteArray());
+		String output = Strings.toStringFromLatin1Bytes(sut.getByteArray().toByteArray());
 		sut.close();
 
 		assertEquals(text, output);

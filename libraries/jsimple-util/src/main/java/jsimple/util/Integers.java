@@ -51,7 +51,7 @@ package jsimple.util;
  * @see java.lang.Number
  * @since 1.1
  */
-public final class IntegerUtil {
+public final class Integers {
     /**
      * Constant for the maximum {@code int} value, 2<sup>31</sup>-1.
      */

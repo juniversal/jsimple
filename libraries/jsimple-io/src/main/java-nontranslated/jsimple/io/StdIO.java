@@ -38,7 +38,7 @@ public class StdIO {
     public static final OutputStream errStream = new JSimpleOutputStreamOnJavaStream(System.err);
     public static final InputStream inStream = new JSimpleInputStreamOnJavaStream(System.in);
 
-    public static final Writer out = new Utf8OutputStreamWriter(outStream);
-    public static final Writer err = new Utf8OutputStreamWriter(errStream);
-    public static final BufferedReader in = new BufferedReader(new Utf8InputStreamReader(inStream));
+    public static final Writer out = new AutoFlushWriter(new Latin1OutputStreamWriter(outStream));
+    public static final Writer err = new AutoFlushWriter(new Latin1OutputStreamWriter(errStream));
+    public static final BufferedReader in = new BufferedReader(new Latin1InputStreamReader(inStream));
 }

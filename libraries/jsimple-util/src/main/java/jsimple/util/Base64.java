@@ -174,7 +174,7 @@ public class Base64 {
      * @since 3.2
      */
     public static String encodeBase64String(byte[] binaryData) {
-        return StringUtils.toStringFromLatin1Bytes(encodeBase64(binaryData));
+        return Strings.toStringFromLatin1Bytes(encodeBase64(binaryData));
     }
 
     /**
@@ -422,7 +422,7 @@ public class Base64 {
      * @since 1.4
      */
     public byte[] decode(String pArray) {
-        return decode(StringUtils.toLatin1BytesFromString(pArray));
+        return decode(Strings.toLatin1BytesFromString(pArray));
     }
 
     /**

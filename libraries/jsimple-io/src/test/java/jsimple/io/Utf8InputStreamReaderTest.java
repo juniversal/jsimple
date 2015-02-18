@@ -23,8 +23,10 @@
 package jsimple.io;
 
 import jsimple.unit.UnitTest;
+import jsimple.util.InvalidFormatException;
 import jsimple.util.Utils;
 import org.junit.Test;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 
 /**
  * @author Bret Johnson
@@ -115,7 +117,7 @@ public class Utf8InputStreamReaderTest extends UnitTest {
 
                 prefix = "Line " + lineNumber + " bytes read at end: ";
                 assertEquals(prefix + -1, prefix + reader.read(buffer));   // The reader should be at end of stream
-            } catch (CharConversionException e) {
+            } catch (InvalidFormatException e) {
                 assertTrue(unicodeLine.toString().startsWith("MALFORMED"));
             }
 
@@ -167,7 +169,7 @@ public class Utf8InputStreamReaderTest extends UnitTest {
         char[] buffer = new char[500];
         try {
             reader.read(buffer);
-        } catch (CharConversionException e) {
+        } catch (InvalidFormatException e) {
             message = e.getMessage();
         }
         assertEquals(expectedMessage, message);

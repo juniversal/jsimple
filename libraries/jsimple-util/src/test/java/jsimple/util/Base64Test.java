@@ -57,14 +57,14 @@ public class Base64Test extends UnitTest {
     }
 
     private void testEncodeAndDecode(String original, String expectedEncoded) {
-        byte[] originalBytes = StringUtils.toLatin1BytesFromString(original);
+        byte[] originalBytes = Strings.toLatin1BytesFromString(original);
 
         String actualEncoded = Base64.encodeBase64String(originalBytes);
 
         assertEquals(expectedEncoded, actualEncoded);
 
         byte[] actualDecoded = Base64.decodeBase64(actualEncoded);
-        String actualDecodedString = StringUtils.toStringFromLatin1Bytes(actualDecoded);
+        String actualDecodedString = Strings.toStringFromLatin1Bytes(actualDecoded);
 
         assertEquals(original, actualDecodedString);
     }

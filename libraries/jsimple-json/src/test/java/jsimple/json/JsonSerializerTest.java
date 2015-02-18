@@ -27,8 +27,8 @@ import jsimple.json.objectmodel.JsonNull;
 import jsimple.json.objectmodel.JsonObject;
 import jsimple.json.objectmodel.JsonObjectOrArray;
 import jsimple.unit.UnitTest;
-import jsimple.util.DoubleUtil;
-import jsimple.util.LongUtil;
+import jsimple.util.Doubles;
+import jsimple.util.Longs;
 import org.junit.Test;
 
 /**
@@ -42,10 +42,10 @@ public class JsonSerializerTest extends UnitTest {
                         add("num", 3).
                         add("escape", "\\ \" / \r \n \t \f \b").
                         add("control", "\0 \u0001 \u001F \u0020 \u007F \u009F \u00A0").
-                        add("longmax", LongUtil.MAX_VALUE).
-                        add("longmin", LongUtil.MIN_VALUE).
-                        add("doublemax", DoubleUtil.MAX_VALUE).
-                        add("doublemin", DoubleUtil.MIN_VALUE).
+                        add("longmax", Longs.MAX_VALUE).
+                        add("longmin", Longs.MIN_VALUE).
+                        add("doublemax", Doubles.MAX_VALUE).
+                        add("doublemin", Doubles.MIN_VALUE).
                         add("bool", true).
                         add("bool2", false).
                         add("nul", JsonNull.singleton).
@@ -55,10 +55,10 @@ public class JsonSerializerTest extends UnitTest {
                 "  \"num\": 3,",
                 "  \"escape\": \"\\\\ \\\" / \\r \\n \\t \\f \\b\",",
                 "  \"control\": \"\\u0000 \\u0001 \\u001F \u0020 \\u007F \\u009F \u00A0\",",
-                "  \"longmax\": " + LongUtil.MAX_VALUE + ",",
-                "  \"longmin\": " + LongUtil.MIN_VALUE + ",",
-                "  \"doublemax\": " + DoubleUtil.MAX_VALUE + ",",
-                "  \"doublemin\": " + DoubleUtil.MIN_VALUE + ",",
+                "  \"longmax\": " + Longs.MAX_VALUE + ",",
+                "  \"longmin\": " + Longs.MIN_VALUE + ",",
+                "  \"doublemax\": " + Doubles.MAX_VALUE + ",",
+                "  \"doublemin\": " + Doubles.MIN_VALUE + ",",
                 "  \"bool\": true,",
                 "  \"bool2\": false,",
                 "  \"nul\": null,",

@@ -33,12 +33,16 @@ namespace jsimple.io
         /// <returns> the directory where the application should store its private data. </returns>
         public override Directory getApplicationDataDirectory()
         {
+            Directory applicationDataDirectoryOverride = getApplicationDataDirectoryOverride();
+            if (applicationDataDirectoryOverride != null)
+                return applicationDataDirectoryOverride;
+            
             if (applicationDataDirectory == null)
             {
                 lock (lockObject)
                 {
                     if (applicationDataDirectory == null)
-                        applicationDataDirectory = new FileSystemDirectory("c:\\foo");
+                        applicationDataDirectory = new FileSystemDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
                 }
             }
             return applicationDataDirectory;

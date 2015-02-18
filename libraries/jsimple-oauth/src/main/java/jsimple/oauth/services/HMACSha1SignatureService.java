@@ -53,7 +53,7 @@ import jsimple.io.IOUtils;
 import jsimple.oauth.utils.OAuthEncoder;
 import jsimple.oauth.utils.Sha1;
 import jsimple.util.Base64;
-import jsimple.util.StringUtils;
+import jsimple.util.Strings;
 
 /**
  * HMAC-SHA1 implementation of {@link SignatureService}
@@ -67,8 +67,8 @@ public class HMACSha1SignatureService implements SignatureService {
      * {@inheritDoc}
      */
     public String getSignature(String baseString, String apiSecret, String tokenSecret) {
-        assert !StringUtils.isNullOrEmpty(baseString) : "Base string cant be null or empty string";
-        assert !StringUtils.isNullOrEmpty(apiSecret) : "Api secret cant be null or empty string";
+        assert !Strings.isNullOrEmpty(baseString) : "Base string cant be null or empty string";
+        assert !Strings.isNullOrEmpty(apiSecret) : "Api secret cant be null or empty string";
 
         return doSign(baseString, OAuthEncoder.encode(apiSecret) + '&' + OAuthEncoder.encode(tokenSecret));
     }
