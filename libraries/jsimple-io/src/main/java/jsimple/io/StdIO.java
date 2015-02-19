@@ -38,6 +38,10 @@ public class StdIO {
         outStream = outStreamValue;
         errStream = errStreamValue;
         inStream = inStreamValue;
+
+        out = new AutoFlushWriter(new Latin1OutputStreamWriter(outStream));
+        err = new AutoFlushWriter(new Latin1OutputStreamWriter(errStream));
+        in = new BufferedReader(new Latin1InputStreamReader(inStream));
     }
 
     public static OutputStream outStream;

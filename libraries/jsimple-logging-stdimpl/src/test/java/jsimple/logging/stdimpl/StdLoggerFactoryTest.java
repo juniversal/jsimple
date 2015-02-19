@@ -22,6 +22,7 @@
 
 package jsimple.logging.stdimpl;
 
+import jsimple.io.JSimpleIO;
 import jsimple.logging.Level;
 import jsimple.logging.Logger;
 import jsimple.logging.LoggerFactory;
@@ -33,6 +34,8 @@ import org.junit.Test;
  */
 public class StdLoggerFactoryTest {
     @Test public void testBasics() {
+        JSimpleIO.init();
+
         LoggerFactory.init(new StdLoggerFactory());
 
         Logger logger = LoggerFactory.getLogger("mylogger");
