@@ -22,10 +22,10 @@
 
 description = ''
 dependencies {
-    compile group: 'org.jsimplelib', name: 'jsimple-util', version: jsimpleVersion
-    compile group: 'org.jsimplelib', name: 'jsimple-json', version: jsimpleVersion
-    compile group: 'org.jsimplelib', name: 'jsimple-oauth', version: jsimpleVersion
     compile group: 'com.intellij', name: 'annotations', version: '9.0.4'
+    compile project(':libraries:jsimple-util')
+    compile project(':libraries:jsimple-json')
+    compile project(':libraries:jsimple-oauth')
 
-    testCompile group: 'org.jsimplelib', name: 'jsimple-unit', version: jsimpleVersion
+    testCompile project(':libraries:jsimple-unit')
 }
