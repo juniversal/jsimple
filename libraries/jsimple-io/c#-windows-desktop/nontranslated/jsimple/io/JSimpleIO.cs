@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using jsimple.net;
 
 namespace jsimple.io
@@ -37,10 +38,13 @@ namespace jsimple.io
         {
             if (!initialized)
             {
-
                 HttpRequest.setFactory(new WindowsDesktopHttpRequest.WindowsDesktopHttpRequestFactory());
                 SocketListener.setFactory(new DotNetTcpIpSocketListener.DotNetSocketListenerFactory());
                 Paths.setInstance(new WindowsDesktopPaths());
+
+                StdIO.init(new DotNetStreamOutputStream(Console.OpenStandardOutput()),
+                    new DotNetStreamOutputStream(Console.OpenStandardError()),
+                    new DotNetStreamInputStream(Console.OpenStandardInput()));
 
                 initialized = true;
             }

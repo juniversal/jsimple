@@ -160,7 +160,7 @@ namespace jsimple.io
 
             try
             {
-                return PlatformUtils.toMillisFromDateTimeOffset(storageFile.GetBasicPropertiesAsync().DoSynchronously().DateModified);
+                return SystemUtils.toMillisFromDateTimeOffset(storageFile.GetBasicPropertiesAsync().DoSynchronously().DateModified);
             }
             catch (System.IO.IOException e)
             {

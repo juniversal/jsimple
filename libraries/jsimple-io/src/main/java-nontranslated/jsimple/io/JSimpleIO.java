@@ -44,6 +44,9 @@ public class JSimpleIO {
             SocketListener.setFactory(new JavaTcpSocketListener.JavaSocketListenerFactory());
             Paths.setInstance(new JavaPaths());
 
+            StdIO.init(new JSimpleOutputStreamOnJavaStream(System.out), new JSimpleOutputStreamOnJavaStream(System.err),
+                    new JSimpleInputStreamOnJavaStream(System.in));
+
             initialized = true;
         }
     }

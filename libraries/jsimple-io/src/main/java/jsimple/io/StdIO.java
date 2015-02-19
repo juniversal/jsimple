@@ -34,11 +34,17 @@ package jsimple.io;
  * @since 12/2/12 12:50 AM
  */
 public class StdIO {
-    public static final OutputStream outStream = new JSimpleOutputStreamOnJavaStream(System.out);
-    public static final OutputStream errStream = new JSimpleOutputStreamOnJavaStream(System.err);
-    public static final InputStream inStream = new JSimpleInputStreamOnJavaStream(System.in);
+    public static void init(OutputStream outStreamValue, OutputStream errStreamValue, InputStream inStreamValue) {
+        outStream = outStreamValue;
+        errStream = errStreamValue;
+        inStream = inStreamValue;
+    }
 
-    public static final Writer out = new AutoFlushWriter(new Latin1OutputStreamWriter(outStream));
-    public static final Writer err = new AutoFlushWriter(new Latin1OutputStreamWriter(errStream));
-    public static final BufferedReader in = new BufferedReader(new Latin1InputStreamReader(inStream));
+    public static OutputStream outStream;
+    public static OutputStream errStream;
+    public static InputStream inStream;
+
+    public static Writer out;
+    public static Writer err;
+    public static BufferedReader in;
 }

@@ -42,7 +42,6 @@
     <Compile Include="nontranslated\jsimple\io\FileSystemDirectory.cs" />
     <Compile Include="nontranslated\jsimple\io\FileSystemFile.cs" />
     <Compile Include="nontranslated\jsimple\io\JSimpleIO.cs" />
-    <Compile Include="nontranslated\jsimple\io\StdIO.cs" />
     <Compile Include="nontranslated\jsimple\io\WindowsDesktopPaths.cs" />
     <Compile Include="nontranslated\jsimple\net\TcpClientSocket.cs" />
     <Compile Include="nontranslated\jsimple\net\DotNetTcpIpSocketListener.cs" />

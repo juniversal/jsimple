@@ -26,7 +26,6 @@ import jsimple.unit.UnitTest;
 import jsimple.util.InvalidFormatException;
 import jsimple.util.Utils;
 import org.junit.Test;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 
 /**
  * @author Bret Johnson

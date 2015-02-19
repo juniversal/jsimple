@@ -15,14 +15,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="Gradle: org.jsimplelib:jsimple-util:develop-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: org.jsimplelib:jsimple-json:develop-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: org.jsimplelib:jsimple-oauth:develop-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.intellij:annotations:9.0.4" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: org.jsimplelib:jsimple-io:develop-SNAPSHOT" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: org.jsimplelib:jsimple-logging-api:develop-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jsimplelib:jsimple-unit:develop-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.10" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.1" level="project" />
+    <orderEntry type="module" module-name="jsimple-util" exported="" />
+    <orderEntry type="module" module-name="jsimple-json" exported="" />
+    <orderEntry type="module" module-name="jsimple-oauth" exported="" />
+    <orderEntry type="module" module-name="jsimple-unit" scope="TEST" />
   </component>
 </module>
