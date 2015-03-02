@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{564BED5D-C4A9-49E7-AB2F-91AA2A88F18D}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>good_friends</RootNamespace>
+    <AssemblyName>good-friends</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>goodfriends.GoodFriends</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="goodfriends\**\*.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\libraries\jsimple-io\c#-windows-desktop\jsimple-io-windows-desktop.csproj">
+      <Project>{2112e03d-0fff-4a01-9084-381f29ecb120}</Project>
+      <Name>jsimple-io-windows-desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\libraries\jsimple-io\c#\jsimple-io.csproj">
+      <Project>{0271a18c-eeac-4cac-bf2e-89a693b354ef}</Project>
+      <Name>jsimple-io</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\libraries\jsimple-json\c#\jsimple-json.csproj">
+      <Project>{28ad3a60-45c2-4d7a-bd4d-83827c4dc5b5}</Project>
+      <Name>jsimple-json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\libraries\jsimple-oauth\c#\jsimple-oauth.csproj">
+      <Project>{d5280736-3d7c-4e0a-9717-811adedb14a6}</Project>
+      <Name>jsimple-oauth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\libraries\jsimple-util\c#\jsimple-util.csproj">
+      <Project>{7de38eb4-9d6a-4d5a-ae5f-4769befbda74}</Project>
+      <Name>jsimple-util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

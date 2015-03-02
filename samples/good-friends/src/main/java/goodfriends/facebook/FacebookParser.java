@@ -24,13 +24,14 @@ package goodfriends.facebook;
 
 import goodfriends.model.FacebookFriend;
 import goodfriends.model.FacebookPost;
+import jsimple.io.StdIO;
 import jsimple.io.StringReader;
 import jsimple.json.objectmodel.JsonArray;
 import jsimple.json.objectmodel.JsonObject;
 import jsimple.json.objectmodel.JsonObjectOrArray;
 import jsimple.json.objectmodel.ObjectModelParser;
-import jsimple.util.ArrayList;
-import jsimple.util.List;
+import jsimple.util.*;
+import jsimple.util.function.CharPredicate;
 
 /**
  * Parses jsons received from facebook and constructs model objects
@@ -78,7 +79,7 @@ public class FacebookParser {
             String from = post.getJsonObject("from").getString("name");
             String fromUTF = replaceNonUTF(from);
 
-            System.out.println(from);
+            StdIO.out.writeln(from);
 
             String story = null;
             String picture = null;
@@ -140,9 +141,15 @@ public class FacebookParser {
      * Replace character that can not be read (special characters , etc with _)
      */
     public String replaceNonUTF(String original) {
-        return original.replaceAll("[^A-Za-z0-9()\\[\\]]", "_");
+        return Strings.replaceAll(original, new CharPredicate() {
+            @Override public boolean test(char c) {
+                return ! (Characters.isAsciiLetterOrDigit(c) || c == '(' || c == ')' || c == '[' || c == ']');
+            }
+        }, "_");
+
+        //return original.replaceAll("[^A-Za-z0-9()\\[\\]]", "_");
     }
-    
+
     public String getNextPostPage(String wallJSon){
         ObjectModelParser parser = new ObjectModelParser(new StringReader(wallJSon));
         JsonObjectOrArray root = parser.parseRoot();

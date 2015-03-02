@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jsimplelib:jsimple-io:develop-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jsimplelib/jsimple-io/develop-SNAPSHOT/jsimple-io-develop-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jsimplelib/jsimple-io/develop-SNAPSHOT/jsimple-io-develop-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

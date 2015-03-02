@@ -20,21 +20,12 @@
  * THE SOFTWARE.
  */
 
-rootProject.name = 'jsimple'
-include ':jsimple-unit'
-include ':jsimple-util'
-include ':jsimple-io'
-include ':jsimple-json'
-include ':jsimple-oauth'
-include ':jsimple-logging-api'
-include ':jsimple-logging-stdimpl'
-include ':good-friends'
+include 'libraries:jsimple-unit'
+include 'libraries:jsimple-util'
+include 'libraries:jsimple-io'
+include 'libraries:jsimple-json'
+include 'libraries:jsimple-oauth'
+include 'libraries:jsimple-logging-api'
+include 'libraries:jsimple-logging-stdimpl'
 
-project(':jsimple-unit').projectDir = "$rootDir/jsimple-unit" as File
-project(':jsimple-util').projectDir = "$rootDir/jsimple-util" as File
-project(':jsimple-io').projectDir = "$rootDir/jsimple-io" as File
-project(':jsimple-json').projectDir = "$rootDir/jsimple-json" as File
-project(':jsimple-oauth').projectDir = "$rootDir/jsimple-oauth" as File
-project(':jsimple-logging-api').projectDir = "$rootDir/jsimple-logging-api" as File
-project(':jsimple-logging-stdimpl').projectDir = "$rootDir/jsimple-logging-stdimpl" as File
-project(':good-friends').projectDir = "$rootDir/samples/good-friends" as File
+include 'samples:good-friends'

@@ -23,13 +23,7 @@
 package goodfriends.local;
 
 import goodfriends.util.Constants;
-import jsimple.io.BufferedReader;
-import jsimple.io.Directory;
-import jsimple.io.File;
-import jsimple.io.InputStream;
-import jsimple.io.OutputStream;
-import jsimple.io.Paths;
-import jsimple.io.Utf8InputStreamReader;
+import jsimple.io.*;
 import jsimple.oauth.model.Token;
 import jsimple.util.BasicException;
 
@@ -43,7 +37,7 @@ public class LocalFileConnector {
 	public String selectFriends(String appUserID) {
 		File dataFile = dataDir.getFile(appUserID);
 		if (!dataFile.exists()) {
-			System.out.println("Local file does not exist");
+			StdIO.out.writeln("Local file does not exist");
 			return "";
 		}
 

@@ -6,9 +6,14 @@ build/
 
 # Generated C# files
 **/c#/jsimple
+**/c#/goodfriends
 **/c#-test/jsimple
-StringHelperClass.cs
-HashMapGetHelperClass.cs
+
+# Generated C++ files
+**/c++/jsimple
+**/c++/goodfriends
+**/c++-test/jsimple
+
 
 # Visual Studio related files
 *.suo
