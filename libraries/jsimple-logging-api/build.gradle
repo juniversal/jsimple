@@ -21,10 +21,10 @@
  */
 
 
+description = '''JSimple logging API, behind which different loggers can be supplied.  Based off of SLF4J'''
 
-description = ''
 dependencies {
-  compile project(':libraries:jsimple-util')
+    compile project(':libraries:jsimple-util')
     compile group: 'com.intellij', name: 'annotations', version:'9.0.4'
-  testCompile project(':libraries:jsimple-unit')
+    testCompile project(':libraries:jsimple-unit')
 }

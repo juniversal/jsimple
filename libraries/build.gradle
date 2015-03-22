@@ -34,6 +34,7 @@ buildscript {
 
     dependencies {
         classpath group: 'org.juniversal', name: 'juniversal-gradle-plugins', version: juniversalVersion
+        classpath group: 'com.ullink.gradle', name: 'gradle-nuget-plugin', version: '2.4'
     }
 }
 
@@ -41,11 +42,15 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'maven'
     apply plugin: 'signing'
+
     apply plugin: 'javaToObjectiveC'
     apply plugin: 'javaToCSharpTangible'
     apply plugin: 'javaToCSharp'
     apply plugin: 'javaToCPlusPlus'
     apply plugin: 'msbuild'
+
+    apply plugin: 'nuget'
+
 
     sourceCompatibility = 1.6
     targetCompatibility = 1.6
@@ -83,6 +88,43 @@ subprojects {
         from sourceSets.main.allSource
     }
 
+    // nuget package for upload to nuget
+    nugetPack {
+        nuspec {
+            metadata() {
+                //commonNuspecMetadata(delegate)
+                id archivesBaseName
+                delegate.version jsimpleNugetVersion
+                title project.name
+                authors 'Bret Johnson'
+                delegate.description project.description
+
+                delegate.dependencies {
+                    project.configurations.compile.dependencies.each {
+                        if (it instanceof ProjectDependency) {
+                            def proj = it.dependencyProject.project
+                            dependency(
+                                    id: "${proj.name}",
+                                    version: jsimpleNugetVersion
+                            )
+                        }
+                    }
+                }
+            }
+
+            delegate.files() {
+                delegate.file(src: file("${project.name}/c#/bin/Release/${project.name}.dll"), target: 'tools')
+            }
+        }
+    }
+
+    nugetPush {
+        nupkgFile file("build/distributions/${project.name}.${project.jsimpleNugetVersion}.nupkg")
+        if (project.hasProperty('nugetApiKeyJUniversal')) {
+            apiKey nugetApiKeyJUniversal
+        }
+    }
+
     artifacts {
         archives javadocJar, sourcesJar
     }
@@ -115,7 +157,7 @@ subprojects {
         mavenCentral()
     }
 
-    test{
+    test {
         workingDir = project.projectDir
     }
 
@@ -182,7 +224,7 @@ subprojects {
     }
 }
 
-def exportedProjects= [
+def exportedProjects = [
         "jsimple-unit",
         "jsimple-util",
         "jsimple-io",

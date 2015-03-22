@@ -21,7 +21,8 @@
  * THE SOFTWARE.
  */
 
-description = ''
+description = '''JSimple unit test support, based off of JUnit'''
+
 dependencies {
     compile group: 'junit', name: 'junit', version:'4.10'
     compile group: 'com.intellij', name: 'annotations', version:'9.0.4'
