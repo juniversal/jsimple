@@ -20,9 +20,11 @@
  * THE SOFTWARE.
  */
 
+description =
+'''jsimple-util provides utility claasses for collections (standard Java style), date time conversion (based on
+Joda Time), regular expression style matching (functional style), some platform dependent functionality
+(SystemUtils class), and more.'''
 
-
-description = ''
 dependencies {
     compile group: 'com.intellij', name: 'annotations', version:'9.0.4'
 

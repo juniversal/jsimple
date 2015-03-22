@@ -20,6 +20,69 @@
  * THE SOFTWARE.
  */
 
+buildscript {
+    apply from: '../../shared.gradle'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath group: 'org.juniversal', name: 'juniversal-gradle-plugins', version: juniversalVersion
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'javaToCSharp'
+apply plugin: 'msbuild'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group = 'org.jsimplelib'
+version = jsimpleVersion
+
+javaToCSharp {
+}
+
+msbuild {
+    //configuration = false
+}
+
+task all {
+    dependsOn build, javaToCSharp, msbuild
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java", "src/main/java-nontranslated"]
+        }
+    }
+
+    test {
+        java {
+            srcDirs = ["src/test/java", "src/main/java-nontranslated"]
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+test {
+    workingDir = project.projectDir
+}
+
+jar {
+    manifest.attributes provider: 'gradle'
+}
+
+
 description = ''
 dependencies {
     compile group: 'com.intellij', name: 'annotations', version: '9.0.4'
@@ -29,3 +92,5 @@ dependencies {
 
     testCompile project(':libraries:jsimple-unit')
 }
+
+

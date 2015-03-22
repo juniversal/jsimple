@@ -21,8 +21,8 @@
  */
 
 
+description = 'JSimple JSON read/write support'
 
-description = ''
 dependencies {
     compile project(':libraries:jsimple-util')
     compile project(':libraries:jsimple-io')

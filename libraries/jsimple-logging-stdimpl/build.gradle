@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2012-2015, Microsoft Mobile
  *
@@ -21,11 +20,12 @@
  * THE SOFTWARE.
  */
 
-description = ''
+description = '''JSimple logging implementation, based off of logback'''
+
 dependencies {
-  compile project(':libraries:jsimple-logging-api')
-    compile group: 'com.intellij', name: 'annotations', version:'9.0.4'
-  compile project(':libraries:jsimple-util')
-  compile project(':libraries:jsimple-io')
-  testCompile project(':libraries:jsimple-unit')
+    compile project(':libraries:jsimple-logging-api')
+    compile group: 'com.intellij', name: 'annotations', version: '9.0.4'
+    compile project(':libraries:jsimple-util')
+    compile project(':libraries:jsimple-io')
+    testCompile project(':libraries:jsimple-unit')
 }

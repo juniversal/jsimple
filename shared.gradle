@@ -1,5 +1,6 @@
 ext.juniversalVersion = '0.8.3'
-ext.jsimpleVersion = '0.9.3'
+ext.jsimpleVersion = '0.9.3.1'
+ext.jsimpleNugetVersion = ext.jsimpleVersion
 
 if (hasProperty("teamcity")) {
     ext.buildNumber = teamcity["build.number"]

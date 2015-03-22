@@ -21,8 +21,8 @@
  */
 
 
+description = '''JSimple OAuth support, based off of Scribe'''
 
-description = ''
 dependencies {
     compile group: 'com.intellij', name: 'annotations', version: '9.0.4'
     compile project(':libraries:jsimple-util')
