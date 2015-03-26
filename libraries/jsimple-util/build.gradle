@@ -20,10 +20,12 @@
  * THE SOFTWARE.
  */
 
-description =
-'''jsimple-util provides utility claasses for collections (standard Java style), date time conversion (based on
-Joda Time), regular expression style matching (functional style), some platform dependent functionality
-(SystemUtils class), and more.'''
+project.ext.nugetId = "JSimple.Util"
+project.ext.title = "JSimple Util"
+project.description =
+"jsimple-util provides utility claasses for collections (standard Java style), date time conversion (based on Joda \
+Time), regular expression style matching (functional style), some platform dependent functionality \
+(SystemUtils class), and more."
 
 dependencies {
     compile group: 'com.intellij', name: 'annotations', version:'9.0.4'

@@ -21,6 +21,8 @@
  */
 
 
+project.ext.nugetId = "JSimple.JSON"
+project.ext.title = "JSimple JSON"
 description = 'JSimple JSON read/write support'
 
 dependencies {

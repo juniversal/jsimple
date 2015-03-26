@@ -21,6 +21,8 @@
  * THE SOFTWARE.
  */
 
+project.ext.nugetId = "JSimple.Unit"
+project.ext.title = "JSimple Unit Test"
 description = '''JSimple unit test support, based off of JUnit'''
 
 dependencies {

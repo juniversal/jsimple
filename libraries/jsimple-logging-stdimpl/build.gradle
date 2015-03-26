@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  */
 
+project.ext.nugetId = "JSimple.LoggingStdImpl"
+project.ext.title = "JSimple Logging Default Implementation"
 description = '''JSimple logging implementation, based off of logback'''
 
 dependencies {

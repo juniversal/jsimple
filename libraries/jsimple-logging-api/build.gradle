@@ -20,7 +20,8 @@
  * THE SOFTWARE.
  */
 
-
+project.ext.nugetId = "JSimple.LoggingAPI"
+project.ext.title = "JSimple Logging API"
 description = '''JSimple logging API, behind which different loggers can be supplied.  Based off of SLF4J'''
 
 dependencies {

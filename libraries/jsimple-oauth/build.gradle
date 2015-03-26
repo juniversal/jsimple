@@ -21,6 +21,8 @@
  */
 
 
+project.ext.nugetId = "JSimple.OAuth"
+project.ext.title = "JSimple OAuth"
 description = '''JSimple OAuth support, based off of Scribe'''
 
 dependencies {
