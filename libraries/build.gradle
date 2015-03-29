@@ -120,6 +120,7 @@ subprojects {
             delegate.files() {
                 delegate.file(src: "bin/Release/${project.name}.dll", target: 'lib')
                 delegate.file(src: "bin/Release/${project.name}.pdb", target: 'lib')
+                delegate.file(src: "bin/Release/${project.name}.XML", target: 'lib')
 
                 delegate.file(src: "**.cs", target: 'src')
                 delegate.file(src: "**.csproj", target: 'src')
